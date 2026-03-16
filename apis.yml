@@ -37,7 +37,7 @@ type: Contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 created: '2026-01-02'
-modified: '2026-01-04'
+modified: '2026-03-16'
 position: Consuming
 description: >-
   LangChain is a comprehensive ecosystem for building and deploying AI agents,
@@ -60,7 +60,7 @@ description: >-
   performance at scale.
 maintainers:
   - FN: Kin Lane
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.19'
 common:
   - name: LangChain
