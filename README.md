@@ -1,38 +1,49 @@
 # LangChain (langchain)
-LangChain is a comprehensive ecosystem for building and deploying AI agents, consisting of open-source frameworks and an agent engineering platform called LangSmith. The company offers two main frameworks: LangChain, which enables rapid development with pre-built agent architectures and model integrations, and LangGraph, which provides low-level primitives for building custom agent workflows with greater control. LangSmith, their agent engineering platform, provides end-to-end capabilities for observability (tracing each step of agent execution for debugging), evaluation (building test sets from production data and scoring performance), and deployment (infrastructure designed for long-running agent workloads with memory, auto-scaling, and enterprise security). The platform is framework-neutral and works with any open-source framework or custom code, serving use cases like copilots, enterprise GPT, customer support automation, research synthesis, code generation, and AI search. With over 90 million monthly downloads, 100,000+ GitHub stars, and 1,000 integrations, LangChain powers top engineering teams from AI startups to global enterprises like Klarna, Elastic, and Rakuten, helping them ship reliable agents faster while maintaining visibility, control, and durable performance at scale.
+
+LangChain is a comprehensive ecosystem for building and deploying AI agents, consisting of open-source frameworks (LangChain and LangGraph) and an agent engineering platform called LangSmith. LangSmith provides end-to-end capabilities for observability, evaluation, and deployment, and is framework-neutral so it works with any open-source framework or custom code.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/langchain/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Contract 
-- **Position:** Consuming 
-- **Access:** 3rd-Party 
+- **Type:** Contract
+- **Position:** Consuming
+- **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Agents, Artificial Intelligence, Large Language Models
+- Agents
+- Artificial Intelligence
+- Large Language Models
+- LLM Observability
+- Tracing
+- Evaluation
 
 ## Timestamps
 
-- **Created:** 2026-01-02 
-- **Modified:** 2026-03-16 
+- **Created:** 2026-01-02
+- **Modified:** 2026-04-28
 
 ## APIs
 
-### LangChain
-LangChain is an open-source framework (Python and JavaScript) for building production-grade applications with large language models by composing prompts, models, tools, and data into reliable chains and agentic workflows. It provides standard interfaces for chat/LLM/embedding models; utilities for prompt templating, output parsing, function/tool calling, and streaming; and integrations with many model providers, vector stores, retrievers, document loaders, and APIs. Its LangChain Expression Language (LCEL) and runnables let you declaratively build, test, and deploy pipelines; LangGraph supports stateful, multi-actor agents; LangServe exposes chains as web APIs; and LangSmith adds tracing, evaluation, and observability. Common use cases include retrieval-augmented generation over private data, chat and Q&A, structured extraction, coding or data agents, and multi-step tool use. In short, LangChain connects LLMs to your data and tools and manages the flow between them so you can ship maintainable, production-ready AI features.
+### LangSmith API
 
-**Human URL:** [ https://www.langchain.com/]( https://www.langchain.com/)
+The LangSmith API is used to programmatically create and manage LangSmith resources including tracer sessions, datasets, examples, workspaces, audit logs, filter views, insights jobs, tags, and prompts. The API is OpenAPI 3.1 with 345+ endpoints and uses an `X-Api-Key` header for authentication.
 
+**Human URL:** https://docs.langchain.com/langsmith
 
-#### Tags:
+**Base URL:** https://api.smith.langchain.com
 
- - Agents, Artificial Intelligence, Large Language Models
+#### Tags
+
+- Agents, Artificial Intelligence, Large Language Models, Observability, Tracing, Evaluation, Datasets, Prompts
 
 #### Properties
 
-- [Documentation]( https://www.langchain.com/)
+- [Documentation](https://docs.langchain.com/langsmith)
+- [OpenAPI](openapi/langchain-openapi.json)
+- [SignUp](https://smith.langchain.com/)
+- [Authentication](https://docs.langchain.com/langsmith/create-account-api-key)
 
 ## Common Properties
 
@@ -44,6 +55,7 @@ LangChain is an open-source framework (Python and JavaScript) for building produ
 - [ChangeLog](https://changelog.langchain.com/)
 - [Pricing](https://www.langchain.com/pricing)
 - [Support](https://support.langchain.com)
+- [GitHub](https://github.com/langchain-ai)
 
 ## Maintainers
 
