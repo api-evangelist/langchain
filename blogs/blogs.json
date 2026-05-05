@@ -1,0 +1,13 @@
+{
+  "repo": "langchain",
+  "feeds": [
+    {
+      "source": "https://blog.langchain.com/",
+      "feed_url": "https://www.langchain.com/blog/rss.xml",
+      "saved": 10,
+      "title": "LangChain Blog"
+    }
+  ],
+  "post_count": 10,
+  "fetched": "2026-05-03T23:30:47Z"
+}
