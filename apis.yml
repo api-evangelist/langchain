@@ -79,6 +79,13 @@ common:
   - name: GitHub
     url: https://github.com/langchain-ai
     type: GitHub
+  - type: Integrations
+    url: https://docs.langchain.com/oss/python/integrations/providers/overview
+integrations:
+  - name: light
+  - name: dark
+  - name: Downloads per month
+  - name: PyPI - Latest version
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
