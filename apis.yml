@@ -6,7 +6,7 @@ description: >-
   company offers two main frameworks: LangChain, which enables rapid development with
   pre-built agent architectures and model integrations, and LangGraph, which provides
   low-level primitives for building custom agent workflows with greater control.
-type: Contract
+kind: contract
 position: Consuming
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
