@@ -1,0 +1,231 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — access_policies
+  description: 'LangSmith — access_policies. 5 operations. Lead operation: List access policies. Self-contained Naftiko capability
+    covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - access_policies
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-access-policies
+    baseUri: ''
+    description: LangSmith — access_policies business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-orgs-current-access-policies
+      path: /v1/platform/orgs/current/access-policies
+      operations:
+      - name: get
+        method: GET
+        description: List access policies
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: post
+        method: POST
+        description: Create an access policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-orgs-current-access-policies-roles-role_id-access-policies
+      path: /v1/platform/orgs/current/access-policies/roles/{role_id}/access-policies
+      operations:
+      - name: post
+        method: POST
+        description: Attach access policies to a role
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: role_id
+          in: path
+          type: string
+          description: Role ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-orgs-current-access-policies-access_policy_id
+      path: /v1/platform/orgs/current/access-policies/{access_policy_id}
+      operations:
+      - name: get
+        method: GET
+        description: Get an access policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: access_policy_id
+          in: path
+          type: string
+          description: Access Policy ID
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete an access policy
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: access_policy_id
+          in: path
+          type: string
+          description: Access Policy ID
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-access-policies-rest
+    port: 8080
+    description: REST adapter for LangSmith — access_policies. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/platform/orgs/current/access-policies
+      name: v1-platform-orgs-current-access-policies
+      description: REST surface for v1-platform-orgs-current-access-policies.
+      operations:
+      - method: GET
+        name: get
+        description: List access policies
+        call: langchain-access-policies.get
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create an access policy
+        call: langchain-access-policies.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/orgs/current/access-policies/roles/{role-id}/access-policies
+      name: v1-platform-orgs-current-access-policies-roles-role-id-access-policies
+      description: REST surface for v1-platform-orgs-current-access-policies-roles-role_id-access-policies.
+      operations:
+      - method: POST
+        name: post
+        description: Attach access policies to a role
+        call: langchain-access-policies.post
+        with:
+          role_id: rest.role_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/orgs/current/access-policies/{access-policy-id}
+      name: v1-platform-orgs-current-access-policies-access-policy-id
+      description: REST surface for v1-platform-orgs-current-access-policies-access_policy_id.
+      operations:
+      - method: GET
+        name: get
+        description: Get an access policy
+        call: langchain-access-policies.get
+        with:
+          access_policy_id: rest.access_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete an access policy
+        call: langchain-access-policies.delete
+        with:
+          access_policy_id: rest.access_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-access-policies-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — access_policies. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: list-access-policies
+      description: List access policies
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-access-policies.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-access-policy
+      description: Create an access policy
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-access-policies.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: attach-access-policies-role
+      description: Attach access policies to a role
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-access-policies.post
+      with:
+        role_id: tools.role_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-access-policy
+      description: Get an access policy
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-access-policies.get
+      with:
+        access_policy_id: tools.access_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-access-policy
+      description: Delete an access policy
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-access-policies.delete
+      with:
+        access_policy_id: tools.access_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.

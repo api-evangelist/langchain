@@ -1,0 +1,2120 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — orgs
+  description: 'LangSmith — orgs. 51 operations. Lead operation: List Organizations. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - orgs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-orgs
+    baseUri: ''
+    description: LangSmith — orgs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-orgs
+      path: /api/v1/orgs
+      operations:
+      - name: listorganizationsapiv1orgsget
+        method: GET
+        description: List Organizations
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: skip_create
+          in: query
+          type: boolean
+        - name: include_tier
+          in: query
+          type: boolean
+      - name: createorganizationapiv1orgspost
+        method: POST
+        description: Create Organization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current
+      path: /api/v1/orgs/current
+      operations:
+      - name: getorganizationinfoapiv1orgscurrentget
+        method: GET
+        description: Get Organization Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-current-billing
+      path: /api/v1/orgs/current/billing
+      operations:
+      - name: getorganizationbillinginfoapiv1orgscurrentbillingget
+        method: GET
+        description: Get Organization Billing Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-current-billing-granular-usage
+      path: /api/v1/orgs/current/billing/granular-usage
+      operations:
+      - name: getgranularusageapiv1orgscurrentbillinggranularusageget
+        method: GET
+        description: Get Granular Usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_time
+          in: query
+          type: string
+          required: true
+        - name: end_time
+          in: query
+          type: string
+          required: true
+        - name: workspace_ids
+          in: query
+          type: array
+          required: true
+        - name: group_by
+          in: query
+          type: string
+    - name: api-v1-orgs-current-billing-granular-usage-export
+      path: /api/v1/orgs/current/billing/granular-usage/export
+      operations:
+      - name: exportgranularusagecsvapiv1orgscurrentbillinggranularusageexportget
+        method: GET
+        description: Export Granular Usage Csv
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_time
+          in: query
+          type: string
+          required: true
+        - name: end_time
+          in: query
+          type: string
+          required: true
+        - name: workspace_ids
+          in: query
+          type: array
+          required: true
+        - name: group_by
+          in: query
+          type: string
+    - name: api-v1-orgs-current-billing-usage
+      path: /api/v1/orgs/current/billing/usage
+      operations:
+      - name: getorgusageapiv1orgscurrentbillingusageget
+        method: GET
+        description: Get Org Usage
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: starting_on
+          in: query
+          type: string
+          required: true
+        - name: ending_before
+          in: query
+          type: string
+          required: true
+        - name: on_current_plan
+          in: query
+          type: boolean
+    - name: api-v1-orgs-current-business-info
+      path: /api/v1/orgs/current/business-info
+      operations:
+      - name: getcompanyinfoapiv1orgscurrentbusinessinfoget
+        method: GET
+        description: Get Company Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: setcompanyinfoapiv1orgscurrentbusinessinfopost
+        method: POST
+        description: Set Company Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-dashboard
+      path: /api/v1/orgs/current/dashboard
+      operations:
+      - name: getdashboardapiv1orgscurrentdashboardget
+        method: GET
+        description: Get Dashboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          required: true
+        - name: color_scheme
+          in: query
+          type: string
+          required: true
+    - name: api-v1-orgs-current-info
+      path: /api/v1/orgs/current/info
+      operations:
+      - name: getcurrentorganizationinfoapiv1orgscurrentinfoget
+        method: GET
+        description: Get Current Organization Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecurrentorganizationinfoapiv1orgscurrentinfopatch
+        method: PATCH
+        description: Update Current Organization Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-login-methods
+      path: /api/v1/orgs/current/login-methods
+      operations:
+      - name: updateallowedloginmethodsapiv1orgscurrentloginmethodspatch
+        method: PATCH
+        description: Update Allowed Login Methods
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-members
+      path: /api/v1/orgs/current/members
+      operations:
+      - name: getcurrentorgmembersapiv1orgscurrentmembersget
+        method: GET
+        description: Get Current Org Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: addmembertocurrentorgapiv1orgscurrentmemberspost
+        method: POST
+        description: Add Member To Current Org
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-members-active
+      path: /api/v1/orgs/current/members/active
+      operations:
+      - name: getcurrentactiveorgmembersapiv1orgscurrentmembersactiveget
+        method: GET
+        description: Get Current Active Org Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: emails
+          in: query
+          type: array
+        - name: q
+          in: query
+          type: string
+          description: Search query for email or name
+        - name: sort_by_desc
+          in: query
+          type: boolean
+          description: Sort in descending order
+        - name: ls_user_ids
+          in: query
+          type: array
+        - name: user_ids
+          in: query
+          type: array
+        - name: is_disabled
+          in: query
+          type: string
+        - name: sort_by
+          in: query
+          type: string
+          description: Field to sort by
+    - name: api-v1-orgs-current-members-basic-batch
+      path: /api/v1/orgs/current/members/basic/batch
+      operations:
+      - name: addbasicauthmemberstocurrentorgapiv1orgscurrentmembersbasicbatchpost
+        method: POST
+        description: Add Basic Auth Members To Current Org
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-members-batch
+      path: /api/v1/orgs/current/members/batch
+      operations:
+      - name: addmemberstocurrentorgbatchapiv1orgscurrentmembersbatchpost
+        method: POST
+        description: Add Members To Current Org Batch
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-members-pending
+      path: /api/v1/orgs/current/members/pending
+      operations:
+      - name: getcurrentpendingorgmembersapiv1orgscurrentmemberspendingget
+        method: GET
+        description: Get Current Pending Org Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: emails
+          in: query
+          type: array
+        - name: q
+          in: query
+          type: string
+          description: Search query for email or name
+        - name: sort_by_desc
+          in: query
+          type: boolean
+          description: Sort in descending order
+        - name: sort_by
+          in: query
+          type: string
+          description: Field to sort by
+    - name: api-v1-orgs-current-members-identity_id
+      path: /api/v1/orgs/current/members/{identity_id}
+      operations:
+      - name: removememberfromcurrentorgapiv1orgscurrentmembersidentityiddelete
+        method: DELETE
+        description: Remove Member From Current Org
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: identity_id
+          in: path
+          type: string
+          required: true
+      - name: updatecurrentorgmemberapiv1orgscurrentmembersidentityidpatch
+        method: PATCH
+        description: Update Current Org Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: identity_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-members-identity_id-pending
+      path: /api/v1/orgs/current/members/{identity_id}/pending
+      operations:
+      - name: deletecurrentorgpendingmemberapiv1orgscurrentmembersidentityidpendingdelete
+        method: DELETE
+        description: Delete Current Org Pending Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: identity_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-orgs-current-payment-method
+      path: /api/v1/orgs/current/payment-method
+      operations:
+      - name: onpaymentmethodcreatedapiv1orgscurrentpaymentmethodpost
+        method: POST
+        description: On Payment Method Created
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-personal-access-tokens
+      path: /api/v1/orgs/current/personal-access-tokens
+      operations:
+      - name: listorgpersonalaccesstokensapiv1orgscurrentpersonalaccesstokensget
+        method: GET
+        description: List Org Personal Access Tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspost
+        method: POST
+        description: Create Org Personal Access Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-personal-access-tokens-pat_id
+      path: /api/v1/orgs/current/personal-access-tokens/{pat_id}
+      operations:
+      - name: deleteorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspatiddelete
+        method: DELETE
+        description: Delete Org Personal Access Token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: pat_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-orgs-current-plan
+      path: /api/v1/orgs/current/plan
+      operations:
+      - name: changepaymentplanapiv1orgscurrentplanpost
+        method: POST
+        description: Change Payment Plan
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-roles
+      path: /api/v1/orgs/current/roles
+      operations:
+      - name: listorganizationrolesapiv1orgscurrentrolesget
+        method: GET
+        description: List Organization Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorganizationrolesapiv1orgscurrentrolespost
+        method: POST
+        description: Create Organization Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-roles-role_id
+      path: /api/v1/orgs/current/roles/{role_id}
+      operations:
+      - name: deleteorganizationrolesapiv1orgscurrentrolesroleiddelete
+        method: DELETE
+        description: Delete Organization Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: role_id
+          in: path
+          type: string
+          required: true
+      - name: updateorganizationrolesapiv1orgscurrentrolesroleidpatch
+        method: PATCH
+        description: Update Organization Roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: role_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-service-keys
+      path: /api/v1/orgs/current/service-keys
+      operations:
+      - name: listorgservicekeysapiv1orgscurrentservicekeysget
+        method: GET
+        description: List Org Service Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorgservicekeyapiv1orgscurrentservicekeyspost
+        method: POST
+        description: Create Org Service Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-service-keys-api_key_id
+      path: /api/v1/orgs/current/service-keys/{api_key_id}
+      operations:
+      - name: deleteorgservicekeyapiv1orgscurrentservicekeysapikeyiddelete
+        method: DELETE
+        description: Delete Org Service Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: api_key_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-orgs-current-set-default-sso-provision
+      path: /api/v1/orgs/current/set-default-sso-provision
+      operations:
+      - name: setdefaultssoprovisionapiv1orgscurrentsetdefaultssoprovisionpost
+        method: POST
+        description: Set Default Sso Provision
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-current-setup
+      path: /api/v1/orgs/current/setup
+      operations:
+      - name: createcustomersandgetstripesetupintentapiv1orgscurrentsetuppost
+        method: POST
+        description: Create Customers And Get Stripe Setup Intent
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-current-sso-settings
+      path: /api/v1/orgs/current/sso-settings
+      operations:
+      - name: getcurrentssosettingsapiv1orgscurrentssosettingsget
+        method: GET
+        description: Get Current Sso Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createssosettingsapiv1orgscurrentssosettingspost
+        method: POST
+        description: Create Sso Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-sso-settings-id
+      path: /api/v1/orgs/current/sso-settings/{id}
+      operations:
+      - name: updatessosettingsapiv1orgscurrentssosettingsidpatch
+        method: PATCH
+        description: Update Sso Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletessosettingsapiv1orgscurrentssosettingsiddelete
+        method: DELETE
+        description: Delete Sso Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-orgs-current-stripe_account_links
+      path: /api/v1/orgs/current/stripe_account_links
+      operations:
+      - name: createstripeaccountlinksendpointapiv1orgscurrentstripeaccountlinkspost
+        method: POST
+        description: Create Stripe Account Links Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-stripe_checkout_session
+      path: /api/v1/orgs/current/stripe_checkout_session
+      operations:
+      - name: createstripecheckoutsessionsendpointapiv1orgscurrentstripecheckoutsessionpost
+        method: POST
+        description: Create Stripe Checkout Sessions Endpoint
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-current-user-login-methods
+      path: /api/v1/orgs/current/user/login-methods
+      operations:
+      - name: getcurrentuserloginmethodsapiv1orgscurrentuserloginmethodsget
+        method: GET
+        description: Get Current User Login Methods
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-members-basic
+      path: /api/v1/orgs/members/basic
+      operations:
+      - name: updatecurrentuserapiv1orgsmembersbasicpatch
+        method: PATCH
+        description: Update Current User
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-orgs-pending
+      path: /api/v1/orgs/pending
+      operations:
+      - name: listpendingorganizationinvitesapiv1orgspendingget
+        method: GET
+        description: List Pending Organization Invites
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-pending-organization_id
+      path: /api/v1/orgs/pending/{organization_id}
+      operations:
+      - name: deletependingorganizationinviteapiv1orgspendingorganizationiddelete
+        method: DELETE
+        description: Delete Pending Organization Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-orgs-pending-organization_id-claim
+      path: /api/v1/orgs/pending/{organization_id}/claim
+      operations:
+      - name: claimpendingorganizationinviteapiv1orgspendingorganizationidclaimpost
+        method: POST
+        description: Claim Pending Organization Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: organization_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-orgs-permissions
+      path: /api/v1/orgs/permissions
+      operations:
+      - name: listpermissionsapiv1orgspermissionsget
+        method: GET
+        description: List Permissions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-orgs-ttl-settings
+      path: /api/v1/orgs/ttl-settings
+      operations:
+      - name: listttlsettingsapiv1orgsttlsettingsget
+        method: GET
+        description: List Ttl Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: upsertttlsettingsapiv1orgsttlsettingsput
+        method: PUT
+        description: Upsert Ttl Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-orgs-current-members
+      path: /v1/platform/orgs/current/members
+      operations:
+      - name: get
+        method: GET
+        description: List org members with workspace roles
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Page size (default 50, max 500)
+        - name: offset
+          in: query
+          type: integer
+          description: Page offset (default 0)
+        - name: active_is
+          in: query
+          type: boolean
+          description: 'Filter: true = only active members; false = only pending members'
+        - name: pending_is
+          in: query
+          type: boolean
+          description: 'Filter: true = only pending members; false = only active members'
+        - name: name_like
+          in: query
+          type: array
+          description: Glob filter on display name; use * as wildcard (repeatable, matches any)
+        - name: email_like
+          in: query
+          type: array
+          description: Glob filter on email; use * as wildcard (repeatable, matches any)
+        - name: workspace_name_like
+          in: query
+          type: array
+          description: Glob filter on workspace name or ID; use * as wildcard (repeatable, matches any)
+        - name: organization_role_like
+          in: query
+          type: array
+          description: Glob filter on organization role name; use * as wildcard (repeatable, matches any)
+        - name: workspace_role_like
+          in: query
+          type: array
+          description: Glob filter on workspace role name; use * as wildcard (repeatable, matches any)
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-orgs-rest
+    port: 8080
+    description: REST adapter for LangSmith — orgs. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/orgs
+      name: api-v1-orgs
+      description: REST surface for api-v1-orgs.
+      operations:
+      - method: GET
+        name: listorganizationsapiv1orgsget
+        description: List Organizations
+        call: langchain-orgs.listorganizationsapiv1orgsget
+        with:
+          skip_create: rest.skip_create
+          include_tier: rest.include_tier
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorganizationapiv1orgspost
+        description: Create Organization
+        call: langchain-orgs.createorganizationapiv1orgspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current
+      name: api-v1-orgs-current
+      description: REST surface for api-v1-orgs-current.
+      operations:
+      - method: GET
+        name: getorganizationinfoapiv1orgscurrentget
+        description: Get Organization Info
+        call: langchain-orgs.getorganizationinfoapiv1orgscurrentget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/billing
+      name: api-v1-orgs-current-billing
+      description: REST surface for api-v1-orgs-current-billing.
+      operations:
+      - method: GET
+        name: getorganizationbillinginfoapiv1orgscurrentbillingget
+        description: Get Organization Billing Info
+        call: langchain-orgs.getorganizationbillinginfoapiv1orgscurrentbillingget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/billing/granular-usage
+      name: api-v1-orgs-current-billing-granular-usage
+      description: REST surface for api-v1-orgs-current-billing-granular-usage.
+      operations:
+      - method: GET
+        name: getgranularusageapiv1orgscurrentbillinggranularusageget
+        description: Get Granular Usage
+        call: langchain-orgs.getgranularusageapiv1orgscurrentbillinggranularusageget
+        with:
+          start_time: rest.start_time
+          end_time: rest.end_time
+          workspace_ids: rest.workspace_ids
+          group_by: rest.group_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/billing/granular-usage/export
+      name: api-v1-orgs-current-billing-granular-usage-export
+      description: REST surface for api-v1-orgs-current-billing-granular-usage-export.
+      operations:
+      - method: GET
+        name: exportgranularusagecsvapiv1orgscurrentbillinggranularusageexportget
+        description: Export Granular Usage Csv
+        call: langchain-orgs.exportgranularusagecsvapiv1orgscurrentbillinggranularusageexportget
+        with:
+          start_time: rest.start_time
+          end_time: rest.end_time
+          workspace_ids: rest.workspace_ids
+          group_by: rest.group_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/billing/usage
+      name: api-v1-orgs-current-billing-usage
+      description: REST surface for api-v1-orgs-current-billing-usage.
+      operations:
+      - method: GET
+        name: getorgusageapiv1orgscurrentbillingusageget
+        description: Get Org Usage
+        call: langchain-orgs.getorgusageapiv1orgscurrentbillingusageget
+        with:
+          starting_on: rest.starting_on
+          ending_before: rest.ending_before
+          on_current_plan: rest.on_current_plan
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/business-info
+      name: api-v1-orgs-current-business-info
+      description: REST surface for api-v1-orgs-current-business-info.
+      operations:
+      - method: GET
+        name: getcompanyinfoapiv1orgscurrentbusinessinfoget
+        description: Get Company Info
+        call: langchain-orgs.getcompanyinfoapiv1orgscurrentbusinessinfoget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: setcompanyinfoapiv1orgscurrentbusinessinfopost
+        description: Set Company Info
+        call: langchain-orgs.setcompanyinfoapiv1orgscurrentbusinessinfopost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/dashboard
+      name: api-v1-orgs-current-dashboard
+      description: REST surface for api-v1-orgs-current-dashboard.
+      operations:
+      - method: GET
+        name: getdashboardapiv1orgscurrentdashboardget
+        description: Get Dashboard
+        call: langchain-orgs.getdashboardapiv1orgscurrentdashboardget
+        with:
+          type: rest.type
+          color_scheme: rest.color_scheme
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/info
+      name: api-v1-orgs-current-info
+      description: REST surface for api-v1-orgs-current-info.
+      operations:
+      - method: GET
+        name: getcurrentorganizationinfoapiv1orgscurrentinfoget
+        description: Get Current Organization Info
+        call: langchain-orgs.getcurrentorganizationinfoapiv1orgscurrentinfoget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecurrentorganizationinfoapiv1orgscurrentinfopatch
+        description: Update Current Organization Info
+        call: langchain-orgs.updatecurrentorganizationinfoapiv1orgscurrentinfopatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/login-methods
+      name: api-v1-orgs-current-login-methods
+      description: REST surface for api-v1-orgs-current-login-methods.
+      operations:
+      - method: PATCH
+        name: updateallowedloginmethodsapiv1orgscurrentloginmethodspatch
+        description: Update Allowed Login Methods
+        call: langchain-orgs.updateallowedloginmethodsapiv1orgscurrentloginmethodspatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members
+      name: api-v1-orgs-current-members
+      description: REST surface for api-v1-orgs-current-members.
+      operations:
+      - method: GET
+        name: getcurrentorgmembersapiv1orgscurrentmembersget
+        description: Get Current Org Members
+        call: langchain-orgs.getcurrentorgmembersapiv1orgscurrentmembersget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addmembertocurrentorgapiv1orgscurrentmemberspost
+        description: Add Member To Current Org
+        call: langchain-orgs.addmembertocurrentorgapiv1orgscurrentmemberspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members/active
+      name: api-v1-orgs-current-members-active
+      description: REST surface for api-v1-orgs-current-members-active.
+      operations:
+      - method: GET
+        name: getcurrentactiveorgmembersapiv1orgscurrentmembersactiveget
+        description: Get Current Active Org Members
+        call: langchain-orgs.getcurrentactiveorgmembersapiv1orgscurrentmembersactiveget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          emails: rest.emails
+          q: rest.q
+          sort_by_desc: rest.sort_by_desc
+          ls_user_ids: rest.ls_user_ids
+          user_ids: rest.user_ids
+          is_disabled: rest.is_disabled
+          sort_by: rest.sort_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members/basic/batch
+      name: api-v1-orgs-current-members-basic-batch
+      description: REST surface for api-v1-orgs-current-members-basic-batch.
+      operations:
+      - method: POST
+        name: addbasicauthmemberstocurrentorgapiv1orgscurrentmembersbasicbatchpost
+        description: Add Basic Auth Members To Current Org
+        call: langchain-orgs.addbasicauthmemberstocurrentorgapiv1orgscurrentmembersbasicbatchpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members/batch
+      name: api-v1-orgs-current-members-batch
+      description: REST surface for api-v1-orgs-current-members-batch.
+      operations:
+      - method: POST
+        name: addmemberstocurrentorgbatchapiv1orgscurrentmembersbatchpost
+        description: Add Members To Current Org Batch
+        call: langchain-orgs.addmemberstocurrentorgbatchapiv1orgscurrentmembersbatchpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members/pending
+      name: api-v1-orgs-current-members-pending
+      description: REST surface for api-v1-orgs-current-members-pending.
+      operations:
+      - method: GET
+        name: getcurrentpendingorgmembersapiv1orgscurrentmemberspendingget
+        description: Get Current Pending Org Members
+        call: langchain-orgs.getcurrentpendingorgmembersapiv1orgscurrentmemberspendingget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          emails: rest.emails
+          q: rest.q
+          sort_by_desc: rest.sort_by_desc
+          sort_by: rest.sort_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members/{identity-id}
+      name: api-v1-orgs-current-members-identity-id
+      description: REST surface for api-v1-orgs-current-members-identity_id.
+      operations:
+      - method: DELETE
+        name: removememberfromcurrentorgapiv1orgscurrentmembersidentityiddelete
+        description: Remove Member From Current Org
+        call: langchain-orgs.removememberfromcurrentorgapiv1orgscurrentmembersidentityiddelete
+        with:
+          identity_id: rest.identity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatecurrentorgmemberapiv1orgscurrentmembersidentityidpatch
+        description: Update Current Org Member
+        call: langchain-orgs.updatecurrentorgmemberapiv1orgscurrentmembersidentityidpatch
+        with:
+          identity_id: rest.identity_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/members/{identity-id}/pending
+      name: api-v1-orgs-current-members-identity-id-pending
+      description: REST surface for api-v1-orgs-current-members-identity_id-pending.
+      operations:
+      - method: DELETE
+        name: deletecurrentorgpendingmemberapiv1orgscurrentmembersidentityidpendingdelete
+        description: Delete Current Org Pending Member
+        call: langchain-orgs.deletecurrentorgpendingmemberapiv1orgscurrentmembersidentityidpendingdelete
+        with:
+          identity_id: rest.identity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/payment-method
+      name: api-v1-orgs-current-payment-method
+      description: REST surface for api-v1-orgs-current-payment-method.
+      operations:
+      - method: POST
+        name: onpaymentmethodcreatedapiv1orgscurrentpaymentmethodpost
+        description: On Payment Method Created
+        call: langchain-orgs.onpaymentmethodcreatedapiv1orgscurrentpaymentmethodpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/personal-access-tokens
+      name: api-v1-orgs-current-personal-access-tokens
+      description: REST surface for api-v1-orgs-current-personal-access-tokens.
+      operations:
+      - method: GET
+        name: listorgpersonalaccesstokensapiv1orgscurrentpersonalaccesstokensget
+        description: List Org Personal Access Tokens
+        call: langchain-orgs.listorgpersonalaccesstokensapiv1orgscurrentpersonalaccesstokensget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspost
+        description: Create Org Personal Access Token
+        call: langchain-orgs.createorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/personal-access-tokens/{pat-id}
+      name: api-v1-orgs-current-personal-access-tokens-pat-id
+      description: REST surface for api-v1-orgs-current-personal-access-tokens-pat_id.
+      operations:
+      - method: DELETE
+        name: deleteorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspatiddelete
+        description: Delete Org Personal Access Token
+        call: langchain-orgs.deleteorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspatiddelete
+        with:
+          pat_id: rest.pat_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/plan
+      name: api-v1-orgs-current-plan
+      description: REST surface for api-v1-orgs-current-plan.
+      operations:
+      - method: POST
+        name: changepaymentplanapiv1orgscurrentplanpost
+        description: Change Payment Plan
+        call: langchain-orgs.changepaymentplanapiv1orgscurrentplanpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/roles
+      name: api-v1-orgs-current-roles
+      description: REST surface for api-v1-orgs-current-roles.
+      operations:
+      - method: GET
+        name: listorganizationrolesapiv1orgscurrentrolesget
+        description: List Organization Roles
+        call: langchain-orgs.listorganizationrolesapiv1orgscurrentrolesget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorganizationrolesapiv1orgscurrentrolespost
+        description: Create Organization Roles
+        call: langchain-orgs.createorganizationrolesapiv1orgscurrentrolespost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/roles/{role-id}
+      name: api-v1-orgs-current-roles-role-id
+      description: REST surface for api-v1-orgs-current-roles-role_id.
+      operations:
+      - method: DELETE
+        name: deleteorganizationrolesapiv1orgscurrentrolesroleiddelete
+        description: Delete Organization Roles
+        call: langchain-orgs.deleteorganizationrolesapiv1orgscurrentrolesroleiddelete
+        with:
+          role_id: rest.role_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updateorganizationrolesapiv1orgscurrentrolesroleidpatch
+        description: Update Organization Roles
+        call: langchain-orgs.updateorganizationrolesapiv1orgscurrentrolesroleidpatch
+        with:
+          role_id: rest.role_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/service-keys
+      name: api-v1-orgs-current-service-keys
+      description: REST surface for api-v1-orgs-current-service-keys.
+      operations:
+      - method: GET
+        name: listorgservicekeysapiv1orgscurrentservicekeysget
+        description: List Org Service Keys
+        call: langchain-orgs.listorgservicekeysapiv1orgscurrentservicekeysget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createorgservicekeyapiv1orgscurrentservicekeyspost
+        description: Create Org Service Key
+        call: langchain-orgs.createorgservicekeyapiv1orgscurrentservicekeyspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/service-keys/{api-key-id}
+      name: api-v1-orgs-current-service-keys-api-key-id
+      description: REST surface for api-v1-orgs-current-service-keys-api_key_id.
+      operations:
+      - method: DELETE
+        name: deleteorgservicekeyapiv1orgscurrentservicekeysapikeyiddelete
+        description: Delete Org Service Key
+        call: langchain-orgs.deleteorgservicekeyapiv1orgscurrentservicekeysapikeyiddelete
+        with:
+          api_key_id: rest.api_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/set-default-sso-provision
+      name: api-v1-orgs-current-set-default-sso-provision
+      description: REST surface for api-v1-orgs-current-set-default-sso-provision.
+      operations:
+      - method: POST
+        name: setdefaultssoprovisionapiv1orgscurrentsetdefaultssoprovisionpost
+        description: Set Default Sso Provision
+        call: langchain-orgs.setdefaultssoprovisionapiv1orgscurrentsetdefaultssoprovisionpost
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/setup
+      name: api-v1-orgs-current-setup
+      description: REST surface for api-v1-orgs-current-setup.
+      operations:
+      - method: POST
+        name: createcustomersandgetstripesetupintentapiv1orgscurrentsetuppost
+        description: Create Customers And Get Stripe Setup Intent
+        call: langchain-orgs.createcustomersandgetstripesetupintentapiv1orgscurrentsetuppost
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/sso-settings
+      name: api-v1-orgs-current-sso-settings
+      description: REST surface for api-v1-orgs-current-sso-settings.
+      operations:
+      - method: GET
+        name: getcurrentssosettingsapiv1orgscurrentssosettingsget
+        description: Get Current Sso Settings
+        call: langchain-orgs.getcurrentssosettingsapiv1orgscurrentssosettingsget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createssosettingsapiv1orgscurrentssosettingspost
+        description: Create Sso Settings
+        call: langchain-orgs.createssosettingsapiv1orgscurrentssosettingspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/sso-settings/{id}
+      name: api-v1-orgs-current-sso-settings-id
+      description: REST surface for api-v1-orgs-current-sso-settings-id.
+      operations:
+      - method: PATCH
+        name: updatessosettingsapiv1orgscurrentssosettingsidpatch
+        description: Update Sso Settings
+        call: langchain-orgs.updatessosettingsapiv1orgscurrentssosettingsidpatch
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletessosettingsapiv1orgscurrentssosettingsiddelete
+        description: Delete Sso Settings
+        call: langchain-orgs.deletessosettingsapiv1orgscurrentssosettingsiddelete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/stripe-account-links
+      name: api-v1-orgs-current-stripe-account-links
+      description: REST surface for api-v1-orgs-current-stripe_account_links.
+      operations:
+      - method: POST
+        name: createstripeaccountlinksendpointapiv1orgscurrentstripeaccountlinkspost
+        description: Create Stripe Account Links Endpoint
+        call: langchain-orgs.createstripeaccountlinksendpointapiv1orgscurrentstripeaccountlinkspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/stripe-checkout-session
+      name: api-v1-orgs-current-stripe-checkout-session
+      description: REST surface for api-v1-orgs-current-stripe_checkout_session.
+      operations:
+      - method: POST
+        name: createstripecheckoutsessionsendpointapiv1orgscurrentstripecheckoutsessionpost
+        description: Create Stripe Checkout Sessions Endpoint
+        call: langchain-orgs.createstripecheckoutsessionsendpointapiv1orgscurrentstripecheckoutsessionpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/current/user/login-methods
+      name: api-v1-orgs-current-user-login-methods
+      description: REST surface for api-v1-orgs-current-user-login-methods.
+      operations:
+      - method: GET
+        name: getcurrentuserloginmethodsapiv1orgscurrentuserloginmethodsget
+        description: Get Current User Login Methods
+        call: langchain-orgs.getcurrentuserloginmethodsapiv1orgscurrentuserloginmethodsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/members/basic
+      name: api-v1-orgs-members-basic
+      description: REST surface for api-v1-orgs-members-basic.
+      operations:
+      - method: PATCH
+        name: updatecurrentuserapiv1orgsmembersbasicpatch
+        description: Update Current User
+        call: langchain-orgs.updatecurrentuserapiv1orgsmembersbasicpatch
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/pending
+      name: api-v1-orgs-pending
+      description: REST surface for api-v1-orgs-pending.
+      operations:
+      - method: GET
+        name: listpendingorganizationinvitesapiv1orgspendingget
+        description: List Pending Organization Invites
+        call: langchain-orgs.listpendingorganizationinvitesapiv1orgspendingget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/pending/{organization-id}
+      name: api-v1-orgs-pending-organization-id
+      description: REST surface for api-v1-orgs-pending-organization_id.
+      operations:
+      - method: DELETE
+        name: deletependingorganizationinviteapiv1orgspendingorganizationiddelete
+        description: Delete Pending Organization Invite
+        call: langchain-orgs.deletependingorganizationinviteapiv1orgspendingorganizationiddelete
+        with:
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/pending/{organization-id}/claim
+      name: api-v1-orgs-pending-organization-id-claim
+      description: REST surface for api-v1-orgs-pending-organization_id-claim.
+      operations:
+      - method: POST
+        name: claimpendingorganizationinviteapiv1orgspendingorganizationidclaimpost
+        description: Claim Pending Organization Invite
+        call: langchain-orgs.claimpendingorganizationinviteapiv1orgspendingorganizationidclaimpost
+        with:
+          organization_id: rest.organization_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/permissions
+      name: api-v1-orgs-permissions
+      description: REST surface for api-v1-orgs-permissions.
+      operations:
+      - method: GET
+        name: listpermissionsapiv1orgspermissionsget
+        description: List Permissions
+        call: langchain-orgs.listpermissionsapiv1orgspermissionsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/orgs/ttl-settings
+      name: api-v1-orgs-ttl-settings
+      description: REST surface for api-v1-orgs-ttl-settings.
+      operations:
+      - method: GET
+        name: listttlsettingsapiv1orgsttlsettingsget
+        description: List Ttl Settings
+        call: langchain-orgs.listttlsettingsapiv1orgsttlsettingsget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: upsertttlsettingsapiv1orgsttlsettingsput
+        description: Upsert Ttl Settings
+        call: langchain-orgs.upsertttlsettingsapiv1orgsttlsettingsput
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/orgs/current/members
+      name: v1-platform-orgs-current-members
+      description: REST surface for v1-platform-orgs-current-members.
+      operations:
+      - method: GET
+        name: get
+        description: List org members with workspace roles
+        call: langchain-orgs.get
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          active_is: rest.active_is
+          pending_is: rest.pending_is
+          name_like: rest.name_like
+          email_like: rest.email_like
+          workspace_name_like: rest.workspace_name_like
+          organization_role_like: rest.organization_role_like
+          workspace_role_like: rest.workspace_role_like
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-orgs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — orgs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-organizations
+      description: List Organizations
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listorganizationsapiv1orgsget
+      with:
+        skip_create: tools.skip_create
+        include_tier: tools.include_tier
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-organization
+      description: Create Organization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createorganizationapiv1orgspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-organization-info
+      description: Get Organization Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getorganizationinfoapiv1orgscurrentget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-organization-billing-info
+      description: Get Organization Billing Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getorganizationbillinginfoapiv1orgscurrentbillingget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-granular-usage
+      description: Get Granular Usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getgranularusageapiv1orgscurrentbillinggranularusageget
+      with:
+        start_time: tools.start_time
+        end_time: tools.end_time
+        workspace_ids: tools.workspace_ids
+        group_by: tools.group_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: export-granular-usage-csv
+      description: Export Granular Usage Csv
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.exportgranularusagecsvapiv1orgscurrentbillinggranularusageexportget
+      with:
+        start_time: tools.start_time
+        end_time: tools.end_time
+        workspace_ids: tools.workspace_ids
+        group_by: tools.group_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-org-usage
+      description: Get Org Usage
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getorgusageapiv1orgscurrentbillingusageget
+      with:
+        starting_on: tools.starting_on
+        ending_before: tools.ending_before
+        on_current_plan: tools.on_current_plan
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-company-info
+      description: Get Company Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcompanyinfoapiv1orgscurrentbusinessinfoget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-company-info
+      description: Set Company Info
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.setcompanyinfoapiv1orgscurrentbusinessinfopost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-dashboard
+      description: Get Dashboard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getdashboardapiv1orgscurrentdashboardget
+      with:
+        type: tools.type
+        color_scheme: tools.color_scheme
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-organization-info
+      description: Get Current Organization Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcurrentorganizationinfoapiv1orgscurrentinfoget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-current-organization-info
+      description: Update Current Organization Info
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.updatecurrentorganizationinfoapiv1orgscurrentinfopatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-allowed-login-methods
+      description: Update Allowed Login Methods
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.updateallowedloginmethodsapiv1orgscurrentloginmethodspatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-org-members
+      description: Get Current Org Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcurrentorgmembersapiv1orgscurrentmembersget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-member-current-org
+      description: Add Member To Current Org
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.addmembertocurrentorgapiv1orgscurrentmemberspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-active-org-members
+      description: Get Current Active Org Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcurrentactiveorgmembersapiv1orgscurrentmembersactiveget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        emails: tools.emails
+        q: tools.q
+        sort_by_desc: tools.sort_by_desc
+        ls_user_ids: tools.ls_user_ids
+        user_ids: tools.user_ids
+        is_disabled: tools.is_disabled
+        sort_by: tools.sort_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-basic-auth-members-current
+      description: Add Basic Auth Members To Current Org
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.addbasicauthmemberstocurrentorgapiv1orgscurrentmembersbasicbatchpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-members-current-org-batch
+      description: Add Members To Current Org Batch
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.addmemberstocurrentorgbatchapiv1orgscurrentmembersbatchpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-pending-org-members
+      description: Get Current Pending Org Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcurrentpendingorgmembersapiv1orgscurrentmemberspendingget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        emails: tools.emails
+        q: tools.q
+        sort_by_desc: tools.sort_by_desc
+        sort_by: tools.sort_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-member-current-org
+      description: Remove Member From Current Org
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.removememberfromcurrentorgapiv1orgscurrentmembersidentityiddelete
+      with:
+        identity_id: tools.identity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-current-org-member
+      description: Update Current Org Member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.updatecurrentorgmemberapiv1orgscurrentmembersidentityidpatch
+      with:
+        identity_id: tools.identity_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-current-org-pending-member
+      description: Delete Current Org Pending Member
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.deletecurrentorgpendingmemberapiv1orgscurrentmembersidentityidpendingdelete
+      with:
+        identity_id: tools.identity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: payment-method-created
+      description: On Payment Method Created
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.onpaymentmethodcreatedapiv1orgscurrentpaymentmethodpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-org-personal-access-tokens
+      description: List Org Personal Access Tokens
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listorgpersonalaccesstokensapiv1orgscurrentpersonalaccesstokensget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-org-personal-access-token
+      description: Create Org Personal Access Token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-org-personal-access-token
+      description: Delete Org Personal Access Token
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.deleteorgpersonalaccesstokenapiv1orgscurrentpersonalaccesstokenspatiddelete
+      with:
+        pat_id: tools.pat_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: change-payment-plan
+      description: Change Payment Plan
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.changepaymentplanapiv1orgscurrentplanpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-organization-roles
+      description: List Organization Roles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listorganizationrolesapiv1orgscurrentrolesget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-organization-roles
+      description: Create Organization Roles
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createorganizationrolesapiv1orgscurrentrolespost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-organization-roles
+      description: Delete Organization Roles
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.deleteorganizationrolesapiv1orgscurrentrolesroleiddelete
+      with:
+        role_id: tools.role_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-organization-roles
+      description: Update Organization Roles
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.updateorganizationrolesapiv1orgscurrentrolesroleidpatch
+      with:
+        role_id: tools.role_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-org-service-keys
+      description: List Org Service Keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listorgservicekeysapiv1orgscurrentservicekeysget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-org-service-key
+      description: Create Org Service Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createorgservicekeyapiv1orgscurrentservicekeyspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-org-service-key
+      description: Delete Org Service Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.deleteorgservicekeyapiv1orgscurrentservicekeysapikeyiddelete
+      with:
+        api_key_id: tools.api_key_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: set-default-sso-provision
+      description: Set Default Sso Provision
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.setdefaultssoprovisionapiv1orgscurrentsetdefaultssoprovisionpost
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-customers-and-get-stripe
+      description: Create Customers And Get Stripe Setup Intent
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createcustomersandgetstripesetupintentapiv1orgscurrentsetuppost
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-sso-settings
+      description: Get Current Sso Settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcurrentssosettingsapiv1orgscurrentssosettingsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-sso-settings
+      description: Create Sso Settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createssosettingsapiv1orgscurrentssosettingspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-sso-settings
+      description: Update Sso Settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.updatessosettingsapiv1orgscurrentssosettingsidpatch
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-sso-settings
+      description: Delete Sso Settings
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.deletessosettingsapiv1orgscurrentssosettingsiddelete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-stripe-account-links-endpoint
+      description: Create Stripe Account Links Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createstripeaccountlinksendpointapiv1orgscurrentstripeaccountlinkspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-stripe-checkout-sessions-endpoint
+      description: Create Stripe Checkout Sessions Endpoint
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.createstripecheckoutsessionsendpointapiv1orgscurrentstripecheckoutsessionpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-user-login-methods
+      description: Get Current User Login Methods
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.getcurrentuserloginmethodsapiv1orgscurrentuserloginmethodsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-current-user
+      description: Update Current User
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.updatecurrentuserapiv1orgsmembersbasicpatch
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-pending-organization-invites
+      description: List Pending Organization Invites
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listpendingorganizationinvitesapiv1orgspendingget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-pending-organization-invite
+      description: Delete Pending Organization Invite
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-orgs.deletependingorganizationinviteapiv1orgspendingorganizationiddelete
+      with:
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: claim-pending-organization-invite
+      description: Claim Pending Organization Invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-orgs.claimpendingorganizationinviteapiv1orgspendingorganizationidclaimpost
+      with:
+        organization_id: tools.organization_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-permissions
+      description: List Permissions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listpermissionsapiv1orgspermissionsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-ttl-settings
+      description: List Ttl Settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.listttlsettingsapiv1orgsttlsettingsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upsert-ttl-settings
+      description: Upsert Ttl Settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.upsertttlsettingsapiv1orgsttlsettingsput
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-org-members-workspace-roles
+      description: List org members with workspace roles
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-orgs.get
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        active_is: tools.active_is
+        pending_is: tools.pending_is
+        name_like: tools.name_like
+        email_like: tools.email_like
+        workspace_name_like: tools.workspace_name_like
+        organization_role_like: tools.organization_role_like
+        workspace_role_like: tools.workspace_role_like
+      outputParameters:
+      - type: object
+        mapping: $.

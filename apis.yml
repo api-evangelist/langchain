@@ -1,91 +1,224 @@
 aid: langchain
 name: LangChain
-description: >-
-  LangChain is a comprehensive ecosystem for building and deploying AI agents, consisting
-  of open-source frameworks and an agent engineering platform called LangSmith. The
-  company offers two main frameworks: LangChain, which enables rapid development with
-  pre-built agent architectures and model integrations, and LangGraph, which provides
-  low-level primitives for building custom agent workflows with greater control.
+description: 'LangChain is a comprehensive ecosystem for building and deploying AI agents, consisting of open-source frameworks
+  and an agent engineering platform called LangSmith. The company offers two main frameworks: LangChain, which enables rapid
+  development with pre-built agent architectures and model integrations, and LangGraph, which provides low-level primitives
+  for building custom agent workflows with greater control.'
 kind: contract
 position: Consuming
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Agents
-  - Artificial Intelligence
-  - Large Language Models
-  - LLM Observability
-  - Tracing
-  - Evaluation
+- Agents
+- Artificial Intelligence
+- Large Language Models
+- LLM Observability
+- Tracing
+- Evaluation
 created: '2026-01-02'
-modified: '2026-04-28'
+modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/langchain/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-  - aid: langchain:langsmith
-    name: LangSmith API
-    description: >-
-      The LangSmith API is used to programmatically create and manage LangSmith resources
-      including tracer sessions, datasets, examples, workspaces, audit logs, filter views,
-      insights jobs, tags, and prompts. LangSmith is the agent engineering platform
-      maintained by LangChain that provides observability, evaluation, and deployment
-      tooling for LLM and agent applications. The API is OpenAPI 3.1 with 345+ endpoints
-      and uses an X-Api-Key header for authentication.
-    humanURL: https://docs.langchain.com/langsmith
-    baseURL: https://api.smith.langchain.com
-    tags:
-      - Agents
-      - Artificial Intelligence
-      - Large Language Models
-      - Observability
-      - Tracing
-      - Evaluation
-      - Datasets
-      - Prompts
-    properties:
-      - type: Documentation
-        url: https://docs.langchain.com/langsmith
-      - type: OpenAPI
-        url: openapi/langchain-openapi.json
-      - type: SignUp
-        url: https://smith.langchain.com/
-      - type: Authentication
-        url: https://docs.langchain.com/langsmith/create-account-api-key
+- aid: langchain:langsmith
+  name: LangSmith API
+  description: The LangSmith API is used to programmatically create and manage LangSmith resources including tracer sessions,
+    datasets, examples, workspaces, audit logs, filter views, insights jobs, tags, and prompts. LangSmith is the agent engineering
+    platform maintained by LangChain that provides observability, evaluation, and deployment tooling for LLM and agent applications.
+    The API is OpenAPI 3.1 with 345+ endpoints and uses an X-Api-Key header for authentication.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - Agents
+  - Artificial Intelligence
+  - Large Language Models
+  - Observability
+  - Tracing
+  - Evaluation
+  - Datasets
+  - Prompts
+  properties:
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: OpenAPI
+    url: openapi/langchain-openapi.json
+  - type: SignUp
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: NaftikoCapability
+    url: capabilities/langchain-general.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-organizations.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-scim-tokens.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-ttl-settings.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-access-policies.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-ace.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-alert-rules.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-annotation-queues.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-annotation-queues-2.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-api-key.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-audit-logs.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-auth.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-aws-marketplace.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-backfills.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-beacon.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-bulk-exports.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-charts.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-comments.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-commits.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-data-planes.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-datasets.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-evaluators.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-examples.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-experiment-view-overrides.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-experiments.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-features.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-feedback.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-feedback-configs.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-fleet-github-app.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-fleet-integrations.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-fleet-mcp.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-fleet-usage.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-fleet-webhooks.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-hub-environments.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-info.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-integrations.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-likes.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-mcp.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-mcp-vendors.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-me.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-metrics.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-model-price-map.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-nps.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-oauth.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-optimization-jobs.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-orgs.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-ownerships.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-playground-settings.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-prompt-webhooks.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-prompts.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-public.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-repos.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-run.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-runs.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-sandboxes.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-sandboxes-internal.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-service-accounts.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-sessions.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-settings.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-tag-transitions.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-tags.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-tenant.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-threads.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-tools.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-tracer-sessions.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-ttl-settings-2.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-usage-limits.yaml
+  - type: NaftikoCapability
+    url: capabilities/langchain-workspaces.yaml
 common:
-  - name: LangChain
-    url: https://www.langchain.com/
-    type: Website
-  - name: LangChain Blog
-    url: https://blog.langchain.com/
-    type: Blog
-  - name: Case Studies
-    url: https://blog.langchain.com/tag/case-studies/
-    type: CaseStudies
-  - name: Documentation
-    url: https://docs.langchain.com/
-    type: Documentation
-  - name: Resources
-    url: https://www.langchain.com/resources
-    type: Guide
-  - name: Changelog
-    url: https://changelog.langchain.com/
-    type: ChangeLog
-  - name: Pricing
-    url: https://www.langchain.com/pricing
-    type: Pricing
-  - name: Support
-    url: https://support.langchain.com
-    type: Support
-  - name: GitHub
-    url: https://github.com/langchain-ai
-    type: GitHub
-  - type: Integrations
-    url: https://docs.langchain.com/oss/python/integrations/providers/overview
+- type: LinkedIn
+  url: https://www.linkedin.com/company/langchain
+- name: LangChain
+  url: https://www.langchain.com/
+  type: Website
+- name: LangChain Blog
+  url: https://blog.langchain.com/
+  type: Blog
+- name: Case Studies
+  url: https://blog.langchain.com/tag/case-studies/
+  type: CaseStudies
+- name: Documentation
+  url: https://docs.langchain.com/
+  type: Documentation
+- name: Resources
+  url: https://www.langchain.com/resources
+  type: Guide
+- name: Changelog
+  url: https://changelog.langchain.com/
+  type: ChangeLog
+- name: Pricing
+  url: https://www.langchain.com/pricing
+  type: Pricing
+- name: Support
+  url: https://support.langchain.com
+  type: Support
+- name: GitHub
+  url: https://github.com/langchain-ai
+  type: GitHub
+- type: Integrations
+  url: https://docs.langchain.com/oss/python/integrations/providers/overview
 integrations:
-  - name: light
-  - name: dark
-  - name: Downloads per month
-  - name: PyPI - Latest version
+- name: light
+- name: dark
+- name: Downloads per month
+- name: PyPI - Latest version
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com

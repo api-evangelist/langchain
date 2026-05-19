@@ -1,0 +1,111 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — audit-logs
+  description: 'LangSmith — audit-logs. 1 operations. Lead operation: Get Audit Logs. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - audit-logs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-audit-logs
+    baseUri: ''
+    description: LangSmith — audit-logs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-audit-logs
+      path: /api/v1/audit-logs
+      operations:
+      - name: getauditlogsapiv1auditlogsget
+        method: GET
+        description: Get Audit Logs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Number of items to return
+        - name: cursor
+          in: query
+          type: string
+          description: Cursor for pagination (base64-encoded JSON string)
+        - name: workspace_id
+          in: query
+          type: string
+          description: Filter by workspace ID
+        - name: start_time
+          in: query
+          type: string
+          description: Start datetime (inclusive) in ISO 8601 format
+          required: true
+        - name: end_time
+          in: query
+          type: string
+          description: End datetime (inclusive) in ISO 8601 format
+          required: true
+        - name: operations
+          in: query
+          type: string
+          description: Filter by operation names. If omitted, all operations are returned.
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-audit-logs-rest
+    port: 8080
+    description: REST adapter for LangSmith — audit-logs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/audit-logs
+      name: api-v1-audit-logs
+      description: REST surface for api-v1-audit-logs.
+      operations:
+      - method: GET
+        name: getauditlogsapiv1auditlogsget
+        description: Get Audit Logs
+        call: langchain-audit-logs.getauditlogsapiv1auditlogsget
+        with:
+          limit: rest.limit
+          cursor: rest.cursor
+          workspace_id: rest.workspace_id
+          start_time: rest.start_time
+          end_time: rest.end_time
+          operations: rest.operations
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-audit-logs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — audit-logs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-audit-logs
+      description: Get Audit Logs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-audit-logs.getauditlogsapiv1auditlogsget
+      with:
+        limit: tools.limit
+        cursor: tools.cursor
+        workspace_id: tools.workspace_id
+        start_time: tools.start_time
+        end_time: tools.end_time
+        operations: tools.operations
+      outputParameters:
+      - type: object
+        mapping: $.

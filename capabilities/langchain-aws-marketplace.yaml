@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — aws_marketplace
+  description: 'LangSmith — aws_marketplace. 1 operations. Lead operation: AWS Marketplace fulfillment URL registration. Self-contained
+    Naftiko capability covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - aws_marketplace
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-aws-marketplace
+    baseUri: ''
+    description: LangSmith — aws_marketplace business capability. Self-contained, no shared references.
+    resources:
+    - name: aws-marketplace-register
+      path: /aws-marketplace/register
+      operations:
+      - name: post
+        method: POST
+        description: AWS Marketplace fulfillment URL registration
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-aws-marketplace-rest
+    port: 8080
+    description: REST adapter for LangSmith — aws_marketplace. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/aws-marketplace/register
+      name: aws-marketplace-register
+      description: REST surface for aws-marketplace-register.
+      operations:
+      - method: POST
+        name: post
+        description: AWS Marketplace fulfillment URL registration
+        call: langchain-aws-marketplace.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-aws-marketplace-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — aws_marketplace. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: aws-marketplace-fulfillment-url-registration
+      description: AWS Marketplace fulfillment URL registration
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-aws-marketplace.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

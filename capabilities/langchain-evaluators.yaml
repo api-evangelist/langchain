@@ -1,0 +1,328 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — evaluators
+  description: 'LangSmith — evaluators. 6 operations. Lead operation: List evaluators. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - evaluators
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-evaluators
+    baseUri: ''
+    description: LangSmith — evaluators business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-evaluators
+      path: /v1/platform/evaluators
+      operations:
+      - name: get
+        method: GET
+        description: List evaluators
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: Filter by evaluator type
+        - name: name_contains
+          in: query
+          type: string
+          description: Filter by name substring (also searches creator names)
+        - name: tag_value_id
+          in: query
+          type: array
+          description: Filter by tag value IDs
+        - name: feedback_key
+          in: query
+          type: string
+          description: Filter by feedback key
+        - name: resource_id
+          in: query
+          type: array
+          description: Filter by resource IDs
+        - name: sort_by
+          in: query
+          type: string
+          description: Field to sort by
+        - name: sort_by_desc
+          in: query
+          type: boolean
+          description: Sort in descending order
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of results (1-100)
+        - name: offset
+          in: query
+          type: integer
+          description: Offset for pagination
+      - name: post
+        method: POST
+        description: Create evaluator
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: delete
+        method: DELETE
+        description: Bulk delete evaluators
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: evaluator_ids
+          in: query
+          type: array
+          description: Evaluator IDs to delete
+          required: true
+        - name: delete_run_rules
+          in: query
+          type: boolean
+          description: When true, delete all run rules for this evaluator before deleting the evaluator
+    - name: v1-platform-evaluators-evaluator_id
+      path: /v1/platform/evaluators/{evaluator_id}
+      operations:
+      - name: get
+        method: GET
+        description: Get evaluator
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: evaluator_id
+          in: path
+          type: string
+          description: Evaluator ID
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete evaluator
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: evaluator_id
+          in: path
+          type: string
+          description: Evaluator ID
+          required: true
+        - name: delete_run_rules
+          in: query
+          type: boolean
+          description: When true, delete all run rules for this evaluator before deleting the evaluator
+      - name: patch
+        method: PATCH
+        description: Update evaluator
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: evaluator_id
+          in: path
+          type: string
+          description: Evaluator ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-evaluators-rest
+    port: 8080
+    description: REST adapter for LangSmith — evaluators. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/platform/evaluators
+      name: v1-platform-evaluators
+      description: REST surface for v1-platform-evaluators.
+      operations:
+      - method: GET
+        name: get
+        description: List evaluators
+        call: langchain-evaluators.get
+        with:
+          type: rest.type
+          name_contains: rest.name_contains
+          tag_value_id: rest.tag_value_id
+          feedback_key: rest.feedback_key
+          resource_id: rest.resource_id
+          sort_by: rest.sort_by
+          sort_by_desc: rest.sort_by_desc
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create evaluator
+        call: langchain-evaluators.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Bulk delete evaluators
+        call: langchain-evaluators.delete
+        with:
+          evaluator_ids: rest.evaluator_ids
+          delete_run_rules: rest.delete_run_rules
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/evaluators/{evaluator-id}
+      name: v1-platform-evaluators-evaluator-id
+      description: REST surface for v1-platform-evaluators-evaluator_id.
+      operations:
+      - method: GET
+        name: get
+        description: Get evaluator
+        call: langchain-evaluators.get
+        with:
+          evaluator_id: rest.evaluator_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete evaluator
+        call: langchain-evaluators.delete
+        with:
+          evaluator_id: rest.evaluator_id
+          delete_run_rules: rest.delete_run_rules
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patch
+        description: Update evaluator
+        call: langchain-evaluators.patch
+        with:
+          evaluator_id: rest.evaluator_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-evaluators-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — evaluators. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-evaluators
+      description: List evaluators
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-evaluators.get
+      with:
+        type: tools.type
+        name_contains: tools.name_contains
+        tag_value_id: tools.tag_value_id
+        feedback_key: tools.feedback_key
+        resource_id: tools.resource_id
+        sort_by: tools.sort_by
+        sort_by_desc: tools.sort_by_desc
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-evaluator
+      description: Create evaluator
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-evaluators.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-delete-evaluators
+      description: Bulk delete evaluators
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-evaluators.delete
+      with:
+        evaluator_ids: tools.evaluator_ids
+        delete_run_rules: tools.delete_run_rules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-evaluator
+      description: Get evaluator
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-evaluators.get
+      with:
+        evaluator_id: tools.evaluator_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-evaluator
+      description: Delete evaluator
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-evaluators.delete
+      with:
+        evaluator_id: tools.evaluator_id
+        delete_run_rules: tools.delete_run_rules
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-evaluator
+      description: Update evaluator
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-evaluators.patch
+      with:
+        evaluator_id: tools.evaluator_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

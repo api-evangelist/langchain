@@ -1,0 +1,423 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — mcp_vendors
+  description: 'LangSmith — mcp_vendors. 9 operations. Lead operation: List MCP vendors. Self-contained Naftiko capability
+    covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - mcp_vendors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-mcp-vendors
+    baseUri: ''
+    description: LangSmith — mcp_vendors business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-mcp-vendors
+      path: /v1/platform/mcp-vendors
+      operations:
+      - name: get
+        method: GET
+        description: List MCP vendors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-platform-mcp-vendors-vendor_slug
+      path: /v1/platform/mcp-vendors/{vendor_slug}
+      operations:
+      - name: get
+        method: GET
+        description: Get MCP vendor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+    - name: v1-platform-mcp-vendors-vendor_slug-account
+      path: /v1/platform/mcp-vendors/{vendor_slug}/account
+      operations:
+      - name: get
+        method: GET
+        description: Get vendor account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+    - name: v1-platform-mcp-vendors-vendor_slug-mcp-servers
+      path: /v1/platform/mcp-vendors/{vendor_slug}/mcp-servers
+      operations:
+      - name: get
+        method: GET
+        description: List MCP servers for a vendor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: Max items to return (default 100)
+        - name: offset
+          in: query
+          type: integer
+          description: Number of items to skip (default 0)
+    - name: v1-platform-mcp-vendors-vendor_slug-settings
+      path: /v1/platform/mcp-vendors/{vendor_slug}/settings
+      operations:
+      - name: get
+        method: GET
+        description: Get vendor settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+      - name: put
+        method: PUT
+        description: Replace vendor settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: post
+        method: POST
+        description: Create vendor settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete vendor settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+    - name: v1-platform-mcp-vendors-vendor_slug-tools
+      path: /v1/platform/mcp-vendors/{vendor_slug}/tools
+      operations:
+      - name: get
+        method: GET
+        description: List tools for a vendor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: vendor_slug
+          in: path
+          type: string
+          description: Vendor slug (e.g. arcade)
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: Max tools to return (default 50)
+        - name: offset
+          in: query
+          type: integer
+          description: Number of tools to skip (default 0)
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-mcp-vendors-rest
+    port: 8080
+    description: REST adapter for LangSmith — mcp_vendors. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/platform/mcp-vendors
+      name: v1-platform-mcp-vendors
+      description: REST surface for v1-platform-mcp-vendors.
+      operations:
+      - method: GET
+        name: get
+        description: List MCP vendors
+        call: langchain-mcp-vendors.get
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/mcp-vendors/{vendor-slug}
+      name: v1-platform-mcp-vendors-vendor-slug
+      description: REST surface for v1-platform-mcp-vendors-vendor_slug.
+      operations:
+      - method: GET
+        name: get
+        description: Get MCP vendor
+        call: langchain-mcp-vendors.get
+        with:
+          vendor_slug: rest.vendor_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/mcp-vendors/{vendor-slug}/account
+      name: v1-platform-mcp-vendors-vendor-slug-account
+      description: REST surface for v1-platform-mcp-vendors-vendor_slug-account.
+      operations:
+      - method: GET
+        name: get
+        description: Get vendor account
+        call: langchain-mcp-vendors.get
+        with:
+          vendor_slug: rest.vendor_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/mcp-vendors/{vendor-slug}/mcp-servers
+      name: v1-platform-mcp-vendors-vendor-slug-mcp-servers
+      description: REST surface for v1-platform-mcp-vendors-vendor_slug-mcp-servers.
+      operations:
+      - method: GET
+        name: get
+        description: List MCP servers for a vendor
+        call: langchain-mcp-vendors.get
+        with:
+          vendor_slug: rest.vendor_slug
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/mcp-vendors/{vendor-slug}/settings
+      name: v1-platform-mcp-vendors-vendor-slug-settings
+      description: REST surface for v1-platform-mcp-vendors-vendor_slug-settings.
+      operations:
+      - method: GET
+        name: get
+        description: Get vendor settings
+        call: langchain-mcp-vendors.get
+        with:
+          vendor_slug: rest.vendor_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: put
+        description: Replace vendor settings
+        call: langchain-mcp-vendors.put
+        with:
+          vendor_slug: rest.vendor_slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create vendor settings
+        call: langchain-mcp-vendors.post
+        with:
+          vendor_slug: rest.vendor_slug
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete vendor settings
+        call: langchain-mcp-vendors.delete
+        with:
+          vendor_slug: rest.vendor_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/mcp-vendors/{vendor-slug}/tools
+      name: v1-platform-mcp-vendors-vendor-slug-tools
+      description: REST surface for v1-platform-mcp-vendors-vendor_slug-tools.
+      operations:
+      - method: GET
+        name: get
+        description: List tools for a vendor
+        call: langchain-mcp-vendors.get
+        with:
+          vendor_slug: rest.vendor_slug
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-mcp-vendors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — mcp_vendors. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-mcp-vendors
+      description: List MCP vendors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-mcp-vendor
+      description: Get MCP vendor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.get
+      with:
+        vendor_slug: tools.vendor_slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vendor-account
+      description: Get vendor account
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.get
+      with:
+        vendor_slug: tools.vendor_slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-mcp-servers-vendor
+      description: List MCP servers for a vendor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.get
+      with:
+        vendor_slug: tools.vendor_slug
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-vendor-settings
+      description: Get vendor settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.get
+      with:
+        vendor_slug: tools.vendor_slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: replace-vendor-settings
+      description: Replace vendor settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.put
+      with:
+        vendor_slug: tools.vendor_slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-vendor-settings
+      description: Create vendor settings
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-mcp-vendors.post
+      with:
+        vendor_slug: tools.vendor_slug
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-vendor-settings
+      description: Delete vendor settings
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-mcp-vendors.delete
+      with:
+        vendor_slug: tools.vendor_slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tools-vendor
+      description: List tools for a vendor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-mcp-vendors.get
+      with:
+        vendor_slug: tools.vendor_slug
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.

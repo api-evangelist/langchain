@@ -1,0 +1,122 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — prompts
+  description: 'LangSmith — prompts. 2 operations. Lead operation: Prompt Canvas. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - prompts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-prompts
+    baseUri: ''
+    description: LangSmith — prompts business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-prompts-canvas
+      path: /api/v1/prompts/canvas
+      operations:
+      - name: promptcanvasapiv1promptscanvaspost
+        method: POST
+        description: Prompt Canvas
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-prompts-invoke_prompt
+      path: /api/v1/prompts/invoke_prompt
+      operations:
+      - name: invokepromptapiv1promptsinvokepromptpost
+        method: POST
+        description: Invoke Prompt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-prompts-rest
+    port: 8080
+    description: REST adapter for LangSmith — prompts. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/prompts/canvas
+      name: api-v1-prompts-canvas
+      description: REST surface for api-v1-prompts-canvas.
+      operations:
+      - method: POST
+        name: promptcanvasapiv1promptscanvaspost
+        description: Prompt Canvas
+        call: langchain-prompts.promptcanvasapiv1promptscanvaspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/prompts/invoke-prompt
+      name: api-v1-prompts-invoke-prompt
+      description: REST surface for api-v1-prompts-invoke_prompt.
+      operations:
+      - method: POST
+        name: invokepromptapiv1promptsinvokepromptpost
+        description: Invoke Prompt
+        call: langchain-prompts.invokepromptapiv1promptsinvokepromptpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-prompts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — prompts. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: prompt-canvas
+      description: Prompt Canvas
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-prompts.promptcanvasapiv1promptscanvaspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: invoke-prompt
+      description: Invoke Prompt
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-prompts.invokepromptapiv1promptsinvokepromptpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

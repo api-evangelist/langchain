@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — experiments
+  description: 'LangSmith — experiments. 1 operations. Lead operation: Evaluate Experiment Adhoc. Self-contained Naftiko capability
+    covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - experiments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-experiments
+    baseUri: ''
+    description: LangSmith — experiments business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-runs-experiments-experiment_id-evaluate
+      path: /api/v1/runs/experiments/{experiment_id}/evaluate
+      operations:
+      - name: evaluateexperimentadhocapiv1runsexperimentsexperimentidevaluatepost
+        method: POST
+        description: Evaluate Experiment Adhoc
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: experiment_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-experiments-rest
+    port: 8080
+    description: REST adapter for LangSmith — experiments. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/runs/experiments/{experiment-id}/evaluate
+      name: api-v1-runs-experiments-experiment-id-evaluate
+      description: REST surface for api-v1-runs-experiments-experiment_id-evaluate.
+      operations:
+      - method: POST
+        name: evaluateexperimentadhocapiv1runsexperimentsexperimentidevaluatepost
+        description: Evaluate Experiment Adhoc
+        call: langchain-experiments.evaluateexperimentadhocapiv1runsexperimentsexperimentidevaluatepost
+        with:
+          experiment_id: rest.experiment_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-experiments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — experiments. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: evaluate-experiment-adhoc
+      description: Evaluate Experiment Adhoc
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-experiments.evaluateexperimentadhocapiv1runsexperimentsexperimentidevaluatepost
+      with:
+        experiment_id: tools.experiment_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

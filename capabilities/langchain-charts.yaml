@@ -1,0 +1,1034 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — charts
+  description: 'LangSmith — charts. 23 operations. Lead operation: Read Charts. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - charts
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-charts
+    baseUri: ''
+    description: LangSmith — charts business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-charts
+      path: /api/v1/charts
+      operations:
+      - name: readchartsapiv1chartspost
+        method: POST
+        description: Read Charts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-charts-create
+      path: /api/v1/charts/create
+      operations:
+      - name: createchartapiv1chartscreatepost
+        method: POST
+        description: Create Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-charts-preview
+      path: /api/v1/charts/preview
+      operations:
+      - name: readchartpreviewapiv1chartspreviewpost
+        method: POST
+        description: Read Chart Preview
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-charts-section
+      path: /api/v1/charts/section
+      operations:
+      - name: readsectionsapiv1chartssectionget
+        method: GET
+        description: Read Sections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: title_contains
+          in: query
+          type: string
+        - name: ids
+          in: query
+          type: string
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_by_desc
+          in: query
+          type: string
+        - name: tag_value_id
+          in: query
+          type: string
+      - name: createsectionapiv1chartssectionpost
+        method: POST
+        description: Create Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-charts-section-clone
+      path: /api/v1/charts/section/clone
+      operations:
+      - name: clonesectionapiv1chartssectionclonepost
+        method: POST
+        description: Clone Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-charts-section-section_id
+      path: /api/v1/charts/section/{section_id}
+      operations:
+      - name: readsinglesectionapiv1chartssectionsectionidpost
+        method: POST
+        description: Read Single Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatesectionapiv1chartssectionsectionidpatch
+        method: PATCH
+        description: Update Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletesectionapiv1chartssectionsectioniddelete
+        method: DELETE
+        description: Delete Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-charts-chart_id
+      path: /api/v1/charts/{chart_id}
+      operations:
+      - name: readsinglechartapiv1chartschartidpost
+        method: POST
+        description: Read Single Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chart_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: updatechartapiv1chartschartidpatch
+        method: PATCH
+        description: Update Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chart_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletechartapiv1chartschartiddelete
+        method: DELETE
+        description: Delete Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chart_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-org-charts
+      path: /api/v1/org-charts
+      operations:
+      - name: orgreadchartsapiv1orgchartspost
+        method: POST
+        description: Org Read Charts
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-org-charts-create
+      path: /api/v1/org-charts/create
+      operations:
+      - name: orgcreatechartapiv1orgchartscreatepost
+        method: POST
+        description: Org Create Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-org-charts-preview
+      path: /api/v1/org-charts/preview
+      operations:
+      - name: orgreadchartpreviewapiv1orgchartspreviewpost
+        method: POST
+        description: Org Read Chart Preview
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-org-charts-section
+      path: /api/v1/org-charts/section
+      operations:
+      - name: orgreadsectionsapiv1orgchartssectionget
+        method: GET
+        description: Org Read Sections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: title_contains
+          in: query
+          type: string
+        - name: ids
+          in: query
+          type: string
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_by_desc
+          in: query
+          type: string
+        - name: tag_value_id
+          in: query
+          type: string
+      - name: orgcreatesectionapiv1orgchartssectionpost
+        method: POST
+        description: Org Create Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-org-charts-section-section_id
+      path: /api/v1/org-charts/section/{section_id}
+      operations:
+      - name: orgreadsinglesectionapiv1orgchartssectionsectionidpost
+        method: POST
+        description: Org Read Single Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: orgupdatesectionapiv1orgchartssectionsectionidpatch
+        method: PATCH
+        description: Org Update Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: orgdeletesectionapiv1orgchartssectionsectioniddelete
+        method: DELETE
+        description: Org Delete Section
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: section_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-org-charts-chart_id
+      path: /api/v1/org-charts/{chart_id}
+      operations:
+      - name: orgreadsinglechartapiv1orgchartschartidpost
+        method: POST
+        description: Org Read Single Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chart_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: orgupdatechartapiv1orgchartschartidpatch
+        method: PATCH
+        description: Org Update Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chart_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: orgdeletechartapiv1orgchartschartiddelete
+        method: DELETE
+        description: Org Delete Chart
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: chart_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-charts-rest
+    port: 8080
+    description: REST adapter for LangSmith — charts. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/charts
+      name: api-v1-charts
+      description: REST surface for api-v1-charts.
+      operations:
+      - method: POST
+        name: readchartsapiv1chartspost
+        description: Read Charts
+        call: langchain-charts.readchartsapiv1chartspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/charts/create
+      name: api-v1-charts-create
+      description: REST surface for api-v1-charts-create.
+      operations:
+      - method: POST
+        name: createchartapiv1chartscreatepost
+        description: Create Chart
+        call: langchain-charts.createchartapiv1chartscreatepost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/charts/preview
+      name: api-v1-charts-preview
+      description: REST surface for api-v1-charts-preview.
+      operations:
+      - method: POST
+        name: readchartpreviewapiv1chartspreviewpost
+        description: Read Chart Preview
+        call: langchain-charts.readchartpreviewapiv1chartspreviewpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/charts/section
+      name: api-v1-charts-section
+      description: REST surface for api-v1-charts-section.
+      operations:
+      - method: GET
+        name: readsectionsapiv1chartssectionget
+        description: Read Sections
+        call: langchain-charts.readsectionsapiv1chartssectionget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          title_contains: rest.title_contains
+          ids: rest.ids
+          sort_by: rest.sort_by
+          sort_by_desc: rest.sort_by_desc
+          tag_value_id: rest.tag_value_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createsectionapiv1chartssectionpost
+        description: Create Section
+        call: langchain-charts.createsectionapiv1chartssectionpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/charts/section/clone
+      name: api-v1-charts-section-clone
+      description: REST surface for api-v1-charts-section-clone.
+      operations:
+      - method: POST
+        name: clonesectionapiv1chartssectionclonepost
+        description: Clone Section
+        call: langchain-charts.clonesectionapiv1chartssectionclonepost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/charts/section/{section-id}
+      name: api-v1-charts-section-section-id
+      description: REST surface for api-v1-charts-section-section_id.
+      operations:
+      - method: POST
+        name: readsinglesectionapiv1chartssectionsectionidpost
+        description: Read Single Section
+        call: langchain-charts.readsinglesectionapiv1chartssectionsectionidpost
+        with:
+          section_id: rest.section_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatesectionapiv1chartssectionsectionidpatch
+        description: Update Section
+        call: langchain-charts.updatesectionapiv1chartssectionsectionidpatch
+        with:
+          section_id: rest.section_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletesectionapiv1chartssectionsectioniddelete
+        description: Delete Section
+        call: langchain-charts.deletesectionapiv1chartssectionsectioniddelete
+        with:
+          section_id: rest.section_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/charts/{chart-id}
+      name: api-v1-charts-chart-id
+      description: REST surface for api-v1-charts-chart_id.
+      operations:
+      - method: POST
+        name: readsinglechartapiv1chartschartidpost
+        description: Read Single Chart
+        call: langchain-charts.readsinglechartapiv1chartschartidpost
+        with:
+          chart_id: rest.chart_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatechartapiv1chartschartidpatch
+        description: Update Chart
+        call: langchain-charts.updatechartapiv1chartschartidpatch
+        with:
+          chart_id: rest.chart_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletechartapiv1chartschartiddelete
+        description: Delete Chart
+        call: langchain-charts.deletechartapiv1chartschartiddelete
+        with:
+          chart_id: rest.chart_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/org-charts
+      name: api-v1-org-charts
+      description: REST surface for api-v1-org-charts.
+      operations:
+      - method: POST
+        name: orgreadchartsapiv1orgchartspost
+        description: Org Read Charts
+        call: langchain-charts.orgreadchartsapiv1orgchartspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/org-charts/create
+      name: api-v1-org-charts-create
+      description: REST surface for api-v1-org-charts-create.
+      operations:
+      - method: POST
+        name: orgcreatechartapiv1orgchartscreatepost
+        description: Org Create Chart
+        call: langchain-charts.orgcreatechartapiv1orgchartscreatepost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/org-charts/preview
+      name: api-v1-org-charts-preview
+      description: REST surface for api-v1-org-charts-preview.
+      operations:
+      - method: POST
+        name: orgreadchartpreviewapiv1orgchartspreviewpost
+        description: Org Read Chart Preview
+        call: langchain-charts.orgreadchartpreviewapiv1orgchartspreviewpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/org-charts/section
+      name: api-v1-org-charts-section
+      description: REST surface for api-v1-org-charts-section.
+      operations:
+      - method: GET
+        name: orgreadsectionsapiv1orgchartssectionget
+        description: Org Read Sections
+        call: langchain-charts.orgreadsectionsapiv1orgchartssectionget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          title_contains: rest.title_contains
+          ids: rest.ids
+          sort_by: rest.sort_by
+          sort_by_desc: rest.sort_by_desc
+          tag_value_id: rest.tag_value_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: orgcreatesectionapiv1orgchartssectionpost
+        description: Org Create Section
+        call: langchain-charts.orgcreatesectionapiv1orgchartssectionpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/org-charts/section/{section-id}
+      name: api-v1-org-charts-section-section-id
+      description: REST surface for api-v1-org-charts-section-section_id.
+      operations:
+      - method: POST
+        name: orgreadsinglesectionapiv1orgchartssectionsectionidpost
+        description: Org Read Single Section
+        call: langchain-charts.orgreadsinglesectionapiv1orgchartssectionsectionidpost
+        with:
+          section_id: rest.section_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: orgupdatesectionapiv1orgchartssectionsectionidpatch
+        description: Org Update Section
+        call: langchain-charts.orgupdatesectionapiv1orgchartssectionsectionidpatch
+        with:
+          section_id: rest.section_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: orgdeletesectionapiv1orgchartssectionsectioniddelete
+        description: Org Delete Section
+        call: langchain-charts.orgdeletesectionapiv1orgchartssectionsectioniddelete
+        with:
+          section_id: rest.section_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/org-charts/{chart-id}
+      name: api-v1-org-charts-chart-id
+      description: REST surface for api-v1-org-charts-chart_id.
+      operations:
+      - method: POST
+        name: orgreadsinglechartapiv1orgchartschartidpost
+        description: Org Read Single Chart
+        call: langchain-charts.orgreadsinglechartapiv1orgchartschartidpost
+        with:
+          chart_id: rest.chart_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: orgupdatechartapiv1orgchartschartidpatch
+        description: Org Update Chart
+        call: langchain-charts.orgupdatechartapiv1orgchartschartidpatch
+        with:
+          chart_id: rest.chart_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: orgdeletechartapiv1orgchartschartiddelete
+        description: Org Delete Chart
+        call: langchain-charts.orgdeletechartapiv1orgchartschartiddelete
+        with:
+          chart_id: rest.chart_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-charts-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — charts. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: read-charts
+      description: Read Charts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.readchartsapiv1chartspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-chart
+      description: Create Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.createchartapiv1chartscreatepost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-chart-preview
+      description: Read Chart Preview
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.readchartpreviewapiv1chartspreviewpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-sections
+      description: Read Sections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-charts.readsectionsapiv1chartssectionget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        title_contains: tools.title_contains
+        ids: tools.ids
+        sort_by: tools.sort_by
+        sort_by_desc: tools.sort_by_desc
+        tag_value_id: tools.tag_value_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-section
+      description: Create Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.createsectionapiv1chartssectionpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: clone-section
+      description: Clone Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.clonesectionapiv1chartssectionclonepost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-single-section
+      description: Read Single Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.readsinglesectionapiv1chartssectionsectionidpost
+      with:
+        section_id: tools.section_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-section
+      description: Update Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-charts.updatesectionapiv1chartssectionsectionidpatch
+      with:
+        section_id: tools.section_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-section
+      description: Delete Section
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-charts.deletesectionapiv1chartssectionsectioniddelete
+      with:
+        section_id: tools.section_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-single-chart
+      description: Read Single Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.readsinglechartapiv1chartschartidpost
+      with:
+        chart_id: tools.chart_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-chart
+      description: Update Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-charts.updatechartapiv1chartschartidpatch
+      with:
+        chart_id: tools.chart_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-chart
+      description: Delete Chart
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-charts.deletechartapiv1chartschartiddelete
+      with:
+        chart_id: tools.chart_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-read-charts
+      description: Org Read Charts
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.orgreadchartsapiv1orgchartspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-create-chart
+      description: Org Create Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.orgcreatechartapiv1orgchartscreatepost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-read-chart-preview
+      description: Org Read Chart Preview
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.orgreadchartpreviewapiv1orgchartspreviewpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-read-sections
+      description: Org Read Sections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-charts.orgreadsectionsapiv1orgchartssectionget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        title_contains: tools.title_contains
+        ids: tools.ids
+        sort_by: tools.sort_by
+        sort_by_desc: tools.sort_by_desc
+        tag_value_id: tools.tag_value_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-create-section
+      description: Org Create Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.orgcreatesectionapiv1orgchartssectionpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-read-single-section
+      description: Org Read Single Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.orgreadsinglesectionapiv1orgchartssectionsectionidpost
+      with:
+        section_id: tools.section_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-update-section
+      description: Org Update Section
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-charts.orgupdatesectionapiv1orgchartssectionsectionidpatch
+      with:
+        section_id: tools.section_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-delete-section
+      description: Org Delete Section
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-charts.orgdeletesectionapiv1orgchartssectionsectioniddelete
+      with:
+        section_id: tools.section_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-read-single-chart
+      description: Org Read Single Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-charts.orgreadsinglechartapiv1orgchartschartidpost
+      with:
+        chart_id: tools.chart_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-update-chart
+      description: Org Update Chart
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-charts.orgupdatechartapiv1orgchartschartidpatch
+      with:
+        chart_id: tools.chart_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: org-delete-chart
+      description: Org Delete Chart
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-charts.orgdeletechartapiv1orgchartschartiddelete
+      with:
+        chart_id: tools.chart_id
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — backfills
+  description: 'LangSmith — backfills. 1 operations. Lead operation: Restart a backfill job. Self-contained Naftiko capability
+    covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - backfills
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-backfills
+    baseUri: ''
+    description: LangSmith — backfills business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-ops-backfills-restart
+      path: /v1/platform/ops/backfills/restart
+      operations:
+      - name: post
+        method: POST
+        description: Restart a backfill job
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-backfills-rest
+    port: 8080
+    description: REST adapter for LangSmith — backfills. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/platform/ops/backfills/restart
+      name: v1-platform-ops-backfills-restart
+      description: REST surface for v1-platform-ops-backfills-restart.
+      operations:
+      - method: POST
+        name: post
+        description: Restart a backfill job
+        call: langchain-backfills.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-backfills-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — backfills. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: restart-backfill-job
+      description: Restart a backfill job
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-backfills.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

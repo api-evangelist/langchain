@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — nps
+  description: 'LangSmith — nps. 1 operations. Lead operation: Submit an NPS response. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - nps
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-nps
+    baseUri: ''
+    description: LangSmith — nps business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-nps-response
+      path: /v1/platform/nps/response
+      operations:
+      - name: post
+        method: POST
+        description: Submit an NPS response
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-nps-rest
+    port: 8080
+    description: REST adapter for LangSmith — nps. One Spectral-compliant resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/v1/platform/nps/response
+      name: v1-platform-nps-response
+      description: REST surface for v1-platform-nps-response.
+      operations:
+      - method: POST
+        name: post
+        description: Submit an NPS response
+        call: langchain-nps.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-nps-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — nps. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: submit-nps-response
+      description: Submit an NPS response
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-nps.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

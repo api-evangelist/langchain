@@ -1,0 +1,1601 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — workspaces
+  description: 'LangSmith — workspaces. 38 operations. Lead operation: Create Workspace. Self-contained Naftiko capability
+    covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - workspaces
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-workspaces
+    baseUri: ''
+    description: LangSmith — workspaces business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-workspaces
+      path: /api/v1/workspaces
+      operations:
+      - name: createworkspaceapiv1workspacespost
+        method: POST
+        description: Create Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listworkspacesapiv1workspacesget
+        method: GET
+        description: List Workspaces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: include_deleted
+          in: query
+          type: boolean
+    - name: api-v1-workspaces-current-members
+      path: /api/v1/workspaces/current/members
+      operations:
+      - name: getcurrentworkspacemembersapiv1workspacescurrentmembersget
+        method: GET
+        description: Get Current Workspace Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: addmembertocurrentworkspaceapiv1workspacescurrentmemberspost
+        method: POST
+        description: Add Member To Current Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-members-active
+      path: /api/v1/workspaces/current/members/active
+      operations:
+      - name: getcurrentactiveworkspacemembersapiv1workspacescurrentmembersactiveget
+        method: GET
+        description: Get Current Active Workspace Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: emails
+          in: query
+          type: array
+        - name: q
+          in: query
+          type: string
+          description: Search query for email or name
+        - name: sort_by_desc
+          in: query
+          type: boolean
+          description: Sort in descending order
+        - name: ls_user_ids
+          in: query
+          type: array
+        - name: user_ids
+          in: query
+          type: array
+        - name: is_disabled
+          in: query
+          type: string
+        - name: sort_by
+          in: query
+          type: string
+          description: Field to sort by
+    - name: api-v1-workspaces-current-members-batch
+      path: /api/v1/workspaces/current/members/batch
+      operations:
+      - name: addmemberstocurrentworkspacebatchapiv1workspacescurrentmembersbatchpost
+        method: POST
+        description: Add Members To Current Workspace Batch
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-members-pending
+      path: /api/v1/workspaces/current/members/pending
+      operations:
+      - name: getcurrentpendingworkspacemembersapiv1workspacescurrentmemberspendingget
+        method: GET
+        description: Get Current Pending Workspace Members
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: emails
+          in: query
+          type: array
+        - name: q
+          in: query
+          type: string
+          description: Search query for email or name
+        - name: sort_by_desc
+          in: query
+          type: boolean
+          description: Sort in descending order
+        - name: sort_by
+          in: query
+          type: string
+          description: Field to sort by
+    - name: api-v1-workspaces-current-members-identity_id
+      path: /api/v1/workspaces/current/members/{identity_id}
+      operations:
+      - name: deletecurrentworkspacememberapiv1workspacescurrentmembersidentityiddelete
+        method: DELETE
+        description: Delete Current Workspace Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: identity_id
+          in: path
+          type: string
+          required: true
+      - name: patchcurrentworkspacememberapiv1workspacescurrentmembersidentityidpatch
+        method: PATCH
+        description: Patch Current Workspace Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: identity_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-members-identity_id-pending
+      path: /api/v1/workspaces/current/members/{identity_id}/pending
+      operations:
+      - name: deletecurrentworkspacependingmemberapiv1workspacescurrentmembersidentityidpendingdelete
+        method: DELETE
+        description: Delete Current Workspace Pending Member
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: identity_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-current-secrets
+      path: /api/v1/workspaces/current/secrets
+      operations:
+      - name: listcurrentworkspacesecretsapiv1workspacescurrentsecretsget
+        method: GET
+        description: List Current Workspace Secrets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: upsertcurrentworkspacesecretsapiv1workspacescurrentsecretspost
+        method: POST
+        description: Upsert Current Workspace Secrets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-secrets-encrypted
+      path: /api/v1/workspaces/current/secrets/encrypted
+      operations:
+      - name: getcurrentworkspaceencryptedsecretsapiv1workspacescurrentsecretsencryptedget
+        method: GET
+        description: Get Current Workspace Encrypted Secrets
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: service
+          in: query
+          type: string
+          description: Service requesting encrypted secrets
+          required: true
+        - name: key_names
+          in: query
+          type: string
+          description: Optional list of workspace secret keys to return
+        - name: expand_iam_role
+          in: query
+          type: boolean
+          description: If true, expand AWS_IAM_ROLE_ARN into temporary credentials via STS
+    - name: api-v1-workspaces-current-shared
+      path: /api/v1/workspaces/current/shared
+      operations:
+      - name: getsharedtokensapiv1workspacescurrentsharedget
+        method: GET
+        description: Get Shared Tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+      - name: bulkunshareentitiesapiv1workspacescurrentshareddelete
+        method: DELETE
+        description: Bulk Unshare Entities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-stats
+      path: /api/v1/workspaces/current/stats
+      operations:
+      - name: getcurrentworkspacestatsapiv1workspacescurrentstatsget
+        method: GET
+        description: Get Current Workspace Stats
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_value_id
+          in: query
+          type: string
+    - name: api-v1-workspaces-current-tag-keys
+      path: /api/v1/workspaces/current/tag-keys
+      operations:
+      - name: listtagkeysapiv1workspacescurrenttagkeysget
+        method: GET
+        description: List Tag Keys
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createtagkeyapiv1workspacescurrenttagkeyspost
+        method: POST
+        description: Create Tag Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-tag-keys-tag_key_id
+      path: /api/v1/workspaces/current/tag-keys/{tag_key_id}
+      operations:
+      - name: updatetagkeyapiv1workspacescurrenttagkeystagkeyidpatch
+        method: PATCH
+        description: Update Tag Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: gettagkeyapiv1workspacescurrenttagkeystagkeyidget
+        method: GET
+        description: Get Tag Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+      - name: deletetagkeyapiv1workspacescurrenttagkeystagkeyiddelete
+        method: DELETE
+        description: Delete Tag Key
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-current-tag-keys-tag_key_id-tag-values
+      path: /api/v1/workspaces/current/tag-keys/{tag_key_id}/tag-values
+      operations:
+      - name: createtagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluespost
+        method: POST
+        description: Create Tag Value
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listtagvaluesapiv1workspacescurrenttagkeystagkeyidtagvaluesget
+        method: GET
+        description: List Tag Values
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-current-tag-keys-tag_key_id-tag-values-tag_value_id
+      path: /api/v1/workspaces/current/tag-keys/{tag_key_id}/tag-values/{tag_value_id}
+      operations:
+      - name: gettagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidget
+        method: GET
+        description: Get Tag Value
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+        - name: tag_value_id
+          in: path
+          type: string
+          required: true
+      - name: updatetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidpatch
+        method: PATCH
+        description: Update Tag Value
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+        - name: tag_value_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueiddelete
+        method: DELETE
+        description: Delete Tag Value
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_key_id
+          in: path
+          type: string
+          required: true
+        - name: tag_value_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-current-taggings
+      path: /api/v1/workspaces/current/taggings
+      operations:
+      - name: createtaggingapiv1workspacescurrenttaggingspost
+        method: POST
+        description: Create Tagging
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: listtaggingsapiv1workspacescurrenttaggingsget
+        method: GET
+        description: List Taggings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tag_value_id
+          in: query
+          type: string
+    - name: api-v1-workspaces-current-taggings-tagging_id
+      path: /api/v1/workspaces/current/taggings/{tagging_id}
+      operations:
+      - name: deletetaggingapiv1workspacescurrenttaggingstaggingiddelete
+        method: DELETE
+        description: Delete Tagging
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: tagging_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-current-tags
+      path: /api/v1/workspaces/current/tags
+      operations:
+      - name: listtagsapiv1workspacescurrenttagsget
+        method: GET
+        description: List Tags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-workspaces-current-tags-resource
+      path: /api/v1/workspaces/current/tags/resource
+      operations:
+      - name: listtagsforresourceapiv1workspacescurrenttagsresourceget
+        method: GET
+        description: List Tags For Resource
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: resource_type
+          in: query
+          type: string
+          required: true
+        - name: resource_id
+          in: query
+          type: string
+          required: true
+    - name: api-v1-workspaces-current-tags-resources
+      path: /api/v1/workspaces/current/tags/resources
+      operations:
+      - name: listtagsforresourcesapiv1workspacescurrenttagsresourcespost
+        method: POST
+        description: List Tags For Resources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-workspaces-current-usage_limits
+      path: /api/v1/workspaces/current/usage_limits
+      operations:
+      - name: getcurrentworkspaceusagelimitsinfoapiv1workspacescurrentusagelimitsget
+        method: GET
+        description: Get Current Workspace Usage Limits Info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-workspaces-pending
+      path: /api/v1/workspaces/pending
+      operations:
+      - name: listpendingworkspaceinvitesapiv1workspacespendingget
+        method: GET
+        description: List Pending Workspace Invites
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-workspaces-pending-id
+      path: /api/v1/workspaces/pending/{id}
+      operations:
+      - name: deletependingworkspaceinviteapiv1workspacespendingiddelete
+        method: DELETE
+        description: Delete Pending Workspace Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-pending-workspace_id-claim
+      path: /api/v1/workspaces/pending/{workspace_id}/claim
+      operations:
+      - name: claimpendingworkspaceinviteapiv1workspacespendingworkspaceidclaimpost
+        method: POST
+        description: Claim Pending Workspace Invite
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-workspaces-workspace_id
+      path: /api/v1/workspaces/{workspace_id}
+      operations:
+      - name: patchworkspaceapiv1workspacesworkspaceidpatch
+        method: PATCH
+        description: Patch Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteworkspaceapiv1workspacesworkspaceiddelete
+        method: DELETE
+        description: Delete Workspace
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: workspace_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-workspaces-rest
+    port: 8080
+    description: REST adapter for LangSmith — workspaces. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/workspaces
+      name: api-v1-workspaces
+      description: REST surface for api-v1-workspaces.
+      operations:
+      - method: POST
+        name: createworkspaceapiv1workspacespost
+        description: Create Workspace
+        call: langchain-workspaces.createworkspaceapiv1workspacespost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listworkspacesapiv1workspacesget
+        description: List Workspaces
+        call: langchain-workspaces.listworkspacesapiv1workspacesget
+        with:
+          include_deleted: rest.include_deleted
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/members
+      name: api-v1-workspaces-current-members
+      description: REST surface for api-v1-workspaces-current-members.
+      operations:
+      - method: GET
+        name: getcurrentworkspacemembersapiv1workspacescurrentmembersget
+        description: Get Current Workspace Members
+        call: langchain-workspaces.getcurrentworkspacemembersapiv1workspacescurrentmembersget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: addmembertocurrentworkspaceapiv1workspacescurrentmemberspost
+        description: Add Member To Current Workspace
+        call: langchain-workspaces.addmembertocurrentworkspaceapiv1workspacescurrentmemberspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/members/active
+      name: api-v1-workspaces-current-members-active
+      description: REST surface for api-v1-workspaces-current-members-active.
+      operations:
+      - method: GET
+        name: getcurrentactiveworkspacemembersapiv1workspacescurrentmembersactiveget
+        description: Get Current Active Workspace Members
+        call: langchain-workspaces.getcurrentactiveworkspacemembersapiv1workspacescurrentmembersactiveget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          emails: rest.emails
+          q: rest.q
+          sort_by_desc: rest.sort_by_desc
+          ls_user_ids: rest.ls_user_ids
+          user_ids: rest.user_ids
+          is_disabled: rest.is_disabled
+          sort_by: rest.sort_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/members/batch
+      name: api-v1-workspaces-current-members-batch
+      description: REST surface for api-v1-workspaces-current-members-batch.
+      operations:
+      - method: POST
+        name: addmemberstocurrentworkspacebatchapiv1workspacescurrentmembersbatchpost
+        description: Add Members To Current Workspace Batch
+        call: langchain-workspaces.addmemberstocurrentworkspacebatchapiv1workspacescurrentmembersbatchpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/members/pending
+      name: api-v1-workspaces-current-members-pending
+      description: REST surface for api-v1-workspaces-current-members-pending.
+      operations:
+      - method: GET
+        name: getcurrentpendingworkspacemembersapiv1workspacescurrentmemberspendingget
+        description: Get Current Pending Workspace Members
+        call: langchain-workspaces.getcurrentpendingworkspacemembersapiv1workspacescurrentmemberspendingget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          emails: rest.emails
+          q: rest.q
+          sort_by_desc: rest.sort_by_desc
+          sort_by: rest.sort_by
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/members/{identity-id}
+      name: api-v1-workspaces-current-members-identity-id
+      description: REST surface for api-v1-workspaces-current-members-identity_id.
+      operations:
+      - method: DELETE
+        name: deletecurrentworkspacememberapiv1workspacescurrentmembersidentityiddelete
+        description: Delete Current Workspace Member
+        call: langchain-workspaces.deletecurrentworkspacememberapiv1workspacescurrentmembersidentityiddelete
+        with:
+          identity_id: rest.identity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patchcurrentworkspacememberapiv1workspacescurrentmembersidentityidpatch
+        description: Patch Current Workspace Member
+        call: langchain-workspaces.patchcurrentworkspacememberapiv1workspacescurrentmembersidentityidpatch
+        with:
+          identity_id: rest.identity_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/members/{identity-id}/pending
+      name: api-v1-workspaces-current-members-identity-id-pending
+      description: REST surface for api-v1-workspaces-current-members-identity_id-pending.
+      operations:
+      - method: DELETE
+        name: deletecurrentworkspacependingmemberapiv1workspacescurrentmembersidentityidpendingdelete
+        description: Delete Current Workspace Pending Member
+        call: langchain-workspaces.deletecurrentworkspacependingmemberapiv1workspacescurrentmembersidentityidpendingdelete
+        with:
+          identity_id: rest.identity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/secrets
+      name: api-v1-workspaces-current-secrets
+      description: REST surface for api-v1-workspaces-current-secrets.
+      operations:
+      - method: GET
+        name: listcurrentworkspacesecretsapiv1workspacescurrentsecretsget
+        description: List Current Workspace Secrets
+        call: langchain-workspaces.listcurrentworkspacesecretsapiv1workspacescurrentsecretsget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: upsertcurrentworkspacesecretsapiv1workspacescurrentsecretspost
+        description: Upsert Current Workspace Secrets
+        call: langchain-workspaces.upsertcurrentworkspacesecretsapiv1workspacescurrentsecretspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/secrets/encrypted
+      name: api-v1-workspaces-current-secrets-encrypted
+      description: REST surface for api-v1-workspaces-current-secrets-encrypted.
+      operations:
+      - method: GET
+        name: getcurrentworkspaceencryptedsecretsapiv1workspacescurrentsecretsencryptedget
+        description: Get Current Workspace Encrypted Secrets
+        call: langchain-workspaces.getcurrentworkspaceencryptedsecretsapiv1workspacescurrentsecretsencryptedget
+        with:
+          service: rest.service
+          key_names: rest.key_names
+          expand_iam_role: rest.expand_iam_role
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/shared
+      name: api-v1-workspaces-current-shared
+      description: REST surface for api-v1-workspaces-current-shared.
+      operations:
+      - method: GET
+        name: getsharedtokensapiv1workspacescurrentsharedget
+        description: Get Shared Tokens
+        call: langchain-workspaces.getsharedtokensapiv1workspacescurrentsharedget
+        with:
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: bulkunshareentitiesapiv1workspacescurrentshareddelete
+        description: Bulk Unshare Entities
+        call: langchain-workspaces.bulkunshareentitiesapiv1workspacescurrentshareddelete
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/stats
+      name: api-v1-workspaces-current-stats
+      description: REST surface for api-v1-workspaces-current-stats.
+      operations:
+      - method: GET
+        name: getcurrentworkspacestatsapiv1workspacescurrentstatsget
+        description: Get Current Workspace Stats
+        call: langchain-workspaces.getcurrentworkspacestatsapiv1workspacescurrentstatsget
+        with:
+          tag_value_id: rest.tag_value_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tag-keys
+      name: api-v1-workspaces-current-tag-keys
+      description: REST surface for api-v1-workspaces-current-tag-keys.
+      operations:
+      - method: GET
+        name: listtagkeysapiv1workspacescurrenttagkeysget
+        description: List Tag Keys
+        call: langchain-workspaces.listtagkeysapiv1workspacescurrenttagkeysget
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtagkeyapiv1workspacescurrenttagkeyspost
+        description: Create Tag Key
+        call: langchain-workspaces.createtagkeyapiv1workspacescurrenttagkeyspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tag-keys/{tag-key-id}
+      name: api-v1-workspaces-current-tag-keys-tag-key-id
+      description: REST surface for api-v1-workspaces-current-tag-keys-tag_key_id.
+      operations:
+      - method: PATCH
+        name: updatetagkeyapiv1workspacescurrenttagkeystagkeyidpatch
+        description: Update Tag Key
+        call: langchain-workspaces.updatetagkeyapiv1workspacescurrenttagkeystagkeyidpatch
+        with:
+          tag_key_id: rest.tag_key_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: gettagkeyapiv1workspacescurrenttagkeystagkeyidget
+        description: Get Tag Key
+        call: langchain-workspaces.gettagkeyapiv1workspacescurrenttagkeystagkeyidget
+        with:
+          tag_key_id: rest.tag_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetagkeyapiv1workspacescurrenttagkeystagkeyiddelete
+        description: Delete Tag Key
+        call: langchain-workspaces.deletetagkeyapiv1workspacescurrenttagkeystagkeyiddelete
+        with:
+          tag_key_id: rest.tag_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tag-keys/{tag-key-id}/tag-values
+      name: api-v1-workspaces-current-tag-keys-tag-key-id-tag-values
+      description: REST surface for api-v1-workspaces-current-tag-keys-tag_key_id-tag-values.
+      operations:
+      - method: POST
+        name: createtagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluespost
+        description: Create Tag Value
+        call: langchain-workspaces.createtagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluespost
+        with:
+          tag_key_id: rest.tag_key_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listtagvaluesapiv1workspacescurrenttagkeystagkeyidtagvaluesget
+        description: List Tag Values
+        call: langchain-workspaces.listtagvaluesapiv1workspacescurrenttagkeystagkeyidtagvaluesget
+        with:
+          tag_key_id: rest.tag_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tag-keys/{tag-key-id}/tag-values/{tag-value-id}
+      name: api-v1-workspaces-current-tag-keys-tag-key-id-tag-values-tag-value-id
+      description: REST surface for api-v1-workspaces-current-tag-keys-tag_key_id-tag-values-tag_value_id.
+      operations:
+      - method: GET
+        name: gettagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidget
+        description: Get Tag Value
+        call: langchain-workspaces.gettagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidget
+        with:
+          tag_key_id: rest.tag_key_id
+          tag_value_id: rest.tag_value_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidpatch
+        description: Update Tag Value
+        call: langchain-workspaces.updatetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidpatch
+        with:
+          tag_key_id: rest.tag_key_id
+          tag_value_id: rest.tag_value_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueiddelete
+        description: Delete Tag Value
+        call: langchain-workspaces.deletetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueiddelete
+        with:
+          tag_key_id: rest.tag_key_id
+          tag_value_id: rest.tag_value_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/taggings
+      name: api-v1-workspaces-current-taggings
+      description: REST surface for api-v1-workspaces-current-taggings.
+      operations:
+      - method: POST
+        name: createtaggingapiv1workspacescurrenttaggingspost
+        description: Create Tagging
+        call: langchain-workspaces.createtaggingapiv1workspacescurrenttaggingspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: listtaggingsapiv1workspacescurrenttaggingsget
+        description: List Taggings
+        call: langchain-workspaces.listtaggingsapiv1workspacescurrenttaggingsget
+        with:
+          tag_value_id: rest.tag_value_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/taggings/{tagging-id}
+      name: api-v1-workspaces-current-taggings-tagging-id
+      description: REST surface for api-v1-workspaces-current-taggings-tagging_id.
+      operations:
+      - method: DELETE
+        name: deletetaggingapiv1workspacescurrenttaggingstaggingiddelete
+        description: Delete Tagging
+        call: langchain-workspaces.deletetaggingapiv1workspacescurrenttaggingstaggingiddelete
+        with:
+          tagging_id: rest.tagging_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tags
+      name: api-v1-workspaces-current-tags
+      description: REST surface for api-v1-workspaces-current-tags.
+      operations:
+      - method: GET
+        name: listtagsapiv1workspacescurrenttagsget
+        description: List Tags
+        call: langchain-workspaces.listtagsapiv1workspacescurrenttagsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tags/resource
+      name: api-v1-workspaces-current-tags-resource
+      description: REST surface for api-v1-workspaces-current-tags-resource.
+      operations:
+      - method: GET
+        name: listtagsforresourceapiv1workspacescurrenttagsresourceget
+        description: List Tags For Resource
+        call: langchain-workspaces.listtagsforresourceapiv1workspacescurrenttagsresourceget
+        with:
+          resource_type: rest.resource_type
+          resource_id: rest.resource_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/tags/resources
+      name: api-v1-workspaces-current-tags-resources
+      description: REST surface for api-v1-workspaces-current-tags-resources.
+      operations:
+      - method: POST
+        name: listtagsforresourcesapiv1workspacescurrenttagsresourcespost
+        description: List Tags For Resources
+        call: langchain-workspaces.listtagsforresourcesapiv1workspacescurrenttagsresourcespost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/current/usage-limits
+      name: api-v1-workspaces-current-usage-limits
+      description: REST surface for api-v1-workspaces-current-usage_limits.
+      operations:
+      - method: GET
+        name: getcurrentworkspaceusagelimitsinfoapiv1workspacescurrentusagelimitsget
+        description: Get Current Workspace Usage Limits Info
+        call: langchain-workspaces.getcurrentworkspaceusagelimitsinfoapiv1workspacescurrentusagelimitsget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/pending
+      name: api-v1-workspaces-pending
+      description: REST surface for api-v1-workspaces-pending.
+      operations:
+      - method: GET
+        name: listpendingworkspaceinvitesapiv1workspacespendingget
+        description: List Pending Workspace Invites
+        call: langchain-workspaces.listpendingworkspaceinvitesapiv1workspacespendingget
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/pending/{id}
+      name: api-v1-workspaces-pending-id
+      description: REST surface for api-v1-workspaces-pending-id.
+      operations:
+      - method: DELETE
+        name: deletependingworkspaceinviteapiv1workspacespendingiddelete
+        description: Delete Pending Workspace Invite
+        call: langchain-workspaces.deletependingworkspaceinviteapiv1workspacespendingiddelete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/pending/{workspace-id}/claim
+      name: api-v1-workspaces-pending-workspace-id-claim
+      description: REST surface for api-v1-workspaces-pending-workspace_id-claim.
+      operations:
+      - method: POST
+        name: claimpendingworkspaceinviteapiv1workspacespendingworkspaceidclaimpost
+        description: Claim Pending Workspace Invite
+        call: langchain-workspaces.claimpendingworkspaceinviteapiv1workspacespendingworkspaceidclaimpost
+        with:
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/workspaces/{workspace-id}
+      name: api-v1-workspaces-workspace-id
+      description: REST surface for api-v1-workspaces-workspace_id.
+      operations:
+      - method: PATCH
+        name: patchworkspaceapiv1workspacesworkspaceidpatch
+        description: Patch Workspace
+        call: langchain-workspaces.patchworkspaceapiv1workspacesworkspaceidpatch
+        with:
+          workspace_id: rest.workspace_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteworkspaceapiv1workspacesworkspaceiddelete
+        description: Delete Workspace
+        call: langchain-workspaces.deleteworkspaceapiv1workspacesworkspaceiddelete
+        with:
+          workspace_id: rest.workspace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-workspaces-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — workspaces. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-workspace
+      description: Create Workspace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.createworkspaceapiv1workspacespost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-workspaces
+      description: List Workspaces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listworkspacesapiv1workspacesget
+      with:
+        include_deleted: tools.include_deleted
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-workspace-members
+      description: Get Current Workspace Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getcurrentworkspacemembersapiv1workspacescurrentmembersget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-member-current-workspace
+      description: Add Member To Current Workspace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.addmembertocurrentworkspaceapiv1workspacescurrentmemberspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-active-workspace-members
+      description: Get Current Active Workspace Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getcurrentactiveworkspacemembersapiv1workspacescurrentmembersactiveget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        emails: tools.emails
+        q: tools.q
+        sort_by_desc: tools.sort_by_desc
+        ls_user_ids: tools.ls_user_ids
+        user_ids: tools.user_ids
+        is_disabled: tools.is_disabled
+        sort_by: tools.sort_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-members-current-workspace-batch
+      description: Add Members To Current Workspace Batch
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.addmemberstocurrentworkspacebatchapiv1workspacescurrentmembersbatchpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-pending-workspace-members
+      description: Get Current Pending Workspace Members
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getcurrentpendingworkspacemembersapiv1workspacescurrentmemberspendingget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        emails: tools.emails
+        q: tools.q
+        sort_by_desc: tools.sort_by_desc
+        sort_by: tools.sort_by
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-current-workspace-member
+      description: Delete Current Workspace Member
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deletecurrentworkspacememberapiv1workspacescurrentmembersidentityiddelete
+      with:
+        identity_id: tools.identity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: patch-current-workspace-member
+      description: Patch Current Workspace Member
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.patchcurrentworkspacememberapiv1workspacescurrentmembersidentityidpatch
+      with:
+        identity_id: tools.identity_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-current-workspace-pending-member
+      description: Delete Current Workspace Pending Member
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deletecurrentworkspacependingmemberapiv1workspacescurrentmembersidentityidpendingdelete
+      with:
+        identity_id: tools.identity_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-current-workspace-secrets
+      description: List Current Workspace Secrets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listcurrentworkspacesecretsapiv1workspacescurrentsecretsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upsert-current-workspace-secrets
+      description: Upsert Current Workspace Secrets
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.upsertcurrentworkspacesecretsapiv1workspacescurrentsecretspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-workspace-encrypted-secrets
+      description: Get Current Workspace Encrypted Secrets
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getcurrentworkspaceencryptedsecretsapiv1workspacescurrentsecretsencryptedget
+      with:
+        service: tools.service
+        key_names: tools.key_names
+        expand_iam_role: tools.expand_iam_role
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-shared-tokens
+      description: Get Shared Tokens
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getsharedtokensapiv1workspacescurrentsharedget
+      with:
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: bulk-unshare-entities
+      description: Bulk Unshare Entities
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.bulkunshareentitiesapiv1workspacescurrentshareddelete
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-workspace-stats
+      description: Get Current Workspace Stats
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getcurrentworkspacestatsapiv1workspacescurrentstatsget
+      with:
+        tag_value_id: tools.tag_value_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tag-keys
+      description: List Tag Keys
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listtagkeysapiv1workspacescurrenttagkeysget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-tag-key
+      description: Create Tag Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.createtagkeyapiv1workspacescurrenttagkeyspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-tag-key
+      description: Update Tag Key
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.updatetagkeyapiv1workspacescurrenttagkeystagkeyidpatch
+      with:
+        tag_key_id: tools.tag_key_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tag-key
+      description: Get Tag Key
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.gettagkeyapiv1workspacescurrenttagkeystagkeyidget
+      with:
+        tag_key_id: tools.tag_key_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tag-key
+      description: Delete Tag Key
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deletetagkeyapiv1workspacescurrenttagkeystagkeyiddelete
+      with:
+        tag_key_id: tools.tag_key_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-tag-value
+      description: Create Tag Value
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.createtagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluespost
+      with:
+        tag_key_id: tools.tag_key_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tag-values
+      description: List Tag Values
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listtagvaluesapiv1workspacescurrenttagkeystagkeyidtagvaluesget
+      with:
+        tag_key_id: tools.tag_key_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tag-value
+      description: Get Tag Value
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.gettagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidget
+      with:
+        tag_key_id: tools.tag_key_id
+        tag_value_id: tools.tag_value_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-tag-value
+      description: Update Tag Value
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.updatetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueidpatch
+      with:
+        tag_key_id: tools.tag_key_id
+        tag_value_id: tools.tag_value_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tag-value
+      description: Delete Tag Value
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deletetagvalueapiv1workspacescurrenttagkeystagkeyidtagvaluestagvalueiddelete
+      with:
+        tag_key_id: tools.tag_key_id
+        tag_value_id: tools.tag_value_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-tagging
+      description: Create Tagging
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.createtaggingapiv1workspacescurrenttaggingspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-taggings
+      description: List Taggings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listtaggingsapiv1workspacescurrenttaggingsget
+      with:
+        tag_value_id: tools.tag_value_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tagging
+      description: Delete Tagging
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deletetaggingapiv1workspacescurrenttaggingstaggingiddelete
+      with:
+        tagging_id: tools.tagging_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tags
+      description: List Tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listtagsapiv1workspacescurrenttagsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tags-resource
+      description: List Tags For Resource
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listtagsforresourceapiv1workspacescurrenttagsresourceget
+      with:
+        resource_type: tools.resource_type
+        resource_id: tools.resource_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-tags-resources
+      description: List Tags For Resources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.listtagsforresourcesapiv1workspacescurrenttagsresourcespost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-current-workspace-usage-limits
+      description: Get Current Workspace Usage Limits Info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.getcurrentworkspaceusagelimitsinfoapiv1workspacescurrentusagelimitsget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-pending-workspace-invites
+      description: List Pending Workspace Invites
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.listpendingworkspaceinvitesapiv1workspacespendingget
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-pending-workspace-invite
+      description: Delete Pending Workspace Invite
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deletependingworkspaceinviteapiv1workspacespendingiddelete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: claim-pending-workspace-invite
+      description: Claim Pending Workspace Invite
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-workspaces.claimpendingworkspaceinviteapiv1workspacespendingworkspaceidclaimpost
+      with:
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: patch-workspace
+      description: Patch Workspace
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-workspaces.patchworkspaceapiv1workspacesworkspaceidpatch
+      with:
+        workspace_id: tools.workspace_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-workspace
+      description: Delete Workspace
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-workspaces.deleteworkspaceapiv1workspacesworkspaceiddelete
+      with:
+        workspace_id: tools.workspace_id
+      outputParameters:
+      - type: object
+        mapping: $.

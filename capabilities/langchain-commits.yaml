@@ -1,0 +1,238 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — commits
+  description: 'LangSmith — commits. 3 operations. Lead operation: List commits. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - commits
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-commits
+    baseUri: ''
+    description: LangSmith — commits business capability. Self-contained, no shared references.
+    resources:
+    - name: commits-owner-repo
+      path: /commits/{owner}/{repo}
+      operations:
+      - name: get
+        method: GET
+        description: List commits
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Repository owner (tenant handle) or '-' for private repos
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Repository handle
+          required: true
+        - name: include_stats
+          in: query
+          type: boolean
+          description: IncludeStats determines whether to compute num_downloads and num_views
+        - name: limit
+          in: query
+          type: integer
+          description: Limit is the pagination limit
+        - name: offset
+          in: query
+          type: integer
+          description: Offset is the pagination offset
+        - name: tag
+          in: query
+          type: string
+          description: Tag filters commits to only those with a specific tag (e.g. "production", "staging")
+      - name: post
+        method: POST
+        description: Create a commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Repository owner (tenant handle) or '-' for private repos
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Repository handle
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: commits-owner-repo-commit
+      path: /commits/{owner}/{repo}/{commit}
+      operations:
+      - name: get
+        method: GET
+        description: Get a commit
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          description: Repository owner (tenant handle) or '-' for private repos
+          required: true
+        - name: repo
+          in: path
+          type: string
+          description: Repository handle
+          required: true
+        - name: commit
+          in: path
+          type: string
+          description: Commit hash, tag, or 'latest'
+          required: true
+        - name: get_examples
+          in: query
+          type: boolean
+        - name: include
+          in: query
+          type: string
+          description: 'Comma-separated list of optional fields: "model", "is_draft"'
+        - name: include_model
+          in: query
+          type: boolean
+          description: 'Deprecated: use Include instead'
+        - name: is_view
+          in: query
+          type: boolean
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-commits-rest
+    port: 8080
+    description: REST adapter for LangSmith — commits. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/commits/{owner}/{repo}
+      name: commits-owner-repo
+      description: REST surface for commits-owner-repo.
+      operations:
+      - method: GET
+        name: get
+        description: List commits
+        call: langchain-commits.get
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          include_stats: rest.include_stats
+          limit: rest.limit
+          offset: rest.offset
+          tag: rest.tag
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create a commit
+        call: langchain-commits.post
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/commits/{owner}/{repo}/{commit}
+      name: commits-owner-repo-commit
+      description: REST surface for commits-owner-repo-commit.
+      operations:
+      - method: GET
+        name: get
+        description: Get a commit
+        call: langchain-commits.get
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          commit: rest.commit
+          get_examples: rest.get_examples
+          include: rest.include
+          include_model: rest.include_model
+          is_view: rest.is_view
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-commits-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — commits. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-commits
+      description: List commits
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-commits.get
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        include_stats: tools.include_stats
+        limit: tools.limit
+        offset: tools.offset
+        tag: tools.tag
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-commit
+      description: Create a commit
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-commits.post
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-commit
+      description: Get a commit
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-commits.get
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        commit: tools.commit
+        get_examples: tools.get_examples
+        include: tools.include
+        include_model: tools.include_model
+        is_view: tools.is_view
+      outputParameters:
+      - type: object
+        mapping: $.

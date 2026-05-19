@@ -1,0 +1,157 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — threads
+  description: 'LangSmith — threads. 2 operations. Lead operation: Query Threads. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - threads
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-threads
+    baseUri: ''
+    description: LangSmith — threads business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-threads-query
+      path: /v2/threads/query
+      operations:
+      - name: post
+        method: POST
+        description: Query Threads
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-threads-thread_id-traces
+      path: /v2/threads/{thread_id}/traces
+      operations:
+      - name: get
+        method: GET
+        description: Query Thread Traces
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: thread_id
+          in: path
+          type: string
+          description: Thread ID
+          required: true
+        - name: cursor
+          in: query
+          type: string
+          description: '`cursor` is the opaque string from a previous response''s `next_cursor`. Omit on the first request;
+            pass the returned cursor to fetch the next page.'
+        - name: filter
+          in: query
+          type: string
+          description: '`filter` narrows which traces are returned for this thread, using a LangSmith filter expression evaluated
+            against each root trace run.'
+        - name: page_size
+          in: query
+          type: integer
+          description: '`page_size` is the maximum number of traces to return in this response. Defaults to 20 when omitted;
+            must be between 1 and 100 inclusive when set.'
+        - name: project_id
+          in: query
+          type: string
+          description: '`project_id` is the tracing project UUID (required).'
+          required: true
+        - name: selects
+          in: query
+          type: array
+          description: '`selects` lists which properties to include on each returned trace (repeatable query parameter). Accepts
+            any value of the `ThreadTraceSelectField` enum. Propert'
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-threads-rest
+    port: 8080
+    description: REST adapter for LangSmith — threads. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v2/threads/query
+      name: v2-threads-query
+      description: REST surface for v2-threads-query.
+      operations:
+      - method: POST
+        name: post
+        description: Query Threads
+        call: langchain-threads.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/threads/{thread-id}/traces
+      name: v2-threads-thread-id-traces
+      description: REST surface for v2-threads-thread_id-traces.
+      operations:
+      - method: GET
+        name: get
+        description: Query Thread Traces
+        call: langchain-threads.get
+        with:
+          thread_id: rest.thread_id
+          cursor: rest.cursor
+          filter: rest.filter
+          page_size: rest.page_size
+          project_id: rest.project_id
+          selects: rest.selects
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-threads-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — threads. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: query-threads
+      description: Query Threads
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: langchain-threads.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: query-thread-traces
+      description: Query Thread Traces
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-threads.get
+      with:
+        thread_id: tools.thread_id
+        cursor: tools.cursor
+        filter: tools.filter
+        page_size: tools.page_size
+        project_id: tools.project_id
+        selects: tools.selects
+      outputParameters:
+      - type: object
+        mapping: $.

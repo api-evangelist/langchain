@@ -1,0 +1,92 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — likes
+  description: 'LangSmith — likes. 1 operations. Lead operation: Like Repo. Self-contained Naftiko capability covering one
+    Langchain business surface.'
+  tags:
+  - Langchain
+  - likes
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-likes
+    baseUri: ''
+    description: LangSmith — likes business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-likes-owner-repo
+      path: /api/v1/likes/{owner}/{repo}
+      operations:
+      - name: likerepoapiv1likesownerrepopost
+        method: POST
+        description: Like Repo
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-likes-rest
+    port: 8080
+    description: REST adapter for LangSmith — likes. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/likes/{owner}/{repo}
+      name: api-v1-likes-owner-repo
+      description: REST surface for api-v1-likes-owner-repo.
+      operations:
+      - method: POST
+        name: likerepoapiv1likesownerrepopost
+        description: Like Repo
+        call: langchain-likes.likerepoapiv1likesownerrepopost
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-likes-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — likes. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: like-repo
+      description: Like Repo
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-likes.likerepoapiv1likesownerrepopost
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

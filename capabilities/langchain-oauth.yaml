@@ -1,0 +1,356 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — oauth
+  description: 'LangSmith — oauth. 7 operations. Lead operation: Get OAuth2 authorization server metadata. Self-contained
+    Naftiko capability covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - oauth
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-oauth
+    baseUri: ''
+    description: LangSmith — oauth business capability. Self-contained, no shared references.
+    resources:
+    - name: .well-known-oauth-authorization-server
+      path: /.well-known/oauth-authorization-server
+      operations:
+      - name: get
+        method: GET
+        description: Get OAuth2 authorization server metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: oauth-authorize
+      path: /oauth/authorize
+      operations:
+      - name: get
+        method: GET
+        description: Initiate OAuth2 authorization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: response_type
+          in: query
+          type: string
+          description: Must be 'code'
+          required: true
+        - name: client_id
+          in: query
+          type: string
+          description: OAuth2 client ID
+          required: true
+        - name: redirect_uri
+          in: query
+          type: string
+          description: Redirect URI registered with the client
+          required: true
+        - name: code_challenge
+          in: query
+          type: string
+          description: PKCE code challenge
+          required: true
+        - name: code_challenge_method
+          in: query
+          type: string
+          description: PKCE method, must be 'S256'
+          required: true
+        - name: state
+          in: query
+          type: string
+          description: Opaque state value to prevent CSRF
+    - name: oauth-authorize-approve
+      path: /oauth/authorize/approve
+      operations:
+      - name: post
+        method: POST
+        description: Approve OAuth2 authorization request
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: oauth-device-authorize
+      path: /oauth/device/authorize
+      operations:
+      - name: post
+        method: POST
+        description: Authorize a device code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: oauth-device-code
+      path: /oauth/device/code
+      operations:
+      - name: post
+        method: POST
+        description: Request OAuth2 device authorization
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: oauth-revoke
+      path: /oauth/revoke
+      operations:
+      - name: post
+        method: POST
+        description: Revoke an OAuth2 token
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: oauth-token
+      path: /oauth/token
+      operations:
+      - name: post
+        method: POST
+        description: Exchange grant for OAuth2 tokens
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-oauth-rest
+    port: 8080
+    description: REST adapter for LangSmith — oauth. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/well-known/oauth-authorization-server
+      name: well-known-oauth-authorization-server
+      description: REST surface for .well-known-oauth-authorization-server.
+      operations:
+      - method: GET
+        name: get
+        description: Get OAuth2 authorization server metadata
+        call: langchain-oauth.get
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth/authorize
+      name: oauth-authorize
+      description: REST surface for oauth-authorize.
+      operations:
+      - method: GET
+        name: get
+        description: Initiate OAuth2 authorization
+        call: langchain-oauth.get
+        with:
+          response_type: rest.response_type
+          client_id: rest.client_id
+          redirect_uri: rest.redirect_uri
+          code_challenge: rest.code_challenge
+          code_challenge_method: rest.code_challenge_method
+          state: rest.state
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth/authorize/approve
+      name: oauth-authorize-approve
+      description: REST surface for oauth-authorize-approve.
+      operations:
+      - method: POST
+        name: post
+        description: Approve OAuth2 authorization request
+        call: langchain-oauth.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth/device/authorize
+      name: oauth-device-authorize
+      description: REST surface for oauth-device-authorize.
+      operations:
+      - method: POST
+        name: post
+        description: Authorize a device code
+        call: langchain-oauth.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth/device/code
+      name: oauth-device-code
+      description: REST surface for oauth-device-code.
+      operations:
+      - method: POST
+        name: post
+        description: Request OAuth2 device authorization
+        call: langchain-oauth.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth/revoke
+      name: oauth-revoke
+      description: REST surface for oauth-revoke.
+      operations:
+      - method: POST
+        name: post
+        description: Revoke an OAuth2 token
+        call: langchain-oauth.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/oauth/token
+      name: oauth-token
+      description: REST surface for oauth-token.
+      operations:
+      - method: POST
+        name: post
+        description: Exchange grant for OAuth2 tokens
+        call: langchain-oauth.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-oauth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — oauth. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-oauth2-authorization-server-metadata
+      description: Get OAuth2 authorization server metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-oauth.get
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: initiate-oauth2-authorization
+      description: Initiate OAuth2 authorization
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-oauth.get
+      with:
+        response_type: tools.response_type
+        client_id: tools.client_id
+        redirect_uri: tools.redirect_uri
+        code_challenge: tools.code_challenge
+        code_challenge_method: tools.code_challenge_method
+        state: tools.state
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: approve-oauth2-authorization-request
+      description: Approve OAuth2 authorization request
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-oauth.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: authorize-device-code
+      description: Authorize a device code
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-oauth.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: request-oauth2-device-authorization
+      description: Request OAuth2 device authorization
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-oauth.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: revoke-oauth2-token
+      description: Revoke an OAuth2 token
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-oauth.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: exchange-grant-oauth2-tokens
+      description: Exchange grant for OAuth2 tokens
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-oauth.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

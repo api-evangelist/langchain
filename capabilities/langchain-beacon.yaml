@@ -1,0 +1,80 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — beacon
+  description: 'LangSmith — beacon. 1 operations. Lead operation: Submit a self-hosted usage snapshot. Self-contained Naftiko
+    capability covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - beacon
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-beacon
+    baseUri: ''
+    description: LangSmith — beacon business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-beacon-usage-snapshot
+      path: /v1/beacon/usage-snapshot
+      operations:
+      - name: post
+        method: POST
+        description: Submit a self-hosted usage snapshot
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-beacon-rest
+    port: 8080
+    description: REST adapter for LangSmith — beacon. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/beacon/usage-snapshot
+      name: v1-beacon-usage-snapshot
+      description: REST surface for v1-beacon-usage-snapshot.
+      operations:
+      - method: POST
+        name: post
+        description: Submit a self-hosted usage snapshot
+        call: langchain-beacon.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-beacon-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — beacon. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: submit-self-hosted-usage-snapshot
+      description: Submit a self-hosted usage snapshot
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-beacon.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,342 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — fleet mcp
+  description: 'LangSmith — fleet mcp. 7 operations. Lead operation: List MCP tools. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - fleet mcp
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-fleet-mcp
+    baseUri: ''
+    description: LangSmith — fleet mcp business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-fleet-mcp-tools
+      path: /v1/fleet/mcp/tools
+      operations:
+      - name: get
+        method: GET
+        description: List MCP tools
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: url
+          in: query
+          type: string
+          description: MCP server URL to fetch tools from
+          required: true
+        - name: oauth_provider_id
+          in: query
+          type: string
+          description: OAuth provider ID for token-based auth
+        - name: force_refresh
+          in: query
+          type: boolean
+          description: Skip cache and fetch fresh tools
+        - name: ls_user_id
+          in: query
+          type: string
+          description: User ID override (service-key callers)
+    - name: v1-platform-fleet-mcp-servers
+      path: /v1/platform/fleet/mcp-servers
+      operations:
+      - name: get
+        method: GET
+        description: List MCP servers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-Ls-User-Id
+          in: header
+          type: string
+          description: User UUID for per-user OAuth resolution (service keys)
+      - name: post
+        method: POST
+        description: Create MCP server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-fleet-mcp-servers-mcp_server_id
+      path: /v1/platform/fleet/mcp-servers/{mcp_server_id}
+      operations:
+      - name: get
+        method: GET
+        description: Get MCP server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: mcp_server_id
+          in: path
+          type: string
+          description: MCP server ID
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete MCP server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: mcp_server_id
+          in: path
+          type: string
+          description: MCP server ID
+          required: true
+      - name: patch
+        method: PATCH
+        description: Update MCP server
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: mcp_server_id
+          in: path
+          type: string
+          description: MCP server ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-fleet-mcp-servers-mcp_server_id-oauth-provider
+      path: /v1/platform/fleet/mcp-servers/{mcp_server_id}/oauth-provider
+      operations:
+      - name: post
+        method: POST
+        description: Register per-user MCP OAuth provider
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: mcp_server_id
+          in: path
+          type: string
+          description: MCP server ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-fleet-mcp-rest
+    port: 8080
+    description: REST adapter for LangSmith — fleet mcp. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/fleet/mcp/tools
+      name: v1-fleet-mcp-tools
+      description: REST surface for v1-fleet-mcp-tools.
+      operations:
+      - method: GET
+        name: get
+        description: List MCP tools
+        call: langchain-fleet-mcp.get
+        with:
+          url: rest.url
+          oauth_provider_id: rest.oauth_provider_id
+          force_refresh: rest.force_refresh
+          ls_user_id: rest.ls_user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/fleet/mcp-servers
+      name: v1-platform-fleet-mcp-servers
+      description: REST surface for v1-platform-fleet-mcp-servers.
+      operations:
+      - method: GET
+        name: get
+        description: List MCP servers
+        call: langchain-fleet-mcp.get
+        with:
+          X-Ls-User-Id: rest.X-Ls-User-Id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create MCP server
+        call: langchain-fleet-mcp.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/fleet/mcp-servers/{mcp-server-id}
+      name: v1-platform-fleet-mcp-servers-mcp-server-id
+      description: REST surface for v1-platform-fleet-mcp-servers-mcp_server_id.
+      operations:
+      - method: GET
+        name: get
+        description: Get MCP server
+        call: langchain-fleet-mcp.get
+        with:
+          mcp_server_id: rest.mcp_server_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete MCP server
+        call: langchain-fleet-mcp.delete
+        with:
+          mcp_server_id: rest.mcp_server_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patch
+        description: Update MCP server
+        call: langchain-fleet-mcp.patch
+        with:
+          mcp_server_id: rest.mcp_server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/fleet/mcp-servers/{mcp-server-id}/oauth-provider
+      name: v1-platform-fleet-mcp-servers-mcp-server-id-oauth-provider
+      description: REST surface for v1-platform-fleet-mcp-servers-mcp_server_id-oauth-provider.
+      operations:
+      - method: POST
+        name: post
+        description: Register per-user MCP OAuth provider
+        call: langchain-fleet-mcp.post
+        with:
+          mcp_server_id: rest.mcp_server_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-fleet-mcp-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — fleet mcp. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-mcp-tools
+      description: List MCP tools
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-fleet-mcp.get
+      with:
+        url: tools.url
+        oauth_provider_id: tools.oauth_provider_id
+        force_refresh: tools.force_refresh
+        ls_user_id: tools.ls_user_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-mcp-servers
+      description: List MCP servers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-fleet-mcp.get
+      with:
+        X-Ls-User-Id: tools.X-Ls-User-Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-mcp-server
+      description: Create MCP server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-fleet-mcp.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-mcp-server
+      description: Get MCP server
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-fleet-mcp.get
+      with:
+        mcp_server_id: tools.mcp_server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-mcp-server
+      description: Delete MCP server
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-fleet-mcp.delete
+      with:
+        mcp_server_id: tools.mcp_server_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-mcp-server
+      description: Update MCP server
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-fleet-mcp.patch
+      with:
+        mcp_server_id: tools.mcp_server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: register-per-user-mcp-oauth
+      description: Register per-user MCP OAuth provider
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-fleet-mcp.post
+      with:
+        mcp_server_id: tools.mcp_server_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

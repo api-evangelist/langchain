@@ -1,0 +1,136 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — annotation_queues
+  description: 'LangSmith — annotation_queues. 2 operations. Lead operation: Add a reviewer to an annotation queue. Self-contained
+    Naftiko capability covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - annotation_queues
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-annotation-queues-2
+    baseUri: ''
+    description: LangSmith — annotation_queues business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-annotation-queues-queue_id-reviewers
+      path: /v1/platform/annotation-queues/{queue_id}/reviewers
+      operations:
+      - name: post
+        method: POST
+        description: Add a reviewer to an annotation queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queue_id
+          in: path
+          type: string
+          description: Queue ID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-annotation-queues-queue_id-reviewers-identity_id
+      path: /v1/platform/annotation-queues/{queue_id}/reviewers/{identity_id}
+      operations:
+      - name: delete
+        method: DELETE
+        description: Remove a reviewer from an annotation queue
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queue_id
+          in: path
+          type: string
+          description: Queue ID
+          required: true
+        - name: identity_id
+          in: path
+          type: string
+          description: Identity ID of the reviewer to remove
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-annotation-queues-2-rest
+    port: 8080
+    description: REST adapter for LangSmith — annotation_queues. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/platform/annotation-queues/{queue-id}/reviewers
+      name: v1-platform-annotation-queues-queue-id-reviewers
+      description: REST surface for v1-platform-annotation-queues-queue_id-reviewers.
+      operations:
+      - method: POST
+        name: post
+        description: Add a reviewer to an annotation queue
+        call: langchain-annotation-queues-2.post
+        with:
+          queue_id: rest.queue_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/annotation-queues/{queue-id}/reviewers/{identity-id}
+      name: v1-platform-annotation-queues-queue-id-reviewers-identity-id
+      description: REST surface for v1-platform-annotation-queues-queue_id-reviewers-identity_id.
+      operations:
+      - method: DELETE
+        name: delete
+        description: Remove a reviewer from an annotation queue
+        call: langchain-annotation-queues-2.delete
+        with:
+          queue_id: rest.queue_id
+          identity_id: rest.identity_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-annotation-queues-2-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — annotation_queues. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: add-reviewer-annotation-queue
+      description: Add a reviewer to an annotation queue
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-annotation-queues-2.post
+      with:
+        queue_id: tools.queue_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-reviewer-annotation-queue
+      description: Remove a reviewer from an annotation queue
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-annotation-queues-2.delete
+      with:
+        queue_id: tools.queue_id
+        identity_id: tools.identity_id
+      outputParameters:
+      - type: object
+        mapping: $.

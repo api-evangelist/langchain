@@ -1,0 +1,311 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — auth
+  description: 'LangSmith — auth. 7 operations. Lead operation: Login. Self-contained Naftiko capability covering one Langchain
+    business surface.'
+  tags:
+  - Langchain
+  - auth
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-auth
+    baseUri: ''
+    description: LangSmith — auth business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-login
+      path: /api/v1/login
+      operations:
+      - name: loginapiv1loginpost
+        method: POST
+        description: Login
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: api-v1-sso-email-lookup
+      path: /api/v1/sso/email-lookup
+      operations:
+      - name: lookupssobyemailapiv1ssoemaillookuppost
+        method: POST
+        description: Lookup Sso By Email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sso-email-verification-confirm
+      path: /api/v1/sso/email-verification/confirm
+      operations:
+      - name: confirmssouseremailapiv1ssoemailverificationconfirmpost
+        method: POST
+        description: Confirm Sso User Email
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sso-email-verification-send
+      path: /api/v1/sso/email-verification/send
+      operations:
+      - name: sendssoemailconfirmationapiv1ssoemailverificationsendpost
+        method: POST
+        description: Send Sso Email Confirmation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sso-email-verification-status
+      path: /api/v1/sso/email-verification/status
+      operations:
+      - name: checkssoemailverificationstatusapiv1ssoemailverificationstatuspost
+        method: POST
+        description: Check Sso Email Verification Status
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sso-settings-sso_login_slug
+      path: /api/v1/sso/settings/{sso_login_slug}
+      operations:
+      - name: getssosettingsapiv1ssosettingsssologinslugget
+        method: GET
+        description: Get Sso Settings
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sso_login_slug
+          in: path
+          type: string
+          required: true
+    - name: auth-public
+      path: /auth/public
+      operations:
+      - name: get
+        method: GET
+        description: Get public auth info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-auth-rest
+    port: 8080
+    description: REST adapter for LangSmith — auth. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/login
+      name: api-v1-login
+      description: REST surface for api-v1-login.
+      operations:
+      - method: POST
+        name: loginapiv1loginpost
+        description: Login
+        call: langchain-auth.loginapiv1loginpost
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sso/email-lookup
+      name: api-v1-sso-email-lookup
+      description: REST surface for api-v1-sso-email-lookup.
+      operations:
+      - method: POST
+        name: lookupssobyemailapiv1ssoemaillookuppost
+        description: Lookup Sso By Email
+        call: langchain-auth.lookupssobyemailapiv1ssoemaillookuppost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sso/email-verification/confirm
+      name: api-v1-sso-email-verification-confirm
+      description: REST surface for api-v1-sso-email-verification-confirm.
+      operations:
+      - method: POST
+        name: confirmssouseremailapiv1ssoemailverificationconfirmpost
+        description: Confirm Sso User Email
+        call: langchain-auth.confirmssouseremailapiv1ssoemailverificationconfirmpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sso/email-verification/send
+      name: api-v1-sso-email-verification-send
+      description: REST surface for api-v1-sso-email-verification-send.
+      operations:
+      - method: POST
+        name: sendssoemailconfirmationapiv1ssoemailverificationsendpost
+        description: Send Sso Email Confirmation
+        call: langchain-auth.sendssoemailconfirmationapiv1ssoemailverificationsendpost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sso/email-verification/status
+      name: api-v1-sso-email-verification-status
+      description: REST surface for api-v1-sso-email-verification-status.
+      operations:
+      - method: POST
+        name: checkssoemailverificationstatusapiv1ssoemailverificationstatuspost
+        description: Check Sso Email Verification Status
+        call: langchain-auth.checkssoemailverificationstatusapiv1ssoemailverificationstatuspost
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sso/settings/{sso-login-slug}
+      name: api-v1-sso-settings-sso-login-slug
+      description: REST surface for api-v1-sso-settings-sso_login_slug.
+      operations:
+      - method: GET
+        name: getssosettingsapiv1ssosettingsssologinslugget
+        description: Get Sso Settings
+        call: langchain-auth.getssosettingsapiv1ssosettingsssologinslugget
+        with:
+          sso_login_slug: rest.sso_login_slug
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/auth/public
+      name: auth-public
+      description: REST surface for auth-public.
+      operations:
+      - method: GET
+        name: get
+        description: Get public auth info
+        call: langchain-auth.get
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-auth-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — auth. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: login
+      description: Login
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-auth.loginapiv1loginpost
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: lookup-sso-email
+      description: Lookup Sso By Email
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: langchain-auth.lookupssobyemailapiv1ssoemaillookuppost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: confirm-sso-user-email
+      description: Confirm Sso User Email
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-auth.confirmssouseremailapiv1ssoemailverificationconfirmpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: send-sso-email-confirmation
+      description: Send Sso Email Confirmation
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-auth.sendssoemailconfirmationapiv1ssoemailverificationsendpost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: check-sso-email-verification-status
+      description: Check Sso Email Verification Status
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: langchain-auth.checkssoemailverificationstatusapiv1ssoemailverificationstatuspost
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-sso-settings
+      description: Get Sso Settings
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-auth.getssosettingsapiv1ssosettingsssologinslugget
+      with:
+        sso_login_slug: tools.sso_login_slug
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-public-auth-info
+      description: Get public auth info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-auth.get
+      outputParameters:
+      - type: object
+        mapping: $.

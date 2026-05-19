@@ -1,0 +1,364 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — tools
+  description: 'LangSmith — tools. 8 operations. Lead operation: List tools. Self-contained Naftiko capability covering one
+    Langchain business surface.'
+  tags:
+  - Langchain
+  - tools
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-tools
+    baseUri: ''
+    description: LangSmith — tools business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-tools
+      path: /v1/platform/tools
+      operations:
+      - name: get
+        method: GET
+        description: List tools
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of tools to return
+        - name: offset
+          in: query
+          type: integer
+          description: Number of tools to skip
+        - name: query
+          in: query
+          type: string
+          description: Search query to filter tools by name or description
+      - name: post
+        method: POST
+        description: Create a tool
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-tools-id-id
+      path: /v1/platform/tools/id/{id}
+      operations:
+      - name: get
+        method: GET
+        description: Get a tool by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Tool UUID
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete a tool by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Tool UUID
+          required: true
+      - name: patch
+        method: PATCH
+        description: Update a tool by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Tool UUID
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v1-platform-tools-handle
+      path: /v1/platform/tools/{handle}
+      operations:
+      - name: get
+        method: GET
+        description: Get a tool by handle
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: handle
+          in: path
+          type: string
+          description: Tool handle
+          required: true
+      - name: delete
+        method: DELETE
+        description: Delete a tool by handle
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: handle
+          in: path
+          type: string
+          description: Tool handle
+          required: true
+      - name: patch
+        method: PATCH
+        description: Update a tool by handle
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: handle
+          in: path
+          type: string
+          description: Tool handle
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-tools-rest
+    port: 8080
+    description: REST adapter for LangSmith — tools. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/v1/platform/tools
+      name: v1-platform-tools
+      description: REST surface for v1-platform-tools.
+      operations:
+      - method: GET
+        name: get
+        description: List tools
+        call: langchain-tools.get
+        with:
+          limit: rest.limit
+          offset: rest.offset
+          query: rest.query
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: post
+        description: Create a tool
+        call: langchain-tools.post
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/tools/id/{id}
+      name: v1-platform-tools-id-id
+      description: REST surface for v1-platform-tools-id-id.
+      operations:
+      - method: GET
+        name: get
+        description: Get a tool by ID
+        call: langchain-tools.get
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete a tool by ID
+        call: langchain-tools.delete
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patch
+        description: Update a tool by ID
+        call: langchain-tools.patch
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v1/platform/tools/{handle}
+      name: v1-platform-tools-handle
+      description: REST surface for v1-platform-tools-handle.
+      operations:
+      - method: GET
+        name: get
+        description: Get a tool by handle
+        call: langchain-tools.get
+        with:
+          handle: rest.handle
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: delete
+        description: Delete a tool by handle
+        call: langchain-tools.delete
+        with:
+          handle: rest.handle
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: patch
+        description: Update a tool by handle
+        call: langchain-tools.patch
+        with:
+          handle: rest.handle
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-tools-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — tools. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: list-tools
+      description: List tools
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tools.get
+      with:
+        limit: tools.limit
+        offset: tools.offset
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-tool
+      description: Create a tool
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-tools.post
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tool-id
+      description: Get a tool by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tools.get
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tool-id
+      description: Delete a tool by ID
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tools.delete
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-tool-id
+      description: Update a tool by ID
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tools.patch
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tool-handle
+      description: Get a tool by handle
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tools.get
+      with:
+        handle: tools.handle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tool-handle
+      description: Delete a tool by handle
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tools.delete
+      with:
+        handle: tools.handle
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-tool-handle
+      description: Update a tool by handle
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tools.patch
+      with:
+        handle: tools.handle
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

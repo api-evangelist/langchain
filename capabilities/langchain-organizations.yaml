@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — Organizations
+  description: 'LangSmith — Organizations. 1 operations. Lead operation: Get current organization info. Self-contained Naftiko
+    capability covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - Organizations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-organizations
+    baseUri: ''
+    description: LangSmith — Organizations business capability. Self-contained, no shared references.
+    resources:
+    - name: v1-platform-orgs-current-info
+      path: /v1/platform/orgs/current/info
+      operations:
+      - name: get
+        method: GET
+        description: Get current organization info
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-organizations-rest
+    port: 8080
+    description: REST adapter for LangSmith — Organizations. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/v1/platform/orgs/current/info
+      name: v1-platform-orgs-current-info
+      description: REST surface for v1-platform-orgs-current-info.
+      operations:
+      - method: GET
+        name: get
+        description: Get current organization info
+        call: langchain-organizations.get
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — Organizations. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-current-organization-info
+      description: Get current organization info
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-organizations.get
+      outputParameters:
+      - type: object
+        mapping: $.

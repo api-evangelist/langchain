@@ -1,0 +1,79 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — metrics
+  description: 'LangSmith — metrics. 1 operations. Lead operation: Get Queue Metrics. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - metrics
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-metrics
+    baseUri: ''
+    description: LangSmith — metrics business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-metrics-queue-queue_name
+      path: /api/v1/metrics/queue/{queue_name}
+      operations:
+      - name: getqueuemetricsapiv1metricsqueuequeuenameget
+        method: GET
+        description: Get Queue Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: queue_name
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-metrics-rest
+    port: 8080
+    description: REST adapter for LangSmith — metrics. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/metrics/queue/{queue-name}
+      name: api-v1-metrics-queue-queue-name
+      description: REST surface for api-v1-metrics-queue-queue_name.
+      operations:
+      - method: GET
+        name: getqueuemetricsapiv1metricsqueuequeuenameget
+        description: Get Queue Metrics
+        call: langchain-metrics.getqueuemetricsapiv1metricsqueuequeuenameget
+        with:
+          queue_name: rest.queue_name
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-metrics-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — metrics. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: get-queue-metrics
+      description: Get Queue Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-metrics.getqueuemetricsapiv1metricsqueuequeuenameget
+      with:
+        queue_name: tools.queue_name
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,357 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — comments
+  description: 'LangSmith — comments. 6 operations. Lead operation: Create Comment. Self-contained Naftiko capability covering
+    one Langchain business surface.'
+  tags:
+  - Langchain
+  - comments
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-comments
+    baseUri: ''
+    description: LangSmith — comments business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-comments-owner-repo
+      path: /api/v1/comments/{owner}/{repo}
+      operations:
+      - name: createcommentapiv1commentsownerrepopost
+        method: POST
+        description: Create Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: getcommentsapiv1commentsownerrepoget
+        method: GET
+        description: Get Comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+    - name: api-v1-comments-owner-repo-parent_comment_id
+      path: /api/v1/comments/{owner}/{repo}/{parent_comment_id}
+      operations:
+      - name: getsubcommentsapiv1commentsownerrepoparentcommentidget
+        method: GET
+        description: Get Sub Comments
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: parent_comment_id
+          in: path
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+      - name: createsubcommentapiv1commentsownerrepoparentcommentidpost
+        method: POST
+        description: Create Sub Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: parent_comment_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-comments-owner-repo-parent_comment_id-like
+      path: /api/v1/comments/{owner}/{repo}/{parent_comment_id}/like
+      operations:
+      - name: likecommentapiv1commentsownerrepoparentcommentidlikepost
+        method: POST
+        description: Like Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: parent_comment_id
+          in: path
+          type: string
+          required: true
+      - name: unlikecommentapiv1commentsownerrepoparentcommentidlikedelete
+        method: DELETE
+        description: Unlike Comment
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: owner
+          in: path
+          type: string
+          required: true
+        - name: repo
+          in: path
+          type: string
+          required: true
+        - name: parent_comment_id
+          in: path
+          type: string
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-comments-rest
+    port: 8080
+    description: REST adapter for LangSmith — comments. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/api/v1/comments/{owner}/{repo}
+      name: api-v1-comments-owner-repo
+      description: REST surface for api-v1-comments-owner-repo.
+      operations:
+      - method: POST
+        name: createcommentapiv1commentsownerrepopost
+        description: Create Comment
+        call: langchain-comments.createcommentapiv1commentsownerrepopost
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getcommentsapiv1commentsownerrepoget
+        description: Get Comments
+        call: langchain-comments.getcommentsapiv1commentsownerrepoget
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/comments/{owner}/{repo}/{parent-comment-id}
+      name: api-v1-comments-owner-repo-parent-comment-id
+      description: REST surface for api-v1-comments-owner-repo-parent_comment_id.
+      operations:
+      - method: GET
+        name: getsubcommentsapiv1commentsownerrepoparentcommentidget
+        description: Get Sub Comments
+        call: langchain-comments.getsubcommentsapiv1commentsownerrepoparentcommentidget
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          parent_comment_id: rest.parent_comment_id
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createsubcommentapiv1commentsownerrepoparentcommentidpost
+        description: Create Sub Comment
+        call: langchain-comments.createsubcommentapiv1commentsownerrepoparentcommentidpost
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          parent_comment_id: rest.parent_comment_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/comments/{owner}/{repo}/{parent-comment-id}/like
+      name: api-v1-comments-owner-repo-parent-comment-id-like
+      description: REST surface for api-v1-comments-owner-repo-parent_comment_id-like.
+      operations:
+      - method: POST
+        name: likecommentapiv1commentsownerrepoparentcommentidlikepost
+        description: Like Comment
+        call: langchain-comments.likecommentapiv1commentsownerrepoparentcommentidlikepost
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          parent_comment_id: rest.parent_comment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: unlikecommentapiv1commentsownerrepoparentcommentidlikedelete
+        description: Unlike Comment
+        call: langchain-comments.unlikecommentapiv1commentsownerrepoparentcommentidlikedelete
+        with:
+          owner: rest.owner
+          repo: rest.repo
+          parent_comment_id: rest.parent_comment_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-comments-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — comments. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: create-comment
+      description: Create Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-comments.createcommentapiv1commentsownerrepopost
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-comments
+      description: Get Comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-comments.getcommentsapiv1commentsownerrepoget
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-sub-comments
+      description: Get Sub Comments
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-comments.getsubcommentsapiv1commentsownerrepoparentcommentidget
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        parent_comment_id: tools.parent_comment_id
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-sub-comment
+      description: Create Sub Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-comments.createsubcommentapiv1commentsownerrepoparentcommentidpost
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        parent_comment_id: tools.parent_comment_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: like-comment
+      description: Like Comment
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-comments.likecommentapiv1commentsownerrepoparentcommentidlikepost
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        parent_comment_id: tools.parent_comment_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unlike-comment
+      description: Unlike Comment
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-comments.unlikecommentapiv1commentsownerrepoparentcommentidlikedelete
+      with:
+        owner: tools.owner
+        repo: tools.repo
+        parent_comment_id: tools.parent_comment_id
+      outputParameters:
+      - type: object
+        mapping: $.

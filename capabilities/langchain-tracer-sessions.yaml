@@ -1,0 +1,1357 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: LangSmith — tracer-sessions
+  description: 'LangSmith — tracer-sessions. 26 operations. Lead operation: Read Tracer Sessions. Self-contained Naftiko capability
+    covering one Langchain business surface.'
+  tags:
+  - Langchain
+  - tracer-sessions
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    LANGCHAIN_API_KEY: LANGCHAIN_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: langchain-tracer-sessions
+    baseUri: ''
+    description: LangSmith — tracer-sessions business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v1-sessions
+      path: /api/v1/sessions
+      operations:
+      - name: readtracersessionsapiv1sessionsget
+        method: GET
+        description: Read Tracer Sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: reference_free
+          in: query
+          type: string
+        - name: reference_dataset
+          in: query
+          type: string
+        - name: id
+          in: query
+          type: string
+        - name: name
+          in: query
+          type: string
+        - name: name_contains
+          in: query
+          type: string
+        - name: dataset_version
+          in: query
+          type: string
+        - name: sort_by
+          in: query
+          type: string
+        - name: sort_by_desc
+          in: query
+          type: boolean
+        - name: metadata
+          in: query
+          type: string
+        - name: sort_by_feedback_key
+          in: query
+          type: string
+        - name: offset
+          in: query
+          type: integer
+        - name: limit
+          in: query
+          type: integer
+        - name: tag_value_id
+          in: query
+          type: string
+        - name: facets
+          in: query
+          type: boolean
+        - name: filter
+          in: query
+          type: string
+        - name: include_stats
+          in: query
+          type: boolean
+        - name: use_approx_stats
+          in: query
+          type: boolean
+        - name: stats_start_time
+          in: query
+          type: string
+        - name: stats_select
+          in: query
+          type: string
+        - name: accept
+          in: header
+          type: string
+      - name: createtracersessionapiv1sessionspost
+        method: POST
+        description: Create Tracer Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: upsert
+          in: query
+          type: boolean
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetracersessionsapiv1sessionsdelete
+        method: DELETE
+        description: Delete Tracer Sessions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_ids
+          in: query
+          type: array
+          required: true
+    - name: api-v1-sessions-session_id
+      path: /api/v1/sessions/{session_id}
+      operations:
+      - name: readtracersessionapiv1sessionssessionidget
+        method: GET
+        description: Read Tracer Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: include_stats
+          in: query
+          type: boolean
+        - name: stats_start_time
+          in: query
+          type: string
+        - name: accept
+          in: header
+          type: string
+      - name: updatetracersessionapiv1sessionssessionidpatch
+        method: PATCH
+        description: Update Tracer Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletetracersessionapiv1sessionssessioniddelete
+        method: DELETE
+        description: Delete Tracer Session
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-sessions-session_id-dashboard
+      path: /api/v1/sessions/{session_id}/dashboard
+      operations:
+      - name: gettracingprojectprebuiltdashboardapiv1sessionssessioniddashboardpost
+        method: POST
+        description: Get Tracing Project Prebuilt Dashboard
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: accept
+          in: header
+          type: string
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sessions-session_id-insights
+      path: /api/v1/sessions/{session_id}/insights
+      operations:
+      - name: betagetinsightsjobsapiv1sessionssessionidinsightsget
+        method: GET
+        description: '[Beta] Get Insights Jobs'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: config_id
+          in: query
+          type: string
+        - name: legacy
+          in: query
+          type: string
+      - name: betacreateinsightsjobapiv1sessionssessionidinsightspost
+        method: POST
+        description: '[Beta] Create Insights Job'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sessions-session_id-insights-configs
+      path: /api/v1/sessions/{session_id}/insights/configs
+      operations:
+      - name: betagetinsightsjobconfigsapiv1sessionssessionidinsightsconfigsget
+        method: GET
+        description: '[Beta] Get Insights Job Configs'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: include_prebuilts
+          in: query
+          type: boolean
+      - name: betacreateinsightsjobconfigapiv1sessionssessionidinsightsconfigspost
+        method: POST
+        description: '[Beta] Create Insights Job Config'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sessions-session_id-insights-configs-generate
+      path: /api/v1/sessions/{session_id}/insights/configs/generate
+      operations:
+      - name: betaautogenerateinsightsjobconfigapiv1sessionssessionidinsightsconfigsgeneratepost
+        method: POST
+        description: '[Beta] Auto-Generate Insights Job Config'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sessions-session_id-insights-configs-config_id
+      path: /api/v1/sessions/{session_id}/insights/configs/{config_id}
+      operations:
+      - name: betaupdateinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigidpatch
+        method: PATCH
+        description: '[Beta] Update Insights Job Config'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: config_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: betadeleteinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigiddelete
+        method: DELETE
+        description: '[Beta] Delete Insights Job Config'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: config_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-sessions-session_id-insights-job_id
+      path: /api/v1/sessions/{session_id}/insights/{job_id}
+      operations:
+      - name: betagetinsightsjobapiv1sessionssessionidinsightsjobidget
+        method: GET
+        description: '[Beta] Get Insights Job'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: job_id
+          in: path
+          type: string
+          required: true
+      - name: betaupdateinsightsjobapiv1sessionssessionidinsightsjobidpatch
+        method: PATCH
+        description: '[Beta] Update Insights Job'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: job_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: betadeleteinsightsjobapiv1sessionssessionidinsightsjobiddelete
+        method: DELETE
+        description: '[Beta] Delete Insights Job'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: job_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-sessions-session_id-insights-job_id-clusters-cluster_id
+      path: /api/v1/sessions/{session_id}/insights/{job_id}/clusters/{cluster_id}
+      operations:
+      - name: betagetrunclusterfrominsightsjobapiv1sessionssessionidinsightsjobidclustersclusteridget
+        method: GET
+        description: '[Beta] Get Run Cluster From Insights Job'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: job_id
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-sessions-session_id-insights-job_id-runs
+      path: /api/v1/sessions/{session_id}/insights/{job_id}/runs
+      operations:
+      - name: betagetrunsfrominsightsjobapiv1sessionssessionidinsightsjobidrunsget
+        method: GET
+        description: '[Beta] Get Runs From Insights Job'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: job_id
+          in: path
+          type: string
+          required: true
+        - name: cluster_id
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+        - name: offset
+          in: query
+          type: integer
+        - name: attribute_sort_key
+          in: query
+          type: string
+        - name: attribute_sort_order
+          in: query
+          type: string
+    - name: api-v1-sessions-session_id-metadata
+      path: /api/v1/sessions/{session_id}/metadata
+      operations:
+      - name: readtracersessionsrunsmetadataapiv1sessionssessionidmetadataget
+        method: GET
+        description: Read Tracer Sessions Runs Metadata
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: metadata_keys
+          in: query
+          type: string
+        - name: start_time
+          in: query
+          type: string
+        - name: k
+          in: query
+          type: integer
+        - name: root_runs_only
+          in: query
+          type: boolean
+    - name: api-v1-sessions-session_id-views
+      path: /api/v1/sessions/{session_id}/views
+      operations:
+      - name: readfilterviewsapiv1sessionssessionidviewsget
+        method: GET
+        description: Read Filter Views
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: type
+          in: query
+          type: string
+      - name: createfilterviewapiv1sessionssessionidviewspost
+        method: POST
+        description: Create Filter View
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: api-v1-sessions-session_id-views-view_id
+      path: /api/v1/sessions/{session_id}/views/{view_id}
+      operations:
+      - name: readfilterviewapiv1sessionssessionidviewsviewidget
+        method: GET
+        description: Read Filter View
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: view_id
+          in: path
+          type: string
+          required: true
+      - name: updatefilterviewapiv1sessionssessionidviewsviewidpatch
+        method: PATCH
+        description: Update Filter View
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: view_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletefilterviewapiv1sessionssessionidviewsviewiddelete
+        method: DELETE
+        description: Delete Filter View
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: view_id
+          in: path
+          type: string
+          required: true
+    - name: api-v1-sessions-session_id-views-view_id-rename
+      path: /api/v1/sessions/{session_id}/views/{view_id}/rename
+      operations:
+      - name: renamefilterviewapiv1sessionssessionidviewsviewidrenamepatch
+        method: PATCH
+        description: Rename Filter View
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: session_id
+          in: path
+          type: string
+          required: true
+        - name: view_id
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.LANGCHAIN_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: langchain-tracer-sessions-rest
+    port: 8080
+    description: REST adapter for LangSmith — tracer-sessions. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v1/sessions
+      name: api-v1-sessions
+      description: REST surface for api-v1-sessions.
+      operations:
+      - method: GET
+        name: readtracersessionsapiv1sessionsget
+        description: Read Tracer Sessions
+        call: langchain-tracer-sessions.readtracersessionsapiv1sessionsget
+        with:
+          reference_free: rest.reference_free
+          reference_dataset: rest.reference_dataset
+          id: rest.id
+          name: rest.name
+          name_contains: rest.name_contains
+          dataset_version: rest.dataset_version
+          sort_by: rest.sort_by
+          sort_by_desc: rest.sort_by_desc
+          metadata: rest.metadata
+          sort_by_feedback_key: rest.sort_by_feedback_key
+          offset: rest.offset
+          limit: rest.limit
+          tag_value_id: rest.tag_value_id
+          facets: rest.facets
+          filter: rest.filter
+          include_stats: rest.include_stats
+          use_approx_stats: rest.use_approx_stats
+          stats_start_time: rest.stats_start_time
+          stats_select: rest.stats_select
+          accept: rest.accept
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtracersessionapiv1sessionspost
+        description: Create Tracer Session
+        call: langchain-tracer-sessions.createtracersessionapiv1sessionspost
+        with:
+          upsert: rest.upsert
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetracersessionsapiv1sessionsdelete
+        description: Delete Tracer Sessions
+        call: langchain-tracer-sessions.deletetracersessionsapiv1sessionsdelete
+        with:
+          session_ids: rest.session_ids
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}
+      name: api-v1-sessions-session-id
+      description: REST surface for api-v1-sessions-session_id.
+      operations:
+      - method: GET
+        name: readtracersessionapiv1sessionssessionidget
+        description: Read Tracer Session
+        call: langchain-tracer-sessions.readtracersessionapiv1sessionssessionidget
+        with:
+          session_id: rest.session_id
+          include_stats: rest.include_stats
+          stats_start_time: rest.stats_start_time
+          accept: rest.accept
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatetracersessionapiv1sessionssessionidpatch
+        description: Update Tracer Session
+        call: langchain-tracer-sessions.updatetracersessionapiv1sessionssessionidpatch
+        with:
+          session_id: rest.session_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletetracersessionapiv1sessionssessioniddelete
+        description: Delete Tracer Session
+        call: langchain-tracer-sessions.deletetracersessionapiv1sessionssessioniddelete
+        with:
+          session_id: rest.session_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/dashboard
+      name: api-v1-sessions-session-id-dashboard
+      description: REST surface for api-v1-sessions-session_id-dashboard.
+      operations:
+      - method: POST
+        name: gettracingprojectprebuiltdashboardapiv1sessionssessioniddashboardpost
+        description: Get Tracing Project Prebuilt Dashboard
+        call: langchain-tracer-sessions.gettracingprojectprebuiltdashboardapiv1sessionssessioniddashboardpost
+        with:
+          session_id: rest.session_id
+          accept: rest.accept
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights
+      name: api-v1-sessions-session-id-insights
+      description: REST surface for api-v1-sessions-session_id-insights.
+      operations:
+      - method: GET
+        name: betagetinsightsjobsapiv1sessionssessionidinsightsget
+        description: '[Beta] Get Insights Jobs'
+        call: langchain-tracer-sessions.betagetinsightsjobsapiv1sessionssessionidinsightsget
+        with:
+          session_id: rest.session_id
+          limit: rest.limit
+          offset: rest.offset
+          config_id: rest.config_id
+          legacy: rest.legacy
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: betacreateinsightsjobapiv1sessionssessionidinsightspost
+        description: '[Beta] Create Insights Job'
+        call: langchain-tracer-sessions.betacreateinsightsjobapiv1sessionssessionidinsightspost
+        with:
+          session_id: rest.session_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights/configs
+      name: api-v1-sessions-session-id-insights-configs
+      description: REST surface for api-v1-sessions-session_id-insights-configs.
+      operations:
+      - method: GET
+        name: betagetinsightsjobconfigsapiv1sessionssessionidinsightsconfigsget
+        description: '[Beta] Get Insights Job Configs'
+        call: langchain-tracer-sessions.betagetinsightsjobconfigsapiv1sessionssessionidinsightsconfigsget
+        with:
+          session_id: rest.session_id
+          include_prebuilts: rest.include_prebuilts
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: betacreateinsightsjobconfigapiv1sessionssessionidinsightsconfigspost
+        description: '[Beta] Create Insights Job Config'
+        call: langchain-tracer-sessions.betacreateinsightsjobconfigapiv1sessionssessionidinsightsconfigspost
+        with:
+          session_id: rest.session_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights/configs/generate
+      name: api-v1-sessions-session-id-insights-configs-generate
+      description: REST surface for api-v1-sessions-session_id-insights-configs-generate.
+      operations:
+      - method: POST
+        name: betaautogenerateinsightsjobconfigapiv1sessionssessionidinsightsconfigsgeneratepost
+        description: '[Beta] Auto-Generate Insights Job Config'
+        call: langchain-tracer-sessions.betaautogenerateinsightsjobconfigapiv1sessionssessionidinsightsconfigsgeneratepost
+        with:
+          session_id: rest.session_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights/configs/{config-id}
+      name: api-v1-sessions-session-id-insights-configs-config-id
+      description: REST surface for api-v1-sessions-session_id-insights-configs-config_id.
+      operations:
+      - method: PATCH
+        name: betaupdateinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigidpatch
+        description: '[Beta] Update Insights Job Config'
+        call: langchain-tracer-sessions.betaupdateinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigidpatch
+        with:
+          session_id: rest.session_id
+          config_id: rest.config_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: betadeleteinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigiddelete
+        description: '[Beta] Delete Insights Job Config'
+        call: langchain-tracer-sessions.betadeleteinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigiddelete
+        with:
+          session_id: rest.session_id
+          config_id: rest.config_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights/{job-id}
+      name: api-v1-sessions-session-id-insights-job-id
+      description: REST surface for api-v1-sessions-session_id-insights-job_id.
+      operations:
+      - method: GET
+        name: betagetinsightsjobapiv1sessionssessionidinsightsjobidget
+        description: '[Beta] Get Insights Job'
+        call: langchain-tracer-sessions.betagetinsightsjobapiv1sessionssessionidinsightsjobidget
+        with:
+          session_id: rest.session_id
+          job_id: rest.job_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: betaupdateinsightsjobapiv1sessionssessionidinsightsjobidpatch
+        description: '[Beta] Update Insights Job'
+        call: langchain-tracer-sessions.betaupdateinsightsjobapiv1sessionssessionidinsightsjobidpatch
+        with:
+          session_id: rest.session_id
+          job_id: rest.job_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: betadeleteinsightsjobapiv1sessionssessionidinsightsjobiddelete
+        description: '[Beta] Delete Insights Job'
+        call: langchain-tracer-sessions.betadeleteinsightsjobapiv1sessionssessionidinsightsjobiddelete
+        with:
+          session_id: rest.session_id
+          job_id: rest.job_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights/{job-id}/clusters/{cluster-id}
+      name: api-v1-sessions-session-id-insights-job-id-clusters-cluster-id
+      description: REST surface for api-v1-sessions-session_id-insights-job_id-clusters-cluster_id.
+      operations:
+      - method: GET
+        name: betagetrunclusterfrominsightsjobapiv1sessionssessionidinsightsjobidclustersclusteridget
+        description: '[Beta] Get Run Cluster From Insights Job'
+        call: langchain-tracer-sessions.betagetrunclusterfrominsightsjobapiv1sessionssessionidinsightsjobidclustersclusteridget
+        with:
+          session_id: rest.session_id
+          job_id: rest.job_id
+          cluster_id: rest.cluster_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/insights/{job-id}/runs
+      name: api-v1-sessions-session-id-insights-job-id-runs
+      description: REST surface for api-v1-sessions-session_id-insights-job_id-runs.
+      operations:
+      - method: GET
+        name: betagetrunsfrominsightsjobapiv1sessionssessionidinsightsjobidrunsget
+        description: '[Beta] Get Runs From Insights Job'
+        call: langchain-tracer-sessions.betagetrunsfrominsightsjobapiv1sessionssessionidinsightsjobidrunsget
+        with:
+          session_id: rest.session_id
+          job_id: rest.job_id
+          cluster_id: rest.cluster_id
+          limit: rest.limit
+          offset: rest.offset
+          attribute_sort_key: rest.attribute_sort_key
+          attribute_sort_order: rest.attribute_sort_order
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/metadata
+      name: api-v1-sessions-session-id-metadata
+      description: REST surface for api-v1-sessions-session_id-metadata.
+      operations:
+      - method: GET
+        name: readtracersessionsrunsmetadataapiv1sessionssessionidmetadataget
+        description: Read Tracer Sessions Runs Metadata
+        call: langchain-tracer-sessions.readtracersessionsrunsmetadataapiv1sessionssessionidmetadataget
+        with:
+          session_id: rest.session_id
+          metadata_keys: rest.metadata_keys
+          start_time: rest.start_time
+          k: rest.k
+          root_runs_only: rest.root_runs_only
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/views
+      name: api-v1-sessions-session-id-views
+      description: REST surface for api-v1-sessions-session_id-views.
+      operations:
+      - method: GET
+        name: readfilterviewsapiv1sessionssessionidviewsget
+        description: Read Filter Views
+        call: langchain-tracer-sessions.readfilterviewsapiv1sessionssessionidviewsget
+        with:
+          session_id: rest.session_id
+          type: rest.type
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createfilterviewapiv1sessionssessionidviewspost
+        description: Create Filter View
+        call: langchain-tracer-sessions.createfilterviewapiv1sessionssessionidviewspost
+        with:
+          session_id: rest.session_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/views/{view-id}
+      name: api-v1-sessions-session-id-views-view-id
+      description: REST surface for api-v1-sessions-session_id-views-view_id.
+      operations:
+      - method: GET
+        name: readfilterviewapiv1sessionssessionidviewsviewidget
+        description: Read Filter View
+        call: langchain-tracer-sessions.readfilterviewapiv1sessionssessionidviewsviewidget
+        with:
+          session_id: rest.session_id
+          view_id: rest.view_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PATCH
+        name: updatefilterviewapiv1sessionssessionidviewsviewidpatch
+        description: Update Filter View
+        call: langchain-tracer-sessions.updatefilterviewapiv1sessionssessionidviewsviewidpatch
+        with:
+          session_id: rest.session_id
+          view_id: rest.view_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefilterviewapiv1sessionssessionidviewsviewiddelete
+        description: Delete Filter View
+        call: langchain-tracer-sessions.deletefilterviewapiv1sessionssessionidviewsviewiddelete
+        with:
+          session_id: rest.session_id
+          view_id: rest.view_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v1/sessions/{session-id}/views/{view-id}/rename
+      name: api-v1-sessions-session-id-views-view-id-rename
+      description: REST surface for api-v1-sessions-session_id-views-view_id-rename.
+      operations:
+      - method: PATCH
+        name: renamefilterviewapiv1sessionssessionidviewsviewidrenamepatch
+        description: Rename Filter View
+        call: langchain-tracer-sessions.renamefilterviewapiv1sessionssessionidviewsviewidrenamepatch
+        with:
+          session_id: rest.session_id
+          view_id: rest.view_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: langchain-tracer-sessions-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for LangSmith — tracer-sessions. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: read-tracer-sessions
+      description: Read Tracer Sessions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.readtracersessionsapiv1sessionsget
+      with:
+        reference_free: tools.reference_free
+        reference_dataset: tools.reference_dataset
+        id: tools.id
+        name: tools.name
+        name_contains: tools.name_contains
+        dataset_version: tools.dataset_version
+        sort_by: tools.sort_by
+        sort_by_desc: tools.sort_by_desc
+        metadata: tools.metadata
+        sort_by_feedback_key: tools.sort_by_feedback_key
+        offset: tools.offset
+        limit: tools.limit
+        tag_value_id: tools.tag_value_id
+        facets: tools.facets
+        filter: tools.filter
+        include_stats: tools.include_stats
+        use_approx_stats: tools.use_approx_stats
+        stats_start_time: tools.stats_start_time
+        stats_select: tools.stats_select
+        accept: tools.accept
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-tracer-session
+      description: Create Tracer Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-tracer-sessions.createtracersessionapiv1sessionspost
+      with:
+        upsert: tools.upsert
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tracer-sessions
+      description: Delete Tracer Sessions
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tracer-sessions.deletetracersessionsapiv1sessionsdelete
+      with:
+        session_ids: tools.session_ids
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-tracer-session
+      description: Read Tracer Session
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.readtracersessionapiv1sessionssessionidget
+      with:
+        session_id: tools.session_id
+        include_stats: tools.include_stats
+        stats_start_time: tools.stats_start_time
+        accept: tools.accept
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-tracer-session
+      description: Update Tracer Session
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.updatetracersessionapiv1sessionssessionidpatch
+      with:
+        session_id: tools.session_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-tracer-session
+      description: Delete Tracer Session
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tracer-sessions.deletetracersessionapiv1sessionssessioniddelete
+      with:
+        session_id: tools.session_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-tracing-project-prebuilt-dashboard
+      description: Get Tracing Project Prebuilt Dashboard
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: langchain-tracer-sessions.gettracingprojectprebuiltdashboardapiv1sessionssessioniddashboardpost
+      with:
+        session_id: tools.session_id
+        accept: tools.accept
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-get-insights-jobs
+      description: '[Beta] Get Insights Jobs'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betagetinsightsjobsapiv1sessionssessionidinsightsget
+      with:
+        session_id: tools.session_id
+        limit: tools.limit
+        offset: tools.offset
+        config_id: tools.config_id
+        legacy: tools.legacy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-create-insights-job
+      description: '[Beta] Create Insights Job'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-tracer-sessions.betacreateinsightsjobapiv1sessionssessionidinsightspost
+      with:
+        session_id: tools.session_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-get-insights-job-configs
+      description: '[Beta] Get Insights Job Configs'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betagetinsightsjobconfigsapiv1sessionssessionidinsightsconfigsget
+      with:
+        session_id: tools.session_id
+        include_prebuilts: tools.include_prebuilts
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-create-insights-job-config
+      description: '[Beta] Create Insights Job Config'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-tracer-sessions.betacreateinsightsjobconfigapiv1sessionssessionidinsightsconfigspost
+      with:
+        session_id: tools.session_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-auto-generate-insights-job
+      description: '[Beta] Auto-Generate Insights Job Config'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-tracer-sessions.betaautogenerateinsightsjobconfigapiv1sessionssessionidinsightsconfigsgeneratepost
+      with:
+        session_id: tools.session_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-update-insights-job-config
+      description: '[Beta] Update Insights Job Config'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betaupdateinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigidpatch
+      with:
+        session_id: tools.session_id
+        config_id: tools.config_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-delete-insights-job-config
+      description: '[Beta] Delete Insights Job Config'
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tracer-sessions.betadeleteinsightsjobconfigapiv1sessionssessionidinsightsconfigsconfigiddelete
+      with:
+        session_id: tools.session_id
+        config_id: tools.config_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-get-insights-job
+      description: '[Beta] Get Insights Job'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betagetinsightsjobapiv1sessionssessionidinsightsjobidget
+      with:
+        session_id: tools.session_id
+        job_id: tools.job_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-update-insights-job
+      description: '[Beta] Update Insights Job'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betaupdateinsightsjobapiv1sessionssessionidinsightsjobidpatch
+      with:
+        session_id: tools.session_id
+        job_id: tools.job_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-delete-insights-job
+      description: '[Beta] Delete Insights Job'
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tracer-sessions.betadeleteinsightsjobapiv1sessionssessionidinsightsjobiddelete
+      with:
+        session_id: tools.session_id
+        job_id: tools.job_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-get-run-cluster-insights
+      description: '[Beta] Get Run Cluster From Insights Job'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betagetrunclusterfrominsightsjobapiv1sessionssessionidinsightsjobidclustersclusteridget
+      with:
+        session_id: tools.session_id
+        job_id: tools.job_id
+        cluster_id: tools.cluster_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: beta-get-runs-insights-job
+      description: '[Beta] Get Runs From Insights Job'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.betagetrunsfrominsightsjobapiv1sessionssessionidinsightsjobidrunsget
+      with:
+        session_id: tools.session_id
+        job_id: tools.job_id
+        cluster_id: tools.cluster_id
+        limit: tools.limit
+        offset: tools.offset
+        attribute_sort_key: tools.attribute_sort_key
+        attribute_sort_order: tools.attribute_sort_order
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-tracer-sessions-runs-metadata
+      description: Read Tracer Sessions Runs Metadata
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.readtracersessionsrunsmetadataapiv1sessionssessionidmetadataget
+      with:
+        session_id: tools.session_id
+        metadata_keys: tools.metadata_keys
+        start_time: tools.start_time
+        k: tools.k
+        root_runs_only: tools.root_runs_only
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-filter-views
+      description: Read Filter Views
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.readfilterviewsapiv1sessionssessionidviewsget
+      with:
+        session_id: tools.session_id
+        type: tools.type
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-filter-view
+      description: Create Filter View
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: langchain-tracer-sessions.createfilterviewapiv1sessionssessionidviewspost
+      with:
+        session_id: tools.session_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: read-filter-view
+      description: Read Filter View
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.readfilterviewapiv1sessionssessionidviewsviewidget
+      with:
+        session_id: tools.session_id
+        view_id: tools.view_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-filter-view
+      description: Update Filter View
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.updatefilterviewapiv1sessionssessionidviewsviewidpatch
+      with:
+        session_id: tools.session_id
+        view_id: tools.view_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-filter-view
+      description: Delete Filter View
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: langchain-tracer-sessions.deletefilterviewapiv1sessionssessionidviewsviewiddelete
+      with:
+        session_id: tools.session_id
+        view_id: tools.view_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rename-filter-view
+      description: Rename Filter View
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: langchain-tracer-sessions.renamefilterviewapiv1sessionssessionidviewsviewidrenamepatch
+      with:
+        session_id: tools.session_id
+        view_id: tools.view_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
