@@ -214,6 +214,8 @@ common:
   type: GitHub
 - type: Integrations
   url: https://docs.langchain.com/oss/python/integrations/providers/overview
+- type: LLMsTxt
+  url: https://docs.langchain.com/llms.txt
 integrations:
 - name: light
 - name: dark
