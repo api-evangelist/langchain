@@ -1,0 +1,7 @@
+---
+title: "The Agent Development Lifecycle: Build, Test, Deploy & Monitor AI Agents | LangChain"
+url: "https://www.langchain.com/blog/the-agent-development-lifecycle"
+date: "2026-05-28"
+feed_url: "https://blog.langchain.com/rss.xml"
+---
+Learn how leading engineering teams ship AI agents reliably and repeatedly using a four-phase agent development lifecycle: Build, Test, Deploy, and Monitor. Includes guidance on evals, runtimes, observability, and governance at scale.
