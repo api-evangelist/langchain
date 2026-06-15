@@ -2,20 +2,20 @@
   "repo": "langchain",
   "feeds": [
     {
-      "source": "https://blog.langchain.com/rss.xml",
-      "feed_url": "https://blog.langchain.com/rss.xml",
+      "source": "https://www.langchain.com/blog/rss",
+      "feed_url": "https://www.langchain.com/blog/rss",
       "title": "",
       "saved": 0,
-      "method": "feed"
+      "method": "none"
     },
     {
       "source": "https://blog.langchain.com/",
       "feed_url": "https://blog.langchain.com/rss.xml",
       "title": "",
-      "saved": 0,
+      "saved": 6,
       "method": "discovered"
     }
   ],
-  "post_count": 62,
-  "fetched": "2026-06-01T23:35:02Z"
+  "post_count": 73,
+  "fetched": "2026-06-14T20:42:17Z"
 }
