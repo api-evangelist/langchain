@@ -1,0 +1,1234 @@
+"""
+LangChain / LangSmith GraphQL Schema
+Derived from the LangSmith REST API (https://api.smith.langchain.com)
+Covers: trace management, feedback, datasets, evaluation runs,
+prompt versioning, annotation queues, workspaces, and more.
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+scalar UUID
+scalar URL
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum RunType {
+  CHAIN
+  LLM
+  TOOL
+  RETRIEVER
+  EMBEDDING
+  PROMPT
+  PARSER
+}
+
+enum RunStatus {
+  PENDING
+  RUNNING
+  SUCCESS
+  ERROR
+  TIMEOUT
+  CANCELLED
+}
+
+enum FeedbackSource {
+  API
+  APP
+  MODEL
+}
+
+enum DatasetType {
+  KV
+  LLM
+  CHAT
+}
+
+enum DatasetSplitType {
+  TRAIN
+  TEST
+  VALIDATION
+}
+
+enum ExampleType {
+  KV
+  LLM
+  CHAT
+}
+
+enum ComparisonStatus {
+  PENDING
+  RUNNING
+  COMPLETE
+  ERROR
+}
+
+enum EvaluatorType {
+  AUTO
+  HUMAN
+  LLM_AS_JUDGE
+  PAIRWISE
+  CUSTOM
+}
+
+enum AnnotationQueueStatus {
+  OPEN
+  CLOSED
+  ARCHIVED
+}
+
+enum PromptVisibility {
+  PUBLIC
+  PRIVATE
+  ORGANIZATION
+}
+
+enum WorkspaceRole {
+  OWNER
+  ADMIN
+  MEMBER
+  VIEWER
+}
+
+enum OrderDirection {
+  ASC
+  DESC
+}
+
+enum FilterOperator {
+  EQ
+  NEQ
+  GT
+  GTE
+  LT
+  LTE
+  IN
+  CONTAINS
+  STARTS_WITH
+  ENDS_WITH
+}
+
+enum SessionStatus {
+  ACTIVE
+  COMPLETED
+  ARCHIVED
+}
+
+enum TagColor {
+  RED
+  ORANGE
+  YELLOW
+  GREEN
+  BLUE
+  PURPLE
+  PINK
+  GRAY
+}
+
+enum ModelProvider {
+  OPENAI
+  ANTHROPIC
+  GOOGLE
+  COHERE
+  MISTRAL
+  LLAMA
+  CUSTOM
+}
+
+enum TriggerType {
+  MANUAL
+  SCHEDULED
+  WEBHOOK
+  RULE
+}
+
+# ---------------------------------------------------------------------------
+# Core Entity Types
+# ---------------------------------------------------------------------------
+
+"""A LangSmith workspace (organization-level tenant)."""
+type Workspace {
+  id: UUID!
+  name: String!
+  slug: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  members: [WorkspaceMember!]!
+  projects: [TracerSession!]!
+  tags: [Tag!]!
+  apiKeys: [ApiKey!]!
+  settings: WorkspaceSettings
+  plan: WorkspacePlan
+  usage: WorkspaceUsage
+}
+
+"""A member of a workspace."""
+type WorkspaceMember {
+  id: UUID!
+  userId: UUID!
+  email: String!
+  displayName: String
+  role: WorkspaceRole!
+  joinedAt: DateTime!
+  workspace: Workspace!
+}
+
+"""Workspace configuration settings."""
+type WorkspaceSettings {
+  defaultRetentionDays: Int
+  allowPublicDatasets: Boolean!
+  allowExternalSharing: Boolean!
+  ssoEnabled: Boolean!
+  auditLogEnabled: Boolean!
+}
+
+"""Workspace subscription plan details."""
+type WorkspacePlan {
+  tier: String!
+  monthlyRunLimit: Int
+  dataRetentionDays: Int
+  seatCount: Int
+}
+
+"""Workspace resource usage statistics."""
+type WorkspaceUsage {
+  runsThisMonth: Int!
+  storageBytes: Int!
+  activeProjects: Int!
+  memberCount: Int!
+}
+
+"""An API key for authenticating with LangSmith."""
+type ApiKey {
+  id: UUID!
+  name: String!
+  keyPrefix: String!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  lastUsedAt: DateTime
+  workspace: Workspace!
+}
+
+"""
+A tracer session (project) — the top-level container that groups runs
+and associates them with datasets, evaluations, and feedback.
+"""
+type TracerSession {
+  id: UUID!
+  name: String!
+  description: String
+  status: SessionStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  workspace: Workspace!
+  runs(
+    first: Int
+    after: String
+    filter: RunFilterInput
+    orderBy: RunOrderByInput
+  ): RunConnection!
+  runCount: Int!
+  feedbackStats: FeedbackStats
+  tags: [Tag!]!
+  metadata: JSON
+  referenceDataset: Dataset
+}
+
+"""
+A single execution unit within a tracer session — can be a chain,
+LLM call, tool invocation, retriever, etc.
+"""
+type Run {
+  id: UUID!
+  name: String!
+  runType: RunType!
+  status: RunStatus!
+  startTime: DateTime!
+  endTime: DateTime
+  latencyMs: Int
+  inputs: JSON
+  outputs: JSON
+  error: String
+  serialized: JSON
+  events: [RunEvent!]!
+  tags: [String!]!
+  extra: JSON
+  referenceExampleId: UUID
+  parentRunId: UUID
+  parentRun: Run
+  childRuns: [Run!]!
+  session: TracerSession!
+  feedback: [Feedback!]!
+  tokenUsage: TokenUsage
+  cost: RunCost
+  model: String
+  provider: ModelProvider
+  promptTokens: Int
+  completionTokens: Int
+  totalTokens: Int
+  traceId: UUID!
+  dotOrder: String
+  workspace: Workspace!
+}
+
+"""A timestamped event emitted during a run."""
+type RunEvent {
+  name: String!
+  time: DateTime!
+  kwargs: JSON
+}
+
+"""Token consumption for an LLM run."""
+type TokenUsage {
+  promptTokens: Int!
+  completionTokens: Int!
+  totalTokens: Int!
+  cachedTokens: Int
+}
+
+"""Cost breakdown for an LLM run."""
+type RunCost {
+  promptCostUsd: Float
+  completionCostUsd: Float
+  totalCostUsd: Float
+}
+
+"""Aggregated feedback statistics for a session or run."""
+type FeedbackStats {
+  totalCount: Int!
+  averageScore: Float
+  scoreDistribution: JSON
+  keyStats: [FeedbackKeyStats!]!
+}
+
+"""Per-key feedback statistics."""
+type FeedbackKeyStats {
+  key: String!
+  count: Int!
+  averageScore: Float
+  scoreDistribution: JSON
+}
+
+"""
+Human or model feedback attached to a run or example.
+"""
+type Feedback {
+  id: UUID!
+  runId: UUID!
+  run: Run
+  key: String!
+  score: Float
+  value: String
+  comment: String
+  source: FeedbackSource!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  feedback_group_id: UUID
+  comparativeExperimentId: UUID
+  correction: JSON
+}
+
+"""
+A dataset is a versioned collection of input/output examples used for
+evaluation and fine-tuning.
+"""
+type Dataset {
+  id: UUID!
+  name: String!
+  description: String
+  datasetType: DatasetType!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  workspace: Workspace!
+  examples(
+    first: Int
+    after: String
+    split: DatasetSplitType
+    filter: ExampleFilterInput
+  ): ExampleConnection!
+  exampleCount: Int!
+  tags: [String!]!
+  metadata: JSON
+  splits: [String!]!
+  lastModifiedAt: DateTime
+  inputSchema: JSON
+  outputSchema: JSON
+}
+
+"""
+A single input/output pair within a dataset.
+"""
+type Example {
+  id: UUID!
+  dataset: Dataset!
+  datasetId: UUID!
+  inputs: JSON!
+  outputs: JSON
+  metadata: JSON
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  splits: [String!]!
+  sourceRunId: UUID
+  attachments: [Attachment!]!
+}
+
+"""A file attachment associated with an example or run."""
+type Attachment {
+  id: UUID!
+  fileName: String!
+  mimeType: String!
+  sizeBytes: Int!
+  url: URL!
+  createdAt: DateTime!
+}
+
+"""
+An experiment (evaluation run) that applies evaluators to a dataset
+and captures results.
+"""
+type Experiment {
+  id: UUID!
+  name: String!
+  description: String
+  dataset: Dataset!
+  datasetId: UUID!
+  status: ComparisonStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  workspace: Workspace!
+  results: [ExperimentResult!]!
+  evaluators: [EvaluatorConfig!]!
+  summaryStats: ExperimentSummary
+  metadata: JSON
+  tags: [String!]!
+  referenceSession: TracerSession
+  session: TracerSession
+}
+
+"""Result for a single example within an experiment."""
+type ExperimentResult {
+  id: UUID!
+  experiment: Experiment!
+  example: Example!
+  run: Run
+  scores: [EvaluationScore!]!
+  error: String
+  latencyMs: Int
+}
+
+"""A scalar score produced by an evaluator."""
+type EvaluationScore {
+  key: String!
+  score: Float
+  value: String
+  comment: String
+  correction: JSON
+  evaluatorType: EvaluatorType!
+}
+
+"""Summary statistics for a completed experiment."""
+type ExperimentSummary {
+  exampleCount: Int!
+  errorCount: Int!
+  completedCount: Int!
+  averageLatencyMs: Float
+  averageCostUsd: Float
+  scoresSummary: JSON
+}
+
+"""Configuration for an evaluator used in an experiment."""
+type EvaluatorConfig {
+  type: EvaluatorType!
+  name: String!
+  description: String
+  config: JSON
+  promptTemplate: String
+  model: String
+  criteria: [EvaluationCriteria!]!
+}
+
+"""A single criterion in an evaluation rubric."""
+type EvaluationCriteria {
+  name: String!
+  description: String!
+  scoringGuide: String
+}
+
+"""
+A comparative experiment that pits two or more experiments head-to-head
+on shared examples.
+"""
+type ComparativeExperiment {
+  id: UUID!
+  name: String!
+  description: String
+  experiments: [Experiment!]!
+  status: ComparisonStatus!
+  createdAt: DateTime!
+  workspace: Workspace!
+  pairwiseFeedback: [Feedback!]!
+  summary: JSON
+}
+
+"""
+A versioned prompt stored in the LangSmith prompt hub.
+"""
+type Prompt {
+  id: UUID!
+  repoHandle: String!
+  description: String
+  readme: String
+  tags: [String!]!
+  isPublic: Boolean!
+  visibility: PromptVisibility!
+  latestCommit: PromptCommit
+  commits(first: Int, after: String): PromptCommitConnection!
+  owner: String!
+  fullName: String!
+  numLikes: Int!
+  numDownloads: Int!
+  numViews: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A single commit (version) of a prompt."""
+type PromptCommit {
+  id: UUID!
+  promptId: UUID!
+  commitHash: String!
+  manifest: JSON!
+  parentCommit: String
+  createdAt: DateTime!
+  examples(first: Int, after: String): ExampleConnection!
+  numExamples: Int!
+}
+
+"""
+An annotation queue collects runs that need human review.
+"""
+type AnnotationQueue {
+  id: UUID!
+  name: String!
+  description: String
+  status: AnnotationQueueStatus!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  workspace: Workspace!
+  items(first: Int, after: String): AnnotationQueueItemConnection!
+  totalItems: Int!
+  pendingItems: Int!
+  completedItems: Int!
+  rubric: [AnnotationRubricItem!]!
+}
+
+"""A single item in an annotation queue."""
+type AnnotationQueueItem {
+  id: UUID!
+  queue: AnnotationQueue!
+  run: Run!
+  addedAt: DateTime!
+  completedAt: DateTime
+  assignee: WorkspaceMember
+  feedback: [Feedback!]!
+  status: String!
+}
+
+"""A rubric item defining what annotators should score."""
+type AnnotationRubricItem {
+  key: String!
+  description: String!
+  type: String!
+  options: [String!]
+  minScore: Float
+  maxScore: Float
+}
+
+"""A filter view — a saved search/filter over runs."""
+type FilterView {
+  id: UUID!
+  name: String!
+  description: String
+  filterExpression: String!
+  session: TracerSession
+  workspace: Workspace!
+  createdAt: DateTime!
+  createdBy: WorkspaceMember
+  isShared: Boolean!
+}
+
+"""A tag that can be applied to sessions, runs, or datasets."""
+type Tag {
+  id: UUID!
+  name: String!
+  color: TagColor
+  workspace: Workspace!
+  createdAt: DateTime!
+}
+
+"""An audit log entry recording a privileged action."""
+type AuditLog {
+  id: UUID!
+  workspace: Workspace!
+  actorEmail: String!
+  action: String!
+  resource: String!
+  resourceId: String
+  metadata: JSON
+  createdAt: DateTime!
+  ipAddress: String
+}
+
+"""An insights job that computes aggregated metrics over runs."""
+type InsightsJob {
+  id: UUID!
+  name: String!
+  session: TracerSession!
+  status: String!
+  config: JSON!
+  results: JSON
+  createdAt: DateTime!
+  completedAt: DateTime
+  workspace: Workspace!
+}
+
+"""A webhook configuration for event-driven integrations."""
+type Webhook {
+  id: UUID!
+  name: String!
+  url: URL!
+  secret: String
+  events: [String!]!
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  workspace: Workspace!
+  lastDelivery: WebhookDelivery
+}
+
+"""A record of a single webhook delivery attempt."""
+type WebhookDelivery {
+  id: UUID!
+  webhook: Webhook!
+  event: String!
+  payload: JSON!
+  responseStatus: Int
+  responseBody: String
+  deliveredAt: DateTime!
+  success: Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Connection / Pagination Types
+# ---------------------------------------------------------------------------
+
+"""Relay-style page info."""
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type RunConnection {
+  edges: [RunEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type RunEdge {
+  node: Run!
+  cursor: String!
+}
+
+type ExampleConnection {
+  edges: [ExampleEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ExampleEdge {
+  node: Example!
+  cursor: String!
+}
+
+type DatasetConnection {
+  edges: [DatasetEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type DatasetEdge {
+  node: Dataset!
+  cursor: String!
+}
+
+type ExperimentConnection {
+  edges: [ExperimentEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type ExperimentEdge {
+  node: Experiment!
+  cursor: String!
+}
+
+type PromptConnection {
+  edges: [PromptEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PromptEdge {
+  node: Prompt!
+  cursor: String!
+}
+
+type PromptCommitConnection {
+  edges: [PromptCommitEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PromptCommitEdge {
+  node: PromptCommit!
+  cursor: String!
+}
+
+type AnnotationQueueItemConnection {
+  edges: [AnnotationQueueItemEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type AnnotationQueueItemEdge {
+  node: AnnotationQueueItem!
+  cursor: String!
+}
+
+type TracerSessionConnection {
+  edges: [TracerSessionEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TracerSessionEdge {
+  node: TracerSession!
+  cursor: String!
+}
+
+type FeedbackConnection {
+  edges: [FeedbackEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type FeedbackEdge {
+  node: Feedback!
+  cursor: String!
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input RunFilterInput {
+  runType: RunType
+  status: RunStatus
+  name: String
+  tags: [String!]
+  startTimeAfter: DateTime
+  startTimeBefore: DateTime
+  hasErrors: Boolean
+  parentRunId: UUID
+  traceId: UUID
+  model: String
+  minLatencyMs: Int
+  maxLatencyMs: Int
+}
+
+input RunOrderByInput {
+  field: String!
+  direction: OrderDirection!
+}
+
+input ExampleFilterInput {
+  splits: [DatasetSplitType!]
+  metadata: JSON
+  hasOutputs: Boolean
+  sourceRunId: UUID
+}
+
+input CreateTracerSessionInput {
+  name: String!
+  description: String
+  workspaceId: UUID!
+  referenceDatasetId: UUID
+  tags: [String!]
+  metadata: JSON
+}
+
+input UpdateTracerSessionInput {
+  name: String
+  description: String
+  status: SessionStatus
+  tags: [String!]
+  metadata: JSON
+}
+
+input CreateRunInput {
+  name: String!
+  runType: RunType!
+  sessionId: UUID!
+  inputs: JSON!
+  startTime: DateTime!
+  endTime: DateTime
+  outputs: JSON
+  error: String
+  tags: [String!]
+  extra: JSON
+  parentRunId: UUID
+  referenceExampleId: UUID
+}
+
+input UpdateRunInput {
+  outputs: JSON
+  error: String
+  endTime: DateTime
+  status: RunStatus
+  extra: JSON
+}
+
+input CreateDatasetInput {
+  name: String!
+  description: String
+  workspaceId: UUID!
+  datasetType: DatasetType
+  tags: [String!]
+  metadata: JSON
+  inputSchema: JSON
+  outputSchema: JSON
+}
+
+input UpdateDatasetInput {
+  name: String
+  description: String
+  tags: [String!]
+  metadata: JSON
+}
+
+input CreateExampleInput {
+  datasetId: UUID!
+  inputs: JSON!
+  outputs: JSON
+  metadata: JSON
+  splits: [String!]
+  sourceRunId: UUID
+}
+
+input UpdateExampleInput {
+  inputs: JSON
+  outputs: JSON
+  metadata: JSON
+  splits: [String!]
+}
+
+input CreateFeedbackInput {
+  runId: UUID!
+  key: String!
+  score: Float
+  value: String
+  comment: String
+  source: FeedbackSource
+  correction: JSON
+}
+
+input UpdateFeedbackInput {
+  score: Float
+  value: String
+  comment: String
+  correction: JSON
+}
+
+input CreateExperimentInput {
+  name: String!
+  description: String
+  datasetId: UUID!
+  workspaceId: UUID!
+  evaluators: [EvaluatorConfigInput!]!
+  tags: [String!]
+  metadata: JSON
+}
+
+input EvaluatorConfigInput {
+  type: EvaluatorType!
+  name: String!
+  description: String
+  config: JSON
+  promptTemplate: String
+  model: String
+}
+
+input CreatePromptInput {
+  repoHandle: String!
+  description: String
+  readme: String
+  tags: [String!]
+  visibility: PromptVisibility
+  manifest: JSON!
+}
+
+input UpdatePromptInput {
+  description: String
+  readme: String
+  tags: [String!]
+  visibility: PromptVisibility
+}
+
+input CreateAnnotationQueueInput {
+  name: String!
+  description: String
+  workspaceId: UUID!
+  rubric: [AnnotationRubricItemInput!]
+}
+
+input AnnotationRubricItemInput {
+  key: String!
+  description: String!
+  type: String!
+  options: [String!]
+  minScore: Float
+  maxScore: Float
+}
+
+input AddRunsToAnnotationQueueInput {
+  queueId: UUID!
+  runIds: [UUID!]!
+  assigneeId: UUID
+}
+
+input CreateTagInput {
+  name: String!
+  color: TagColor
+  workspaceId: UUID!
+}
+
+input CreateWebhookInput {
+  name: String!
+  url: URL!
+  events: [String!]!
+  workspaceId: UUID!
+}
+
+input UpdateWebhookInput {
+  name: String
+  url: URL
+  events: [String!]
+  isActive: Boolean
+}
+
+input CreateApiKeyInput {
+  name: String!
+  workspaceId: UUID!
+  expiresAt: DateTime
+}
+
+input InviteWorkspaceMemberInput {
+  workspaceId: UUID!
+  email: String!
+  role: WorkspaceRole!
+}
+
+input CreateComparativeExperimentInput {
+  name: String!
+  description: String
+  experimentIds: [UUID!]!
+  workspaceId: UUID!
+}
+
+# ---------------------------------------------------------------------------
+# Query Root
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Fetch the current authenticated user's workspaces."""
+  workspaces: [Workspace!]!
+
+  """Fetch a single workspace by ID."""
+  workspace(id: UUID!): Workspace
+
+  """Fetch members of a workspace."""
+  workspaceMembers(workspaceId: UUID!): [WorkspaceMember!]!
+
+  """Fetch all tracer sessions (projects) in a workspace."""
+  tracerSessions(
+    workspaceId: UUID!
+    first: Int
+    after: String
+    filter: String
+    orderBy: RunOrderByInput
+  ): TracerSessionConnection!
+
+  """Fetch a single tracer session by ID."""
+  tracerSession(id: UUID!): TracerSession
+
+  """Fetch runs within a tracer session."""
+  runs(
+    sessionId: UUID!
+    first: Int
+    after: String
+    filter: RunFilterInput
+    orderBy: RunOrderByInput
+  ): RunConnection!
+
+  """Fetch a single run by ID."""
+  run(id: UUID!): Run
+
+  """Fetch a full trace (root run + all descendant runs)."""
+  trace(traceId: UUID!): [Run!]!
+
+  """Fetch datasets in a workspace."""
+  datasets(
+    workspaceId: UUID!
+    first: Int
+    after: String
+    datasetType: DatasetType
+  ): DatasetConnection!
+
+  """Fetch a single dataset by ID."""
+  dataset(id: UUID!): Dataset
+
+  """Fetch examples from a dataset."""
+  examples(
+    datasetId: UUID!
+    first: Int
+    after: String
+    split: DatasetSplitType
+    filter: ExampleFilterInput
+  ): ExampleConnection!
+
+  """Fetch a single example by ID."""
+  example(id: UUID!): Example
+
+  """Fetch feedback for a run."""
+  feedback(
+    runId: UUID!
+    key: String
+    first: Int
+    after: String
+  ): FeedbackConnection!
+
+  """Fetch a single feedback entry by ID."""
+  feedbackItem(id: UUID!): Feedback
+
+  """Fetch experiments in a workspace."""
+  experiments(
+    workspaceId: UUID!
+    first: Int
+    after: String
+    datasetId: UUID
+  ): ExperimentConnection!
+
+  """Fetch a single experiment by ID."""
+  experiment(id: UUID!): Experiment
+
+  """Fetch comparative experiments in a workspace."""
+  comparativeExperiments(workspaceId: UUID!): [ComparativeExperiment!]!
+
+  """Fetch a single comparative experiment by ID."""
+  comparativeExperiment(id: UUID!): ComparativeExperiment
+
+  """Fetch prompts from the prompt hub."""
+  prompts(
+    workspaceId: UUID
+    owner: String
+    isPublic: Boolean
+    tags: [String!]
+    first: Int
+    after: String
+  ): PromptConnection!
+
+  """Fetch a single prompt by handle."""
+  prompt(handle: String!): Prompt
+
+  """Fetch a specific commit of a prompt."""
+  promptCommit(commitHash: String!): PromptCommit
+
+  """Fetch annotation queues in a workspace."""
+  annotationQueues(workspaceId: UUID!): [AnnotationQueue!]!
+
+  """Fetch a single annotation queue by ID."""
+  annotationQueue(id: UUID!): AnnotationQueue
+
+  """Fetch items in an annotation queue."""
+  annotationQueueItems(
+    queueId: UUID!
+    first: Int
+    after: String
+    status: String
+  ): AnnotationQueueItemConnection!
+
+  """Fetch filter views for a session or workspace."""
+  filterViews(workspaceId: UUID!, sessionId: UUID): [FilterView!]!
+
+  """Fetch a single filter view by ID."""
+  filterView(id: UUID!): FilterView
+
+  """Fetch all tags in a workspace."""
+  tags(workspaceId: UUID!): [Tag!]!
+
+  """Fetch audit logs for a workspace."""
+  auditLogs(
+    workspaceId: UUID!
+    actorEmail: String
+    action: String
+    first: Int
+    after: String
+    startDate: DateTime
+    endDate: DateTime
+  ): [AuditLog!]!
+
+  """Fetch insights jobs for a session."""
+  insightsJobs(sessionId: UUID!): [InsightsJob!]!
+
+  """Fetch a single insights job by ID."""
+  insightsJob(id: UUID!): InsightsJob
+
+  """Fetch webhooks in a workspace."""
+  webhooks(workspaceId: UUID!): [Webhook!]!
+
+  """Fetch a single webhook by ID."""
+  webhook(id: UUID!): Webhook
+
+  """Fetch API keys for a workspace."""
+  apiKeys(workspaceId: UUID!): [ApiKey!]!
+
+  """Aggregate feedback stats for a session."""
+  feedbackStats(sessionId: UUID!): FeedbackStats!
+
+  """Aggregate token usage stats for a session."""
+  tokenUsageStats(sessionId: UUID!, startDate: DateTime, endDate: DateTime): JSON
+}
+
+# ---------------------------------------------------------------------------
+# Mutation Root
+# ---------------------------------------------------------------------------
+
+type Mutation {
+  # Tracer Sessions
+  createTracerSession(input: CreateTracerSessionInput!): TracerSession!
+  updateTracerSession(id: UUID!, input: UpdateTracerSessionInput!): TracerSession!
+  deleteTracerSession(id: UUID!): Boolean!
+
+  # Runs
+  createRun(input: CreateRunInput!): Run!
+  updateRun(id: UUID!, input: UpdateRunInput!): Run!
+  deleteRun(id: UUID!): Boolean!
+  bulkCreateRuns(inputs: [CreateRunInput!]!): [Run!]!
+
+  # Datasets
+  createDataset(input: CreateDatasetInput!): Dataset!
+  updateDataset(id: UUID!, input: UpdateDatasetInput!): Dataset!
+  deleteDataset(id: UUID!): Boolean!
+  cloneDataset(id: UUID!, newName: String!): Dataset!
+
+  # Examples
+  createExample(input: CreateExampleInput!): Example!
+  updateExample(id: UUID!, input: UpdateExampleInput!): Example!
+  deleteExample(id: UUID!): Boolean!
+  bulkCreateExamples(inputs: [CreateExampleInput!]!): [Example!]!
+  addRunsToDataset(datasetId: UUID!, runIds: [UUID!]!): [Example!]!
+
+  # Feedback
+  createFeedback(input: CreateFeedbackInput!): Feedback!
+  updateFeedback(id: UUID!, input: UpdateFeedbackInput!): Feedback!
+  deleteFeedback(id: UUID!): Boolean!
+  bulkCreateFeedback(inputs: [CreateFeedbackInput!]!): [Feedback!]!
+
+  # Experiments
+  createExperiment(input: CreateExperimentInput!): Experiment!
+  deleteExperiment(id: UUID!): Boolean!
+  runExperiment(id: UUID!): Experiment!
+
+  # Comparative Experiments
+  createComparativeExperiment(input: CreateComparativeExperimentInput!): ComparativeExperiment!
+  deleteComparativeExperiment(id: UUID!): Boolean!
+
+  # Prompts
+  createPrompt(input: CreatePromptInput!): Prompt!
+  updatePrompt(handle: String!, input: UpdatePromptInput!): Prompt!
+  deletePrompt(handle: String!): Boolean!
+  commitPrompt(handle: String!, manifest: JSON!, parentCommit: String): PromptCommit!
+  likePrompt(handle: String!): Prompt!
+
+  # Annotation Queues
+  createAnnotationQueue(input: CreateAnnotationQueueInput!): AnnotationQueue!
+  updateAnnotationQueue(id: UUID!, name: String, description: String, status: AnnotationQueueStatus): AnnotationQueue!
+  deleteAnnotationQueue(id: UUID!): Boolean!
+  addRunsToAnnotationQueue(input: AddRunsToAnnotationQueueInput!): [AnnotationQueueItem!]!
+  completeAnnotationQueueItem(itemId: UUID!): AnnotationQueueItem!
+  assignAnnotationQueueItem(itemId: UUID!, assigneeId: UUID!): AnnotationQueueItem!
+
+  # Tags
+  createTag(input: CreateTagInput!): Tag!
+  deleteTag(id: UUID!): Boolean!
+  addTagToSession(sessionId: UUID!, tagId: UUID!): TracerSession!
+  removeTagFromSession(sessionId: UUID!, tagId: UUID!): TracerSession!
+
+  # Filter Views
+  createFilterView(name: String!, filterExpression: String!, sessionId: UUID, workspaceId: UUID!, isShared: Boolean): FilterView!
+  updateFilterView(id: UUID!, name: String, filterExpression: String, isShared: Boolean): FilterView!
+  deleteFilterView(id: UUID!): Boolean!
+
+  # Webhooks
+  createWebhook(input: CreateWebhookInput!): Webhook!
+  updateWebhook(id: UUID!, input: UpdateWebhookInput!): Webhook!
+  deleteWebhook(id: UUID!): Boolean!
+  testWebhook(id: UUID!): WebhookDelivery!
+
+  # API Keys
+  createApiKey(input: CreateApiKeyInput!): ApiKey!
+  deleteApiKey(id: UUID!): Boolean!
+
+  # Workspace Members
+  inviteWorkspaceMember(input: InviteWorkspaceMemberInput!): WorkspaceMember!
+  updateWorkspaceMemberRole(memberId: UUID!, role: WorkspaceRole!): WorkspaceMember!
+  removeWorkspaceMember(memberId: UUID!): Boolean!
+
+  # Insights Jobs
+  createInsightsJob(sessionId: UUID!, name: String!, config: JSON!): InsightsJob!
+  deleteInsightsJob(id: UUID!): Boolean!
+}
+
+# ---------------------------------------------------------------------------
+# Subscription Root
+# ---------------------------------------------------------------------------
+
+type Subscription {
+  """Stream new runs created in a tracer session."""
+  runCreated(sessionId: UUID!): Run!
+
+  """Stream status updates for a specific run."""
+  runUpdated(runId: UUID!): Run!
+
+  """Stream new feedback submitted for runs in a session."""
+  feedbackCreated(sessionId: UUID!): Feedback!
+
+  """Stream status changes for an experiment."""
+  experimentStatusChanged(experimentId: UUID!): Experiment!
+
+  """Stream new items added to an annotation queue."""
+  annotationQueueItemAdded(queueId: UUID!): AnnotationQueueItem!
+
+  """Stream webhook delivery events."""
+  webhookDelivery(webhookId: UUID!): WebhookDelivery!
+
+  """Stream insights job progress."""
+  insightsJobProgress(jobId: UUID!): InsightsJob!
+}
