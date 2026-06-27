@@ -46,7 +46,7 @@ apis:
     url: https://docs.langchain.com/langsmith
   - type: OpenAPI
     url: openapi/langchain-openapi.json
-  - type: SignUp
+  - type: Signup
     url: https://smith.langchain.com/
   - type: Authentication
     url: https://docs.langchain.com/langsmith/create-account-api-key
@@ -84,7 +84,7 @@ common:
   type: GitHub
 - type: Integrations
   url: https://docs.langchain.com/oss/python/integrations/providers/overview
-- type: LLMsTxt
+- type: LlmsText
   url: https://docs.langchain.com/llms.txt
 integrations:
 - name: light
