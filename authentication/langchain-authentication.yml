@@ -1,0 +1,35 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/langchain-openapi.json
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+schemes:
+- name: API Key
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  sources:
+  - openapi/langchain-openapi.json
+- name: Tenant ID
+  type: apiKey
+  in: header
+  parameter: X-Tenant-Id
+  sources:
+  - openapi/langchain-openapi.json
+- name: Bearer Auth
+  type: http
+  scheme: bearer
+  description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id
+    or x-organization-id (for org scoped apis).
+  sources:
+  - openapi/langchain-openapi.json
+- name: Organization ID
+  type: apiKey
+  in: header
+  parameter: X-Organization-Id
+  sources:
+  - openapi/langchain-openapi.json
