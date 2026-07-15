@@ -53,6 +53,8 @@ apis:
   - url: graphql/langchain-graphql.md
     type: GraphQL
 common:
+- type: AgenticAccess
+  url: agentic-access/langchain-agentic-access.yml
 - type: DomainSecurity
   url: security/langchain-domain-security.yml
 - type: Authentication
