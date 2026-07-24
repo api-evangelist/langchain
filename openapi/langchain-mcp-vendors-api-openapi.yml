@@ -1,0 +1,657 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies mcp_vendors API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: mcp_vendors
+paths:
+  /v1/platform/mcp-vendors:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns the catalog of available MCP vendors.
+      tags:
+      - mcp_vendors
+      summary: List MCP vendors
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ListMcpVendorsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      parameters: []
+  /v1/platform/mcp-vendors/{vendor_slug}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns vendor metadata and current settings.
+      tags:
+      - mcp_vendors
+      summary: Get MCP vendor
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.GetMcpVendorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+  /v1/platform/mcp-vendors/{vendor_slug}/account:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Resolves OAuth token and returns the vendor's account info.
+      tags:
+      - mcp_vendors
+      summary: Get vendor account
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ArcadeAccountResponseList'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+  /v1/platform/mcp-vendors/{vendor_slug}/mcp-servers:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns the MCP gateways from the vendor for the workspace's configured org/project.
+      tags:
+      - mcp_vendors
+      summary: List MCP servers for a vendor
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Max items to return (default 100)
+        name: limit
+        in: query
+        schema:
+          type: integer
+          title: Limit
+      - description: Number of items to skip (default 0)
+        name: offset
+        in: query
+        schema:
+          type: integer
+          title: Offset
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ListMcpGatewaysResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+  /v1/platform/mcp-vendors/{vendor_slug}/settings:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns the current vendor-specific settings.
+      tags:
+      - mcp_vendors
+      summary: Get vendor settings
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+    put:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Replaces vendor settings.
+      tags:
+      - mcp_vendors
+      summary: Replace vendor settings
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsRequest'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Initializes vendor settings.
+      tags:
+      - mcp_vendors
+      summary: Create vendor settings
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsRequest'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Removes vendor settings.
+      tags:
+      - mcp_vendors
+      summary: Delete vendor settings
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+  /v1/platform/mcp-vendors/{vendor_slug}/tools:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns the tool catalog for this vendor.
+      tags:
+      - mcp_vendors
+      summary: List tools for a vendor
+      parameters:
+      - description: Vendor slug (e.g. arcade)
+        name: vendor_slug
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Max tools to return (default 50)
+        name: limit
+        in: query
+        schema:
+          type: integer
+          title: Limit
+      - description: Number of tools to skip (default 0)
+        name: offset
+        in: query
+        schema:
+          type: integer
+          title: Offset
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ListVendorToolsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+components:
+  schemas:
+    mcp_vendors.VendorTool:
+      type: object
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+    mcp_vendors.ArcadeAccountOrg:
+      type: object
+      properties:
+        is_default:
+          type: boolean
+        name:
+          type: string
+        organization_id:
+          type: string
+    mcp_vendors.ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        message:
+          type: string
+    mcp_vendors.ArcadeSettingsResponse:
+      type: object
+      properties:
+        is_configured:
+          type: boolean
+        organization_id:
+          type: string
+        project_id:
+          type: string
+    mcp_vendors.McpVendor:
+      type: object
+      properties:
+        description:
+          type: string
+        icon:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/mcp_vendors.McpVendorStatus'
+        vendor_id:
+          type: string
+    mcp_vendors.McpGatewayToolFilter:
+      type: object
+      properties:
+        allowed_tools:
+          type: array
+          items:
+            type: string
+    mcp_vendors.ListMcpGatewaysResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.McpGateway'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        page_count:
+          type: integer
+        total_count:
+          type: integer
+    mcp_vendors.ArcadeSettingsRequest:
+      type: object
+      properties:
+        organization_id:
+          type: string
+        project_id:
+          type: string
+    mcp_vendors.ArcadeAccountResponseList:
+      type: object
+      properties:
+        organizations:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.ArcadeAccountOrg'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.ArcadeAccountProject'
+    mcp_vendors.McpGateway:
+      type: object
+      properties:
+        auth_type:
+          type: string
+        binding:
+          $ref: '#/components/schemas/mcp_vendors.McpGatewayBinding'
+        created_at:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        instructions:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        status:
+          type: string
+        tool_filter:
+          $ref: '#/components/schemas/mcp_vendors.McpGatewayToolFilter'
+        updated_at:
+          type: string
+    mcp_vendors.ArcadeAccountProject:
+      type: object
+      properties:
+        is_default:
+          type: boolean
+        name:
+          type: string
+        organization_id:
+          type: string
+        project_id:
+          type: string
+    mcp_vendors.McpGatewayBinding:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+    mcp_vendors.ListVendorToolsResponse:
+      type: object
+      properties:
+        limit:
+          type: integer
+        offset:
+          type: integer
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.VendorTool'
+        total:
+          type: integer
+    mcp_vendors.McpVendorStatus:
+      type: string
+      enum:
+      - enabled
+      - disabled
+      x-enum-varnames:
+      - McpVendorStatusEnabled
+      - McpVendorStatusDisabled
+    mcp_vendors.ListMcpVendorsResponse:
+      type: object
+      properties:
+        mcp_vendors:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.McpVendor'
+    mcp_vendors.GetMcpVendorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        icon:
+          type: string
+        name:
+          type: string
+        provider_id:
+          type: string
+        settings: {}
+        status:
+          $ref: '#/components/schemas/mcp_vendors.McpVendorStatus'
+        vendor_id:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,351 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies feedback-configs API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: feedback-configs
+paths:
+  /api/v1/feedback-configs:
+    get:
+      tags:
+      - feedback-configs
+      summary: List Feedback Configs Endpoint
+      operationId: list_feedback_configs_endpoint_api_v1_feedback_configs_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: key
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+            maxItems: 50
+          - type: 'null'
+          title: Key
+      - name: name_contains
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name Contains
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            maximum: 100
+            minimum: 1
+          - type: 'null'
+          title: Limit
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Sort By Desc
+      - name: read_after_write
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Read After Write
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackConfigSchema'
+                title: Response List Feedback Configs Endpoint Api V1 Feedback Configs Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - feedback-configs
+      summary: Create Feedback Config Endpoint
+      operationId: create_feedback_config_endpoint_api_v1_feedback_configs_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFeedbackConfigSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackConfigSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - feedback-configs
+      summary: Update Feedback Config Endpoint
+      operationId: update_feedback_config_endpoint_api_v1_feedback_configs_patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateFeedbackConfigSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackConfigSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - feedback-configs
+      summary: Delete Feedback Config Endpoint
+      description: 'Soft delete a feedback config by marking it as deleted.
+
+
+        The config can be recreated later with the same key (simple reuse pattern).
+
+        Existing feedback records with this key will remain unchanged.'
+      operationId: delete_feedback_config_endpoint_api_v1_feedback_configs_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_key
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Feedback Key
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UpdateFeedbackConfigSchema:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+        is_lower_score_better:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Lower Score Better
+      type: object
+      required:
+      - feedback_key
+      title: UpdateFeedbackConfigSchema
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
+    CreateFeedbackConfigSchema:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          $ref: '#/components/schemas/FeedbackConfig'
+        is_lower_score_better:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Lower Score Better
+          default: false
+      type: object
+      required:
+      - feedback_key
+      - feedback_config
+      title: CreateFeedbackConfigSchema
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
+    FeedbackConfig:
+      properties:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max
+        categories:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FeedbackCategory'
+            type: array
+          - type: 'null'
+          title: Categories
+      type: object
+      required:
+      - type
+      title: FeedbackConfig
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FeedbackConfigSchema:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          $ref: '#/components/schemas/FeedbackConfig'
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        is_lower_score_better:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Lower Score Better
+      type: object
+      required:
+      - feedback_key
+      - feedback_config
+      - tenant_id
+      - modified_at
+      title: FeedbackConfigSchema
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,540 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: access_policies
+paths:
+  /v1/platform/orgs/current/access-policies:
+    get:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Lists all access policies for the organization.
+      tags:
+      - access_policies
+      summary: List access policies
+      responses:
+        '200':
+          description: List of access policies
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authz_internal.ListAccessPoliciesResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+      parameters: []
+    post:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Creates a new access policy.
+      tags:
+      - access_policies
+      summary: Create an access policy
+      parameters: []
+      responses:
+        '201':
+          description: Access policy created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authz_internal.AccessPolicyCreateResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '404':
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authz_internal.CreateAccessPolicyPayload'
+  /v1/platform/orgs/current/access-policies/roles/{role_id}/access-policies:
+    post:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Attaches one or more access policies to a specific role. The request body must contain an array of access policy IDs.
+      tags:
+      - access_policies
+      summary: Attach access policies to a role
+      parameters:
+      - description: Role ID
+        name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Access policies attached successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '404':
+          description: Role not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authz_internal.AttachAccessPoliciesPayload'
+  /v1/platform/orgs/current/access-policies/{access_policy_id}:
+    get:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Gets a specific access policy by ID.
+      tags:
+      - access_policies
+      summary: Get an access policy
+      parameters:
+      - description: Access Policy ID
+        name: access_policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Access policy details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authz_internal.AccessPolicy'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '404':
+          description: Access policy not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+    delete:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Deletes a specific access policy by ID.
+      tags:
+      - access_policies
+      summary: Delete an access policy
+      parameters:
+      - description: Access Policy ID
+        name: access_policy_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Access policy deleted successfully
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/abac.ErrorResponse'
+components:
+  schemas:
+    authz_internal.AbacOperator:
+      type: string
+      enum:
+      - equals
+      - not_equals
+      - equals_ignore_case
+      - not_equals_ignore_case
+      - matches
+      - not_matches
+      - equals_if_exists
+      - not_equals_if_exists
+      - equals_ignore_case_if_exists
+      - not_equals_ignore_case_if_exists
+      - matches_if_exists
+      - not_matches_if_exists
+      x-enum-varnames:
+      - AbacOperatorEquals
+      - AbacOperatorNotEquals
+      - AbacOperatorEqualsIgnoreCase
+      - AbacOperatorNotEqualsIgnoreCase
+      - AbacOperatorMatches
+      - AbacOperatorNotMatches
+      - AbacOperatorEqualsIfExists
+      - AbacOperatorNotEqualsIfExists
+      - AbacOperatorEqualsIgnoreCaseIfExists
+      - AbacOperatorNotEqualsIgnoreCaseIfExists
+      - AbacOperatorMatchesIfExists
+      - AbacOperatorNotMatchesIfExists
+    authz_internal.Condition:
+      type: object
+      properties:
+        attribute_key:
+          type: string
+        attribute_name:
+          $ref: '#/components/schemas/authz_internal.AbacAttributeName'
+        attribute_value:
+          type: string
+        operator:
+          $ref: '#/components/schemas/authz_internal.AbacOperator'
+    authz_internal.ConditionGroup:
+      type: object
+      properties:
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/authz_internal.Condition'
+        permission:
+          $ref: '#/components/schemas/authz_internal.Permission'
+        resource_type:
+          type: string
+    authz_internal.AbacAttributeName:
+      type: string
+      enum:
+      - resource_tag_key
+      x-enum-varnames:
+      - AbacAttributeNameResourceTagKey
+    authz_internal.AccessPolicy:
+      type: object
+      properties:
+        condition_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/authz_internal.ConditionGroup'
+        created_at:
+          type: string
+        description:
+          type: string
+        effect:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        role_ids:
+          type: array
+          items:
+            type: string
+        updated_at:
+          type: string
+    authz_internal.Permission:
+      type: string
+      enum:
+      - annotation-queues:create
+      - annotation-queues:delete
+      - annotation-queues:read
+      - annotation-queues:update
+      - charts:create
+      - charts:delete
+      - charts:read
+      - charts:update
+      - datasets:create
+      - datasets:delete
+      - datasets:read
+      - datasets:share
+      - datasets:update
+      - deployments:create
+      - deployments:delete
+      - deployments:read
+      - deployments:update
+      - feedback:create
+      - feedback:delete
+      - feedback:read
+      - feedback:update
+      - experiments:run
+      - issues:create
+      - issues:delete
+      - issues:read
+      - issues:update
+      - projects:create
+      - projects:delete
+      - projects:read
+      - projects:update
+      - projects:increase-trace-tier
+      - projects:decrease-trace-tier
+      - prompts:create
+      - prompts:delete
+      - prompts:read
+      - prompts:update
+      - prompts:share
+      - rules:create
+      - rules:delete
+      - rules:read
+      - rules:update
+      - runs:create
+      - runs:read
+      - runs:share
+      - runs:delete
+      - workspaces:manage-members
+      - workspaces:manage-secrets
+      - workspaces:manage
+      - workspaces:manage-model-configs
+      - workspaces:read
+      - alerts:create
+      - alerts:update
+      - alerts:delete
+      - alerts:read
+      - mcp-servers:create
+      - mcp-servers:delete
+      - mcp-servers:invoke
+      - mcp-servers:read
+      - mcp-servers:update
+      - fleet:read-admin-config
+      - fleet:write-admin-config
+      - organization:pats:create
+      - organization:read
+      - organization:manage
+      x-enum-varnames:
+      - AnnotationQueuesCreate
+      - AnnotationQueuesDelete
+      - AnnotationQueuesRead
+      - AnnotationQueuesUpdate
+      - ChartsCreate
+      - ChartsDelete
+      - ChartsRead
+      - ChartsUpdate
+      - DatasetsCreate
+      - DatasetsDelete
+      - DatasetsRead
+      - DatasetsShare
+      - DatasetsUpdate
+      - DeploymentsCreate
+      - DeploymentsDelete
+      - DeploymentsRead
+      - DeploymentsUpdate
+      - FeedbackCreate
+      - FeedbackDelete
+      - FeedbackRead
+      - FeedbackUpdate
+      - ExperimentsRun
+      - IssuesCreate
+      - IssuesDelete
+      - IssuesRead
+      - IssuesUpdate
+      - ProjectsCreate
+      - ProjectsDelete
+      - ProjectsRead
+      - ProjectsUpdate
+      - ProjectsIncreaseTraceTier
+      - ProjectsDecreaseTraceTier
+      - PromptsCreate
+      - PromptsDelete
+      - PromptsRead
+      - PromptsUpdate
+      - PromptsShare
+      - RulesCreate
+      - RulesDelete
+      - RulesRead
+      - RulesUpdate
+      - RunsCreate
+      - RunsRead
+      - RunsShare
+      - RunsDelete
+      - WorkspacesManageMembers
+      - WorkspacesManageSecrets
+      - WorkspacesManage
+      - WorkspacesManageModelConfigs
+      - WorkspacesRead
+      - AlertsCreate
+      - AlertsUpdate
+      - AlertsDelete
+      - AlertsRead
+      - McpServersCreate
+      - McpServersDelete
+      - McpServersInvoke
+      - McpServersRead
+      - McpServersUpdate
+      - FleetReadAdminConfig
+      - FleetWriteAdminConfig
+      - OrganizationPATsCreate
+      - OrganizationRead
+      - OrganizationManage
+    authz_internal.AttachAccessPoliciesPayload:
+      type: object
+      properties:
+        access_policy_ids:
+          type: array
+          items:
+            type: string
+    abac.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Invalid request: missing required fields'
+    authz_internal.ListAccessPoliciesResponse:
+      type: object
+      properties:
+        access_policies:
+          type: array
+          items:
+            $ref: '#/components/schemas/authz_internal.AccessPolicy'
+    authz_internal.CreateAccessPolicyPayload:
+      type: object
+      properties:
+        condition_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/authz_internal.ConditionGroup'
+        description:
+          type: string
+        effect:
+          type: string
+        name:
+          type: string
+        role_ids:
+          description: if present, attach to the specified roles
+          type: array
+          items:
+            type: string
+    authz_internal.AccessPolicyCreateResponse:
+      type: object
+      properties:
+        id:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

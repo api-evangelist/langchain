@@ -1,0 +1,154 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies tag-transitions API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: tag-transitions
+paths:
+  /repos/{owner}/{repo}/tags/{tag_name}/history:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Returns the paginated audit log of transitions for a specific
+
+        tag in a repository. Each entry records a commit change
+
+        (from_commit → to_commit) along with who performed it.'
+      tags:
+      - tag-transitions
+      summary: Get tag transition history
+      parameters:
+      - description: Repository owner (tenant handle)
+        name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Repository handle
+        name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Tag name
+        name: tag_name
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 50
+          minimum: 1
+          maximum: 100
+          title: Limit
+      - name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+          title: Offset
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tag_transitions.TagTransitionHistoryResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tag_transitions.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tag_transitions.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tag_transitions.ErrorResponse'
+components:
+  schemas:
+    tag_transitions.TagTransitionHistoryResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        transitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tag_transitions.TagTransition'
+    tag_transitions.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    tag_transitions.TagTransition:
+      type: object
+      properties:
+        created_at:
+          type: string
+        from_commit_hash:
+          type: string
+        from_commit_id:
+          type: string
+        id:
+          type: string
+        performed_by:
+          type: string
+        performed_by_name:
+          type: string
+        repo_id:
+          type: string
+        tag_name:
+          type: string
+        to_commit_hash:
+          type: string
+        to_commit_id:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

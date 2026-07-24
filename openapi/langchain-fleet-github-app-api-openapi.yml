@@ -1,0 +1,506 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies fleet github-app API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: fleet github-app
+paths:
+  /v1/platform/fleet/providers/github-app/auth:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Generate a GitHub OAuth link for the current user to connect their GitHub account.
+      tags:
+      - fleet github-app
+      summary: Get GitHub OAuth authorization link
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.UserAuthLinkResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+  /v1/platform/fleet/providers/github-app/connection:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Return the current user's GitHub connection status and metadata.
+      tags:
+      - fleet github-app
+      summary: Get GitHub user connection status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.UserConnectionStatus'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Remove the current user's GitHub connection and all linked installations.
+      tags:
+      - fleet github-app
+      summary: Delete GitHub user connection
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Update the actor preference for the current user's GitHub connection.
+      tags:
+      - fleet github-app
+      summary: Update GitHub user connection
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.UserConnectionStatus'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_app.UpdateUserConnectionRequest'
+  /v1/platform/fleet/providers/github-app/install:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Generate a link to install the GitHub App for the current organization.
+      tags:
+      - fleet github-app
+      summary: Get GitHub App install link
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.InstallLinkResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+  /v1/platform/fleet/providers/github-app/installations:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Return GitHub App installations linked to the current user from
+
+        our database. This is a cache — it does not hit the GitHub API.
+
+        Use POST /installations/refresh to force a fresh sync from GitHub.'
+      tags:
+      - fleet github-app
+      summary: List GitHub App installations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/github_app.Installation'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+  /v1/platform/fleet/providers/github-app/installations/refresh:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Trigger a live sync with GitHub for the current user''s GitHub App
+
+        installations. Upserts new installations, deletes stale ones, and
+
+        returns the refreshed list. Requires an existing GitHub connection.'
+      tags:
+      - fleet github-app
+      summary: Refresh GitHub App installations
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/github_app.Installation'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+  /v1/platform/fleet/providers/github-app/installations/{id}:
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Remove a GitHub App installation link for the current user.
+      tags:
+      - fleet github-app
+      summary: Delete a GitHub App installation
+      parameters:
+      - description: Installation ID
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+  /v1/platform/fleet/providers/github-app/installations/{id}/repos:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Return repositories accessible to the specified GitHub App installation.
+      tags:
+      - fleet github-app
+      summary: List repositories for a GitHub App installation
+      parameters:
+      - description: Installation ID
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/github_app.Repository'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+  /v1/platform/fleet/providers/github-app/tokens:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Return a short-lived GitHub access token scoped to the given repository.
+      tags:
+      - fleet github-app
+      summary: Request a GitHub access token
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.UserTokenResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_app.TokenRequest'
+  /v1/platform/fleet/providers/github-app/webhooks:
+    post:
+      description: Process GitHub App webhooks (installation lifecycle, installation_repositories). GitHub may deliver the same event more than once; handling re-applies the current repository-selection state and is safe to repeat.
+      tags:
+      - fleet github-app
+      summary: Handle GitHub App webhook events
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_app.ErrorResponse'
+      parameters: []
+components:
+  schemas:
+    github_app.Repository:
+      type: object
+      properties:
+        default_branch:
+          type: string
+        full_name:
+          type: string
+        html_url:
+          type: string
+        id:
+          type: integer
+        name:
+          type: string
+        private:
+          type: boolean
+    github_app.UserConnectionMetadata:
+      type: object
+      properties:
+        github_username:
+          type: string
+    github_app.InstallLinkResponse:
+      type: object
+      properties:
+        install_url:
+          type: string
+    github_app.UserTokenResponse:
+      type: object
+      properties:
+        expires_at:
+          type: string
+        token:
+          type: string
+        token_type:
+          type: string
+    github_app.UserConnectionStatus:
+      type: object
+      properties:
+        actor_preference:
+          type: string
+        is_connected:
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/github_app.UserConnectionMetadata'
+        type:
+          type: string
+    github_app.Installation:
+      type: object
+      properties:
+        account_login:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        installation_id:
+          type: string
+        metadata:
+          type: object
+        organization_id:
+          type: string
+        provider:
+          type: string
+        updated_at:
+          type: string
+        user_id:
+          type: string
+    github_app.UserAuthLinkResponse:
+      type: object
+      properties:
+        auth_url:
+          type: string
+    github_app.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    github_app.UpdateUserConnectionRequest:
+      type: object
+      properties:
+        actor_preference:
+          type: string
+    github_app.TokenRequest:
+      type: object
+      properties:
+        repository:
+          type: string
+        type:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,276 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies ownerships API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: ownerships
+paths:
+  /api/v1/repos/{owner}/{repo}/owners:
+    get:
+      tags:
+      - ownerships
+      summary: List Repo Owners
+      description: 'List all owners of a repo.
+
+
+        Requires read permission on the repo.'
+      operationId: list_repo_owners_api_v1_repos__owner___repo__owners_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRepoOwnersResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - ownerships
+      summary: Add Repo Owner
+      description: 'Add an owner to a repo.
+
+
+        Requires being an existing owner of the repo.'
+      operationId: add_repo_owner_api_v1_repos__owner___repo__owners_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddRepoOwnerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoOwner'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - ownerships
+      summary: Remove Repo Owner
+      description: 'Remove an owner from a repo.
+
+
+        Requires being an existing owner of the repo.'
+      operationId: remove_repo_owner_api_v1_repos__owner___repo__owners_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveRepoOwnerRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AddRepoOwnerRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+      type: object
+      required:
+      - email
+      title: AddRepoOwnerRequest
+      description: Request to add a repo owner.
+    ListRepoOwnersResponse:
+      properties:
+        owners:
+          items:
+            $ref: '#/components/schemas/RepoOwner'
+          type: array
+          title: Owners
+      type: object
+      required:
+      - owners
+      title: ListRepoOwnersResponse
+      description: Response for listing repo owners.
+    RemoveRepoOwnerRequest:
+      properties:
+        identity_id:
+          type: string
+          format: uuid
+          title: Identity Id
+      type: object
+      required:
+      - identity_id
+      title: RemoveRepoOwnerRequest
+      description: Request to remove a repo owner.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RepoOwner:
+      properties:
+        identity_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Identity Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - identity_id
+      - ls_user_id
+      - email
+      - full_name
+      - created_at
+      title: RepoOwner
+      description: 'A repo owner with user details.
+
+
+        Note: identity_id and email may be None when returned to users
+
+        outside the repo''s tenant (PII protection).'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

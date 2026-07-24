@@ -1,0 +1,570 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies alert_rules API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: alert_rules
+paths:
+  /v1/platform/alerts/{session_id}:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Creates a new alert rule. The request body must be a JSON-encoded alert rule object that follows the CreateAlertRuleRequest schema.
+      tags:
+      - alert_rules
+      summary: Create an alert rule
+      parameters:
+      - description: Session ID
+        name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Alert rule created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.AlertRuleResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '429':
+          description: Alert Rule Limit Reached
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/alerts.CreateAlertRuleRequest'
+  /v1/platform/alerts/{session_id}/test:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Tests an alert action which will fire a notification to all configured recipients if the configuration is valid.
+      tags:
+      - alert_rules
+      summary: Test an alert action to determine if configuration is valid
+      parameters:
+      - description: Session ID
+        name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Alert rule ID
+        name: alert_rule_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Alert action fired successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  allOf:
+                  - type: string
+                  - type: object
+                    properties:
+                      message:
+                        type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+  /v1/platform/alerts/{session_id}/{alert_rule_id}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Gets an alert rule.
+      tags:
+      - alert_rules
+      summary: Get an alert rule
+      parameters:
+      - description: Session ID
+        name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Alert rule ID
+        name: alert_rule_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Alert rule
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.AlertRuleResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Deletes an alert rule
+      tags:
+      - alert_rules
+      summary: Delete an alert rule
+      parameters:
+      - description: Session ID
+        name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Alert rule ID
+        name: alert_rule_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Alert rule deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  allOf:
+                  - type: string
+                  - type: object
+                    properties:
+                      message:
+                        type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Updates an alert rule.
+      tags:
+      - alert_rules
+      summary: Update an alert rule
+      parameters:
+      - description: Session ID
+        name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Alert rule ID
+        name: alert_rule_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Alert rule updated
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  allOf:
+                  - type: string
+                  - type: object
+                    properties:
+                      message:
+                        type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/alerts.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/alerts.UpdateAlertRuleRequest'
+components:
+  schemas:
+    alerts.AlertActionBase:
+      type: object
+      required:
+      - config
+      - target
+      properties:
+        alert_rule_id:
+          type: string
+        config:
+          type: object
+        id:
+          type: string
+        target:
+          type: string
+          enum:
+          - pagerduty
+          - webhook
+          - dynatrace
+    alerts.AlertRuleBase:
+      type: object
+      required:
+      - aggregation
+      - attribute
+      - description
+      - name
+      - operator
+      - type
+      - window_minutes
+      properties:
+        aggregation:
+          type: string
+          enum:
+          - avg
+          - sum
+          - pct
+        attribute:
+          type: string
+          enum:
+          - latency
+          - error_count
+          - feedback_score
+          - run_latency
+          - run_count
+          - total_cost
+        denominator_filter:
+          type: string
+        description:
+          type: string
+        filter:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        operator:
+          type: string
+          enum:
+          - gte
+          - lte
+          - gt
+          - lt
+        threshold:
+          type: number
+        threshold_multiplier:
+          type: number
+        threshold_window_minutes:
+          type: integer
+          maximum: 60
+        type:
+          type: string
+          enum:
+          - threshold
+          - change
+        window_minutes:
+          description: 1-60 minutes for alert rule
+          type: integer
+          maximum: 60
+          minimum: 1
+    alerts.UpdateAlertRuleRequest:
+      type: object
+      required:
+      - actions
+      - rule
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertActionBase'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRuleBase'
+    alerts.CreateAlertRuleRequest:
+      type: object
+      required:
+      - actions
+      - rule
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertActionBase'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRuleBase'
+    alerts.AlertRule:
+      type: object
+      required:
+      - aggregation
+      - attribute
+      - description
+      - name
+      - operator
+      - type
+      - window_minutes
+      properties:
+        aggregation:
+          type: string
+          enum:
+          - avg
+          - sum
+          - pct
+        attribute:
+          type: string
+          enum:
+          - latency
+          - error_count
+          - feedback_score
+          - run_latency
+          - run_count
+          - total_cost
+        created_at:
+          type: string
+        denominator_filter:
+          type: string
+        description:
+          type: string
+        filter:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        operator:
+          type: string
+          enum:
+          - gte
+          - lte
+          - gt
+          - lt
+        session_id:
+          type: string
+        session_name:
+          type: string
+        threshold:
+          type: number
+        threshold_multiplier:
+          type: number
+        threshold_window_minutes:
+          type: integer
+          maximum: 60
+        type:
+          type: string
+          enum:
+          - threshold
+          - change
+        updated_at:
+          type: string
+        window_minutes:
+          description: 1-60 minutes for alert rule
+          type: integer
+          maximum: 60
+          minimum: 1
+    alerts.AlertRuleResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertAction'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRule'
+    alerts.AlertAction:
+      type: object
+      required:
+      - config
+      - target
+      properties:
+        alert_rule_id:
+          type: string
+        config:
+          type: object
+        created_at:
+          type: string
+        id:
+          type: string
+        target:
+          type: string
+          enum:
+          - pagerduty
+          - webhook
+          - dynatrace
+        updated_at:
+          type: string
+    alerts.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Invalid request: missing required fields'
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

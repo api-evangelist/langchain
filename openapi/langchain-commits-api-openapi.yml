@@ -1,0 +1,402 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies commits API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: commits
+paths:
+  /commits/{owner}/{repo}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Lists all commits for a repository with pagination support.
+
+        This endpoint supports both authenticated and unauthenticated access.
+
+        Authenticated users can access private repos, while unauthenticated users can only access public repos.
+
+        The include_stats parameter controls whether download and view statistics are computed (defaults to true).'
+      tags:
+      - commits
+      summary: List commits
+      parameters:
+      - description: Repository owner (tenant handle) or '-' for private repos
+        name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Repository handle
+        name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: IncludeStats determines whether to compute num_downloads and num_views
+        name: include_stats
+        in: query
+        schema:
+          type: boolean
+          default: true
+          title: Include Stats
+      - description: Limit is the pagination limit
+        name: limit
+        in: query
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+          title: Limit
+      - description: Offset is the pagination offset
+        name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+          title: Offset
+      - description: Tag filters commits to only those with a specific tag (e.g. "production", "staging")
+        name: tag
+        in: query
+        schema:
+          type: string
+          title: Tag
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ListCommitsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Creates a new commit in a repository.
+
+        Requires authentication and write access to the repository.'
+      tags:
+      - commits
+      summary: Create a commit
+      parameters:
+      - description: Repository owner (tenant handle) or '-' for private repos
+        name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Repository handle
+        name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.CreateCommitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/commits.CreateCommitReq'
+  /commits/{owner}/{repo}/{commit}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Retrieves a specific commit by hash, tag, or "latest" for a repository.
+
+        This endpoint supports both authenticated and unauthenticated access.
+
+        Authenticated users can access private repos, while unauthenticated users can only access public repos.
+
+        Commit resolution logic:
+
+        - "latest" or empty: Get the most recent commit
+
+        - Less than 8 characters: Only check for tags
+
+        - 8 or more characters: Prioritize commit hash over tag, check both'
+      tags:
+      - commits
+      summary: Get a commit
+      parameters:
+      - description: Repository owner (tenant handle) or '-' for private repos
+        name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Repository handle
+        name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Commit hash, tag, or 'latest'
+        name: commit
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: get_examples
+        in: query
+        schema:
+          type: boolean
+          default: false
+          title: Get Examples
+      - description: 'Comma-separated list of optional fields: "model", "is_draft"'
+        name: include
+        in: query
+        schema:
+          type: string
+          title: Include
+      - description: 'Deprecated: use Include instead'
+        name: include_model
+        in: query
+        schema:
+          type: boolean
+          default: false
+          title: Include Model
+      - name: is_view
+        in: query
+        schema:
+          type: boolean
+          default: false
+          title: Is View
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.CommitResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commits.ErrorResponse'
+components:
+  schemas:
+    commits.ListCommitsResponse:
+      type: object
+      properties:
+        commits:
+          description: List of commits with lookup information
+          type: array
+          items:
+            $ref: '#/components/schemas/commits.CommitWithLookups'
+        total:
+          description: Total number of commits
+          type: integer
+    commits.ExampleRun:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        inputs:
+          type: object
+        outputs:
+          type: object
+        session_id:
+          type: string
+          format: uuid
+        start_time:
+          type: string
+    commits.CreateCommitReq:
+      type: object
+      properties:
+        description:
+          type: string
+        manifest:
+          type: object
+        parent_commit:
+          type: string
+        skip_webhooks:
+          description: SkipWebhooks allows skipping webhook notifications. Can be true (boolean) to skip all, or an array of webhook UUIDs to skip specific ones.
+    commits.CommitWithLookups:
+      type: object
+      properties:
+        commit_hash:
+          description: The hash of the commit
+          type: string
+        created_at:
+          description: When the commit was created
+          type: string
+          format: date-time
+        description:
+          description: Optional human-readable description for the commit
+          type: string
+        example_run_ids:
+          description: Example run IDs associated with the commit
+          type: array
+          items:
+            type: string
+            format: uuid
+        full_name:
+          description: Author's full name
+          type: string
+        id:
+          description: The commit ID
+          type: string
+          format: uuid
+        manifest:
+          description: The manifest of the commit
+          type: object
+        manifest_sha:
+          description: The SHA of the manifest
+          type: array
+          items:
+            type: integer
+        num_downloads:
+          description: Number of API downloads
+          type: integer
+        num_views:
+          description: Number of web views
+          type: integer
+        parent_commit_hash:
+          description: The hash of the parent commit
+          type: string
+        parent_id:
+          description: The ID of the parent commit
+          type: string
+          format: uuid
+        repo_id:
+          description: Repository ID
+          type: string
+          format: uuid
+        updated_at:
+          description: When the commit was last updated
+          type: string
+          format: date-time
+    commits.ErrorResponse:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+    commits.CommitResponse:
+      type: object
+      properties:
+        commit_hash:
+          type: string
+        description:
+          type: string
+        examples:
+          type: array
+          items:
+            $ref: '#/components/schemas/commits.ExampleRun'
+        is_draft:
+          type: boolean
+        manifest:
+          type: object
+        model_config:
+          type: object
+        model_provider:
+          type: string
+    commits.CreateCommitResponse:
+      type: object
+      properties:
+        commit:
+          $ref: '#/components/schemas/commits.CommitWithLookups'
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,136 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies data_planes API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: data_planes
+paths:
+  /v1/platform/orgs/current/data-planes:
+    get:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Returns up to 50 data planes owned by the caller's organization. Sorted status priority (active first), then newest first. Requires BYOC to be enabled for the org.
+      tags:
+      - data_planes
+      summary: List data planes for the current organization
+      responses:
+        '200':
+          description: Data planes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/data_planes.ListPublicDataPlanesResponse'
+        '400':
+          description: Invalid organization ID
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '403':
+          description: BYOC not enabled for this organization
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      parameters: []
+components:
+  schemas:
+    data_planes.Status:
+      type: string
+      enum:
+      - requested
+      - provisioning
+      - provisioning_failed
+      - active
+      - inactive
+      - deprovisioning
+      - deleted
+      - revoked
+      x-enum-varnames:
+      - DataPlaneStatusRequested
+      - DataPlaneStatusProvisioning
+      - DataPlaneStatusProvisioningFailed
+      - DataPlaneStatusActive
+      - DataPlaneStatusInactive
+      - DataPlaneStatusDeprovisioning
+      - DataPlaneStatusDeleted
+      - DataPlaneStatusRevoked
+    data_planes.PublicDataPlane:
+      type: object
+      properties:
+        api_url:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        region:
+          type: string
+        status:
+          $ref: '#/components/schemas/data_planes.Status'
+    data_planes.ListPublicDataPlanesResponse:
+      type: object
+      properties:
+        data_planes:
+          type: array
+          items:
+            $ref: '#/components/schemas/data_planes.PublicDataPlane'
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

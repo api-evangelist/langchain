@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies aws_marketplace API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: aws_marketplace
+paths:
+  /aws-marketplace/register:
+    post:
+      description: Receives the x-amzn-marketplace-token posted by AWS Marketplace when a customer clicks "Set Up Account", resolves the customer identity, fetches entitlements, stores both in the DB, and redirects to the thank-you page.
+      tags:
+      - aws_marketplace
+      summary: AWS Marketplace fulfillment URL registration
+      parameters: []
+      responses:
+        '303':
+          description: Redirect to thank-you page
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                x-amzn-marketplace-token:
+                  type: string
+                  description: Registration token from AWS Marketplace
+              required:
+              - x-amzn-marketplace-token
+components:
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

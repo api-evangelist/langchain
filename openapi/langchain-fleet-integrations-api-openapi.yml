@@ -1,0 +1,445 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies fleet integrations API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: fleet integrations
+paths:
+  /v1/fleet/integrations:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns integrations available to the workspace.
+      tags:
+      - fleet integrations
+      summary: List integrations
+      parameters:
+      - description: Filter by source (e.g. langchain, custom)
+        name: source
+        in: query
+        schema:
+          type: string
+          title: Source
+      - description: Items per page (default 20, max 100)
+        name: page_size
+        in: query
+        schema:
+          type: integer
+          title: Page Size
+      - description: Opaque pagination cursor
+        name: cursor
+        in: query
+        schema:
+          type: string
+          title: Cursor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Registers a new custom integration. Type is forced to CUSTOM.
+      tags:
+      - fleet integrations
+      summary: Create a custom integration
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.Integration'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/integrations.CreateRequest'
+  /v1/fleet/integrations/{id}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      tags:
+      - fleet integrations
+      summary: Get an integration
+      parameters:
+      - description: Integration id
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.Integration'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Idempotent. Returns 204 whether or not the integration existed.
+      tags:
+      - fleet integrations
+      summary: Delete a custom integration
+      parameters:
+      - description: Integration id
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Updates mutable fields. URL is immutable.
+      tags:
+      - fleet integrations
+      summary: Update a custom integration
+      parameters:
+      - description: Integration id
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.Integration'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/integrations.UpdateRequest'
+  /v1/fleet/integrations/{id}/auth-methods:
+    put:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Replaces the integration's full list of supported auth methods.
+      tags:
+      - fleet integrations
+      summary: Replace integration auth methods
+      parameters:
+      - description: Integration id
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.Integration'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/integrations.ReplaceAuthMethodsRequest'
+components:
+  schemas:
+    integrations.AuthMethod:
+      type: object
+      properties:
+        provider_match:
+          $ref: '#/components/schemas/integrations.ProviderMatch'
+        type:
+          $ref: '#/components/schemas/integrations.AuthType'
+    integrations.ListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.Integration'
+        next_cursor:
+          type: string
+    integrations.CreateRequest:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        category:
+          type: string
+        description:
+          type: string
+        icon_url:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        url:
+          type: string
+    integrations.ProviderMatch:
+      type: object
+      properties:
+        by:
+          $ref: '#/components/schemas/integrations.MatchBy'
+        value:
+          type: string
+    integrations.MatchBy:
+      type: string
+      enum:
+      - kind
+      - id
+      x-enum-varnames:
+      - MatchByKind
+      - MatchByID
+    integrations.Transport:
+      type: string
+      enum:
+      - mcp_http
+      x-enum-varnames:
+      - TransportMCPHTTP
+    integrations.UpdateRequest:
+      type: object
+      properties:
+        category:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        icon_url:
+          type: string
+        name:
+          type: string
+    integrations.AuthType:
+      type: string
+      enum:
+      - oauth2
+      - headers
+      - api_key
+      - none
+      x-enum-varnames:
+      - AuthTypeOAuth2
+      - AuthTypeHeaders
+      - AuthTypeAPIKey
+      - AuthTypeNone
+    integrations.ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        type:
+          type: string
+    integrations.Integration:
+      type: object
+      properties:
+        auth_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.AuthMethod'
+        category:
+          type: string
+        created_at:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        icon_url:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        transport:
+          $ref: '#/components/schemas/integrations.Transport'
+        updated_at:
+          type: string
+        url:
+          type: string
+    integrations.ReplaceAuthMethodsRequest:
+      type: object
+      properties:
+        auth_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.AuthMethod'
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

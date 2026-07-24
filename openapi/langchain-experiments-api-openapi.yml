@@ -1,0 +1,130 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies experiments API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: experiments
+paths:
+  /api/v1/runs/experiments/{experiment_id}/evaluate:
+    post:
+      tags:
+      - experiments
+      summary: Evaluate Experiment Adhoc
+      description: 'Evaluate an existing experiment with a specific evaluator.
+
+
+        This triggers immediate evaluation using the run_over_dataset approach,
+
+        processing runs in batches to handle large experiments efficiently.'
+      operationId: evaluate_experiment_adhoc_api_v1_runs_experiments__experiment_id__evaluate_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: experiment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Experiment Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EvaluateExperimentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Evaluate Experiment Adhoc Api V1 Runs Experiments  Experiment Id  Evaluate Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    EvaluateExperimentRequest:
+      properties:
+        rule_id:
+          type: string
+          format: uuid
+          title: Rule Id
+      type: object
+      required:
+      - rule_id
+      title: EvaluateExperimentRequest
+      description: Request body for evaluating an experiment.
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

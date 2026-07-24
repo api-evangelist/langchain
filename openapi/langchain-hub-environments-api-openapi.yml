@@ -1,0 +1,258 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies hub_environments API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: hub_environments
+paths:
+  /api/v1/hub/environments:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Returns the hub environments model for the current tenant.
+
+        Returns 404 if no custom configuration exists.'
+      tags:
+      - hub_environments
+      summary: List hub environments
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.HubEnvironmentsModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+      parameters: []
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Creates the hub environments configuration for the current tenant.
+      tags:
+      - hub_environments
+      summary: Create hub environments model
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.HubEnvironmentsModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hub_environments.CreateEnvironmentsRequest'
+  /api/v1/hub/environments/{id}:
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Deletes the hub environments configuration. Tenant reverts to defaults.
+      tags:
+      - hub_environments
+      summary: Delete hub environments model
+      parameters:
+      - description: Model ID
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Replaces the environments array on an existing model.
+      tags:
+      - hub_environments
+      summary: Update hub environments model
+      parameters:
+      - description: Model ID
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.HubEnvironmentsModel'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/hub_environments.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/hub_environments.UpdateEnvironmentsRequest'
+components:
+  schemas:
+    hub_environments.CreateEnvironmentsRequest:
+      type: object
+      required:
+      - environments
+      properties:
+        environments:
+          type: array
+          maxItems: 4
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
+    hub_environments.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    hub_environments.UpdateEnvironmentsRequest:
+      type: object
+      required:
+      - environments
+      properties:
+        environments:
+          type: array
+          maxItems: 4
+          items:
+            $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
+    hub_environments.EnvironmentEntry:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          maxLength: 64
+          minLength: 1
+    hub_environments.HubEnvironmentsModel:
+      type: object
+      properties:
+        environments:
+          type: array
+          items:
+            $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
+        id:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

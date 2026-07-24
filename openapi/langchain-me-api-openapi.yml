@@ -1,0 +1,261 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies me API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: me
+paths:
+  /api/v1/me/onboarding_state:
+    get:
+      tags:
+      - me
+      summary: Get Onboarding State
+      description: Get onboarding state for the current user.
+      operationId: get_onboarding_state_api_v1_me_onboarding_state_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOnboardingStateResponse'
+      security:
+      - Bearer Auth: []
+    post:
+      tags:
+      - me
+      summary: Create Onboarding State
+      description: Initialize onboarding state for the current user.
+      operationId: create_onboarding_state_api_v1_me_onboarding_state_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOnboardingStateResponse'
+      security:
+      - Bearer Auth: []
+  /api/v1/me/onboarding_state/{field}:
+    put:
+      tags:
+      - me
+      summary: Update Onboarding State Field
+      description: 'Update a specific onboarding completion field for the current user.
+
+
+        Valid fields:
+
+        - tracing_completed_at
+
+        - lgstudio_completed_at
+
+        - playground_completed_at
+
+        - evaluation_completed_at
+
+        - success_viewed_at'
+      operationId: update_onboarding_state_field_api_v1_me_onboarding_state__field__put
+      security:
+      - Bearer Auth: []
+      parameters:
+      - name: field
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Field
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOnboardingStateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/me/ls_user_id:
+    get:
+      tags:
+      - me
+      summary: Get Ls User Id
+      description: Get the LangSmith user ID for the current user.
+      operationId: get_ls_user_id_api_v1_me_ls_user_id_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Get Ls User Id Api V1 Me Ls User Id Get
+      security:
+      - Bearer Auth: []
+  /me/providers/{providerType}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns the provider user ID associated with the authenticated user for a given provider type, or null if not set. Scoped to the current tenant.
+      tags:
+      - me
+      summary: Get the authenticated user's provider user ID
+      parameters:
+      - description: Provider type (e.g. slack, github)
+        name: providerType
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UserOnboardingStateResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        tracing_completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Tracing Completed At
+        lgstudio_completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Lgstudio Completed At
+        playground_completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Playground Completed At
+        evaluation_completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Evaluation Completed At
+        success_viewed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Success Viewed At
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      title: UserOnboardingStateResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

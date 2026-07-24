@@ -1,0 +1,357 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies tags API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: tags
+paths:
+  /api/v1/repos/{owner}/{repo}/tags:
+    get:
+      tags:
+      - tags
+      summary: Get Tags
+      operationId: get_tags_api_v1_repos__owner___repo__tags_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RepoTag'
+                title: Response Get Tags Api V1 Repos  Owner   Repo  Tags Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - tags
+      summary: Create Tag
+      description: Create a tag. Requires repo ownership, prompts:tag permission, or ABAC grant.
+      operationId: create_tag_api_v1_repos__owner___repo__tags_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepoTagRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoTag'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/repos/{owner}/{repo}/tags/{tag_name}:
+    get:
+      tags:
+      - tags
+      summary: Get Tag
+      operationId: get_tag_api_v1_repos__owner___repo__tags__tag_name__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: tag_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tag Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoTag'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - tags
+      summary: Update Tag
+      description: Update a tag. Requires repo ownership, prompts:tag permission, or ABAC grant.
+      operationId: update_tag_api_v1_repos__owner___repo__tags__tag_name__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: tag_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tag Name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RepoUpdateTagRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RepoTag'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tags
+      summary: Delete Tag
+      description: Delete a tag. Requires repo ownership, prompts:tag permission, or ABAC grant.
+      operationId: delete_tag_api_v1_repos__owner___repo__tags__tag_name__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: tag_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Tag Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RepoTag:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        repo_id:
+          type: string
+          format: uuid
+          title: Repo Id
+        commit_id:
+          type: string
+          format: uuid
+          title: Commit Id
+        commit_hash:
+          type: string
+          title: Commit Hash
+        tag_name:
+          type: string
+          title: Tag Name
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - repo_id
+      - commit_id
+      - commit_hash
+      - tag_name
+      - created_at
+      - updated_at
+      title: RepoTag
+      description: Fields for a prompt tag
+    RepoUpdateTagRequest:
+      properties:
+        commit_id:
+          type: string
+          format: uuid
+          title: Commit Id
+        skip_webhooks:
+          anyOf:
+          - type: boolean
+          - items:
+              type: string
+              format: uuid
+            type: array
+          title: Skip Webhooks
+          default: false
+      type: object
+      required:
+      - commit_id
+      title: RepoUpdateTagRequest
+      description: Fields to update a prompt tag
+    RepoTagRequest:
+      properties:
+        tag_name:
+          type: string
+          title: Tag Name
+        commit_id:
+          type: string
+          format: uuid
+          title: Commit Id
+        skip_webhooks:
+          anyOf:
+          - type: boolean
+          - items:
+              type: string
+              format: uuid
+            type: array
+          title: Skip Webhooks
+          default: false
+      type: object
+      required:
+      - tag_name
+      - commit_id
+      title: RepoTagRequest
+      description: Fields to create a prompt tag
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

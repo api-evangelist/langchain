@@ -1,0 +1,163 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies info API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: info
+paths:
+  /api/v1/info:
+    get:
+      tags:
+      - info
+      summary: Get Server Info
+      description: Get information about the current deployment of LangSmith.
+      operationId: get_server_info_api_v1_info_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InfoGetResponse'
+  /api/v1/info/health:
+    get:
+      tags:
+      - info
+      summary: Get Health Info
+      description: Get health information about the current deployment of LangSmith.
+      operationId: get_health_info_api_v1_info_health_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthInfoGetResponse'
+components:
+  schemas:
+    HealthInfoGetResponse:
+      properties:
+        clickhouse_disk_free_pct:
+          type: number
+          title: Clickhouse Disk Free Pct
+      type: object
+      required:
+      - clickhouse_disk_free_pct
+      title: HealthInfoGetResponse
+      description: The LangSmith server info.
+    CustomerInfo:
+      properties:
+        customer_id:
+          type: string
+          title: Customer Id
+        customer_name:
+          type: string
+          title: Customer Name
+      type: object
+      required:
+      - customer_id
+      - customer_name
+      title: CustomerInfo
+      description: Customer info.
+    BatchIngestConfig:
+      properties:
+        use_multipart_endpoint:
+          type: boolean
+          title: Use Multipart Endpoint
+          default: true
+        scale_up_qsize_trigger:
+          type: integer
+          title: Scale Up Qsize Trigger
+          default: 1000
+        scale_up_nthreads_limit:
+          type: integer
+          title: Scale Up Nthreads Limit
+          default: 16
+        scale_down_nempty_trigger:
+          type: integer
+          title: Scale Down Nempty Trigger
+          default: 4
+        size_limit:
+          type: integer
+          title: Size Limit
+          default: 100
+        size_limit_bytes:
+          type: integer
+          title: Size Limit Bytes
+          default: 20971520
+      type: object
+      title: BatchIngestConfig
+      description: Batch ingest config.
+    InfoGetResponse:
+      properties:
+        version:
+          type: string
+          title: Version
+        git_sha:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Git Sha
+        license_expiration_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: License Expiration Time
+        batch_ingest_config:
+          $ref: '#/components/schemas/BatchIngestConfig'
+          default:
+            use_multipart_endpoint: true
+            scale_up_qsize_trigger: 1000
+            scale_up_nthreads_limit: 16
+            scale_down_nempty_trigger: 4
+            size_limit: 100
+            size_limit_bytes: 20971520
+        instance_flags:
+          additionalProperties: true
+          type: object
+          title: Instance Flags
+        customer_info:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerInfo'
+          - type: 'null'
+      type: object
+      required:
+      - version
+      title: InfoGetResponse
+      description: The LangSmith server info.
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

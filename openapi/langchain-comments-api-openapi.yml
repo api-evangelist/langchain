@@ -1,0 +1,447 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies comments API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: comments
+paths:
+  /api/v1/comments/{owner}/{repo}:
+    post:
+      tags:
+      - comments
+      summary: Create Comment
+      operationId: create_comment_api_v1_comments__owner___repo__post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - comments
+      summary: Get Comments
+      operationId: get_comments_api_v1_comments__owner___repo__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCommentsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/comments/{owner}/{repo}/{parent_comment_id}:
+    get:
+      tags:
+      - comments
+      summary: Get Sub Comments
+      operationId: get_sub_comments_api_v1_comments__owner___repo___parent_comment_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: parent_comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Parent Comment Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCommentsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - comments
+      summary: Create Sub Comment
+      operationId: create_sub_comment_api_v1_comments__owner___repo___parent_comment_id__post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: parent_comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Parent Comment Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCommentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/comments/{owner}/{repo}/{parent_comment_id}/like:
+    post:
+      tags:
+      - comments
+      summary: Like Comment
+      operationId: like_comment_api_v1_comments__owner___repo___parent_comment_id__like_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: parent_comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Parent Comment Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Like Comment Api V1 Comments  Owner   Repo   Parent Comment Id  Like Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - comments
+      summary: Unlike Comment
+      operationId: unlike_comment_api_v1_comments__owner___repo___parent_comment_id__like_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      - name: parent_comment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Parent Comment Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Unlike Comment Api V1 Comments  Owner   Repo   Parent Comment Id  Like Delete
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CreateCommentRequest:
+      properties:
+        content:
+          type: string
+          title: Content
+      type: object
+      required:
+      - content
+      title: CreateCommentRequest
+    ListCommentsResponse:
+      properties:
+        comments:
+          items:
+            $ref: '#/components/schemas/Comment'
+          type: array
+          title: Comments
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - comments
+      - total
+      title: ListCommentsResponse
+    Comment:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        comment_by:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comment By
+        comment_on:
+          type: string
+          format: uuid
+          title: Comment On
+        parent_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Id
+        content:
+          type: string
+          title: Content
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        comment_by_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment By Name
+        num_sub_comments:
+          type: integer
+          title: Num Sub Comments
+        num_likes:
+          type: integer
+          title: Num Likes
+        liked_by_auth_user:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Liked By Auth User
+      type: object
+      required:
+      - id
+      - comment_on
+      - content
+      - created_at
+      - updated_at
+      - num_sub_comments
+      - num_likes
+      title: Comment
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies metrics API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: metrics
+paths:
+  /api/v1/metrics/queue/{queue_name}:
+    get:
+      tags:
+      - metrics
+      summary: Get Queue Metrics
+      description: Return cached SAQ queue counts for the requested queue.
+      operationId: get_queue_metrics_api_v1_metrics_queue__queue_name__get
+      parameters:
+      - name: queue_name
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Queue Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueInfoResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    QueueInfoResponse:
+      properties:
+        queued:
+          type: integer
+          title: Queued
+        active:
+          type: integer
+          title: Active
+        scheduled:
+          type: integer
+          title: Scheduled
+      type: object
+      required:
+      - queued
+      - active
+      - scheduled
+      title: QueueInfoResponse
+      description: Short summary of queue counts.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

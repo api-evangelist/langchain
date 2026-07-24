@@ -1,0 +1,1422 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies feedback API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: feedback
+paths:
+  /api/v1/feedback/formulas:
+    post:
+      tags:
+      - feedback
+      summary: Create Feedback Formula Ep
+      description: Create a new feedback formula
+      operationId: create_feedback_formula_ep_api_v1_feedback_formulas_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackFormulaCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackFormula'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - feedback
+      summary: List Feedback Formula Ep
+      description: List feedback formulas for a given dataset or tracing project
+      operationId: list_feedback_formula_ep_api_v1_feedback_formulas_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: dataset_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dataset Id
+      - name: session_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackFormula'
+                title: Response List Feedback Formula Ep Api V1 Feedback Formulas Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/feedback/formulas/{feedback_formula_id}:
+    get:
+      tags:
+      - feedback
+      summary: Get Feedback Formula Ep
+      description: Get a feedback formula by id
+      operationId: get_feedback_formula_ep_api_v1_feedback_formulas__feedback_formula_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_formula_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Feedback Formula Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackFormula'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - feedback
+      summary: Update Feedback Formula Ep
+      description: Update a feedback formula
+      operationId: update_feedback_formula_ep_api_v1_feedback_formulas__feedback_formula_id__put
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_formula_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Feedback Formula Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackFormulaUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackFormula'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - feedback
+      summary: Delete Feedback Formula Endpoint
+      description: Delete a feedback formula by id
+      operationId: delete_feedback_formula_endpoint_api_v1_feedback_formulas__feedback_formula_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_formula_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Feedback Formula Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/feedback/{feedback_id}:
+    get:
+      tags:
+      - feedback
+      summary: Read Feedback
+      description: Get a specific feedback.
+      operationId: read_feedback_api_v1_feedback__feedback_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Feedback Id
+      - name: include_user_names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include User Names
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - feedback
+      summary: Update Feedback
+      description: Replace an existing feedback entry with a new, modified entry.
+      operationId: update_feedback_api_v1_feedback__feedback_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Feedback Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackUpdateSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - feedback
+      summary: Delete Feedback
+      description: Delete a feedback.
+      operationId: delete_feedback_api_v1_feedback__feedback_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: feedback_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Feedback Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/feedback:
+    get:
+      tags:
+      - feedback
+      summary: Read Feedbacks
+      description: List all Feedback by query params.
+      operationId: read_feedbacks_api_v1_feedback_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: run
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run
+      - name: key
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Key
+      - name: session
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session
+      - name: source
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              $ref: '#/components/schemas/SourceType'
+          - type: 'null'
+          title: Source
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: user
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: User
+      - name: has_comment
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Has Comment
+      - name: has_score
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Has Score
+      - name: level
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackLevel'
+          - type: 'null'
+          title: Level
+      - name: max_created_at
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Created At
+      - name: min_created_at
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Created At
+      - name: include_user_names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include User Names
+      - name: comparative_experiment_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackSchema'
+                title: Response Read Feedbacks Api V1 Feedback Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - feedback
+      summary: Create Feedback
+      description: Create a new feedback.
+      operationId: create_feedback_api_v1_feedback_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackCreateSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/feedback/eager:
+    post:
+      tags:
+      - feedback
+      summary: Eagerly Create Feedback
+      description: 'Create a new feedback.
+
+
+        This method is invoked under the assumption that the run
+
+        is already visible in the app, thus already present in DB'
+      operationId: eagerly_create_feedback_api_v1_feedback_eager_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackCreateSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeedbackSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/feedback/tokens:
+    post:
+      tags:
+      - feedback
+      summary: Create Feedback Ingest Token
+      description: Create a new feedback ingest token.
+      operationId: create_feedback_ingest_token_api_v1_feedback_tokens_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/FeedbackIngestTokenCreateSchema'
+              - type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackIngestTokenCreateSchema'
+              title: Feedback Ingest Token
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                anyOf:
+                - $ref: '#/components/schemas/FeedbackIngestTokenSchema'
+                - type: array
+                  items:
+                    $ref: '#/components/schemas/FeedbackIngestTokenSchema'
+                title: Response Create Feedback Ingest Token Api V1 Feedback Tokens Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - feedback
+      summary: List Feedback Ingest Tokens
+      description: List all feedback ingest tokens for a run.
+      operationId: list_feedback_ingest_tokens_api_v1_feedback_tokens_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: run_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FeedbackIngestTokenSchema'
+                title: Response List Feedback Ingest Tokens Api V1 Feedback Tokens Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/feedback/tokens/{token}:
+    get:
+      tags:
+      - feedback
+      summary: Create Feedback With Token Get
+      description: Create a new feedback with a token.
+      operationId: create_feedback_with_token_get_api_v1_feedback_tokens__token__get
+      parameters:
+      - name: token
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Token
+      - name: score
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+      - name: value
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - type: 'null'
+          title: Value
+      - name: comment
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+      - name: correction
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Correction
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - feedback
+      summary: Create Feedback With Token Post
+      description: Create a new feedback with a token.
+      operationId: create_feedback_with_token_post_api_v1_feedback_tokens__token__post
+      parameters:
+      - name: token
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Token
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackCreateWithTokenExtendedSchema'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    AutoEvalFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: auto_eval
+          title: Type
+          default: auto_eval
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: AutoEvalFeedbackSource
+      description: Auto eval feedback source.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FeedbackFormulaWeightedVariable:
+      properties:
+        part_type:
+          type: string
+          const: weighted_key
+          title: Part Type
+        weight:
+          type: number
+          title: Weight
+        key:
+          type: string
+          minLength: 1
+          title: Key
+      type: object
+      required:
+      - part_type
+      - weight
+      - key
+      title: FeedbackFormulaWeightedVariable
+    FeedbackLevel:
+      type: string
+      enum:
+      - run
+      - session
+      title: FeedbackLevel
+      description: Enum for feedback levels.
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
+    FeedbackSchema:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        key:
+          type: string
+          title: Key
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Feedback Group Id
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+        run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        id:
+          type: string
+          format: uuid
+          title: Id
+        trace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        is_root:
+          type: boolean
+          title: Is Root
+          default: false
+        feedback_source:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackSource'
+          - type: 'null'
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        feedback_thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Thread Id
+      type: object
+      required:
+      - key
+      - id
+      title: FeedbackSchema
+      description: Schema for getting feedback.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ModelFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: model
+          title: Type
+          default: model
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: ModelFeedbackSource
+      description: Model feedback source.
+    AppFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: app
+          title: Type
+          default: app
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: AppFeedbackSource
+      description: Feedback from the LangChainPlus App.
+    FeedbackFormulaCreate:
+      properties:
+        dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dataset Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        feedback_key:
+          type: string
+          title: Feedback Key
+        aggregation_type:
+          type: string
+          enum:
+          - sum
+          - avg
+          title: Aggregation Type
+        formula_parts:
+          items:
+            $ref: '#/components/schemas/FeedbackFormulaWeightedVariable'
+          type: array
+          maxItems: 50
+          minItems: 1
+          title: Formula Parts
+      type: object
+      required:
+      - feedback_key
+      - aggregation_type
+      - formula_parts
+      title: FeedbackFormulaCreate
+    FeedbackIngestTokenSchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        url:
+          type: string
+          title: Url
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+        feedback_key:
+          type: string
+          title: Feedback Key
+      type: object
+      required:
+      - id
+      - url
+      - expires_at
+      - feedback_key
+      title: FeedbackIngestTokenSchema
+      description: Feedback ingest token schema.
+    FeedbackCreateWithTokenExtendedSchema:
+      properties:
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: FeedbackCreateWithTokenExtendedSchema
+      description: Feedback create schema with token.
+    FeedbackCreateSchema:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        key:
+          type: string
+          maxLength: 180
+          title: Key
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Feedback Group Id
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+        run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        trace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        id:
+          type: string
+          format: uuid
+          title: Id
+        feedback_source:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/AppFeedbackSource'
+            - $ref: '#/components/schemas/APIFeedbackSource'
+            - $ref: '#/components/schemas/ModelFeedbackSource'
+            - $ref: '#/components/schemas/AutoEvalFeedbackSource'
+            discriminator:
+              propertyName: type
+              mapping:
+                api: '#/components/schemas/APIFeedbackSource'
+                app: '#/components/schemas/AppFeedbackSource'
+                auto_eval: '#/components/schemas/AutoEvalFeedbackSource'
+                model: '#/components/schemas/ModelFeedbackSource'
+          - type: 'null'
+          title: Feedback Source
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - key
+      title: FeedbackCreateSchema
+      description: Schema used for creating feedback.
+    FeedbackFormulaUpdate:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        aggregation_type:
+          type: string
+          enum:
+          - sum
+          - avg
+          title: Aggregation Type
+        formula_parts:
+          items:
+            $ref: '#/components/schemas/FeedbackFormulaWeightedVariable'
+          type: array
+          maxItems: 50
+          minItems: 1
+          title: Formula Parts
+      type: object
+      required:
+      - feedback_key
+      - aggregation_type
+      - formula_parts
+      title: FeedbackFormulaUpdate
+    TimedeltaInput:
+      properties:
+        days:
+          type: integer
+          title: Days
+          default: 0
+        hours:
+          type: integer
+          title: Hours
+          default: 0
+        minutes:
+          type: integer
+          title: Minutes
+          default: 0
+      type: object
+      title: TimedeltaInput
+      description: Timedelta input.
+    FeedbackIngestTokenCreateSchema:
+      properties:
+        expires_in:
+          anyOf:
+          - $ref: '#/components/schemas/TimedeltaInput'
+          - type: 'null'
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+      type: object
+      required:
+      - run_id
+      - feedback_key
+      title: FeedbackIngestTokenCreateSchema
+      description: Feedback ingest token create schema.
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
+    APIFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: api
+          title: Type
+          default: api
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: APIFeedbackSource
+      description: API feedback source.
+    FeedbackSource:
+      properties:
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ls User Id
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+      type: object
+      title: FeedbackSource
+      description: The feedback source loaded from the database.
+    SourceType:
+      type: string
+      enum:
+      - api
+      - model
+      - app
+      - auto_eval
+      title: SourceType
+      description: Enum for feedback source types.
+    FeedbackFormula:
+      properties:
+        dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dataset Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        feedback_key:
+          type: string
+          title: Feedback Key
+        aggregation_type:
+          type: string
+          enum:
+          - sum
+          - avg
+          title: Aggregation Type
+        formula_parts:
+          items:
+            $ref: '#/components/schemas/FeedbackFormulaWeightedVariable'
+          type: array
+          maxItems: 50
+          minItems: 1
+          title: Formula Parts
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+      type: object
+      required:
+      - feedback_key
+      - aggregation_type
+      - formula_parts
+      - id
+      - created_at
+      - modified_at
+      title: FeedbackFormula
+    FeedbackConfig:
+      properties:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max
+        categories:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FeedbackCategory'
+            type: array
+          - type: 'null'
+          title: Categories
+      type: object
+      required:
+      - type
+      title: FeedbackConfig
+    FeedbackUpdateSchema:
+      properties:
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+      type: object
+      title: FeedbackUpdateSchema
+      description: Schema used for updating feedback
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

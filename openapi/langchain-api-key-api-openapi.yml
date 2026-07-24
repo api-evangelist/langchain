@@ -1,0 +1,402 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies api-key API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: api-key
+paths:
+  /api/v1/api-key:
+    get:
+      tags:
+      - api-key
+      summary: Get Api Keys
+      description: Get the current tenant's API keys
+      operationId: get_api_keys_api_v1_api_key_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/APIKeyGetResponse'
+                type: array
+                title: Response Get Api Keys Api V1 Api Key Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - api-key
+      summary: Generate Api Key
+      description: Generate an api key for the user
+      operationId: generate_api_key_api_v1_api_key_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyCreateRequest'
+              default:
+                description: Default API key
+                read_only: false
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/api-key/{api_key_id}:
+    delete:
+      tags:
+      - api-key
+      summary: Delete Api Key
+      description: Delete an api key for the user
+      operationId: delete_api_key_api_v1_api_key__api_key_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: api_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Api Key Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyGetResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/api-key/current:
+    get:
+      tags:
+      - api-key
+      summary: Get Personal Access Tokens
+      description: 'DEPRECATED: Use /orgs/current/personal-access-tokens instead'
+      operationId: get_personal_access_tokens_api_v1_api_key_current_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/APIKeyGetResponse'
+                type: array
+                title: Response Get Personal Access Tokens Api V1 Api Key Current Get
+      deprecated: true
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - api-key
+      summary: Generate Personal Access Token
+      description: 'DEPRECATED: Use /orgs/current/personal-access-tokens instead'
+      operationId: generate_personal_access_token_api_v1_api_key_current_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyCreateRequest'
+              default:
+                description: Default API key
+                read_only: false
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/api-key/current/{pat_id}:
+    delete:
+      tags:
+      - api-key
+      summary: Delete Personal Access Token
+      description: 'DEPRECATED: Use /orgs/current/personal-access-tokens/{pat_id} instead'
+      operationId: delete_personal_access_token_api_v1_api_key_current__pat_id__delete
+      deprecated: true
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: pat_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Pat Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyGetResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIKeyCreateRequest:
+      properties:
+        description:
+          type: string
+          title: Description
+          default: Default API key
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspaces:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspaces
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        default_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Workspace Id
+      type: object
+      title: APIKeyCreateRequest
+      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
+    APIKeyCreateResponse:
+      properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
+        description:
+          type: string
+          title: Description
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspace_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workspace Names
+        default_workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Workspace Name
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - short_key
+      - description
+      - key
+      title: APIKeyCreateResponse
+      description: API key POST schema.
+    APIKeyGetResponse:
+      properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
+        description:
+          type: string
+          title: Description
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspace_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workspace Names
+        default_workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Workspace Name
+      type: object
+      required:
+      - id
+      - short_key
+      - description
+      title: APIKeyGetResponse
+      description: API key GET schema.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

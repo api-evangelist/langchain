@@ -1,0 +1,1174 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies sandboxes API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: sandboxes
+paths:
+  /v2/sandboxes/boxes:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: List sandbox claims for the authenticated tenant, with optional filtering, sorting, and pagination.
+      tags:
+      - sandboxes
+      summary: List sandbox claims
+      parameters:
+      - description: Maximum number of results
+        name: limit
+        in: query
+        schema:
+          type: integer
+          default: 50
+          title: Limit
+      - description: Pagination offset
+        name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - description: Filter by name substring
+        name: name_contains
+        in: query
+        schema:
+          type: string
+          title: Name Contains
+      - description: Filter by status (provisioning, ready, failed, stopped)
+        name: status
+        in: query
+        schema:
+          type: string
+          title: Status
+      - description: Sort column (name, status, created_at)
+        name: sort_by
+        in: query
+        schema:
+          type: string
+          default: created_at
+          title: Sort By
+      - description: Sort direction (asc, desc)
+        name: sort_direction
+        in: query
+        schema:
+          type: string
+          default: desc
+          title: Sort Direction
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: Create a new sandbox from a snapshot. The snapshot may be identified by `snapshot_id` (UUID) or by `snapshot_name` (tenant-scoped unique name); exactly one must be set.
+      tags:
+      - sandboxes
+      summary: Create a sandbox claim
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimResponse'
+        '400':
+          description: Snapshot not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '408':
+          description: Sandbox did not become ready in time
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '409':
+          description: Name already exists or volume conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '422':
+          description: Validation error or creation failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '429':
+          description: Quota exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxes.CreateClaimPayload'
+  /v2/sandboxes/boxes/batch-delete:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Delete multiple sandbox claims by name in a single request.
+      tags:
+      - sandboxes
+      summary: Batch delete sandbox claims
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.BatchDeleteResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxes.BatchDeleteRequest'
+  /v2/sandboxes/boxes/{name}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: Retrieve a sandbox claim by name. Stale provisioning claims are auto-failed.
+      tags:
+      - sandboxes
+      summary: Get a sandbox claim
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: Delete a sandbox claim by name. Deletes the Firecracker pod/service and DB record.
+      tags:
+      - sandboxes
+      summary: Delete a sandbox claim
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: Update a sandbox claim's display name. The name must be unique within the tenant.
+      tags:
+      - sandboxes
+      summary: Update a sandbox claim
+      parameters:
+      - description: Current sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '409':
+          description: Name already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '422':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxes.UpdateClaimPayload'
+  /v2/sandboxes/boxes/{name}/service-url:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Create a short-lived JWT for accessing an HTTP service running on a specific port inside a sandbox. Returns a browser_url (sets auth cookie via redirect), a service_url (for use with the X-Langsmith-Sandbox-Service-Token header), the raw token, and its expiry.
+      tags:
+      - sandboxes
+      summary: Generate a service access token
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ServiceURLResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '501':
+          description: Not Implemented
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxes.ServiceURLPayload'
+  /v2/sandboxes/boxes/{name}/snapshot:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Create a snapshot by capturing the current state of a sandbox or promoting an existing checkpoint.
+      tags:
+      - sandboxes
+      summary: Capture a snapshot from a sandbox
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.SnapshotResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxes.CaptureSnapshotPayload'
+  /v2/sandboxes/boxes/{name}/start:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Start a stopped or failed sandbox. This endpoint is not idempotent.
+      tags:
+      - sandboxes
+      summary: Start a sandbox
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+  /v2/sandboxes/boxes/{name}/status:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: Retrieve the lightweight status of a sandbox claim for polling.
+      tags:
+      - sandboxes
+      summary: Get sandbox claim status
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimStatusResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+  /v2/sandboxes/boxes/{name}/stop:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Stop a ready sandbox. This endpoint is not idempotent; the filesystem is preserved for later restart.
+      tags:
+      - sandboxes
+      summary: Stop a sandbox
+      parameters:
+      - description: Sandbox claim display name
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Sandbox stopped
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+  /v2/sandboxes/snapshots:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: List sandbox snapshots for the authenticated tenant, with optional filtering, sorting, and pagination.
+      tags:
+      - sandboxes
+      summary: List snapshots
+      parameters:
+      - description: Maximum number of results
+        name: limit
+        in: query
+        schema:
+          type: integer
+          default: 50
+          title: Limit
+      - description: Pagination offset
+        name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - description: Filter by name substring
+        name: name_contains
+        in: query
+        schema:
+          type: string
+          title: Name Contains
+      - description: Filter by status (building, ready, failed, deleting)
+        name: status
+        in: query
+        schema:
+          type: string
+          title: Status
+      - description: Sort column (name, status, created_at)
+        name: sort_by
+        in: query
+        schema:
+          type: string
+          default: created_at
+          title: Sort By
+      - description: Sort direction (asc, desc)
+        name: sort_direction
+        in: query
+        schema:
+          type: string
+          default: desc
+          title: Sort Direction
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.SnapshotListResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Create a snapshot from a Docker image (async build).
+      tags:
+      - sandboxes
+      summary: Create a snapshot
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.SnapshotResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sandboxes.CreateSnapshotPayload'
+  /v2/sandboxes/snapshots/{snapshot_id}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Get a sandbox snapshot by ID.
+      tags:
+      - sandboxes
+      summary: Get a snapshot
+      parameters:
+      - description: Snapshot UUID
+        name: snapshot_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.SnapshotResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Delete a snapshot by ID. The underlying storage is reclaimed asynchronously.
+      tags:
+      - sandboxes
+      summary: Delete a snapshot
+      parameters:
+      - description: Snapshot UUID
+        name: snapshot_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Snapshot deleted
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+  /v2/sandboxes/usage:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - X-Service-Key: []
+      description: Get current sandbox resource usage and quota limits for the workspace
+      tags:
+      - sandboxes
+      summary: Get sandbox resource usage
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.UsageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+      parameters: []
+components:
+  schemas:
+    sandboxes.ClaimListResponse:
+      type: object
+      properties:
+        offset:
+          type: integer
+        sandboxes:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ClaimResponse'
+    sandboxes.BatchDeleteRequest:
+      type: object
+      properties:
+        names:
+          type: array
+          items:
+            type: string
+    sandboxes.ProxyConfig:
+      type: object
+      properties:
+        access_control:
+          $ref: '#/components/schemas/sandboxes.AccessControl'
+        callbacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.Callback'
+        no_proxy:
+          type: array
+          items:
+            type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ProxyRule'
+    sandboxes.BatchDeleteSkipped:
+      type: object
+      properties:
+        name:
+          type: string
+        reason:
+          type: string
+    sandboxes.AccessControl:
+      type: object
+      properties:
+        allow_list:
+          type: array
+          items:
+            type: string
+        deny_list:
+          type: array
+          items:
+            type: string
+    sandboxes.BatchDeleteResponse:
+      type: object
+      properties:
+        deleted:
+          type: array
+          items:
+            type: string
+        skipped:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.BatchDeleteSkipped'
+    sandboxes.ProxyHeader:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        is_set:
+          type: boolean
+        name:
+          type: string
+        type:
+          enum:
+          - plaintext
+          - opaque
+          - workspace_secret
+          allOf:
+          - $ref: '#/components/schemas/sandboxes.HeaderType'
+        value:
+          type: string
+    sandboxes.ServiceURLPayload:
+      type: object
+      properties:
+        expires_in_seconds:
+          type: integer
+        port:
+          type: integer
+    sandboxes.HeaderType:
+      type: string
+      enum:
+      - plaintext
+      - opaque
+      - workspace_secret
+      x-enum-varnames:
+      - HeaderTypePlaintext
+      - HeaderTypeOpaque
+      - HeaderTypeWorkspaceSecret
+    sandboxes.CreateSnapshotPayload:
+      type: object
+      required:
+      - docker_image
+      - fs_capacity_bytes
+      - name
+      properties:
+        docker_image:
+          type: string
+        fs_capacity_bytes:
+          type: integer
+        name:
+          type: string
+        registry_id:
+          type: string
+    sandboxes.CreateClaimPayload:
+      type: object
+      properties:
+        fs_capacity_bytes:
+          type: integer
+        idle_ttl_seconds:
+          type: integer
+        mem_bytes:
+          type: integer
+        name:
+          type: string
+        proxy_config:
+          $ref: '#/components/schemas/sandboxes.ProxyConfig'
+        snapshot_id:
+          type: string
+        snapshot_name:
+          type: string
+        ttl_seconds:
+          type: integer
+        vcpus:
+          type: integer
+    sandboxes.SnapshotListResponse:
+      type: object
+      properties:
+        offset:
+          type: integer
+        snapshots:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.SnapshotResponse'
+    sandboxes.ClaimResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+        dataplane_url:
+          type: string
+        expires_at:
+          type: string
+        fs_capacity_bytes:
+          type: integer
+        id:
+          type: string
+        idle_ttl_seconds:
+          type: integer
+        mem_bytes:
+          type: integer
+        name:
+          type: string
+        proxy_config:
+          $ref: '#/components/schemas/sandboxes.ProxyConfig'
+        size_class:
+          type: string
+        snapshot_id:
+          type: string
+        status:
+          type: string
+        status_message:
+          type: string
+        ttl_seconds:
+          type: integer
+        updated_at:
+          type: string
+        vcpus:
+          type: integer
+    sandboxes.ClaimStatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        status_message:
+          type: string
+    sandboxes.UsageResponse:
+      type: object
+      properties:
+        cpu_limit_millicores:
+          type: integer
+        cpu_used_millicores:
+          type: integer
+        memory_limit_bytes:
+          type: integer
+        memory_used_bytes:
+          type: integer
+        pools_count:
+          type: integer
+        registries_count:
+          type: integer
+        sandbox_direct_count:
+          type: integer
+        sandbox_pool_replicas_count:
+          type: integer
+        sandbox_running_count:
+          type: integer
+        sandbox_stopped_count:
+          type: integer
+        sandboxes_limit:
+          type: integer
+        sandboxes_used:
+          type: integer
+        snapshots_count:
+          type: integer
+        storage_limit_bytes:
+          type: integer
+        storage_used_bytes:
+          type: integer
+        templates_count:
+          type: integer
+        volumes_limit:
+          type: integer
+        volumes_used:
+          type: integer
+    sandboxes.ProxyRule:
+      type: object
+      required:
+      - match_hosts
+      - name
+      properties:
+        enabled:
+          type: boolean
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ProxyHeader'
+        match_hosts:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        match_paths:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+    sandboxes.SnapshotResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+        created_by:
+          type: string
+        docker_image:
+          type: string
+        fs_capacity_bytes:
+          type: integer
+        fs_used_bytes:
+          type: integer
+        id:
+          type: string
+        image_digest:
+          type: string
+        name:
+          type: string
+        registry_id:
+          type: string
+        source_sandbox_id:
+          type: string
+        status:
+          type: string
+        status_message:
+          type: string
+        updated_at:
+          type: string
+    sandboxes.UpdateClaimPayload:
+      type: object
+      properties:
+        fs_capacity_bytes:
+          type: integer
+        idle_ttl_seconds:
+          type: integer
+        mem_bytes:
+          type: integer
+        name:
+          type: string
+        proxy_config:
+          $ref: '#/components/schemas/sandboxes.ProxyConfig'
+        ttl_seconds:
+          type: integer
+        vcpus:
+          type: integer
+    sandboxes.CaptureSnapshotPayload:
+      type: object
+      required:
+      - name
+      properties:
+        checkpoint:
+          description: if omitted, creates a fresh checkpoint from the running VM
+          type: string
+        name:
+          type: string
+    sandboxes.Callback:
+      type: object
+      required:
+      - match_hosts
+      - ttl_seconds
+      - url
+      properties:
+        match_hosts:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        request_headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ProxyHeader'
+        ttl_seconds:
+          type: integer
+          maximum: 3600
+          minimum: 60
+        url:
+          type: string
+    sandboxes.ServiceURLResponse:
+      type: object
+      properties:
+        browser_url:
+          type: string
+        expires_at:
+          type: string
+        service_url:
+          type: string
+        token:
+          type: string
+    sandboxes.ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: object
+          properties:
+            error:
+              type: string
+            message:
+              type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

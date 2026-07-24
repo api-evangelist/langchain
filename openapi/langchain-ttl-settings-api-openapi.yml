@@ -1,0 +1,304 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies TTL Settings API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: TTL Settings
+paths:
+  /workspaces/current/ttl-settings:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Get the longlived trace TTL settings for a workspace
+      tags:
+      - TTL Settings
+      summary: Get workspace TTL settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ttl_settings.TTLSettingsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      parameters: []
+    put:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Update the longlived trace TTL for a workspace.
+      tags:
+      - TTL Settings
+      summary: Update workspace TTL settings
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ttl_settings.TTLSettingsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ttl_settings.UpdateTTLSettingsRequest'
+  /api/v1/ttl-settings:
+    get:
+      tags:
+      - TTL Settings
+      summary: List Ttl Settings
+      description: List out the configured TTL settings for a given tenant.
+      operationId: list_ttl_settings_api_v1_ttl_settings_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TTLSettings'
+                type: array
+                title: Response List Ttl Settings Api V1 Ttl Settings Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    put:
+      tags:
+      - TTL Settings
+      summary: Upsert Ttl Settings
+      operationId: upsert_ttl_settings_api_v1_ttl_settings_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertTTLSettingsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TTLSettings'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+components:
+  schemas:
+    ttl_settings.TTLSettingsResponse:
+      type: object
+      properties:
+        is_custom:
+          type: boolean
+        longlived_ttl_days:
+          type: integer
+        tenant_id:
+          type: string
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TTLSettings:
+      properties:
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        configured_by:
+          $ref: '#/components/schemas/ConfiguredBy'
+        longlived_ttl_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Longlived Ttl Days
+      type: object
+      required:
+      - default_trace_tier
+      - id
+      - organization_id
+      - created_at
+      - updated_at
+      - configured_by
+      title: TTLSettings
+      description: TTL settings model.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ConfiguredBy:
+      type: string
+      enum:
+      - system
+      - user
+      title: ConfiguredBy
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    ttl_settings.UpdateTTLSettingsRequest:
+      type: object
+      properties:
+        longlived_ttl_days:
+          type: integer
+    UpsertTTLSettingsRequest:
+      properties:
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+      type: object
+      required:
+      - default_trace_tier
+      title: UpsertTTLSettingsRequest
+      description: Base TTL settings model.
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

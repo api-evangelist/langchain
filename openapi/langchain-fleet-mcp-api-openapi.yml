@@ -1,0 +1,618 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies fleet mcp API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: fleet mcp
+paths:
+  /v1/fleet/mcp/tools:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns tools from a remote MCP server. Serves cached results when fresh, otherwise fetches from the remote server and caches the response.
+      tags:
+      - fleet mcp
+      summary: List MCP tools
+      parameters:
+      - description: MCP server URL to fetch tools from
+        name: url
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Url
+      - description: OAuth provider ID for token-based auth
+        name: oauth_provider_id
+        in: query
+        schema:
+          type: string
+          title: Oauth Provider Id
+      - description: Skip cache and fetch fresh tools
+        name: force_refresh
+        in: query
+        schema:
+          type: boolean
+          title: Force Refresh
+      - description: User ID override (service-key callers)
+        name: ls_user_id
+        in: query
+        schema:
+          type: string
+          title: Ls User Id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcptools.ListToolsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcptools.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcptools.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcptools.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcptools.ErrorResponse'
+        '502':
+          description: Bad Gateway
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcptools.ErrorResponse'
+  /v1/platform/fleet/mcp-servers:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns MCP servers visible to the caller after ABAC filtering. Service-key callers may pass X-Ls-User-Id to resolve per-user OAuth providers.
+      tags:
+      - fleet mcp
+      summary: List MCP servers
+      parameters:
+      - description: User UUID for per-user OAuth resolution (service keys)
+        name: X-Ls-User-Id
+        in: header
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.McpServer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Registers a new MCP server configuration for the workspace.
+      tags:
+      - fleet mcp
+      summary: Create MCP server
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.McpServer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.CreateMcpServerPayload'
+  /v1/platform/fleet/mcp-servers/{mcp_server_id}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns a single MCP server by ID.
+      tags:
+      - fleet mcp
+      summary: Get MCP server
+      parameters:
+      - description: MCP server ID
+        name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.McpServer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Deletes an MCP server configuration.
+      tags:
+      - fleet mcp
+      summary: Delete MCP server
+      parameters:
+      - description: MCP server ID
+        name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Partially updates an MCP server. Tool list cache is invalidated on success.
+      tags:
+      - fleet mcp
+      summary: Update MCP server
+      parameters:
+      - description: MCP server ID
+        name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.McpServer'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.UpdateMcpServerPayload'
+  /v1/platform/fleet/mcp-servers/{mcp_server_id}/oauth-provider:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Discovers and registers an OAuth provider for a user against an MCP server configured with per-user dynamic client mode. Idempotent when a mapping already exists.
+      tags:
+      - fleet mcp
+      summary: Register per-user MCP OAuth provider
+      parameters:
+      - description: MCP server ID
+        name: mcp_server_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/mcp_servers.McpServerAPIError'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderPayload'
+components:
+  schemas:
+    mcp_servers.McpServerAPIError:
+      type: object
+      properties:
+        detail:
+          type: string
+        error:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.AuthType:
+      type: string
+      enum:
+      - headers
+      - oauth
+      x-enum-varnames:
+      - AuthTypeHeaders
+      - AuthTypeOAuth
+    langchain_com_smith_fleet_mcp_servers.OAuthMode:
+      type: string
+      enum:
+      - legacy_shared_provider
+      - per_user_dynamic_client
+      x-enum-varnames:
+      - OAuthModeLegacySharedProvider
+      - OAuthModePerUserDynamicClient
+    mcptools.ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        type:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderPayload:
+      type: object
+      properties:
+        ls_user_id:
+          type: string
+    mcptools.Tool:
+      type: object
+      properties:
+        annotations:
+          type: object
+          additionalProperties: {}
+        description:
+          type: string
+        inputSchema:
+          type: object
+          additionalProperties: {}
+        name:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderResponse:
+      type: object
+      properties:
+        oauth_provider_id:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.UpdateMcpServerPayload:
+      type: object
+      properties:
+        auth_type:
+          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.AuthType'
+        headers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        oauth_provider_id:
+          type: string
+        url:
+          type: string
+    mcptools.ListToolsResponse:
+      type: object
+      properties:
+        cached:
+          type: boolean
+        fetched_at:
+          type: string
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcptools.Tool'
+    langchain_com_smith_fleet_mcp_servers.CreateMcpServerPayload:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        auth_type:
+          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.AuthType'
+        external_system_id:
+          type: string
+        headers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        name:
+          type: string
+        oauth_mode:
+          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.OAuthMode'
+        oauth_provider_id:
+          type: string
+        url:
+          type: string
+        vendor_id:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.McpServer:
+      type: object
+      properties:
+        auth_type:
+          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.AuthType'
+        can_invoke:
+          type: boolean
+        created_at:
+          type: string
+        external_system_id:
+          type: string
+        headers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        id:
+          type: string
+        mcp_vendor_id:
+          type: string
+        name:
+          type: string
+        oauth_mode:
+          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.OAuthMode'
+        oauth_provider_id:
+          type: string
+        tenant_id:
+          type: string
+        updated_at:
+          type: string
+        url:
+          type: string
+        vendor_id:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

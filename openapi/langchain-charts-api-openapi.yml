@@ -1,0 +1,1799 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies charts API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: charts
+paths:
+  /api/v1/charts/section/clone:
+    post:
+      tags:
+      - charts
+      summary: Clone Section
+      description: Clone a dashboard.
+      operationId: clone_section_api_v1_charts_section_clone_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionsCloneRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSectionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/charts/section:
+    get:
+      tags:
+      - charts
+      summary: Read Sections
+      description: Get all sections for the tenant.
+      operationId: read_sections_api_v1_charts_section_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: title_contains
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title Contains
+      - name: ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Ids
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: created_at
+          title: Sort By
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: true
+          title: Sort By Desc
+      - name: tag_value_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Tag Value Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomChartsSectionResponse'
+                title: Response Read Sections Api V1 Charts Section Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - charts
+      summary: Create Section
+      description: Create a new section.
+      operationId: create_section_api_v1_charts_section_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSectionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/charts:
+    post:
+      tags:
+      - charts
+      summary: Read Charts
+      description: Get all charts for the tenant.
+      operationId: read_charts_api_v1_charts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/charts/preview:
+    post:
+      tags:
+      - charts
+      summary: Read Chart Preview
+      description: Get a preview for a chart without actually creating it.
+      operationId: read_chart_preview_api_v1_charts_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartPreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomChartResponseBase'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/charts/create:
+    post:
+      tags:
+      - charts
+      summary: Create Chart
+      description: Create a new chart.
+      operationId: create_chart_api_v1_charts_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/charts/{chart_id}:
+    post:
+      tags:
+      - charts
+      summary: Read Single Chart
+      description: Get a single chart by ID.
+      operationId: read_single_chart_api_v1_charts__chart_id__post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Chart Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomChartResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - charts
+      summary: Update Chart
+      description: Update a chart.
+      operationId: update_chart_api_v1_charts__chart_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Chart Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - charts
+      summary: Delete Chart
+      description: Delete a chart.
+      operationId: delete_chart_api_v1_charts__chart_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Chart Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/charts/section/{section_id}:
+    post:
+      tags:
+      - charts
+      summary: Read Single Section
+      description: Get a single section by ID.
+      operationId: read_single_section_api_v1_charts_section__section_id__post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Section Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSection'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - charts
+      summary: Update Section
+      description: Update a section.
+      operationId: update_section_api_v1_charts_section__section_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Section Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSectionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - charts
+      summary: Delete Section
+      description: Delete a section.
+      operationId: delete_section_api_v1_charts_section__section_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Section Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/org-charts/section:
+    get:
+      tags:
+      - charts
+      summary: Org Read Sections
+      description: Get all sections for the tenant.
+      operationId: org_read_sections_api_v1_org_charts_section_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: title_contains
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title Contains
+      - name: ids
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Ids
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: created_at
+          title: Sort By
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          default: true
+          title: Sort By Desc
+      - name: tag_value_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Tag Value Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CustomChartsSectionResponse'
+                title: Response Org Read Sections Api V1 Org Charts Section Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - charts
+      summary: Org Create Section
+      description: Create a new section.
+      operationId: org_create_section_api_v1_org_charts_section_post
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSectionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/org-charts:
+    post:
+      tags:
+      - charts
+      summary: Org Read Charts
+      description: Get all charts for the tenant.
+      operationId: org_read_charts_api_v1_org_charts_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/org-charts/preview:
+    post:
+      tags:
+      - charts
+      summary: Org Read Chart Preview
+      description: Get a preview for a chart without actually creating it.
+      operationId: org_read_chart_preview_api_v1_org_charts_preview_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartPreviewRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomChartResponseBase'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/org-charts/create:
+    post:
+      tags:
+      - charts
+      summary: Org Create Chart
+      description: Create a new chart.
+      operationId: org_create_chart_api_v1_org_charts_create_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/org-charts/{chart_id}:
+    post:
+      tags:
+      - charts
+      summary: Org Read Single Chart
+      description: Get a single chart by ID.
+      operationId: org_read_single_chart_api_v1_org_charts__chart_id__post
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Chart Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleCustomChartResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - charts
+      summary: Org Update Chart
+      description: Update a chart.
+      operationId: org_update_chart_api_v1_org_charts__chart_id__patch
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Chart Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - charts
+      summary: Org Delete Chart
+      description: Delete a chart.
+      operationId: org_delete_chart_api_v1_org_charts__chart_id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: chart_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Chart Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/org-charts/section/{section_id}:
+    post:
+      tags:
+      - charts
+      summary: Org Read Single Section
+      description: Get a single section by ID.
+      operationId: org_read_single_section_api_v1_org_charts_section__section_id__post
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Section Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsRequestBase'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSection'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - charts
+      summary: Org Update Section
+      description: Update a section.
+      operationId: org_update_section_api_v1_org_charts_section__section_id__patch
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Section Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSectionResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - charts
+      summary: Org Delete Section
+      description: Delete a section.
+      operationId: org_delete_section_api_v1_org_charts_section__section_id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: section_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Section Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CustomChartsSectionRequest:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+          default: UTC
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        stride:
+          $ref: '#/components/schemas/TimedeltaInput'
+          default:
+            days: 0
+            hours: 0
+            minutes: 15
+        omit_data:
+          type: boolean
+          title: Omit Data
+          default: false
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
+      type: object
+      title: CustomChartsSectionRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CustomChartSeriesFilters:
+      properties:
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        trace_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter
+        tree_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter
+        session:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Session
+      type: object
+      title: CustomChartSeriesFilters
+    SingleCustomChartSubSectionResponse:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          type: integer
+          title: Index
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        charts:
+          items:
+            $ref: '#/components/schemas/SingleCustomChartResponse'
+          type: array
+          title: Charts
+      type: object
+      required:
+      - title
+      - index
+      - id
+      - charts
+      title: SingleCustomChartSubSectionResponse
+    CustomChartsSectionsCloneRequest:
+      properties:
+        section_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Section Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+      type: object
+      title: CustomChartsSectionsCloneRequest
+    CustomChartSeriesUpdate:
+      properties:
+        name:
+          type: string
+          title: Name
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+        metric:
+          $ref: '#/components/schemas/CustomChartMetric'
+        feedback_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Key
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        project_metric:
+          anyOf:
+          - $ref: '#/components/schemas/HostProjectChartMetric'
+          - type: 'null'
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+      type: object
+      required:
+      - name
+      - metric
+      title: CustomChartSeriesUpdate
+    CustomChartsSection:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        charts:
+          items:
+            $ref: '#/components/schemas/SingleCustomChartResponse'
+          type: array
+          title: Charts
+        sub_sections:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SingleCustomChartSubSectionResponse'
+            type: array
+          - type: 'null'
+          title: Sub Sections
+      type: object
+      required:
+      - title
+      - id
+      - charts
+      title: CustomChartsSection
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CustomChartsDataPoint:
+      properties:
+        series_id:
+          type: string
+          title: Series Id
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+      type: object
+      required:
+      - series_id
+      - timestamp
+      - value
+      title: CustomChartsDataPoint
+    CustomChartsRequestBase:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+          default: UTC
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        stride:
+          $ref: '#/components/schemas/TimedeltaInput'
+          default:
+            days: 0
+            hours: 0
+            minutes: 15
+        omit_data:
+          type: boolean
+          title: Omit Data
+          default: false
+      type: object
+      title: CustomChartsRequestBase
+    CustomChartType:
+      type: string
+      enum:
+      - line
+      - bar
+      title: CustomChartType
+      description: Enum for custom chart types.
+    RunStatsGroupBy:
+      properties:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBy
+      description: Group by param for run stats.
+    CustomChartResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          type: integer
+          title: Index
+        chart_type:
+          $ref: '#/components/schemas/CustomChartType'
+        section_id:
+          type: string
+          format: uuid
+          title: Section Id
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        series:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CustomChartSeries'
+            type: array
+          - type: 'null'
+          title: Series
+      type: object
+      required:
+      - id
+      - title
+      - index
+      - chart_type
+      - section_id
+      - series
+      title: CustomChartResponse
+    CustomChartSeriesCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+        metric:
+          $ref: '#/components/schemas/CustomChartMetric'
+        feedback_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Key
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        project_metric:
+          anyOf:
+          - $ref: '#/components/schemas/HostProjectChartMetric'
+          - type: 'null'
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - metric
+      title: CustomChartSeriesCreate
+    SingleCustomChartResponseBase:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CustomChartsDataPoint'
+          type: array
+          title: Data
+      type: object
+      required:
+      - data
+      title: SingleCustomChartResponseBase
+    CustomChartsRequest:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+          default: UTC
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        stride:
+          $ref: '#/components/schemas/TimedeltaInput'
+          default:
+            days: 0
+            hours: 0
+            minutes: 15
+        omit_data:
+          type: boolean
+          title: Omit Data
+          default: false
+        after_index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: After Index
+        tag_value_id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Tag Value Id
+      type: object
+      title: CustomChartsRequest
+    CustomChartsSectionResponse:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+        id:
+          type: string
+          format: uuid
+          title: Id
+        chart_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Count
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+      type: object
+      required:
+      - title
+      - id
+      title: CustomChartsSectionResponse
+    CustomChartMetric:
+      type: string
+      enum:
+      - run_count
+      - latency_p50
+      - latency_p99
+      - latency_avg
+      - first_token_p50
+      - first_token_p99
+      - total_tokens
+      - prompt_tokens
+      - completion_tokens
+      - median_tokens
+      - completion_tokens_p50
+      - prompt_tokens_p50
+      - tokens_p99
+      - completion_tokens_p99
+      - prompt_tokens_p99
+      - feedback
+      - feedback_score_avg
+      - feedback_values
+      - total_cost
+      - prompt_cost
+      - completion_cost
+      - error_rate
+      - streaming_rate
+      - cost_p50
+      - cost_p99
+      title: CustomChartMetric
+      description: Metrics you can chart. Feedback metrics are not available for organization-scoped charts.
+    CustomChartUpdate:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          title: Title
+          default:
+            __missing__: __missing__
+        description:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Description
+          default:
+            __missing__: __missing__
+        index:
+          anyOf:
+          - type: integer
+          - $ref: '#/components/schemas/Missing'
+          title: Index
+          default:
+            __missing__: __missing__
+          minimum: 0
+          maximum: 100
+        chart_type:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartType'
+          - $ref: '#/components/schemas/Missing'
+          title: Chart Type
+          default:
+            __missing__: __missing__
+        series:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CustomChartSeriesUpdate'
+            type: array
+          - $ref: '#/components/schemas/Missing'
+          title: Series
+          default:
+            __missing__: __missing__
+        section_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - $ref: '#/components/schemas/Missing'
+          title: Section Id
+          default:
+            __missing__: __missing__
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Metadata
+          default:
+            __missing__: __missing__
+        common_filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Common Filters
+          default:
+            __missing__: __missing__
+      type: object
+      title: CustomChartUpdate
+    CustomChartCreatePreview:
+      properties:
+        series:
+          items:
+            $ref: '#/components/schemas/CustomChartSeries'
+          type: array
+          title: Series
+        common_filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+      type: object
+      required:
+      - series
+      title: CustomChartCreatePreview
+    CustomChartsSectionCreate:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+      type: object
+      required:
+      - title
+      title: CustomChartsSectionCreate
+    CustomChartCreate:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+            maximum: 100.0
+            minimum: 0.0
+          - type: 'null'
+          title: Index
+        chart_type:
+          $ref: '#/components/schemas/CustomChartType'
+        series:
+          items:
+            $ref: '#/components/schemas/CustomChartSeriesCreate'
+          type: array
+          title: Series
+        section_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Section Id
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        common_filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+      type: object
+      required:
+      - title
+      - chart_type
+      - series
+      title: CustomChartCreate
+    CustomChartsResponse:
+      properties:
+        sections:
+          items:
+            $ref: '#/components/schemas/CustomChartsSection'
+          type: array
+          title: Sections
+      type: object
+      required:
+      - sections
+      title: CustomChartsResponse
+    CustomChartSeries:
+      properties:
+        name:
+          type: string
+          title: Name
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+        metric:
+          $ref: '#/components/schemas/CustomChartMetric'
+        feedback_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Key
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        project_metric:
+          anyOf:
+          - $ref: '#/components/schemas/HostProjectChartMetric'
+          - type: 'null'
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBySeriesResponse'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - metric
+      - id
+      title: CustomChartSeries
+    HostProjectChartMetric:
+      type: string
+      enum:
+      - memory_usage
+      - cpu_usage
+      - disk_usage
+      - restart_count
+      - replica_count
+      - worker_count
+      - lg_run_count
+      - responses_per_second
+      - error_responses_per_second
+      - p95_latency
+      title: HostProjectChartMetric
+      description: LGP Metrics you can chart.
+    CustomChartPreviewRequest:
+      properties:
+        bucket_info:
+          $ref: '#/components/schemas/CustomChartsRequestBase'
+        chart:
+          $ref: '#/components/schemas/CustomChartCreatePreview'
+      type: object
+      required:
+      - bucket_info
+      - chart
+      title: CustomChartPreviewRequest
+    RunStatsGroupBySeriesResponse:
+      properties:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+        set_by:
+          anyOf:
+          - type: string
+            enum:
+            - section
+            - series
+          - type: 'null'
+          title: Set By
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBySeriesResponse
+      description: Include additional information about where the group_by param was set.
+    TimedeltaInput:
+      properties:
+        days:
+          type: integer
+          title: Days
+          default: 0
+        hours:
+          type: integer
+          title: Hours
+          default: 0
+        minutes:
+          type: integer
+          title: Minutes
+          default: 0
+      type: object
+      title: TimedeltaInput
+      description: Timedelta input.
+    Missing:
+      properties:
+        __missing__:
+          type: string
+          const: __missing__
+          title: Missing
+      type: object
+      required:
+      - __missing__
+      title: Missing
+    SingleCustomChartResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CustomChartsDataPoint'
+          type: array
+          title: Data
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        index:
+          type: integer
+          title: Index
+        chart_type:
+          $ref: '#/components/schemas/CustomChartType'
+        series:
+          items:
+            $ref: '#/components/schemas/CustomChartSeries'
+          type: array
+          title: Series
+        common_filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+      type: object
+      required:
+      - data
+      - id
+      - title
+      - index
+      - chart_type
+      - series
+      title: SingleCustomChartResponse
+    CustomChartsSectionUpdate:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          title: Title
+          default:
+            __missing__: __missing__
+        description:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Description
+          default:
+            __missing__: __missing__
+        index:
+          anyOf:
+          - type: integer
+          - $ref: '#/components/schemas/Missing'
+          title: Index
+          default:
+            __missing__: __missing__
+      type: object
+      title: CustomChartsSectionUpdate
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

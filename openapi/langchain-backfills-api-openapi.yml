@@ -1,0 +1,107 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies backfills API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: backfills
+paths:
+  /v1/platform/ops/backfills/restart:
+    post:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Deletes the backfill job record, causing the backfill to restart from the beginning on the next cron tick. Requires instance admin access.
+      tags:
+      - backfills
+      summary: Restart a backfill job
+      parameters: []
+      responses:
+        '200':
+          description: Backfill restarted
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Backfill not found
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/backfills.restartBackfillRequest'
+components:
+  schemas:
+    backfills.restartBackfillRequest:
+      type: object
+      properties:
+        backfill_name:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

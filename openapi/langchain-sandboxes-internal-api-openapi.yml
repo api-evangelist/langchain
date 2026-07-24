@@ -1,0 +1,235 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies sandboxes-internal API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: sandboxes-internal
+paths:
+  /v2/sandboxes/internal/start/{name}:
+    post:
+      description: Called by the sandbox-router to wake stopped sandboxes. Blocks until the sandbox is ready or times out. The name parameter accepts either the display name or route name (sb-<uuid>).
+      tags:
+      - sandboxes-internal
+      summary: 'Internal: start a stopped sandbox (service-to-service)'
+      parameters:
+      - description: Sandbox display name or route name (sb-<uuid>)
+        name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: Tenant ID
+        name: X-Tenant-Id
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ClaimResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sandboxes.ErrorResponse'
+components:
+  schemas:
+    sandboxes.ProxyHeader:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        is_set:
+          type: boolean
+        name:
+          type: string
+        type:
+          enum:
+          - plaintext
+          - opaque
+          - workspace_secret
+          allOf:
+          - $ref: '#/components/schemas/sandboxes.HeaderType'
+        value:
+          type: string
+    sandboxes.ProxyConfig:
+      type: object
+      properties:
+        access_control:
+          $ref: '#/components/schemas/sandboxes.AccessControl'
+        callbacks:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.Callback'
+        no_proxy:
+          type: array
+          items:
+            type: string
+        rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ProxyRule'
+    sandboxes.ClaimResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+        dataplane_url:
+          type: string
+        expires_at:
+          type: string
+        fs_capacity_bytes:
+          type: integer
+        id:
+          type: string
+        idle_ttl_seconds:
+          type: integer
+        mem_bytes:
+          type: integer
+        name:
+          type: string
+        proxy_config:
+          $ref: '#/components/schemas/sandboxes.ProxyConfig'
+        size_class:
+          type: string
+        snapshot_id:
+          type: string
+        status:
+          type: string
+        status_message:
+          type: string
+        ttl_seconds:
+          type: integer
+        updated_at:
+          type: string
+        vcpus:
+          type: integer
+    sandboxes.AccessControl:
+      type: object
+      properties:
+        allow_list:
+          type: array
+          items:
+            type: string
+        deny_list:
+          type: array
+          items:
+            type: string
+    sandboxes.ProxyRule:
+      type: object
+      required:
+      - match_hosts
+      - name
+      properties:
+        enabled:
+          type: boolean
+        headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ProxyHeader'
+        match_hosts:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        match_paths:
+          type: array
+          items:
+            type: string
+        name:
+          type: string
+    sandboxes.Callback:
+      type: object
+      required:
+      - match_hosts
+      - ttl_seconds
+      - url
+      properties:
+        match_hosts:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        request_headers:
+          type: array
+          items:
+            $ref: '#/components/schemas/sandboxes.ProxyHeader'
+        ttl_seconds:
+          type: integer
+          maximum: 3600
+          minimum: 60
+        url:
+          type: string
+    sandboxes.HeaderType:
+      type: string
+      enum:
+      - plaintext
+      - opaque
+      - workspace_secret
+      x-enum-varnames:
+      - HeaderTypePlaintext
+      - HeaderTypeOpaque
+      - HeaderTypeWorkspaceSecret
+    sandboxes.ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: object
+          properties:
+            error:
+              type: string
+            message:
+              type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,3011 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies tracer-sessions API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: tracer-sessions
+paths:
+  /api/v1/sessions/{session_id}/dashboard:
+    post:
+      tags:
+      - tracer-sessions
+      summary: Get Tracing Project Prebuilt Dashboard
+      description: Get a prebuilt dashboard for a tracing project.
+      operationId: get_tracing_project_prebuilt_dashboard_api_v1_sessions__session_id__dashboard_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomChartsSectionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomChartsSection'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}:
+    get:
+      tags:
+      - tracer-sessions
+      summary: Read Tracer Session
+      description: Get a specific session.
+      operationId: read_tracer_session_api_v1_sessions__session_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: include_stats
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Stats
+      - name: stats_start_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stats Start Time
+      - name: accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracerSession'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - tracer-sessions
+      summary: Update Tracer Session
+      description: Update a session.
+      operationId: update_tracer_session_api_v1_sessions__session_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TracerSessionUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracerSessionWithoutVirtualFields'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tracer-sessions
+      summary: Delete Tracer Session
+      description: Delete a specific session.
+      operationId: delete_tracer_session_api_v1_sessions__session_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions:
+    get:
+      tags:
+      - tracer-sessions
+      summary: Read Tracer Sessions
+      description: Get all sessions.
+      operationId: read_tracer_sessions_api_v1_sessions_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: reference_free
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Reference Free
+      - name: reference_dataset
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Reference Dataset
+      - name: id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Id
+      - name: name
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+      - name: name_contains
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name Contains
+      - name: dataset_version
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Version
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SessionSortableColumns'
+          default: start_time
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Sort By Desc
+      - name: metadata
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata
+      - name: sort_by_feedback_key
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sort By Feedback Key
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: tag_value_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Tag Value Id
+      - name: facets
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Facets
+      - name: filter
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+      - name: include_stats
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Stats
+      - name: use_approx_stats
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Use Approx Stats
+      - name: stats_start_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stats Start Time
+      - name: stats_select
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Stats Select
+      - name: accept
+        in: header
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Accept
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TracerSession'
+                title: Response Read Tracer Sessions Api V1 Sessions Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - tracer-sessions
+      summary: Create Tracer Session
+      description: Create a new session.
+      operationId: create_tracer_session_api_v1_sessions_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: upsert
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Upsert
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TracerSessionCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TracerSessionWithoutVirtualFields'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tracer-sessions
+      summary: Delete Tracer Sessions
+      description: Delete sessions.
+      operationId: delete_tracer_sessions_api_v1_sessions_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_ids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          title: Session Ids
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/metadata:
+    get:
+      tags:
+      - tracer-sessions
+      summary: Read Tracer Sessions Runs Metadata
+      description: Given a session, a number K, and (optionally) a list of metadata keys, return the top K values for each key.
+      operationId: read_tracer_sessions_runs_metadata_api_v1_sessions__session_id__metadata_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: metadata_keys
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          title: Metadata Keys
+      - name: start_time
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+      - name: k
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 1
+          default: 10
+          title: K
+      - name: root_runs_only
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Root Runs Only
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RootModel_Dict_str__list_str___'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/views:
+    get:
+      tags:
+      - tracer-sessions
+      summary: Read Filter Views
+      description: Get all filter views for a session.
+      operationId: read_filter_views_api_v1_sessions__session_id__views_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: type
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/FilterViewType'
+          - type: 'null'
+          title: Type
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/FilterView'
+                title: Response Read Filter Views Api V1 Sessions  Session Id  Views Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - tracer-sessions
+      summary: Create Filter View
+      description: Create a new filter view.
+      operationId: create_filter_view_api_v1_sessions__session_id__views_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterViewCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/views/{view_id}:
+    get:
+      tags:
+      - tracer-sessions
+      summary: Read Filter View
+      description: Get a specific filter view.
+      operationId: read_filter_view_api_v1_sessions__session_id__views__view_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: view_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: View Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - tracer-sessions
+      summary: Update Filter View
+      description: Update a filter view.
+      operationId: update_filter_view_api_v1_sessions__session_id__views__view_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: view_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: View Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterViewUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tracer-sessions
+      summary: Delete Filter View
+      description: Delete a specific filter view.
+      operationId: delete_filter_view_api_v1_sessions__session_id__views__view_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: view_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: View Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/views/{view_id}/rename:
+    patch:
+      tags:
+      - tracer-sessions
+      summary: Rename Filter View
+      description: Rename a filter view (display_name and description only).
+      operationId: rename_filter_view_api_v1_sessions__session_id__views__view_id__rename_patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: view_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: View Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FilterViewRename'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilterView'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights:
+    get:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Get Insights Jobs'
+      description: Get all clusters for a session.
+      operationId: _Beta__Get_Insights_Jobs_api_v1_sessions__session_id__insights_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: config_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Config Id
+      - name: legacy
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Legacy
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunClusteringJobsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Create Insights Job'
+      description: Create an insights job.
+      operationId: _Beta__Create_Insights_Job_api_v1_sessions__session_id__insights_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRunClusteringJobRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRunClusteringJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights/configs:
+    get:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Get Insights Job Configs'
+      description: Get all insights job configs for a session.
+      operationId: _Beta__Get_Insights_Job_Configs_api_v1_sessions__session_id__insights_configs_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: include_prebuilts
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Prebuilts
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetClusteringJobConfigsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Create Insights Job Config'
+      description: Save an insights job config.
+      operationId: _Beta__Create_Insights_Job_Config_api_v1_sessions__session_id__insights_configs_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateClusteringJobConfigRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateClusteringJobConfigResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights/configs/generate:
+    post:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Auto-Generate Insights Job Config'
+      description: Auto-generate an insights job config.
+      operationId: _Beta__Auto_Generate_Insights_Job_Config_api_v1_sessions__session_id__insights_configs_generate_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateClusteringJobConfigRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenerateClusteringJobConfigResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights/configs/{config_id}:
+    patch:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Update Insights Job Config'
+      description: Update an insights job config.
+      operationId: _Beta__Update_Insights_Job_Config_api_v1_sessions__session_id__insights_configs__config_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: config_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Config Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateClusteringJobConfigRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateClusteringJobConfigResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Delete Insights Job Config'
+      description: Delete an insights job config.
+      operationId: _Beta__Delete_Insights_Job_Config_api_v1_sessions__session_id__insights_configs__config_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: config_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Config Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteClusteringJobConfigResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights/{job_id}:
+    get:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Get Insights Job'
+      description: Get a specific cluster job for a session.
+      operationId: _Beta__Get_Insights_Job_api_v1_sessions__session_id__insights__job_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunClusteringJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Update Insights Job'
+      description: Update a session cluster job.
+      operationId: _Beta__Update_Insights_Job_api_v1_sessions__session_id__insights__job_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRunClusteringJobRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateRunClusteringJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Delete Insights Job'
+      description: Delete a session cluster job.
+      operationId: _Beta__Delete_Insights_Job_api_v1_sessions__session_id__insights__job_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteRunClusteringJobResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights/{job_id}/clusters/{cluster_id}:
+    get:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Get Run Cluster From Insights Job'
+      description: Get a specific cluster for a session.
+      operationId: _Beta__Get_Run_Cluster_from_Insights_Job_api_v1_sessions__session_id__insights__job_id__clusters__cluster_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      - name: cluster_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Cluster Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRunClusterResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sessions/{session_id}/insights/{job_id}/runs:
+    get:
+      tags:
+      - tracer-sessions
+      summary: '[Beta] Get Runs From Insights Job'
+      description: Get all runs for a cluster job, optionally filtered by cluster.
+      operationId: _Beta__Get_Runs_from_Insights_Job_api_v1_sessions__session_id__insights__job_id__runs_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Session Id
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      - name: cluster_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Cluster Id
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 100
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: attribute_sort_key
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Attribute Sort Key
+      - name: attribute_sort_order
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - asc
+            - desc
+            type: string
+          - type: 'null'
+          title: Attribute Sort Order
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FetchClusteringJobRunsResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CustomChartsSectionRequest:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+          default: UTC
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        stride:
+          $ref: '#/components/schemas/TimedeltaInput'
+          default:
+            days: 0
+            hours: 0
+            minutes: 15
+        omit_data:
+          type: boolean
+          title: Omit Data
+          default: false
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
+      type: object
+      title: CustomChartsSectionRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CustomChartSeriesFilters:
+      properties:
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        trace_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter
+        tree_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter
+        session:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Session
+      type: object
+      title: CustomChartSeriesFilters
+    SingleCustomChartSubSectionResponse:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          type: integer
+          title: Index
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        charts:
+          items:
+            $ref: '#/components/schemas/SingleCustomChartResponse'
+          type: array
+          title: Charts
+      type: object
+      required:
+      - title
+      - index
+      - id
+      - charts
+      title: SingleCustomChartSubSectionResponse
+    TracerSession:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        default_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset Id
+        reference_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Reference Dataset Id
+        trace_tier:
+          anyOf:
+          - $ref: '#/components/schemas/TraceTier'
+          - type: 'null'
+        id:
+          type: string
+          format: uuid
+          title: Id
+        run_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Run Count
+        latency_p50:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latency P50
+        latency_p99:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Latency P99
+        first_token_p50:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: First Token P50
+        first_token_p99:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: First Token P99
+        total_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Total Tokens
+        prompt_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Prompt Tokens
+        completion_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Completion Tokens
+        total_cost:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Total Cost
+        prompt_cost:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Cost
+        completion_cost:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Completion Cost
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        last_run_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Start Time
+        last_run_start_time_live:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Start Time Live
+        feedback_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Feedback Stats
+        session_feedback_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Session Feedback Stats
+        run_facets:
+          anyOf:
+          - items:
+              additionalProperties: true
+              type: object
+            type: array
+          - type: 'null'
+          title: Run Facets
+        error_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Error Rate
+        streaming_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Streaming Rate
+        test_run_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Test Run Number
+      type: object
+      required:
+      - id
+      - tenant_id
+      title: TracerSession
+      description: TracerSession schema.
+    UpdateClusteringJobConfigRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+            maxLength: 255
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/CreateRunClusteringJobRequest'
+          - type: 'null'
+        schedule_cron:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schedule Cron
+      type: object
+      title: UpdateClusteringJobConfigRequest
+      description: Request to update a clustering job config.
+    UpdateRunClusteringJobResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - name
+      - status
+      title: UpdateRunClusteringJobResponse
+      description: Response to update a session cluster job.
+    GetRunClusterResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        parent_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Id
+        num_children:
+          type: integer
+          title: Num Children
+        level:
+          type: integer
+          title: Level
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+      type: object
+      required:
+      - id
+      - num_children
+      - level
+      - name
+      - description
+      title: GetRunClusterResponse
+      description: Response to get a specific cluster from a specific cluster job.
+    CustomChartsSection:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        charts:
+          items:
+            $ref: '#/components/schemas/SingleCustomChartResponse'
+          type: array
+          title: Charts
+        sub_sections:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SingleCustomChartSubSectionResponse'
+            type: array
+          - type: 'null'
+          title: Sub Sections
+      type: object
+      required:
+      - title
+      - id
+      - charts
+      title: CustomChartsSection
+    RunClusteringJobPydantic:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        shape:
+          anyOf:
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Shape
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+        config_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Config Id
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - created_at
+      title: RunClusteringJobPydantic
+      description: Session cluster job
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CustomChartsDataPoint:
+      properties:
+        series_id:
+          type: string
+          title: Series Id
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+      type: object
+      required:
+      - series_id
+      - timestamp
+      - value
+      title: CustomChartsDataPoint
+    HighlightedRun:
+      properties:
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        cluster_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Cluster Id
+        cluster_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cluster Name
+        rank:
+          type: integer
+          title: Rank
+        highlight_reason:
+          type: string
+          title: Highlight Reason
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+      type: object
+      required:
+      - run_id
+      - rank
+      - highlight_reason
+      title: HighlightedRun
+      description: A trace highlighted in an insights report summary. Up to 10 per insights job.
+    CustomChartType:
+      type: string
+      enum:
+      - line
+      - bar
+      title: CustomChartType
+      description: Enum for custom chart types.
+    CreateClusteringJobConfigResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        config:
+          $ref: '#/components/schemas/SavedRunClusteringJobRequest'
+        schedule_cron:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schedule Cron
+      type: object
+      required:
+      - id
+      - name
+      - description
+      - config
+      title: CreateClusteringJobConfigResponse
+      description: Response to create a clustering job config.
+    InsightsSummary:
+      properties:
+        key_points:
+          items:
+            type: string
+          type: array
+          title: Key Points
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        highlighted_traces:
+          items:
+            $ref: '#/components/schemas/HighlightedRun'
+          type: array
+          title: Highlighted Traces
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+      type: object
+      title: InsightsSummary
+      description: High level summary of an insights job that pulls out patterns and specific traces.
+    CreateRunClusteringJobRequest:
+      properties:
+        config_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Config Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        last_n_hours:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Last N Hours
+        hierarchy:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Hierarchy
+        partitions:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+            maxProperties: 10
+          - type: 'null'
+          title: Partitions
+        sample:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Sample
+        summary_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary Prompt
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        attribute_schemas:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Attribute Schemas
+        user_context:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: User Context
+        model:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          title: Model
+          default: openai
+        cluster_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cluster Model
+        summary_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary Model
+        is_scheduled:
+          type: boolean
+          title: Is Scheduled
+          default: false
+        validate_model_secrets:
+          type: boolean
+          title: Validate Model Secrets
+          default: true
+      type: object
+      title: CreateRunClusteringJobRequest
+      description: Request to create a run clustering job.
+    TracerSessionUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        default_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset Id
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        trace_tier:
+          anyOf:
+          - $ref: '#/components/schemas/TraceTier'
+          - type: 'null'
+      type: object
+      title: TracerSessionUpdate
+      description: Update class for TracerSession.
+    GetRunClusteringJobsResponse:
+      properties:
+        clustering_jobs:
+          items:
+            $ref: '#/components/schemas/RunClusteringJobPydantic'
+          type: array
+          title: Clustering Jobs
+      type: object
+      required:
+      - clustering_jobs
+      title: GetRunClusteringJobsResponse
+      description: Response to get all cluster jobs for a session.
+    RunStatsGroupBy:
+      properties:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBy
+      description: Group by param for run stats.
+    FilterViewType:
+      type: string
+      enum:
+      - runs
+      - threads
+      - single_run
+      title: FilterViewType
+    GenerateClusteringJobConfigRequest:
+      properties:
+        user_context:
+          additionalProperties:
+            type: string
+          type: object
+          title: User Context
+        model:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          title: Model
+          default: openai
+        cluster_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cluster Model
+        summary_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary Model
+      type: object
+      required:
+      - user_context
+      title: GenerateClusteringJobConfigRequest
+      description: Request to auto-generate a clustering job config.
+    SessionSortableColumns:
+      type: string
+      enum:
+      - name
+      - start_time
+      - last_run_start_time
+      - latency_p50
+      - latency_p99
+      - error_rate
+      - feedback
+      - runs_count
+      title: SessionSortableColumns
+    RunCluster:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        parent_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Id
+        level:
+          type: integer
+          title: Level
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        parent_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parent Name
+        num_runs:
+          type: integer
+          title: Num Runs
+        stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Stats
+      type: object
+      required:
+      - id
+      - level
+      - name
+      - description
+      - num_runs
+      - stats
+      title: RunCluster
+      description: A single cluster of runs.
+    GetClusteringJobConfigsResponse:
+      properties:
+        configs:
+          items:
+            $ref: '#/components/schemas/ClusteringJobConfigResponse'
+          type: array
+          title: Configs
+      type: object
+      required:
+      - configs
+      title: GetClusteringJobConfigsResponse
+      description: Response to get clustering job configs.
+    CustomChartMetric:
+      type: string
+      enum:
+      - run_count
+      - latency_p50
+      - latency_p99
+      - latency_avg
+      - first_token_p50
+      - first_token_p99
+      - total_tokens
+      - prompt_tokens
+      - completion_tokens
+      - median_tokens
+      - completion_tokens_p50
+      - prompt_tokens_p50
+      - tokens_p99
+      - completion_tokens_p99
+      - prompt_tokens_p99
+      - feedback
+      - feedback_score_avg
+      - feedback_values
+      - total_cost
+      - prompt_cost
+      - completion_cost
+      - error_rate
+      - streaming_rate
+      - cost_p50
+      - cost_p99
+      title: CustomChartMetric
+      description: Metrics you can chart. Feedback metrics are not available for organization-scoped charts.
+    FetchClusteringJobRunsResult:
+      properties:
+        runs:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Runs
+        offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Offset
+      type: object
+      required:
+      - runs
+      - offset
+      title: FetchClusteringJobRunsResult
+    RootModel_Dict_str__list_str___:
+      additionalProperties:
+        items:
+          type: string
+        type: array
+      type: object
+      title: RootModel[Dict[str, list[str]]]
+    FilterViewUpdate:
+      properties:
+        filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter String
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        trace_filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter String
+        tree_filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter String
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/FilterViewType'
+          - type: 'null'
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        duration:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Duration
+      type: object
+      title: FilterViewUpdate
+    SavedRunClusteringJobRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        last_n_hours:
+          type: integer
+          title: Last N Hours
+        hierarchy:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: Hierarchy
+        partitions:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Partitions
+        sample:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: 'null'
+          title: Sample
+        summary_prompt:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary Prompt
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        attribute_schemas:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Attribute Schemas
+        user_context:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: User Context
+        model:
+          type: string
+          enum:
+          - openai
+          - anthropic
+          title: Model
+        cluster_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cluster Model
+        summary_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary Model
+      type: object
+      required:
+      - name
+      - last_n_hours
+      - hierarchy
+      - partitions
+      - sample
+      - summary_prompt
+      - filter
+      - attribute_schemas
+      - model
+      title: SavedRunClusteringJobRequest
+      description: Request to create a run clustering job.
+    DeleteRunClusteringJobResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - id
+      - message
+      title: DeleteRunClusteringJobResponse
+      description: Response to delete a session cluster job.
+    UpdateRunClusteringJobRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: UpdateRunClusteringJobRequest
+      description: Request to update a session cluster job.
+    CreateClusteringJobConfigRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 255
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        config:
+          $ref: '#/components/schemas/CreateRunClusteringJobRequest'
+        schedule_cron:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schedule Cron
+      type: object
+      required:
+      - name
+      - config
+      title: CreateClusteringJobConfigRequest
+      description: Request to create a clustering job config.
+    GetRunClusteringJobResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        shape:
+          anyOf:
+          - additionalProperties:
+              type: integer
+            type: object
+          - type: 'null'
+          title: Shape
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+        config_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Config Id
+        clusters:
+          items:
+            $ref: '#/components/schemas/RunCluster'
+          type: array
+          title: Clusters
+        report:
+          anyOf:
+          - $ref: '#/components/schemas/InsightsSummary'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - name
+      - status
+      - created_at
+      - clusters
+      title: GetRunClusteringJobResponse
+      description: Response to get a specific cluster job for a session.
+    FilterViewCreate:
+      properties:
+        filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter String
+        trace_filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter String
+        tree_filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter String
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          $ref: '#/components/schemas/FilterViewType'
+          default: runs
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        duration:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Duration
+      type: object
+      required:
+      - display_name
+      title: FilterViewCreate
+    FilterViewRename:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - display_name
+      title: FilterViewRename
+    GenerateClusteringJobConfigResponse:
+      properties:
+        summary_prompt:
+          type: string
+          title: Summary Prompt
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        attribute_schemas:
+          anyOf:
+          - additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          - type: 'null'
+          title: Attribute Schemas
+      type: object
+      required:
+      - summary_prompt
+      title: GenerateClusteringJobConfigResponse
+      description: Auto-generated clustering job config (not persisted; frontend creates the config).
+    CustomChartSeries:
+      properties:
+        name:
+          type: string
+          title: Name
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+        metric:
+          $ref: '#/components/schemas/CustomChartMetric'
+        feedback_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Key
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        project_metric:
+          anyOf:
+          - $ref: '#/components/schemas/HostProjectChartMetric'
+          - type: 'null'
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBySeriesResponse'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - metric
+      - id
+      title: CustomChartSeries
+    HostProjectChartMetric:
+      type: string
+      enum:
+      - memory_usage
+      - cpu_usage
+      - disk_usage
+      - restart_count
+      - replica_count
+      - worker_count
+      - lg_run_count
+      - responses_per_second
+      - error_responses_per_second
+      - p95_latency
+      title: HostProjectChartMetric
+      description: LGP Metrics you can chart.
+    RunStatsGroupBySeriesResponse:
+      properties:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+        set_by:
+          anyOf:
+          - type: string
+            enum:
+            - section
+            - series
+          - type: 'null'
+          title: Set By
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBySeriesResponse
+      description: Include additional information about where the group_by param was set.
+    TimedeltaInput:
+      properties:
+        days:
+          type: integer
+          title: Days
+          default: 0
+        hours:
+          type: integer
+          title: Hours
+          default: 0
+        minutes:
+          type: integer
+          title: Minutes
+          default: 0
+      type: object
+      title: TimedeltaInput
+      description: Timedelta input.
+    FilterView:
+      properties:
+        filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter String
+        trace_filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter String
+        tree_filter_string:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter String
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        type:
+          $ref: '#/components/schemas/FilterViewType'
+          default: runs
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        duration:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Duration
+        id:
+          type: string
+          format: uuid
+          title: Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - display_name
+      - id
+      - created_at
+      - updated_at
+      title: FilterView
+    DeleteClusteringJobConfigResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - id
+      - message
+      title: DeleteClusteringJobConfigResponse
+      description: Response to delete a clustering job config.
+    CreateRunClusteringJobResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        status:
+          type: string
+          title: Status
+        error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - id
+      - name
+      - status
+      title: CreateRunClusteringJobResponse
+      description: Response to creating a run clustering job.
+    TracerSessionWithoutVirtualFields:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        default_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset Id
+        reference_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Reference Dataset Id
+        trace_tier:
+          anyOf:
+          - $ref: '#/components/schemas/TraceTier'
+          - type: 'null'
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        last_run_start_time_live:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run Start Time Live
+      type: object
+      required:
+      - id
+      - tenant_id
+      title: TracerSessionWithoutVirtualFields
+      description: TracerSession schema.
+    SingleCustomChartResponse:
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/CustomChartsDataPoint'
+          type: array
+          title: Data
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        index:
+          type: integer
+          title: Index
+        chart_type:
+          $ref: '#/components/schemas/CustomChartType'
+        series:
+          items:
+            $ref: '#/components/schemas/CustomChartSeries'
+          type: array
+          title: Series
+        common_filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+      type: object
+      required:
+      - data
+      - id
+      - title
+      - index
+      - chart_type
+      - series
+      title: SingleCustomChartResponse
+    ClusteringJobConfigResponse:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        config:
+          $ref: '#/components/schemas/SavedRunClusteringJobRequest'
+        prebuilt:
+          type: boolean
+          title: Prebuilt
+        schedule_cron:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Schedule Cron
+      type: object
+      required:
+      - id
+      - name
+      - config
+      - prebuilt
+      title: ClusteringJobConfigResponse
+      description: Full clustering job config with all details.
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    TracerSessionCreate:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        default_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset Id
+        reference_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Reference Dataset Id
+        trace_tier:
+          anyOf:
+          - $ref: '#/components/schemas/TraceTier'
+          - type: 'null'
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+      type: object
+      title: TracerSessionCreate
+      description: Create class for TracerSession.
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,188 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies integrations API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: integrations
+paths:
+  /v1/agent-builder/integrations:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns default policy, integration overrides, and known integrations for the current workspace.
+      tags:
+      - integrations
+      summary: Get Agent Builder integrations settings
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.AgentBuilderIntegrationsPayload'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      parameters: []
+    put:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Replaces default policy and integration overrides for the current workspace.
+      tags:
+      - integrations
+      summary: Update Agent Builder integrations settings
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/integrations.AgentBuilderIntegrationsPayload'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/integrations.AgentBuilderIntegrationsUpdatePayload'
+components:
+  schemas:
+    integrations.IntegrationOverrideUpdate:
+      type: object
+      properties:
+        integration_key:
+          type: string
+        is_enabled:
+          type: boolean
+    integrations.IntegrationCatalogEntry:
+      type: object
+      properties:
+        can_invoke:
+          type: boolean
+        display_name:
+          type: string
+        id:
+          type: string
+        key:
+          type: string
+    integrations.AgentBuilderIntegrationsPayload:
+      type: object
+      properties:
+        integration_catalog:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.IntegrationCatalogEntry'
+        integration_overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.IntegrationOverride'
+        integrations_enabled_by_default:
+          type: boolean
+    integrations.IntegrationOverride:
+      type: object
+      properties:
+        integration_key:
+          type: string
+        is_enabled:
+          type: boolean
+    integrations.AgentBuilderIntegrationsUpdatePayload:
+      type: object
+      properties:
+        integration_overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.IntegrationOverrideUpdate'
+        integrations_enabled_by_default:
+          type: boolean
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

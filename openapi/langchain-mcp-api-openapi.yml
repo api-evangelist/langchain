@@ -1,0 +1,307 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies mcp API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: mcp
+paths:
+  /api/v1/mcp/tools:
+    get:
+      tags:
+      - mcp
+      summary: Get Tools
+      description: 'Return MCP tools — from cache if fresh, otherwise by fetching from remote.
+
+
+        On cache miss, tries manifest fetch first (fast), then falls back to full
+
+        MCP handshake. Caches the result before returning.
+
+
+        Pass force_refresh=true to bypass the cache and always fetch from the
+
+        remote server (the result is still cached via upsert for future requests).
+
+
+        The ls_user_id query parameter allows service-key callers (which don''t carry
+
+        ls_user_id in auth) to specify the user for per-user OAuth cache lookups.'
+      operationId: get_tools_api_v1_mcp_tools_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: url
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Url
+      - name: oauth_provider_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Oauth Provider Id
+      - name: ls_user_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ls User Id
+      - name: force_refresh
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Force Refresh
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - mcp
+      summary: Invalidate Tools Cache
+      description: 'Invalidate cached MCP tools for a given server URL.
+
+
+        Called when a tool call fails with a stale-tools error, so subsequent
+
+        requests to GET /mcp/tools will re-fetch from the remote server.'
+      operationId: invalidate_tools_cache_api_v1_mcp_tools_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: url
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Url
+      - name: oauth_provider_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Oauth Provider Id
+      - name: ls_user_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ls User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/mcp/proxy:
+    get:
+      tags:
+      - mcp
+      summary: Proxy Get
+      operationId: proxy_get_api_v1_mcp_proxy_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: url
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Url
+      - name: accept_stream
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Accept Stream
+      - name: timeout
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 60
+          title: Timeout
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - mcp
+      summary: Proxy
+      operationId: proxy_api_v1_mcp_proxy_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProxyRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProxyRequest:
+      properties:
+        url:
+          type: string
+          title: Url
+        method:
+          type: string
+          enum:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - PATCH
+          - HEAD
+          - OPTIONS
+          title: Method
+          default: GET
+        headers:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Headers
+          default: {}
+        timeout:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Timeout
+          default: 120
+        body:
+          anyOf:
+          - {}
+          - type: 'null'
+          title: Body
+        oauth_provider_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Oauth Provider Id
+      type: object
+      required:
+      - url
+      title: ProxyRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

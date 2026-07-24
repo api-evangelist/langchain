@@ -1,0 +1,414 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies playground-settings API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: playground-settings
+paths:
+  /api/v1/playground-settings:
+    get:
+      tags:
+      - playground-settings
+      summary: List Playground Settings
+      description: Get all playground settings for this tenant id.
+      operationId: list_playground_settings_api_v1_playground_settings_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PlaygroundSettingsResponse'
+                type: array
+                title: Response List Playground Settings Api V1 Playground Settings Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - playground-settings
+      summary: Create Playground Settings
+      description: Create playground settings.
+      operationId: create_playground_settings_api_v1_playground_settings_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaygroundSettingsCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaygroundSettingsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/playground-settings/{playground_settings_id}:
+    get:
+      tags:
+      - playground-settings
+      summary: Get Playground Settings
+      description: Get a single playground settings by ID.
+      operationId: get_playground_settings_api_v1_playground_settings__playground_settings_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: playground_settings_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Playground Settings Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaygroundSettingsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - playground-settings
+      summary: Update Playground Settings
+      description: Update playground settings.
+      operationId: update_playground_settings_api_v1_playground_settings__playground_settings_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: playground_settings_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Playground Settings Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaygroundSettingsUpdateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlaygroundSettingsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - playground-settings
+      summary: Delete Playground Settings
+      description: Delete playground settings.
+      operationId: delete_playground_settings_api_v1_playground_settings__playground_settings_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: playground_settings_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Playground Settings Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PlaygroundSettingsCreateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        settings:
+          additionalProperties: true
+          type: object
+          title: Settings
+        options:
+          anyOf:
+          - $ref: '#/components/schemas/PlaygroundSavedOptions'
+          - type: 'null'
+        settings_type:
+          type: string
+          enum:
+          - complex
+          - simple
+          title: Settings Type
+          default: complex
+      type: object
+      required:
+      - settings
+      title: PlaygroundSettingsCreateRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PlaygroundSavedOptions:
+      properties:
+        requests_per_second:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Requests Per Second
+      type: object
+      title: PlaygroundSavedOptions
+    PlaygroundSettingsUpdateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Settings
+        options:
+          anyOf:
+          - $ref: '#/components/schemas/PlaygroundSavedOptions'
+          - type: 'null'
+        available_in_playground:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Playground
+        available_in_evaluators:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Evaluators
+        available_in_agent_builder:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Agent Builder
+        available_in_polly:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Polly
+        available_in_insights_heavy:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Insights Heavy
+        available_in_insights_light:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Insights Light
+        available_in_issues_agent_heavy:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Issues Agent Heavy
+        available_in_issues_agent_light:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Issues Agent Light
+      type: object
+      title: PlaygroundSettingsUpdateRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PlaygroundSettingsResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        settings:
+          additionalProperties: true
+          type: object
+          title: Settings
+        options:
+          anyOf:
+          - $ref: '#/components/schemas/PlaygroundSavedOptions'
+          - type: 'null'
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        settings_type:
+          type: string
+          enum:
+          - complex
+          - simple
+          title: Settings Type
+          default: complex
+        created_by_ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Created By Ls User Id
+        updated_by_ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Updated By Ls User Id
+        available_in_playground:
+          type: boolean
+          title: Available In Playground
+          default: true
+        available_in_evaluators:
+          type: boolean
+          title: Available In Evaluators
+          default: true
+        available_in_agent_builder:
+          type: boolean
+          title: Available In Agent Builder
+          default: false
+        available_in_polly:
+          type: boolean
+          title: Available In Polly
+          default: false
+        available_in_insights_heavy:
+          type: boolean
+          title: Available In Insights Heavy
+          default: false
+        available_in_insights_light:
+          type: boolean
+          title: Available In Insights Light
+          default: false
+        available_in_issues_agent_heavy:
+          type: boolean
+          title: Available In Issues Agent Heavy
+          default: false
+        available_in_issues_agent_light:
+          type: boolean
+          title: Available In Issues Agent Light
+          default: false
+      type: object
+      required:
+      - id
+      - settings
+      - created_at
+      - updated_at
+      title: PlaygroundSettingsResponse
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies sessions API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: sessions
+paths:
+  /v1/platform/sessions/{sessionID}/agent-versions:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns all agent versions (commit SHAs) seen in the given tracing project, ordered by first_seen_at descending.
+      tags:
+      - sessions
+      summary: List agent versions for a project
+      parameters:
+      - description: Tracing project (session) UUID
+        name: sessionID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Agent versions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tracer_sessions.AgentVersionResponse'
+        '400':
+          description: Invalid session ID
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    tracer_sessions.AgentVersionResponse:
+      type: object
+      properties:
+        commit_sha:
+          type: string
+        first_seen_at:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

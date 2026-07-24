@@ -1,0 +1,539 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies threads API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: threads
+paths:
+  /v2/threads/query:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: '**Alpha:** The request and response contract may change;
+
+        Query threads within a project (session), with cursor-based pagination.
+
+        Returns threads matching the given time range and optional filter.'
+      tags:
+      - threads
+      summary: Query Threads
+      parameters: []
+      responses:
+        '200':
+          description: items and pagination
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/threads.QueryThreadsResponseBody'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/threads.QueryThreadsRequestBody'
+  /v2/threads/{thread_id}/traces:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: '**Alpha:** The request and response contract may change;
+
+        Retrieve all traces belonging to a specific thread within a project.'
+      tags:
+      - threads
+      summary: Query Thread Traces
+      parameters:
+      - description: Thread ID
+        name: thread_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: '`cursor` is the opaque string from a previous response''s `next_cursor`. Omit on the first request; pass the returned cursor to fetch the next page.'
+        name: cursor
+        in: query
+        schema:
+          type: string
+          title: Cursor
+      - description: '`filter` narrows which traces are returned for this thread, using a LangSmith filter expression evaluated against each root trace run.
+
+          For example: eq(status, "success") or has(tags, "production").
+
+          See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
+        name: filter
+        in: query
+        schema:
+          type: string
+          title: Filter
+      - example: 20
+        description: '`page_size` is the maximum number of traces to return in this response. Defaults to 20 when omitted; must be between 1 and 100 inclusive when set.'
+        name: page_size
+        in: query
+        schema:
+          type: integer
+          default: 20
+          minimum: 1
+          maximum: 100
+          title: Page Size
+      - description: '`project_id` is the tracing project UUID (required).'
+        name: project_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Project Id
+      - example:
+        - NAME
+        - START_TIME
+        description: '`selects` lists which properties to include on each returned trace (repeatable query parameter). Accepts any value of the `ThreadTraceSelectField` enum. Properties not listed are omitted from each trace object; `trace_id` is always returned.'
+        name: selects
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            enum:
+            - THREAD_ID
+            - TRACE_ID
+            - OP
+            - PROMPT_TOKENS
+            - COMPLETION_TOKENS
+            - TOTAL_TOKENS
+            - START_TIME
+            - END_TIME
+            - LATENCY
+            - FIRST_TOKEN_TIME
+            - INPUTS_PREVIEW
+            - OUTPUTS_PREVIEW
+            - PROMPT_COST
+            - COMPLETION_COST
+            - TOTAL_COST
+            - PROMPT_TOKEN_DETAILS
+            - COMPLETION_TOKEN_DETAILS
+            - PROMPT_COST_DETAILS
+            - COMPLETION_COST_DETAILS
+            - NAME
+            - ERROR_PREVIEW
+            type: string
+          title: Selects
+      responses:
+        '200':
+          description: items and pagination
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/threads.QueryThreadTracesResponseBody'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    query.RunFeedbackStats:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/query.RunFeedbackStat'
+    threads.ThreadTraceListItem:
+      type: object
+      properties:
+        completion_cost:
+          description: '`completion_cost` is the estimated USD cost for the completion. Omitted unless included in `selects`.'
+          type: number
+        completion_cost_details:
+          description: '`completion_cost_details` is the USD cost breakdown for completion-side categories; per-category values are under `raw`. Omitted unless included in `selects`.'
+          allOf:
+          - $ref: '#/components/schemas/query.RunCompletionCostDetails'
+        completion_token_details:
+          description: '`completion_token_details` is the completion-side token breakdown by category; per-category counts are under `raw`. Omitted unless included in `selects`.'
+          allOf:
+          - $ref: '#/components/schemas/query.RunCompletionTokenDetails'
+        completion_tokens:
+          description: '`completion_tokens` is the completion-side token count. Omitted unless included in `selects`.'
+          type: integer
+        end_time:
+          description: '`end_time` is when the root run ended (RFC3339 date-time). JSON null if the run is still in progress. Omitted unless included in `selects`.'
+          type: string
+          format: date-time
+          example: '2025-01-15T12:00:01.500Z'
+        error_preview:
+          description: '`error_preview` is a short error summary when the run failed. Omitted unless included in `selects`.'
+          type: string
+        first_token_time:
+          description: '`first_token_time` is when the first output token was produced (RFC3339 date-time), for streamed runs when that metadata exists. Omitted unless included in `selects`.'
+          type: string
+          format: date-time
+          example: '2024-01-15T10:30:00.312Z'
+        inputs_preview:
+          description: '`inputs_preview` is a truncated text preview of inputs. Omitted unless included in `selects`.'
+          type: string
+        latency:
+          description: '`latency` is wall-clock duration from start to end in seconds. Omitted unless included in `selects`.'
+          type: number
+        name:
+          description: '`name` is a human-readable label for the root run (for example the model name, function name, or step name chosen when the run was traced). Omitted unless included in `selects`.'
+          type: string
+        op:
+          description: '`op` is a numeric code identifying the root run''s `run_type` (for example LLM vs. tool vs. chain). Encoded as a number for compatibility with legacy clients; prefer the string `run_type` on `RunResponse` when available. Omitted unless included in `selects`.'
+          type: number
+        outputs_preview:
+          description: '`outputs_preview` is a truncated text preview of outputs. Omitted unless included in `selects`.'
+          type: string
+        prompt_cost:
+          description: '`prompt_cost` is the estimated USD cost for the prompt. Omitted unless included in `selects`.'
+          type: number
+        prompt_cost_details:
+          description: '`prompt_cost_details` is the USD cost breakdown for prompt-side categories; per-category values are under `raw`. Omitted unless included in `selects`.'
+          allOf:
+          - $ref: '#/components/schemas/query.RunPromptCostDetails'
+        prompt_token_details:
+          description: '`prompt_token_details` is the prompt-side token breakdown by category; per-category counts are under nested `raw`. Omitted unless included in `selects`.'
+          allOf:
+          - $ref: '#/components/schemas/query.RunPromptTokenDetails'
+        prompt_tokens:
+          description: '`prompt_tokens` is the prompt-side token count. Omitted unless included in `selects`.'
+          type: integer
+        start_time:
+          description: '`start_time` is when the trace started (RFC3339 date-time). Omitted unless included in `selects`.'
+          type: string
+          format: date-time
+          example: '2025-01-15T12:00:00.000Z'
+        thread_id:
+          description: '`thread_id` is the conversation thread UUID that contains this trace. Matches the `thread_id` path parameter of the request. Omitted unless included in `selects`.'
+          type: string
+          format: uuid
+          example: d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a
+        total_cost:
+          description: '`total_cost` is the estimated total USD cost for the root run. Omitted unless included in `selects`.'
+          type: number
+        total_tokens:
+          description: '`total_tokens` is the total token count (prompt plus completion). Omitted unless included in `selects`.'
+          type: integer
+        trace_id:
+          description: '`trace_id` is the UUID of this trace (the root run). Always present.'
+          type: string
+          format: uuid
+          example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+    query.RunPromptTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its prompt-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    threads.QueryThreadsResponseBody:
+      type: object
+      properties:
+        has_more:
+          description: '`has_more` is true when another page of threads exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of thread summaries, sorted by the thread''s most recent activity.'
+          type: array
+          items:
+            $ref: '#/components/schemas/threads.ThreadListItem'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
+    query.RunCompletionTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its completion-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    threads.ThreadListItem:
+      type: object
+      properties:
+        count:
+          description: '`count` is how many root traces (conversation turns) fall in this thread for the query time range.'
+          type: integer
+          example: 3
+        feedback_stats:
+          description: '`feedback_stats` is the aggregated feedback across traces in the thread, keyed by feedback key; shape matches `feedback_stats` on a single run.'
+          allOf:
+          - $ref: '#/components/schemas/query.RunFeedbackStats'
+        first_inputs:
+          description: '`first_inputs` is a truncated preview of inputs from the earliest trace in the thread for the query window.'
+          type: string
+        first_trace_id:
+          description: '`first_trace_id` is the root trace UUID for the chronologically first trace in the query time window.'
+          type: string
+          format: uuid
+          example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+        last_error:
+          description: '`last_error` is a short error summary from the most recent failing trace in the thread. Absent when there is no error in the window.'
+          type: string
+        last_outputs:
+          description: '`last_outputs` is a truncated preview of outputs from the latest trace in the thread for the query window.'
+          type: string
+        last_trace_id:
+          description: '`last_trace_id` is the root trace UUID for the chronologically last trace in the query time window.'
+          type: string
+          format: uuid
+          example: 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
+        latency_p50:
+          description: '`latency_p50` is the approximate median end-to-end latency of traces in the thread, in seconds.'
+          type: number
+          example: 0.15
+        latency_p99:
+          description: '`latency_p99` is the approximate 99th percentile end-to-end latency of traces in the thread, in seconds.'
+          type: number
+          example: 0.42
+        max_start_time:
+          description: '`max_start_time` is the latest trace start time in the thread (RFC3339 date-time).'
+          type: string
+          format: date-time
+          example: '2025-01-15T12:05:00.000Z'
+        min_start_time:
+          description: '`min_start_time` is the earliest trace start time in the thread (RFC3339 date-time).'
+          type: string
+          format: date-time
+          example: '2025-01-15T12:00:00.000Z'
+        start_time:
+          description: '`start_time` is a reference start time for this row (RFC3339 date-time), such as for sorting.'
+          type: string
+          format: date-time
+          example: '2025-01-15T12:00:00.000Z'
+        thread_id:
+          description: '`thread_id` identifies this conversation thread within the project from the request body `project_id`.'
+          type: string
+          format: uuid
+          example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+        total_cost:
+          description: '`total_cost` is the sum of estimated USD cost across those traces.'
+          type: number
+          example: 0.045
+        total_cost_details:
+          description: '`total_cost_details` sums per-category estimated USD cost across traces in the thread. Keys mirror `total_token_details`.
+
+
+            Example: `{"cache_read": 0.012, "reasoning": 0.008}`.'
+          type: object
+          additionalProperties:
+            type: number
+            format: float64
+        total_token_details:
+          description: '`total_token_details` sums per-category token counts across traces in the thread. Keys are model-specific category names (for example `cache_read`, `cache_write`, `reasoning`, `audio`).
+
+
+            Example: `{"cache_read": 400, "reasoning": 120}`.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        total_tokens:
+          description: '`total_tokens` is the sum of token usage across those traces.'
+          type: integer
+          example: 450
+        trace_id:
+          description: '`trace_id` is a representative root trace UUID when the summary includes one, for example for deep links.'
+          type: string
+          format: uuid
+          example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9328
+    query.RunFeedbackStat:
+      type: object
+      properties:
+        avg:
+          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
+          type: number
+          example: 0.87
+        comments:
+          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
+          type: array
+          items:
+            type: string
+          example:
+          - good answer
+          - needs citation
+        contains_thread_feedback:
+          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
+          type: boolean
+          example: false
+        errors:
+          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
+          type: integer
+          default: 0
+          example: 0
+        max:
+          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.95
+        min:
+          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.8
+        n:
+          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
+          type: integer
+          example: 42
+        sources:
+          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
+          type: array
+          items: {}
+        stdev:
+          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
+          type: number
+          example: 0.05
+        values:
+          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    threads.QueryThreadsRequestBody:
+      type: object
+      properties:
+        cursor:
+          description: '`cursor` is the opaque string from a previous response''s `next_cursor`. Omit on the first request; pass the returned cursor to fetch the next page.'
+          type: string
+        filter:
+          description: '`filter` narrows which threads are returned, using a LangSmith filter expression evaluated against each thread''s root run.
+
+            For example: has(tags, "production") or eq(status, "error").
+
+            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
+          type: string
+        max_start_time:
+          description: '`max_start_time` is the inclusive upper bound on thread activity (RFC3339 date-time).'
+          type: string
+          format: date-time
+        min_start_time:
+          description: '`min_start_time` is the inclusive lower bound on thread activity (RFC3339 date-time).'
+          type: string
+          format: date-time
+        page_size:
+          description: '`page_size` is the maximum number of threads to return in this response. Defaults to 20 when omitted; must be between 1 and 100 inclusive when set. The response may contain fewer threads than `page_size` even when `has_more` is true.'
+          type: integer
+          default: 20
+          maximum: 100
+          minimum: 1
+          example: 20
+        project_id:
+          description: '`project_id` is the tracing project UUID.'
+          type: string
+          format: uuid
+          example: 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
+    threads.QueryThreadTracesResponseBody:
+      type: object
+      properties:
+        has_more:
+          description: '`has_more` is true when another page of traces exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of root traces in this thread. Which properties are populated on each trace depends on the `selects` query parameter.'
+          type: array
+          items:
+            $ref: '#/components/schemas/threads.ThreadTraceListItem'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
+    query.RunPromptCostDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
+          type: object
+          additionalProperties:
+            type: number
+            format: float64
+    query.RunCompletionCostDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
+          type: object
+          additionalProperties:
+            type: number
+            format: float64
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

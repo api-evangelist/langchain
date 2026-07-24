@@ -1,0 +1,232 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies usage-limits API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: usage-limits
+paths:
+  /api/v1/usage-limits:
+    get:
+      tags:
+      - usage-limits
+      summary: List Usage Limits
+      description: List out the configured usage limits for a given tenant.
+      operationId: list_usage_limits_api_v1_usage_limits_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UsageLimit'
+                type: array
+                title: Response List Usage Limits Api V1 Usage Limits Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    put:
+      tags:
+      - usage-limits
+      summary: Upsert Usage Limit
+      description: Create a new usage limit.
+      operationId: upsert_usage_limit_api_v1_usage_limits_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertUsageLimit'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UsageLimit'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/usage-limits/org:
+    get:
+      tags:
+      - usage-limits
+      summary: List Org Usage Limits
+      description: List out the configured usage limits for a given organization.
+      operationId: list_org_usage_limits_api_v1_usage_limits_org_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UsageLimit'
+                type: array
+                title: Response List Org Usage Limits Api V1 Usage Limits Org Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/usage-limits/{usage_limit_id}:
+    delete:
+      tags:
+      - usage-limits
+      summary: Delete Usage Limit
+      description: Delete a specific usage limit.
+      operationId: delete_usage_limit_api_v1_usage_limits__usage_limit_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: usage_limit_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Usage Limit Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    UpsertUsageLimit:
+      properties:
+        limit_type:
+          $ref: '#/components/schemas/UsageLimitType'
+        limit_value:
+          type: integer
+          title: Limit Value
+        id:
+          type: string
+          format: uuid
+          title: Id
+      type: object
+      required:
+      - limit_type
+      - limit_value
+      title: UpsertUsageLimit
+      description: Request body for creating or updating a usage limit.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UsageLimit:
+      properties:
+        limit_type:
+          $ref: '#/components/schemas/UsageLimitType'
+        limit_value:
+          type: integer
+          title: Limit Value
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - limit_type
+      - limit_value
+      - tenant_id
+      - created_at
+      - updated_at
+      title: UsageLimit
+      description: Usage limit model.
+    UsageLimitType:
+      type: string
+      enum:
+      - monthly_traces
+      - monthly_longlived_traces
+      title: UsageLimitType
+      description: Type of usage limit.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

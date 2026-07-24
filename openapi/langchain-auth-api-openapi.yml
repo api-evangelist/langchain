@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies auth API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: auth
+paths:
+  /api/v1/login:
+    post:
+      tags:
+      - auth
+      summary: Login
+      operationId: login_api_v1_login_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BasicAuthResponse'
+  /api/v1/sso/email-verification/send:
+    post:
+      tags:
+      - auth
+      summary: Send Sso Email Confirmation
+      description: Send an email to confirm the email address for an SSO user.
+      operationId: send_sso_email_confirmation_api_v1_sso_email_verification_send_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSOEmailVerificationSendRequest'
+        required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Send Sso Email Confirmation Api V1 Sso Email Verification Send Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Bearer Auth: []
+  /api/v1/sso/email-verification/status:
+    post:
+      tags:
+      - auth
+      summary: Check Sso Email Verification Status
+      description: Retrieve the email verification status of an SSO user.
+      operationId: check_sso_email_verification_status_api_v1_sso_email_verification_status_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSOEmailVerificationStatusRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SSOEmailVerificationStatusResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sso/email-verification/confirm:
+    post:
+      tags:
+      - auth
+      summary: Confirm Sso User Email
+      description: Confirm the email of an SSO user.
+      operationId: confirm_sso_user_email_api_v1_sso_email_verification_confirm_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSOConfirmEmailRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Confirm Sso User Email Api V1 Sso Email Verification Confirm Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sso/settings/{sso_login_slug}:
+    get:
+      tags:
+      - auth
+      summary: Get Sso Settings
+      description: Get SSO provider settings from login slug.
+      operationId: get_sso_settings_api_v1_sso_settings__sso_login_slug__get
+      parameters:
+      - name: sso_login_slug
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Sso Login Slug
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SSOProviderSlim'
+                title: Response Get Sso Settings Api V1 Sso Settings  Sso Login Slug  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/sso/email-lookup:
+    post:
+      tags:
+      - auth
+      summary: Lookup Sso By Email
+      description: Look up SSO providers available for a SCIM-provisioned email address.
+      operationId: lookup_sso_by_email_api_v1_sso_email_lookup_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_SSOEmailLookupRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SSOProviderSlim'
+                type: array
+                title: Response Lookup Sso By Email Api V1 Sso Email Lookup Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /auth/public:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns public authentication information for the current workspace-level session.
+      tags:
+      - auth
+      summary: Get public auth info
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authn.PublicAuthInfo'
+      parameters: []
+components:
+  schemas:
+    SSOEmailVerificationSendRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        saml_provider_id:
+          type: string
+          format: uuid
+          title: Saml Provider Id
+      type: object
+      required:
+      - email
+      - saml_provider_id
+      title: SSOEmailVerificationSendRequest
+    SSOEmailVerificationStatusResponse:
+      properties:
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
+      type: object
+      title: SSOEmailVerificationStatusResponse
+    SSOEmailVerificationStatusRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        saml_provider_id:
+          type: string
+          format: uuid
+          title: Saml Provider Id
+      type: object
+      required:
+      - email
+      - saml_provider_id
+      title: SSOEmailVerificationStatusRequest
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    authn.PublicAuthInfo:
+      type: object
+      properties:
+        ls_user_id:
+          type: string
+        organization_id:
+          type: string
+        tenant_id:
+          type: string
+        user_email:
+          type: string
+        user_id:
+          type: string
+    _SSOEmailLookupRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+      type: object
+      required:
+      - email
+      title: _SSOEmailLookupRequest
+    BasicAuthResponse:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+      type: object
+      required:
+      - access_token
+      title: BasicAuthResponse
+    SSOProviderSlim:
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+          title: Provider Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        organization_display_name:
+          type: string
+          title: Organization Display Name
+      type: object
+      required:
+      - provider_id
+      - organization_id
+      - organization_display_name
+      title: SSOProviderSlim
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SSOConfirmEmailRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+      type: object
+      required:
+      - token
+      title: SSOConfirmEmailRequest
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

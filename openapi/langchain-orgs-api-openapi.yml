@@ -1,0 +1,4297 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies orgs API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: orgs
+paths:
+  /api/v1/orgs/ttl-settings:
+    get:
+      tags:
+      - orgs
+      summary: List Ttl Settings
+      description: List out the configured TTL settings for a given org (org-level and tenant-level).
+      operationId: list_ttl_settings_api_v1_orgs_ttl_settings_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TTLSettings'
+                type: array
+                title: Response List Ttl Settings Api V1 Orgs Ttl Settings Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    put:
+      tags:
+      - orgs
+      summary: Upsert Ttl Settings
+      operationId: upsert_ttl_settings_api_v1_orgs_ttl_settings_put
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpsertTTLSettingsRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TTLSettings'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs:
+    get:
+      tags:
+      - orgs
+      summary: List Organizations
+      description: Get all orgs visible to this auth
+      operationId: list_organizations_api_v1_orgs_get
+      security:
+      - Bearer Auth: []
+      parameters:
+      - name: skip_create
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Skip Create
+      - name: include_tier
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Tier
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrganizationPGSchemaSlim'
+                title: Response List Organizations Api V1 Orgs Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - orgs
+      summary: Create Organization
+      operationId: create_organization_api_v1_orgs_post
+      security:
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationPGSchemaSlim'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/setup:
+    post:
+      tags:
+      - orgs
+      summary: Create Customers And Get Stripe Setup Intent
+      operationId: create_customers_and_get_stripe_setup_intent_api_v1_orgs_current_setup_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeSetupIntentResponse'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current:
+    get:
+      tags:
+      - orgs
+      summary: Get Organization Info
+      operationId: get_organization_info_api_v1_orgs_current_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organization'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/info:
+    get:
+      tags:
+      - orgs
+      summary: Get Current Organization Info
+      operationId: get_current_organization_info_api_v1_orgs_current_info_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationInfo'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    patch:
+      tags:
+      - orgs
+      summary: Update Current Organization Info
+      operationId: update_current_organization_info_api_v1_orgs_current_info_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizationUpdate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationInfo'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/billing:
+    get:
+      tags:
+      - orgs
+      summary: Get Organization Billing Info
+      operationId: get_organization_billing_info_api_v1_orgs_current_billing_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationBillingInfo'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/dashboard:
+    get:
+      tags:
+      - orgs
+      summary: Get Dashboard
+      operationId: get_dashboard_api_v1_orgs_current_dashboard_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/OrganizationDashboardType'
+      - name: color_scheme
+        in: query
+        required: true
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/OrganizationDashboardColorScheme'
+          - type: 'null'
+          title: Color Scheme
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationDashboardSchema'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/payment-method:
+    post:
+      tags:
+      - orgs
+      summary: On Payment Method Created
+      operationId: on_payment_method_created_api_v1_orgs_current_payment_method_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripePaymentInformation'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/business-info:
+    get:
+      tags:
+      - orgs
+      summary: Get Company Info
+      operationId: get_company_info_api_v1_orgs_current_business_info_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StripeBusinessInfo-Output'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - orgs
+      summary: Set Company Info
+      operationId: set_company_info_api_v1_orgs_current_business_info_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeBusinessInfo-Input'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/plan:
+    post:
+      tags:
+      - orgs
+      summary: Change Payment Plan
+      operationId: change_payment_plan_api_v1_orgs_current_plan_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePaymentPlanSchema'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/roles:
+    get:
+      tags:
+      - orgs
+      summary: List Organization Roles
+      operationId: list_organization_roles_api_v1_orgs_current_roles_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Role'
+                type: array
+                title: Response List Organization Roles Api V1 Orgs Current Roles Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - orgs
+      summary: Create Organization Roles
+      operationId: create_organization_roles_api_v1_orgs_current_roles_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRoleRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/roles/{role_id}:
+    delete:
+      tags:
+      - orgs
+      summary: Delete Organization Roles
+      operationId: delete_organization_roles_api_v1_orgs_current_roles__role_id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Role Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - orgs
+      summary: Update Organization Roles
+      operationId: update_organization_roles_api_v1_orgs_current_roles__role_id__patch
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Role Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateRoleRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Role'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/permissions:
+    get:
+      tags:
+      - orgs
+      summary: List Permissions
+      operationId: list_permissions_api_v1_orgs_permissions_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PermissionResponse'
+                type: array
+                title: Response List Permissions Api V1 Orgs Permissions Get
+      security:
+      - Bearer Auth: []
+  /api/v1/orgs/pending:
+    get:
+      tags:
+      - orgs
+      summary: List Pending Organization Invites
+      description: Get all pending orgs visible to this auth
+      operationId: list_pending_organization_invites_api_v1_orgs_pending_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizationPGSchemaSlim'
+                type: array
+                title: Response List Pending Organization Invites Api V1 Orgs Pending Get
+      security:
+      - Bearer Auth: []
+  /api/v1/orgs/current/members:
+    get:
+      tags:
+      - orgs
+      summary: Get Current Org Members
+      operationId: get_current_org_members_api_v1_orgs_current_members_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationMembers'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - orgs
+      summary: Add Member To Current Org
+      operationId: add_member_to_current_org_api_v1_orgs_current_members_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PendingIdentityCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PendingIdentity'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/members/active:
+    get:
+      tags:
+      - orgs
+      summary: Get Current Active Org Members
+      operationId: get_current_active_org_members_api_v1_orgs_current_members_active_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: emails
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Emails
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search query for email or name
+          title: Q
+        description: Search query for email or name
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Sort in descending order
+          default: true
+          title: Sort By Desc
+        description: Sort in descending order
+      - name: ls_user_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          default: []
+          title: Ls User Ids
+      - name: user_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          deprecated: true
+          title: User Ids
+        deprecated: true
+      - name: is_disabled
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Disabled
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MemberSortField'
+          description: Field to sort by
+          default: created_at
+        description: Field to sort by
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgMemberIdentity'
+                title: Response Get Current Active Org Members Api V1 Orgs Current Members Active Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/members/pending:
+    get:
+      tags:
+      - orgs
+      summary: Get Current Pending Org Members
+      operationId: get_current_pending_org_members_api_v1_orgs_current_members_pending_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: emails
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Emails
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search query for email or name
+          title: Q
+        description: Search query for email or name
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Sort in descending order
+          default: true
+          title: Sort By Desc
+        description: Sort in descending order
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MemberSortField'
+          description: Field to sort by
+          default: created_at
+        description: Field to sort by
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgPendingIdentity'
+                title: Response Get Current Pending Org Members Api V1 Orgs Current Members Pending Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/members/batch:
+    post:
+      tags:
+      - orgs
+      summary: Add Members To Current Org Batch
+      description: Batch invite up to 500 users to the current org.
+      operationId: add_members_to_current_org_batch_api_v1_orgs_current_members_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/PendingIdentityCreate'
+              type: array
+              title: Payloads
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PendingIdentity'
+                type: array
+                title: Response Add Members To Current Org Batch Api V1 Orgs Current Members Batch Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/members/basic/batch:
+    post:
+      tags:
+      - orgs
+      summary: Add Basic Auth Members To Current Org
+      description: Batch add up to 500 users to the org and specified workspaces in basic auth mode.
+      operationId: add_basic_auth_members_to_current_org_api_v1_orgs_current_members_basic_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/BasicAuthMemberCreate'
+              type: array
+              title: Payloads
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserWithPassword'
+                type: array
+                title: Response Add Basic Auth Members To Current Org Api V1 Orgs Current Members Basic Batch Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/members/{identity_id}/pending:
+    delete:
+      tags:
+      - orgs
+      summary: Delete Current Org Pending Member
+      description: When an admin deletes a pending member invite.
+      operationId: delete_current_org_pending_member_api_v1_orgs_current_members__identity_id__pending_delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: identity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Identity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/pending/{organization_id}:
+    delete:
+      tags:
+      - orgs
+      summary: Delete Pending Organization Invite
+      operationId: delete_pending_organization_invite_api_v1_orgs_pending__organization_id__delete
+      security:
+      - Bearer Auth: []
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/pending/{organization_id}/claim:
+    post:
+      tags:
+      - orgs
+      summary: Claim Pending Organization Invite
+      operationId: claim_pending_organization_invite_api_v1_orgs_pending__organization_id__claim_post
+      security:
+      - Bearer Auth: []
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identity'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/members/{identity_id}:
+    delete:
+      tags:
+      - orgs
+      summary: Remove Member From Current Org
+      description: Remove a user from the current organization.
+      operationId: remove_member_from_current_org_api_v1_orgs_current_members__identity_id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: identity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Identity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - orgs
+      summary: Update Current Org Member
+      description: This is used for updating a user's role (all auth modes) or full_name/password (basic auth)
+      operationId: update_current_org_member_api_v1_orgs_current_members__identity_id__patch
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: identity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Identity Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrgIdentityPatch'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/members/basic:
+    patch:
+      tags:
+      - orgs
+      summary: Update Current User
+      description: Update a user's full_name/password (basic auth only)
+      operationId: update_current_user_api_v1_orgs_members_basic_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BasicAuthUserPatch'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/sso-settings:
+    get:
+      tags:
+      - orgs
+      summary: Get Current Sso Settings
+      description: Get SSO provider settings for the current organization.
+      operationId: get_current_sso_settings_api_v1_orgs_current_sso_settings_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SSOProvider'
+                type: array
+                title: Response Get Current Sso Settings Api V1 Orgs Current Sso Settings Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - orgs
+      summary: Create Sso Settings
+      description: Create SSO provider settings for the current organization.
+      operationId: create_sso_settings_api_v1_orgs_current_sso_settings_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSOSettingsCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SSOProvider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/sso-settings/{id}:
+    patch:
+      tags:
+      - orgs
+      summary: Update Sso Settings
+      description: Update SSO provider settings defaults for the current organization.
+      operationId: update_sso_settings_api_v1_orgs_current_sso_settings__id__patch
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SSOSettingsUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SSOProvider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - orgs
+      summary: Delete Sso Settings
+      description: Delete SSO provider settings for the current organization.
+      operationId: delete_sso_settings_api_v1_orgs_current_sso_settings__id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SSOProvider'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/login-methods:
+    patch:
+      tags:
+      - orgs
+      summary: Update Allowed Login Methods
+      description: Update allowed login methods for the current organization.
+      operationId: update_allowed_login_methods_api_v1_orgs_current_login_methods_patch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AllowedLoginMethodsUpdate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Update Allowed Login Methods Api V1 Orgs Current Login Methods Patch
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/billing/usage:
+    get:
+      tags:
+      - orgs
+      summary: Get Org Usage
+      operationId: get_org_usage_api_v1_orgs_current_billing_usage_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: starting_on
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          title: Starting On
+      - name: ending_before
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          title: Ending Before
+      - name: on_current_plan
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: On Current Plan
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrgUsage'
+                title: Response Get Org Usage Api V1 Orgs Current Billing Usage Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/billing/granular-usage:
+    get:
+      tags:
+      - orgs
+      summary: Get Granular Usage
+      description: 'Get granular usage data with flexible grouping.
+
+
+        workspace_ids filters results to the specified workspaces. Only workspaces
+
+        the user has read access to will be included in the results.'
+      operationId: get_granular_usage_api_v1_orgs_current_billing_granular_usage_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: start_time
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          title: Start Time
+      - name: end_time
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          title: End Time
+      - name: workspace_ids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          title: Workspace Ids
+      - name: group_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/GranularUsageGroupBy'
+          default: workspace
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GranularUsageResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/billing/granular-usage/export:
+    get:
+      tags:
+      - orgs
+      summary: Export Granular Usage Csv
+      description: 'Export granular usage data as CSV.
+
+
+        Returns the same data as the granular-usage endpoint but formatted as a
+
+        downloadable CSV file. Only workspaces the user has read access to will
+
+        be included in the results.'
+      operationId: export_granular_usage_csv_api_v1_orgs_current_billing_granular_usage_export_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: start_time
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          title: Start Time
+      - name: end_time
+        in: query
+        required: true
+        schema:
+          type: string
+          format: date-time
+          title: End Time
+      - name: workspace_ids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          title: Workspace Ids
+      - name: group_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/GranularUsageGroupBy'
+          default: workspace
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/user/login-methods:
+    get:
+      tags:
+      - orgs
+      summary: Get Current User Login Methods
+      description: Get login methods for the current user.
+      operationId: get_current_user_login_methods_api_v1_orgs_current_user_login_methods_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ProviderUserSlim'
+                type: array
+                title: Response Get Current User Login Methods Api V1 Orgs Current User Login Methods Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/stripe_checkout_session:
+    post:
+      tags:
+      - orgs
+      summary: Create Stripe Checkout Sessions Endpoint
+      description: Kick off a Stripe checkout session flow.
+      operationId: create_stripe_checkout_sessions_endpoint_api_v1_orgs_current_stripe_checkout_session_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeCheckoutSessionsCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/stripe_account_links:
+    post:
+      tags:
+      - orgs
+      summary: Create Stripe Account Links Endpoint
+      description: Kick off a Stripe account link flow.
+      operationId: create_stripe_account_links_endpoint_api_v1_orgs_current_stripe_account_links_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StripeAccountLinksCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/service-keys:
+    get:
+      tags:
+      - orgs
+      summary: List Org Service Keys
+      operationId: list_org_service_keys_api_v1_orgs_current_service_keys_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/APIKeyGetResponse'
+                type: array
+                title: Response List Org Service Keys Api V1 Orgs Current Service Keys Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - orgs
+      summary: Create Org Service Key
+      description: Create org-scoped service key. If workspaces is None, key is org-wide.
+      operationId: create_org_service_key_api_v1_orgs_current_service_keys_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/service-keys/{api_key_id}:
+    delete:
+      tags:
+      - orgs
+      summary: Delete Org Service Key
+      operationId: delete_org_service_key_api_v1_orgs_current_service_keys__api_key_id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: api_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Api Key Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyGetResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/personal-access-tokens:
+    get:
+      tags:
+      - orgs
+      summary: List Org Personal Access Tokens
+      operationId: list_org_personal_access_tokens_api_v1_orgs_current_personal_access_tokens_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/APIKeyGetResponse'
+                type: array
+                title: Response List Org Personal Access Tokens Api V1 Orgs Current Personal Access Tokens Get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - orgs
+      summary: Create Org Personal Access Token
+      operationId: create_org_personal_access_token_api_v1_orgs_current_personal_access_tokens_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyCreateRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyCreateResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /api/v1/orgs/current/personal-access-tokens/{pat_id}:
+    delete:
+      tags:
+      - orgs
+      summary: Delete Org Personal Access Token
+      operationId: delete_org_personal_access_token_api_v1_orgs_current_personal_access_tokens__pat_id__delete
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: pat_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Pat Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyGetResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/orgs/current/set-default-sso-provision:
+    post:
+      tags:
+      - orgs
+      summary: Set Default Sso Provision
+      description: Set the current organization as the default for SSO provisioning in self-hosted environments.
+      operationId: set_default_sso_provision_api_v1_orgs_current_set_default_sso_provision_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Set Default Sso Provision Api V1 Orgs Current Set Default Sso Provision Post
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+  /v1/platform/orgs/current/members:
+    get:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Returns a paginated list of org members (active and pending) enriched with workspace memberships.
+      tags:
+      - orgs
+      summary: List org members with workspace roles
+      parameters:
+      - description: Page size (default 50, max 500)
+        name: limit
+        in: query
+        schema:
+          type: integer
+          title: Limit
+      - description: Page offset (default 0)
+        name: offset
+        in: query
+        schema:
+          type: integer
+          title: Offset
+      - description: 'Filter: true = only active members; false = only pending members'
+        name: active_is
+        in: query
+        schema:
+          type: boolean
+          title: Active Is
+      - description: 'Filter: true = only pending members; false = only active members'
+        name: pending_is
+        in: query
+        schema:
+          type: boolean
+          title: Pending Is
+      - description: Glob filter on display name; use * as wildcard (repeatable, matches any)
+        name: name_like
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: Name Like
+      - description: Glob filter on email; use * as wildcard (repeatable, matches any)
+        name: email_like
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: Email Like
+      - description: Glob filter on workspace name or ID; use * as wildcard (repeatable, matches any)
+        name: workspace_name_like
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: Workspace Name Like
+      - description: Glob filter on organization role name; use * as wildcard (repeatable, matches any)
+        name: organization_role_like
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: Organization Role Like
+      - description: Glob filter on workspace role name; use * as wildcard (repeatable, matches any)
+        name: workspace_role_like
+        in: query
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+          title: Workspace Role Like
+      responses:
+        '200':
+          description: Org members
+          headers:
+            X-Members-List-All-Workspaces:
+              description: true if caller has organization:manage
+              schema:
+                type: string
+            X-Pagination-Total:
+              description: Total number of matching members
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/orgs.OrgMemberEnriched'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+components:
+  schemas:
+    StripeCustomerAddress:
+      properties:
+        line1:
+          type: string
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+        city:
+          type: string
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        postal_code:
+          type: string
+          title: Postal Code
+        country:
+          type: string
+          title: Country
+      type: object
+      required:
+      - line1
+      - city
+      - postal_code
+      - country
+      title: StripeCustomerAddress
+      description: Stripe customer address.
+    StripeTaxId:
+      properties:
+        value:
+          type: string
+          title: Value
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+      - value
+      - type
+      title: StripeTaxId
+      description: Stripe tax ID.
+    orgs.SCIMGroup:
+      type: object
+      properties:
+        created_at:
+          type: string
+        name:
+          type: string
+    OrgPendingIdentity:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+        tenant_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Tenant Ids
+          default: []
+      type: object
+      required:
+      - email
+      - id
+      - created_at
+      title: OrgPendingIdentity
+    OrganizationPGSchemaSlim:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        display_name:
+          type: string
+          title: Display Name
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        created_by_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Created By User Id
+        created_by_ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Created By Ls User Id
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        is_personal:
+          type: boolean
+          title: Is Personal
+        disabled:
+          type: boolean
+          title: Disabled
+        sso_login_slug:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sso Login Slug
+        sso_only:
+          type: boolean
+          title: Sso Only
+          default: false
+        jit_provisioning_enabled:
+          type: boolean
+          title: Jit Provisioning Enabled
+          default: true
+        invites_enabled:
+          type: boolean
+          title: Invites Enabled
+          default: true
+        public_sharing_disabled:
+          type: boolean
+          title: Public Sharing Disabled
+          default: false
+        pat_creation_disabled:
+          type: boolean
+          title: Pat Creation Disabled
+          default: false
+        workspace_admin_can_invite_to_org:
+          type: boolean
+          title: Workspace Admin Can Invite To Org
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        max_api_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Api Key Expiry Days
+        security_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Contact
+        max_pat_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Pat Expiry Days
+        max_service_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Service Key Expiry Days
+        scim_group_name_separator:
+          type: string
+          title: Scim Group Name Separator
+          default: ':'
+        llm_auth_proxy_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Llm Auth Proxy Enabled
+        llm_auth_proxy_jwt_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Auth Proxy Jwt Audience
+        ip_allowlist:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Ip Allowlist
+        restrict_browser_secrets:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restrict Browser Secrets
+        llm_auth_proxy_allowed_urls:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Llm Auth Proxy Allowed Urls
+      type: object
+      required:
+      - id
+      - display_name
+      - is_personal
+      - disabled
+      title: OrganizationPGSchemaSlim
+      description: Schema for an organization in postgres for list views.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GranularUsageResponse:
+      properties:
+        stride:
+          $ref: '#/components/schemas/GranularUsageStride'
+        usage:
+          items:
+            $ref: '#/components/schemas/GranularUsageRecord'
+          type: array
+          title: Usage
+      type: object
+      required:
+      - stride
+      - usage
+      title: GranularUsageResponse
+      description: Response for granular usage query.
+    AccessScope:
+      type: string
+      enum:
+      - organization
+      - workspace
+      title: AccessScope
+    SupabaseAttributeMapping:
+      properties:
+        keys:
+          additionalProperties:
+            $ref: '#/components/schemas/SupabaseAttributeMappingKey'
+          type: object
+          title: Keys
+      type: object
+      title: SupabaseAttributeMapping
+      description: 'Supabase SAML provider attribute_mapping. Empty keys is a valid value
+
+        (clears the mapping). Map key is the claim key written into identity_data;
+
+        value points at the SAML assertion attribute name.'
+    SSOSettingsCreate:
+      properties:
+        default_workspace_role_id:
+          type: string
+          format: uuid
+          title: Default Workspace Role Id
+        default_workspace_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Default Workspace Ids
+        metadata_xml:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Xml
+        metadata_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Url
+        attribute_mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SupabaseAttributeMapping'
+          - type: 'null'
+        sso_groups_enabled:
+          type: boolean
+          title: Sso Groups Enabled
+          default: false
+        sso_groups_claim_field:
+          type: string
+          title: Sso Groups Claim Field
+          default: groups
+        sso_groups_required:
+          type: boolean
+          title: Sso Groups Required
+          default: false
+        sso_groups_role_sync_enabled:
+          type: boolean
+          title: Sso Groups Role Sync Enabled
+          default: true
+      type: object
+      required:
+      - default_workspace_role_id
+      - default_workspace_ids
+      title: SSOSettingsCreate
+    GranularUsageDimensions:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        user_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Email
+        api_key_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Api Key Id
+        api_key_short_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Api Key Short Key
+        project_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Project Id
+        project_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Name
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Workspace Name
+      type: object
+      title: GranularUsageDimensions
+      description: Dimension values for a granular usage record.
+    APIKeyCreateResponse:
+      properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
+        description:
+          type: string
+          title: Description
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspace_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workspace Names
+        default_workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Workspace Name
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - short_key
+      - description
+      - key
+      title: APIKeyCreateResponse
+      description: API key POST schema.
+    SSOProvider:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        provider_id:
+          type: string
+          format: uuid
+          title: Provider Id
+        default_workspace_role_id:
+          type: string
+          format: uuid
+          title: Default Workspace Role Id
+        default_workspace_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Default Workspace Ids
+        metadata_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Url
+        metadata_xml:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Xml
+        sso_groups_enabled:
+          type: boolean
+          title: Sso Groups Enabled
+          default: false
+        sso_groups_claim_field:
+          type: string
+          title: Sso Groups Claim Field
+          default: groups
+        sso_groups_required:
+          type: boolean
+          title: Sso Groups Required
+          default: false
+        sso_groups_role_sync_enabled:
+          type: boolean
+          title: Sso Groups Role Sync Enabled
+          default: true
+        attribute_mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SupabaseAttributeMapping'
+          - type: 'null'
+        attribute_mapping_load_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Attribute Mapping Load Error
+      type: object
+      required:
+      - id
+      - organization_id
+      - provider_id
+      - default_workspace_role_id
+      - default_workspace_ids
+      title: SSOProvider
+    OrganizationConfig:
+      properties:
+        plan_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Plan Tier
+        max_identities:
+          type: integer
+          title: Max Identities
+          default: 5
+        max_workspaces:
+          type: integer
+          title: Max Workspaces
+          default: 1
+        can_use_rbac:
+          type: boolean
+          title: Can Use Rbac
+          default: false
+        can_use_abac:
+          type: boolean
+          title: Can Use Abac
+          default: false
+        can_use_audit_logs:
+          type: boolean
+          title: Can Use Audit Logs
+          default: false
+        can_add_seats:
+          type: boolean
+          title: Can Add Seats
+          default: true
+        startup_plan_approval_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Startup Plan Approval Date
+        partner_plan_approval_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Partner Plan Approval Date
+        premier_plan_approval_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Premier Plan Approval Date
+        can_disable_public_sharing:
+          type: boolean
+          title: Can Disable Public Sharing
+          default: false
+        can_use_langgraph_cloud:
+          type: boolean
+          title: Can Use Langgraph Cloud
+          default: false
+        max_langgraph_cloud_deployments:
+          type: integer
+          title: Max Langgraph Cloud Deployments
+          default: 3
+        max_free_langgraph_cloud_deployments:
+          type: integer
+          title: Max Free Langgraph Cloud Deployments
+          default: 0
+        max_sandboxes:
+          type: integer
+          title: Max Sandboxes
+          default: 10
+        max_sandbox_volumes:
+          type: integer
+          title: Max Sandbox Volumes
+          default: 100
+        max_sandbox_cpu:
+          type: string
+          title: Max Sandbox Cpu
+          default: '200'
+        max_sandbox_memory:
+          type: string
+          title: Max Sandbox Memory
+          default: 400Gi
+        max_sandbox_storage:
+          type: string
+          title: Max Sandbox Storage
+          default: 1Ti
+        can_use_saml_sso:
+          type: boolean
+          title: Can Use Saml Sso
+          default: false
+        can_use_bulk_export:
+          type: boolean
+          title: Can Use Bulk Export
+          default: false
+        show_updated_sidenav:
+          type: boolean
+          title: Show Updated Sidenav
+          default: false
+        show_updated_resource_tags:
+          type: boolean
+          title: Show Updated Resource Tags
+          default: false
+        kv_dataset_message_support:
+          type: boolean
+          title: Kv Dataset Message Support
+          default: true
+        show_playground_prompt_canvas:
+          type: boolean
+          title: Show Playground Prompt Canvas
+          default: false
+        allow_custom_iframes:
+          type: boolean
+          title: Allow Custom Iframes
+          default: false
+        byoc_enabled:
+          type: boolean
+          title: Byoc Enabled
+          default: false
+        enable_langgraph_pricing:
+          type: boolean
+          title: Enable Langgraph Pricing
+          default: false
+        enable_thread_view_playground:
+          type: boolean
+          title: Enable Thread View Playground
+          default: false
+        enable_org_usage_charts:
+          type: boolean
+          title: Enable Org Usage Charts
+          default: false
+        use_exact_search_for_prompts:
+          type: boolean
+          title: Use Exact Search For Prompts
+          default: false
+        langgraph_deploy_own_cloud_enabled:
+          type: boolean
+          title: Langgraph Deploy Own Cloud Enabled
+          default: false
+        prompt_optimization_jobs_enabled:
+          type: boolean
+          title: Prompt Optimization Jobs Enabled
+          default: false
+        demo_lgp_new_graph_enabled:
+          type: boolean
+          title: Demo Lgp New Graph Enabled
+          default: false
+        datadog_rum_session_sample_rate:
+          type: integer
+          title: Datadog Rum Session Sample Rate
+          default: 20
+        langgraph_remote_reconciler_enabled:
+          type: boolean
+          title: Langgraph Remote Reconciler Enabled
+          default: false
+        langgraph_enterprise_enabled:
+          type: boolean
+          title: Langgraph Enterprise Enabled
+          default: false
+        langsmith_alerts_poc_enabled:
+          type: boolean
+          title: Langsmith Alerts Poc Enabled
+          default: true
+        tenant_skip_topk_facets:
+          type: boolean
+          title: Tenant Skip Topk Facets
+          default: false
+        lgp_templates_enabled:
+          type: boolean
+          title: Lgp Templates Enabled
+          default: false
+        enable_align_evaluators:
+          type: boolean
+          title: Enable Align Evaluators
+          default: false
+        enable_run_tree_streaming:
+          type: boolean
+          title: Enable Run Tree Streaming
+          default: false
+        enable_querying_v2_endpoints:
+          type: boolean
+          title: Enable Querying V2 Endpoints
+          default: false
+        enable_threads_improvements:
+          type: boolean
+          title: Enable Threads Improvements
+          default: false
+        max_prompt_webhooks:
+          type: integer
+          title: Max Prompt Webhooks
+          default: 1
+        playground_evaluator_strategy:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Playground Evaluator Strategy
+          default: sync
+        can_set_api_key_max_expiry:
+          type: boolean
+          title: Can Set Api Key Max Expiry
+          default: false
+        can_use_llm_auth_proxy:
+          type: boolean
+          title: Can Use Llm Auth Proxy
+          default: false
+        can_restrict_browser_secrets:
+          type: boolean
+          title: Can Restrict Browser Secrets
+          default: false
+        enable_monthly_usage_charts:
+          type: boolean
+          title: Enable Monthly Usage Charts
+          default: false
+        new_rule_evaluator_creation_version:
+          type: integer
+          title: New Rule Evaluator Creation Version
+          default: 3
+        enable_lgp_listeners_page:
+          type: boolean
+          title: Enable Lgp Listeners Page
+          default: false
+        clio_enabled:
+          type: boolean
+          title: Clio Enabled
+          default: false
+        enable_include_extended_stats:
+          type: boolean
+          title: Enable Include Extended Stats
+          default: false
+        enable_markdown_in_tracing:
+          type: boolean
+          title: Enable Markdown In Tracing
+          default: false
+        enable_pricing_redesign:
+          type: boolean
+          title: Enable Pricing Redesign
+          default: false
+        arbitrary_cost_tracking_enabled:
+          type: boolean
+          title: Arbitrary Cost Tracking Enabled
+          default: false
+        langsmith_deployment_distributed_runtime_enabled:
+          type: boolean
+          title: Langsmith Deployment Distributed Runtime Enabled
+          default: false
+        agent_builder_enabled:
+          type: boolean
+          title: Agent Builder Enabled
+          default: true
+        max_agent_builder_assistants:
+          type: integer
+          title: Max Agent Builder Assistants
+          default: 1000
+        enable_granular_usage_reporting:
+          type: boolean
+          title: Enable Granular Usage Reporting
+          default: false
+        enable_burndown_vs_commit_view:
+          type: boolean
+          title: Enable Burndown Vs Commit View
+          default: false
+        max_agent_builder_runs:
+          type: integer
+          title: Max Agent Builder Runs
+          default: -1
+        langsmith_deployment_dr_enabled_dev:
+          type: boolean
+          title: Langsmith Deployment Dr Enabled Dev
+          default: false
+        ip_allowlist_enabled:
+          type: boolean
+          title: Ip Allowlist Enabled
+          default: false
+        llm_gateway_enabled:
+          type: boolean
+          title: Llm Gateway Enabled
+          default: false
+      type: object
+      title: OrganizationConfig
+      description: Organization level configuration. May include any field that exists in tenant config and additional fields.
+    StripeCheckoutSessionsCreate:
+      properties:
+        amount_cents:
+          type: integer
+          title: Amount Cents
+        success_path:
+          type: string
+          title: Success Path
+      type: object
+      required:
+      - amount_cents
+      - success_path
+      title: StripeCheckoutSessionsCreate
+    Identity:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        read_only:
+          type: boolean
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+      type: object
+      required:
+      - id
+      - organization_id
+      - created_at
+      - user_id
+      - ls_user_id
+      - read_only
+      title: Identity
+    OrgIdentityPatch:
+      properties:
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+      type: object
+      title: OrgIdentityPatch
+    MemberSortField:
+      type: string
+      enum:
+      - name
+      - email
+      - role
+      - created_at
+      title: MemberSortField
+      description: Sort fields for members list endpoints.
+    ProviderUserSlim:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        provider:
+          anyOf:
+          - $ref: '#/components/schemas/AuthProvider'
+          - type: 'null'
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        saml_provider_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Saml Provider Id
+        provider_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Provider User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+        is_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Disabled
+        provisioning_method:
+          anyOf:
+          - $ref: '#/components/schemas/ProvisioningMethod'
+          - type: 'null'
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      title: ProviderUserSlim
+    OrganizationInfo:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/OrganizationConfig'
+        is_personal:
+          type: boolean
+          title: Is Personal
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        reached_max_workspaces:
+          type: boolean
+          title: Reached Max Workspaces
+          default: false
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+          default: []
+        disabled:
+          type: boolean
+          title: Disabled
+          default: false
+        member_disabled:
+          type: boolean
+          title: Member Disabled
+          default: false
+        sso_only:
+          type: boolean
+          title: Sso Only
+          default: false
+        jit_provisioning_enabled:
+          type: boolean
+          title: Jit Provisioning Enabled
+          default: true
+        invites_enabled:
+          type: boolean
+          title: Invites Enabled
+          default: true
+        sso_login_slug:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sso Login Slug
+        public_sharing_disabled:
+          type: boolean
+          title: Public Sharing Disabled
+          default: false
+        pat_creation_disabled:
+          type: boolean
+          title: Pat Creation Disabled
+          default: false
+        workspace_admin_can_invite_to_org:
+          type: boolean
+          title: Workspace Admin Can Invite To Org
+          default: false
+        marketplace_payouts_enabled:
+          type: boolean
+          title: Marketplace Payouts Enabled
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        max_api_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Api Key Expiry Days
+        security_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Contact
+        max_pat_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Pat Expiry Days
+        max_service_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Service Key Expiry Days
+        scim_group_name_separator:
+          type: string
+          title: Scim Group Name Separator
+          default: ':'
+        can_export_usage_backfill:
+          type: boolean
+          title: Can Export Usage Backfill
+          default: false
+        llm_auth_proxy_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Llm Auth Proxy Enabled
+        llm_auth_proxy_jwt_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Auth Proxy Jwt Audience
+        ip_allowlist:
+          items:
+            type: string
+          type: array
+          title: Ip Allowlist
+        ip_allowlist_enabled:
+          type: boolean
+          title: Ip Allowlist Enabled
+          default: false
+        restrict_browser_secrets:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restrict Browser Secrets
+        llm_auth_proxy_allowed_urls:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Llm Auth Proxy Allowed Urls
+      type: object
+      required:
+      - config
+      - is_personal
+      title: OrganizationInfo
+      description: 'Information about an organization.
+
+
+        IMPORTANT: Keep in sync with Go OrganizationInfo in smith-go/orgs/handler.go
+
+        while both implementations are in use (weighted routing rollout).'
+    BasicAuthMemberCreate:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ls User Id
+        email:
+          type: string
+          title: Email
+        read_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+      type: object
+      required:
+      - email
+      title: BasicAuthMemberCreate
+    StripeBusinessBillingInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        address:
+          anyOf:
+          - $ref: '#/components/schemas/StripeCustomerAddress'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: StripeBusinessBillingInfo
+      description: Stripe customer billing information.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AuthProvider:
+      type: string
+      enum:
+      - email
+      - supabase:non-sso
+      - supabase:sso
+      - oidc
+      - custom-oidc
+      title: AuthProvider
+    Role:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          type: string
+          title: Description
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+        access_scope:
+          anyOf:
+          - $ref: '#/components/schemas/AccessScope'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - name
+      - display_name
+      - description
+      - permissions
+      title: Role
+    OrganizationDashboardColorScheme:
+      type: string
+      enum:
+      - light
+      - dark
+      title: OrganizationDashboardColorScheme
+      description: Enum for acceptable color schemes of dashboards.
+    orgs.OrgMemberEnriched:
+      type: object
+      properties:
+        avatar_url:
+          type: string
+        created_at:
+          type: string
+        display_name:
+          description: auth-resolved display name
+          type: string
+        email:
+          type: string
+        id:
+          description: identity_id or pending_identity_id
+          type: string
+        is_disabled:
+          description: user disabled
+          type: boolean
+        is_pending:
+          description: true for pending invitations
+          type: boolean
+        linked_login_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/orgs.LinkedLoginMethod'
+        ls_user_id:
+          description: nil for pending members
+          type: string
+        role_id:
+          description: org role
+          type: string
+        role_name:
+          description: org role name
+          type: string
+        scim_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/orgs.SCIMGroup'
+        workspace_memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/orgs.WorkspaceMembership'
+    orgs.WorkspaceMembership:
+      type: object
+      properties:
+        role_id:
+          type: string
+        role_name:
+          type: string
+        workspace_id:
+          type: string
+        workspace_name:
+          type: string
+    GranularUsageStride:
+      properties:
+        days:
+          type: integer
+          title: Days
+          default: 0
+        hours:
+          type: integer
+          title: Hours
+          default: 0
+      type: object
+      title: GranularUsageStride
+      description: Stride configuration for time bucketing - only ONE field should be non-zero.
+    SSOSettingsUpdate:
+      properties:
+        default_workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Workspace Role Id
+        default_workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Default Workspace Ids
+        metadata_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Url
+        metadata_xml:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Xml
+        sso_groups_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Sso Groups Enabled
+        sso_groups_claim_field:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sso Groups Claim Field
+        sso_groups_required:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Sso Groups Required
+        sso_groups_role_sync_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Sso Groups Role Sync Enabled
+        attribute_mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SupabaseAttributeMapping'
+          - type: 'null'
+      type: object
+      title: SSOSettingsUpdate
+    OrgMemberIdentity:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        read_only:
+          type: boolean
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        linked_login_methods:
+          items:
+            $ref: '#/components/schemas/ProviderUserSlim'
+          type: array
+          title: Linked Login Methods
+          default: []
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        is_disabled:
+          type: boolean
+          title: Is Disabled
+          default: false
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+        tenant_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Tenant Ids
+          default: []
+      type: object
+      required:
+      - id
+      - organization_id
+      - created_at
+      - user_id
+      - ls_user_id
+      - read_only
+      title: OrgMemberIdentity
+    CustomerVisiblePlanInfo:
+      properties:
+        tier:
+          $ref: '#/components/schemas/PaymentPlanTier'
+        started_on:
+          type: string
+          format: date-time
+          title: Started On
+        ends_on:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ends On
+      type: object
+      required:
+      - tier
+      - started_on
+      title: CustomerVisiblePlanInfo
+      description: Customer visible plan information.
+    OrgUsage:
+      properties:
+        customer_id:
+          type: string
+          title: Customer Id
+        billable_metric_id:
+          type: string
+          title: Billable Metric Id
+        billable_metric_name:
+          type: string
+          title: Billable Metric Name
+        start_timestamp:
+          type: string
+          title: Start Timestamp
+        end_timestamp:
+          type: string
+          title: End Timestamp
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+        groups:
+          anyOf:
+          - additionalProperties:
+              type: number
+            type: object
+          - type: 'null'
+          title: Groups
+      type: object
+      required:
+      - customer_id
+      - billable_metric_id
+      - billable_metric_name
+      - start_timestamp
+      - end_timestamp
+      - value
+      - groups
+      title: OrgUsage
+    UpsertTTLSettingsRequest:
+      properties:
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+      type: object
+      required:
+      - default_trace_tier
+      title: UpsertTTLSettingsRequest
+      description: Base TTL settings model.
+    ChangePaymentPlanSchema:
+      properties:
+        tier:
+          $ref: '#/components/schemas/ChangePaymentPlanReq'
+      type: object
+      required:
+      - tier
+      title: ChangePaymentPlanSchema
+      description: Change payment plan schema.
+    StripePaymentMethodInfo:
+      properties:
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+        last4:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last4
+        exp_month:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Exp Month
+        exp_year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Exp Year
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+      type: object
+      title: StripePaymentMethodInfo
+      description: Stripe customer billing info.
+    ChangePaymentPlanReq:
+      type: string
+      enum:
+      - disabled
+      - developer
+      - developer_01_2026
+      - plus
+      - plus_01_2026
+      - startup
+      - startup_v0
+      - partner
+      - premier
+      - free
+      title: ChangePaymentPlanReq
+      description: Enum for payment plans that the user can change to. Developer plans are permanent and enterprise plans will be changed manually.
+    ProvisioningMethod:
+      type: string
+      enum:
+      - scim
+      - saml:jit
+      - bootstrap
+      title: ProvisioningMethod
+    SupabaseAttributeMappingKey:
+      properties:
+        name:
+          type: string
+          title: Name
+        array:
+          type: boolean
+          title: Array
+          default: false
+      type: object
+      required:
+      - name
+      title: SupabaseAttributeMappingKey
+      description: Single entry in a Supabase SAML attribute_mapping.keys map.
+    GranularUsageRecord:
+      properties:
+        time_bucket:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Time Bucket
+        dimensions:
+          $ref: '#/components/schemas/GranularUsageDimensions'
+        traces:
+          type: integer
+          title: Traces
+          default: 0
+      type: object
+      required:
+      - dimensions
+      title: GranularUsageRecord
+      description: A single granular usage data point.
+    StripeBusinessInfo-Output:
+      properties:
+        company_info:
+          anyOf:
+          - $ref: '#/components/schemas/StripeBusinessBillingInfo'
+          - type: 'null'
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/StripeTaxId'
+          - type: 'null'
+        invoice_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invoice Email
+        is_business:
+          type: boolean
+          title: Is Business
+          default: false
+      type: object
+      title: StripeBusinessInfo
+    orgs.LinkedLoginMethod:
+      type: object
+      properties:
+        provider:
+          type: string
+        provisioning:
+          description: provisioning_method
+          type: string
+    APIKeyCreateRequest:
+      properties:
+        description:
+          type: string
+          title: Description
+          default: Default API key
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspaces:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspaces
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        default_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Workspace Id
+      type: object
+      title: APIKeyCreateRequest
+      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
+    PermissionResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+      type: object
+      required:
+      - name
+      - description
+      - access_scope
+      title: PermissionResponse
+    StripeSetupIntentResponse:
+      properties:
+        client_secret:
+          type: string
+          title: Client Secret
+      type: object
+      required:
+      - client_secret
+      title: StripeSetupIntentResponse
+      description: Stripe setup intent response.
+    OrganizationMembers:
+      properties:
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        members:
+          items:
+            $ref: '#/components/schemas/OrgMemberIdentity'
+          type: array
+          title: Members
+        pending:
+          items:
+            $ref: '#/components/schemas/OrgPendingIdentity'
+          type: array
+          title: Pending
+      type: object
+      required:
+      - organization_id
+      - members
+      - pending
+      title: OrganizationMembers
+      description: Organization members schema.
+    StripeAccountLinksCreate:
+      properties:
+        success_path:
+          type: string
+          title: Success Path
+      type: object
+      required:
+      - success_path
+      title: StripeAccountLinksCreate
+    UpdateRoleRequest:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          type: string
+          title: Description
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+      type: object
+      required:
+      - display_name
+      - description
+      - permissions
+      title: UpdateRoleRequest
+    PendingIdentity:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+      type: object
+      required:
+      - email
+      - id
+      - created_at
+      title: PendingIdentity
+    Organization:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/OrganizationConfig'
+        connected_to_stripe:
+          type: boolean
+          title: Connected To Stripe
+        connected_to_metronome:
+          type: boolean
+          title: Connected To Metronome
+        is_personal:
+          type: boolean
+          title: Is Personal
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        payment_method:
+          anyOf:
+          - $ref: '#/components/schemas/StripePaymentMethodInfo'
+          - type: 'null'
+        has_cancelled:
+          type: boolean
+          title: Has Cancelled
+        end_of_billing_period:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Of Billing Period
+        current_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        upcoming_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        reached_max_workspaces:
+          type: boolean
+          title: Reached Max Workspaces
+          default: false
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+          default: []
+        marketplace_payouts_enabled:
+          type: boolean
+          title: Marketplace Payouts Enabled
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        security_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Contact
+        scim_group_name_separator:
+          type: string
+          title: Scim Group Name Separator
+          default: ':'
+      type: object
+      required:
+      - config
+      - connected_to_stripe
+      - connected_to_metronome
+      - is_personal
+      - has_cancelled
+      title: Organization
+      description: Information about an organization.
+    APIKeyGetResponse:
+      properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
+        description:
+          type: string
+          title: Description
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspace_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workspace Names
+        default_workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Workspace Name
+      type: object
+      required:
+      - id
+      - short_key
+      - description
+      title: APIKeyGetResponse
+      description: API key GET schema.
+    StripePaymentInformation:
+      properties:
+        billing_info:
+          $ref: '#/components/schemas/StripeCustomerBillingInfo'
+        setup_intent:
+          type: string
+          title: Setup Intent
+      type: object
+      required:
+      - billing_info
+      - setup_intent
+      title: StripePaymentInformation
+      description: Stripe payment information.
+    OrganizationDashboardType:
+      type: string
+      enum:
+      - invoices
+      - usage
+      - credits
+      title: OrganizationDashboardType
+      description: Enum for acceptable types of dashboards.
+    AllowedLoginMethodsUpdate:
+      properties:
+        sso_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Sso Only
+      type: object
+      title: AllowedLoginMethodsUpdate
+    UserWithPassword:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        email:
+          type: string
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      - email
+      title: UserWithPassword
+    StripeCustomerBillingInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        address:
+          $ref: '#/components/schemas/StripeCustomerAddress'
+      type: object
+      required:
+      - name
+      - address
+      title: StripeCustomerBillingInfo
+      description: Stripe customer billing information.
+    PaymentPlanTier:
+      type: string
+      enum:
+      - no_plan
+      - developer
+      - developer_01_2026
+      - plus
+      - plus_01_2026
+      - enterprise
+      - developer_legacy
+      - plus_legacy
+      - free
+      - enterprise_legacy
+      - startup
+      - startup_v0
+      - partner
+      - premier
+      title: PaymentPlanTier
+    OrganizationDashboardSchema:
+      properties:
+        embeddable_url:
+          type: string
+          title: Embeddable Url
+      type: object
+      required:
+      - embeddable_url
+      title: OrganizationDashboardSchema
+      description: Organization dashboard for usage or invoices.
+    TTLSettings:
+      properties:
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        configured_by:
+          $ref: '#/components/schemas/ConfiguredBy'
+        longlived_ttl_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Longlived Ttl Days
+      type: object
+      required:
+      - default_trace_tier
+      - id
+      - organization_id
+      - created_at
+      - updated_at
+      - configured_by
+      title: TTLSettings
+      description: TTL settings model.
+    PlusPlanTransitionInfo:
+      properties:
+        transition_date:
+          type: string
+          format: date-time
+          title: Transition Date
+        plan_tier_before:
+          type: string
+          title: Plan Tier Before
+        transitioned:
+          type: boolean
+          title: Transitioned
+      type: object
+      required:
+      - transition_date
+      - plan_tier_before
+      - transitioned
+      title: PlusPlanTransitionInfo
+      description: Info about an org's automated startup-to-Plus plan transition.
+    BasicAuthUserPatch:
+      properties:
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      title: BasicAuthUserPatch
+    StripeBusinessInfo-Input:
+      properties:
+        company_info:
+          anyOf:
+          - $ref: '#/components/schemas/StripeBusinessBillingInfo'
+          - type: 'null'
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/StripeTaxId'
+          - type: 'null'
+        invoice_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invoice Email
+        is_business:
+          type: boolean
+          title: Is Business
+          default: false
+      type: object
+      title: StripeBusinessInfo
+    OrganizationCreate:
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ ]+$
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        security_contact:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Security Contact
+      type: object
+      required:
+      - display_name
+      - is_personal
+      title: OrganizationCreate
+      description: Create organization schema.
+    ConfiguredBy:
+      type: string
+      enum:
+      - system
+      - user
+      title: ConfiguredBy
+    OrganizationBillingInfo:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        display_name:
+          type: string
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/OrganizationConfig'
+        connected_to_stripe:
+          type: boolean
+          title: Connected To Stripe
+        connected_to_metronome:
+          type: boolean
+          title: Connected To Metronome
+        is_personal:
+          type: boolean
+          title: Is Personal
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        payment_method:
+          anyOf:
+          - $ref: '#/components/schemas/StripePaymentMethodInfo'
+          - type: 'null'
+        end_of_billing_period:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Of Billing Period
+        current_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        upcoming_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        reached_max_workspaces:
+          type: boolean
+          title: Reached Max Workspaces
+          default: false
+        disabled:
+          type: boolean
+          title: Disabled
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        plus_plan_transition:
+          anyOf:
+          - $ref: '#/components/schemas/PlusPlanTransitionInfo'
+          - type: 'null'
+      type: object
+      required:
+      - display_name
+      - config
+      - connected_to_stripe
+      - connected_to_metronome
+      - is_personal
+      title: OrganizationBillingInfo
+      description: Information about an organization's billing configuration.
+    CreateRoleRequest:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          type: string
+          title: Description
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+      type: object
+      required:
+      - display_name
+      - description
+      - permissions
+      title: CreateRoleRequest
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    GranularUsageGroupBy:
+      type: string
+      enum:
+      - user
+      - api_key
+      - project
+      - workspace
+      title: GranularUsageGroupBy
+      description: Dimensions for grouping granular usage data.
+    OrganizationUpdate:
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ ]+$
+          title: Display Name
+        public_sharing_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Public Sharing Disabled
+        pat_creation_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Pat Creation Disabled
+        unshare_all:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Unshare All
+        jit_provisioning_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Jit Provisioning Enabled
+        workspace_admin_can_invite_to_org:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Workspace Admin Can Invite To Org
+        invites_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Invites Enabled
+        max_api_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Api Key Expiry Days
+        security_contact:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Security Contact
+        max_pat_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Pat Expiry Days
+        max_service_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Service Key Expiry Days
+        scim_group_name_separator:
+          type: string
+          maxLength: 1
+          minLength: 1
+          title: Scim Group Name Separator
+        llm_auth_proxy_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Llm Auth Proxy Enabled
+        llm_auth_proxy_jwt_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Auth Proxy Jwt Audience
+        ip_allowlist:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Ip Allowlist
+        restrict_browser_secrets:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restrict Browser Secrets
+        llm_auth_proxy_allowed_urls:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Llm Auth Proxy Allowed Urls
+      type: object
+      title: OrganizationUpdate
+      description: Update organization schema.
+    PendingIdentityCreate:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - email
+      title: PendingIdentityCreate
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

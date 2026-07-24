@@ -1,0 +1,671 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies optimization-jobs API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: optimization-jobs
+paths:
+  /api/v1/repos/{owner}/{repo}/optimization-jobs:
+    get:
+      tags:
+      - optimization-jobs
+      summary: List Jobs
+      description: List all prompt optimization jobs.
+      operationId: list_jobs_api_v1_repos__owner___repo__optimization_jobs_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PromptOptimizationJob'
+                title: Response List Jobs Api V1 Repos  Owner   Repo  Optimization Jobs Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - optimization-jobs
+      summary: Create Job
+      description: Create a new prompt optimization job.
+      operationId: create_job_api_v1_repos__owner___repo__optimization_jobs_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptOptimizationJobCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptOptimizationJob'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/repos/{owner}/{repo}/optimization-jobs/{job_id}:
+    get:
+      tags:
+      - optimization-jobs
+      summary: Get Job
+      description: Get a specific optimization job.
+      operationId: get_job_api_v1_repos__owner___repo__optimization_jobs__job_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptOptimizationJobWithLogs'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - optimization-jobs
+      summary: Update Job
+      description: Replace an existing prompt optimization job with a new, modified job.
+      operationId: update_job_api_v1_repos__owner___repo__optimization_jobs__job_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptOptimizationJobUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptOptimizationJob'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - optimization-jobs
+      summary: Delete Job
+      description: Delete a prompt optimization job.
+      operationId: delete_job_api_v1_repos__owner___repo__optimization_jobs__job_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/repos/{owner}/{repo}/optimization-jobs/{job_id}/logs:
+    get:
+      tags:
+      - optimization-jobs
+      summary: List Job Logs
+      description: List all logs for a specific prompt optimization job.
+      operationId: list_job_logs_api_v1_repos__owner___repo__optimization_jobs__job_id__logs_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PromptOptimizationJobLog'
+                title: Response List Job Logs Api V1 Repos  Owner   Repo  Optimization Jobs  Job Id  Logs Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - optimization-jobs
+      summary: Create Log
+      description: Create a new log entry for a prompt optimization job.
+      operationId: create_log_api_v1_repos__owner___repo__optimization_jobs__job_id__logs_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: job_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Job Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PromptOptimizationJobLogCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptOptimizationJobLog'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/repos/{owner}/{repo}/optimization-jobs/{job_id}/logs/{log_id}:
+    get:
+      tags:
+      - optimization-jobs
+      summary: Get Log
+      description: Get a specific prompt optimization job log.
+      operationId: get_log_api_v1_repos__owner___repo__optimization_jobs__job_id__logs__log_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: log_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Log Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PromptOptimizationJobLog'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - optimization-jobs
+      summary: Delete Log
+      description: Delete a prompt optimization job log.
+      operationId: delete_log_api_v1_repos__owner___repo__optimization_jobs__job_id__logs__log_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: log_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Log Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    PromptOptimizationJobUpdate:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+          - type: 'null'
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/PromptOptimizationResult'
+          - type: 'null'
+      type: object
+      title: PromptOptimizationJobUpdate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PromptOptimizationResult:
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        x:
+          type: number
+          title: X
+        y:
+          type: number
+          title: Y
+      type: object
+      required:
+      - timestamp
+      - x
+      - y
+      title: PromptOptimizationResult
+    PromptOptimizationJobLog:
+      properties:
+        log_type:
+          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
+        message:
+          type: string
+          title: Message
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        id:
+          type: string
+          format: uuid
+          title: Id
+        job_id:
+          type: string
+          format: uuid
+          title: Job Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - log_type
+      - message
+      - id
+      - job_id
+      - created_at
+      title: PromptOptimizationJobLog
+    DemoConfig:
+      properties:
+        message_index:
+          type: integer
+          title: Message Index
+        metaprompt:
+          additionalProperties: true
+          type: object
+          title: Metaprompt
+        examples:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Examples
+        overall_feedback:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Overall Feedback
+      type: object
+      required:
+      - message_index
+      - metaprompt
+      - examples
+      - overall_feedback
+      title: DemoConfig
+    PromptOptimizationJobLogCreate:
+      properties:
+        log_type:
+          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
+        message:
+          type: string
+          title: Message
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+      type: object
+      required:
+      - log_type
+      - message
+      title: PromptOptimizationJobLogCreate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PromptOptimizationJob:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        repo_id:
+          type: string
+          format: uuid
+          title: Repo Id
+        status:
+          $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+        results:
+          items:
+            $ref: '#/components/schemas/PromptOptimizationResult'
+          type: array
+          title: Results
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - repo_id
+      - status
+      - tenant_id
+      - algorithm
+      - config
+      - created_at
+      - updated_at
+      title: PromptOptimizationJob
+    EPromptOptimizationJobStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - successful
+      - failed
+      title: EPromptOptimizationJobStatus
+    PromptOptimizationJobCreate:
+      properties:
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+      type: object
+      required:
+      - algorithm
+      - config
+      title: PromptOptimizationJobCreate
+    EPromptOptimizationAlgorithm:
+      type: string
+      enum:
+      - promptim
+      - demo
+      title: EPromptOptimizationAlgorithm
+    PromptimConfig:
+      properties:
+        message_index:
+          type: integer
+          title: Message Index
+        task_description:
+          type: string
+          title: Task Description
+        dataset_name:
+          type: string
+          title: Dataset Name
+        train_split:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Train Split
+        dev_split:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dev Split
+        test_split:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Test Split
+        evaluators:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Evaluators
+        num_epochs:
+          type: integer
+          title: Num Epochs
+        auto_commit:
+          type: boolean
+          title: Auto Commit
+      type: object
+      required:
+      - message_index
+      - task_description
+      - dataset_name
+      - train_split
+      - dev_split
+      - test_split
+      - evaluators
+      - num_epochs
+      - auto_commit
+      title: PromptimConfig
+    EPromptOptimizationJobLogType:
+      type: string
+      enum:
+      - info
+      - result
+      - error
+      - link
+      title: EPromptOptimizationJobLogType
+    PromptOptimizationJobWithLogs:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        repo_id:
+          type: string
+          format: uuid
+          title: Repo Id
+        status:
+          $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+        results:
+          items:
+            $ref: '#/components/schemas/PromptOptimizationResult'
+          type: array
+          title: Results
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        logs:
+          items:
+            $ref: '#/components/schemas/PromptOptimizationJobLog'
+          type: array
+          title: Logs
+      type: object
+      required:
+      - id
+      - repo_id
+      - status
+      - tenant_id
+      - algorithm
+      - config
+      - created_at
+      - updated_at
+      - logs
+      title: PromptOptimizationJobWithLogs
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

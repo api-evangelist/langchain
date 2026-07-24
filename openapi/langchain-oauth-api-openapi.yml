@@ -1,0 +1,453 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies oauth API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: oauth
+paths:
+  /.well-known/oauth-authorization-server:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Returns OAuth2 authorization server metadata per RFC 8414, including supported endpoints, grant types, and response types.
+      tags:
+      - oauth
+      summary: Get OAuth2 authorization server metadata
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.AuthorizationServerMetadata'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+      parameters: []
+  /oauth/authorize:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Validates authorization request parameters and redirects to the frontend consent page per RFC 6749.
+      tags:
+      - oauth
+      summary: Initiate OAuth2 authorization
+      parameters:
+      - description: Must be 'code'
+        name: response_type
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Response Type
+      - description: OAuth2 client ID
+        name: client_id
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Client Id
+      - description: Redirect URI registered with the client
+        name: redirect_uri
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Redirect Uri
+      - description: PKCE code challenge
+        name: code_challenge
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Code Challenge
+      - description: PKCE method, must be 'S256'
+        name: code_challenge_method
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Code Challenge Method
+      - description: Opaque state value to prevent CSRF
+        name: state
+        in: query
+        schema:
+          type: string
+          title: State
+      responses:
+        '302':
+          description: Found
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+  /oauth/authorize/approve:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Issues an authorization code after the authenticated user approves the request. Called by the frontend consent page. Requires authentication.
+      tags:
+      - oauth
+      summary: Approve OAuth2 authorization request
+      parameters: []
+      responses:
+        '200':
+          description: JSON body with redirect_uri the frontend should navigate the browser to
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                organization_id:
+                  type: string
+                  description: Organization ID; must match the authenticated org
+                client_id:
+                  type: string
+                  description: OAuth2 client ID
+                redirect_uri:
+                  type: string
+                  description: Redirect URI registered with the client
+                code_challenge:
+                  type: string
+                  description: PKCE code challenge
+                code_challenge_method:
+                  type: string
+                  description: PKCE method, must be 'S256'
+                state:
+                  type: string
+                  description: Opaque state value to prevent CSRF
+              required:
+              - organization_id
+              - client_id
+              - redirect_uri
+              - code_challenge
+              - code_challenge_method
+  /oauth/device/authorize:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Marks a device code as authorized for the authenticated user. Called by the /activate page when the user enters their user code. Requires authentication.
+      tags:
+      - oauth
+      summary: Authorize a device code
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                organization_id:
+                  type: string
+                  description: Organization ID; must match the authenticated org
+                user_code:
+                  type: string
+                  description: User code displayed on the device
+              required:
+              - organization_id
+              - user_code
+  /oauth/device/code:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Issues a device code and user code for the device authorization flow per RFC 8628.
+      tags:
+      - oauth
+      summary: Request OAuth2 device authorization
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.DeviceCodeResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  type: string
+                  description: OAuth2 client ID
+              required:
+              - client_id
+  /oauth/revoke:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Revokes an access token or refresh token per RFC 7009. Always returns 200 regardless of whether the token was found.
+      tags:
+      - oauth
+      summary: Revoke an OAuth2 token
+      parameters: []
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                  description: Token to revoke (access token or refresh token)
+              required:
+              - token
+  /oauth/token:
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: 'Token endpoint that dispatches by grant_type: authorization_code, urn:ietf:params:oauth:grant-type:device_code, or refresh_token.'
+      tags:
+      - oauth
+      summary: Exchange grant for OAuth2 tokens
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/oauth.TokenErrorResponse'
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  description: 'Grant type: authorization_code, urn:ietf:params:oauth:grant-type:device_code, or refresh_token'
+                client_id:
+                  type: string
+                  description: OAuth2 client ID
+                code:
+                  type: string
+                  description: Authorization code (authorization_code grant)
+                code_verifier:
+                  type: string
+                  description: PKCE code verifier (authorization_code grant)
+                redirect_uri:
+                  type: string
+                  description: Redirect URI (authorization_code grant)
+                device_code:
+                  type: string
+                  description: Device code (device_code grant)
+                refresh_token:
+                  type: string
+                  description: Refresh token (refresh_token grant)
+              required:
+              - grant_type
+              - client_id
+components:
+  schemas:
+    oauth.TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+    oauth.TokenErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
+    oauth.AuthorizationServerMetadata:
+      type: object
+      properties:
+        authorization_endpoint:
+          type: string
+        code_challenge_methods_supported:
+          type: array
+          items:
+            type: string
+        device_authorization_endpoint:
+          type: string
+        grant_types_supported:
+          type: array
+          items:
+            type: string
+        issuer:
+          type: string
+        jwks_uri:
+          type: string
+        response_types_supported:
+          type: array
+          items:
+            type: string
+        revocation_endpoint:
+          type: string
+        scopes_supported:
+          type: array
+          items:
+            type: string
+        token_endpoint:
+          type: string
+        token_endpoint_auth_methods_supported:
+          type: array
+          items:
+            type: string
+    oauth.DeviceCodeResponse:
+      type: object
+      properties:
+        device_code:
+          type: string
+        expires_in:
+          type: integer
+        interval:
+          type: integer
+        user_code:
+          type: string
+        verification_uri:
+          type: string
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

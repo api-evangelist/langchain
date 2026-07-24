@@ -1,0 +1,624 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies evaluators API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: evaluators
+paths:
+  /v1/platform/evaluators:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: List evaluators for the current workspace, with optional filtering by type, name, tag, feedback key, or resource ID.
+      tags:
+      - evaluators
+      summary: List evaluators
+      parameters:
+      - description: Filter by evaluator type
+        name: type
+        in: query
+        schema:
+          type: string
+          title: Type
+      - description: Filter by name substring (also searches creator names)
+        name: name_contains
+        in: query
+        schema:
+          type: string
+          title: Name Contains
+      - description: Filter by tag value IDs
+        name: tag_value_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          title: Tag Value Id
+      - description: Filter by feedback key
+        name: feedback_key
+        in: query
+        schema:
+          type: string
+          title: Feedback Key
+      - description: Filter by resource IDs
+        name: resource_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          title: Resource Id
+      - description: Field to sort by
+        name: sort_by
+        in: query
+        schema:
+          type: string
+          title: Sort By
+      - description: Sort in descending order
+        name: sort_by_desc
+        in: query
+        schema:
+          type: boolean
+          title: Sort By Desc
+      - description: Maximum number of results (1-100)
+        name: limit
+        in: query
+        schema:
+          type: integer
+          default: 100
+          title: Limit
+      - description: Offset for pagination
+        name: offset
+        in: query
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ListEvaluatorsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+    post:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Create a new LLM or code evaluator for the current workspace.
+      tags:
+      - evaluators
+      summary: Create evaluator
+      parameters: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.CreateEvaluatorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/evaluators.CreateEvaluatorRequest'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Delete multiple evaluators by their IDs. Returns per-item success/failure.
+      tags:
+      - evaluators
+      summary: Bulk delete evaluators
+      parameters:
+      - description: Evaluator IDs to delete
+        name: evaluator_ids
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+          title: Evaluator Ids
+      - description: When true, delete all run rules for this evaluator before deleting the evaluator
+        name: delete_run_rules
+        in: query
+        schema:
+          type: boolean
+          title: Delete Run Rules
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.BulkDeleteEvaluatorsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+  /v1/platform/evaluators/{evaluator_id}:
+    get:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Retrieve a single evaluator by its ID.
+      tags:
+      - evaluators
+      summary: Get evaluator
+      parameters:
+      - description: Evaluator ID
+        name: evaluator_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.Evaluator'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+    delete:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Delete an evaluator. When delete_run_rules is true, all run rules referencing this evaluator are deleted first (same tenant). Associated llm_evaluators and code_evaluators rows are removed by foreign-key cascade when the evaluator row is deleted.
+      tags:
+      - evaluators
+      summary: Delete evaluator
+      parameters:
+      - description: Evaluator ID
+        name: evaluator_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - description: When true, delete all run rules for this evaluator before deleting the evaluator
+        name: delete_run_rules
+        in: query
+        schema:
+          type: boolean
+          title: Delete Run Rules
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+    patch:
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      description: Update an existing evaluator's name, LLM configuration, or code configuration.
+      tags:
+      - evaluators
+      summary: Update evaluator
+      parameters:
+      - description: Evaluator ID
+        name: evaluator_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.UpdateEvaluatorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/evaluators.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/evaluators.UpdateEvaluatorRequest'
+components:
+  schemas:
+    evaluators.CreateEvaluatorRequest:
+      type: object
+      properties:
+        code_evaluator:
+          $ref: '#/components/schemas/evaluators.CreateCodeEvaluatorRequest'
+        llm_evaluator:
+          $ref: '#/components/schemas/evaluators.CreateLLMEvaluatorRequest'
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/evaluators.EvaluatorType'
+    evaluators.BulkDeleteEvaluatorsResponse:
+      type: object
+      properties:
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/evaluators.BulkDeleteEvaluatorFailedItem'
+        succeeded:
+          type: array
+          items:
+            type: string
+    evaluators.UpdateEvaluatorResponse:
+      type: object
+      properties:
+        evaluator:
+          $ref: '#/components/schemas/evaluators.Evaluator'
+    evaluators.CodeEvaluator:
+      type: object
+      properties:
+        code:
+          type: string
+        evaluator_id:
+          type: string
+        language:
+          description: 'Default: "python"'
+          type: string
+    evaluators.ListEvaluatorsResponse:
+      type: object
+      properties:
+        evaluators:
+          type: array
+          items:
+            $ref: '#/components/schemas/evaluators.Evaluator'
+        total:
+          type: integer
+    evaluators.EvaluatorType:
+      type: string
+      enum:
+      - llm
+      - code
+      x-enum-varnames:
+      - EvaluatorTypeLLM
+      - EvaluatorTypeCode
+    evaluators.CreateCodeEvaluatorRequest:
+      type: object
+      properties:
+        code:
+          type: string
+        language:
+          description: 'Default: "python"'
+          type: string
+    evaluators.EvaluatorRunRule:
+      type: object
+      properties:
+        corrections_dataset_id:
+          type: string
+        dataset_id:
+          type: string
+        dataset_name:
+          type: string
+        group_by:
+          type: string
+        id:
+          type: string
+        num_few_shot_examples:
+          type: integer
+        session_id:
+          type: string
+        session_name:
+          type: string
+        use_corrections_dataset:
+          type: boolean
+    evaluators.BulkDeleteEvaluatorFailedItem:
+      type: object
+      properties:
+        error:
+          type: string
+        id:
+          type: string
+    evaluators.UpdateLLMEvaluatorRequest:
+      type: object
+      properties:
+        commit_hash_or_tag:
+          type: string
+        num_few_shot_examples:
+          type: integer
+        prompt_repo_handle:
+          type: string
+        use_corrections_dataset:
+          type: boolean
+        variable_mapping:
+          type: object
+    evaluators.CreateEvaluatorResponse:
+      type: object
+      properties:
+        evaluator:
+          $ref: '#/components/schemas/evaluators.Evaluator'
+    evaluators.LLMEvaluator:
+      type: object
+      properties:
+        annotation_queue_id:
+          type: string
+        commit_hash_or_tag:
+          type: string
+        corrections_dataset_id:
+          type: string
+        evaluator_id:
+          type: string
+        num_few_shot_examples:
+          type: integer
+        prompt_id:
+          type: string
+        prompt_repo_handle:
+          type: string
+        use_corrections_dataset:
+          description: 'Derived from the evaluator''s run rules — shared across all rules on this evaluator.
+
+            Nil when the evaluator has no run rules.'
+          type: boolean
+        variable_mapping:
+          description: JSONB
+          type: object
+    evaluators.UpdateEvaluatorRequest:
+      type: object
+      properties:
+        code_evaluator:
+          $ref: '#/components/schemas/evaluators.UpdateCodeEvaluatorRequest'
+        llm_evaluator:
+          $ref: '#/components/schemas/evaluators.UpdateLLMEvaluatorRequest'
+        name:
+          type: string
+    evaluators.UpdateCodeEvaluatorRequest:
+      type: object
+      properties:
+        code:
+          type: string
+        language:
+          type: string
+    evaluators.ErrorResponse:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+    evaluators.Evaluator:
+      type: object
+      properties:
+        code_evaluator:
+          $ref: '#/components/schemas/evaluators.CodeEvaluator'
+        created_at:
+          type: string
+        created_by:
+          type: string
+        feedback_keys:
+          type: array
+          items:
+            type: string
+        id:
+          type: string
+        llm_evaluator:
+          description: Embedded child evaluator (populated based on type)
+          allOf:
+          - $ref: '#/components/schemas/evaluators.LLMEvaluator'
+        name:
+          type: string
+        run_rules:
+          type: array
+          items:
+            $ref: '#/components/schemas/evaluators.EvaluatorRunRule'
+        tenant_id:
+          type: string
+        type:
+          $ref: '#/components/schemas/evaluators.EvaluatorType'
+        updated_at:
+          type: string
+    evaluators.CreateLLMEvaluatorRequest:
+      type: object
+      properties:
+        commit_hash_or_tag:
+          type: string
+        prompt_repo_handle:
+          type: string
+        variable_mapping:
+          type: object
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

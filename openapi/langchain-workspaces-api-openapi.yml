@@ -1,0 +1,2655 @@
+openapi: 3.1.0
+info:
+  title: LangSmith access_policies workspaces API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
+
+
+    '
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: workspaces
+paths:
+  /api/v1/workspaces:
+    post:
+      tags:
+      - workspaces
+      summary: Create Workspace
+      description: Create a new workspace.
+      operationId: create_workspace_api_v1_workspaces_post
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspaceCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app__schemas__Tenant'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - workspaces
+      summary: List Workspaces
+      description: Get all workspaces visible to this auth in the current org. Does not create a new workspace/org.
+      operationId: list_workspaces_api_v1_workspaces_get
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: include_deleted
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Deleted
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TenantForUser'
+                title: Response List Workspaces Api V1 Workspaces Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/{workspace_id}:
+    patch:
+      tags:
+      - workspaces
+      summary: Patch Workspace
+      description: Update a workspace.
+      operationId: patch_workspace_api_v1_workspaces__workspace_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkspacePatch'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/app__schemas__Tenant'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Workspace
+      operationId: delete_workspace_api_v1_workspaces__workspace_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/stats:
+    get:
+      tags:
+      - workspaces
+      summary: Get Current Workspace Stats
+      operationId: get_current_workspace_stats_api_v1_workspaces_current_stats_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_value_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+              format: uuid
+          - type: 'null'
+          title: Tag Value Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantStats'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/usage_limits:
+    get:
+      tags:
+      - workspaces
+      summary: Get Current Workspace Usage Limits Info
+      operationId: get_current_workspace_usage_limits_info_api_v1_workspaces_current_usage_limits_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantUsageLimitInfo'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/workspaces/current/shared:
+    get:
+      tags:
+      - workspaces
+      summary: Get Shared Tokens
+      description: List all shared entities and their tokens by the workspace.
+      operationId: get_shared_tokens_api_v1_workspaces_current_shared_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantShareTokensResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - workspaces
+      summary: Bulk Unshare Entities
+      description: Bulk unshare entities by share tokens for the workspace.
+      operationId: bulk_unshare_entities_api_v1_workspaces_current_shared_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantBulkUnshareRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/secrets:
+    get:
+      tags:
+      - workspaces
+      summary: List Current Workspace Secrets
+      operationId: list_current_workspace_secrets_api_v1_workspaces_current_secrets_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/SecretKey'
+                type: array
+                title: Response List Current Workspace Secrets Api V1 Workspaces Current Secrets Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - workspaces
+      summary: Upsert Current Workspace Secrets
+      operationId: upsert_current_workspace_secrets_api_v1_workspaces_current_secrets_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/SecretUpsert'
+              type: array
+              title: Secrets
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/workspaces/current/secrets/encrypted:
+    get:
+      tags:
+      - workspaces
+      summary: Get Current Workspace Encrypted Secrets
+      description: Get encrypted workspace secrets for use with Fleet and external services.
+      operationId: get_current_workspace_encrypted_secrets_api_v1_workspaces_current_secrets_encrypted_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: service
+        in: query
+        required: true
+        schema:
+          enum:
+          - agent_builder
+          - polly
+          type: string
+          description: Service requesting encrypted secrets
+          title: Service
+        description: Service requesting encrypted secrets
+      - name: key_names
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: 'null'
+          description: Optional list of workspace secret keys to return
+          title: Key Names
+        description: Optional list of workspace secret keys to return
+      - name: expand_iam_role
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: If true, expand AWS_IAM_ROLE_ARN into temporary credentials via STS
+          default: false
+          title: Expand Iam Role
+        description: If true, expand AWS_IAM_ROLE_ARN into temporary credentials via STS
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InternalSecretsResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/tag-keys:
+    get:
+      tags:
+      - workspaces
+      summary: List Tag Keys
+      operationId: list_tag_keys_api_v1_workspaces_current_tag_keys_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TagKey'
+                type: array
+                title: Response List Tag Keys Api V1 Workspaces Current Tag Keys Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - workspaces
+      summary: Create Tag Key
+      operationId: create_tag_key_api_v1_workspaces_current_tag_keys_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagKeyCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagKey'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/workspaces/current/tag-keys/{tag_key_id}:
+    patch:
+      tags:
+      - workspaces
+      summary: Update Tag Key
+      operationId: update_tag_key_api_v1_workspaces_current_tag_keys__tag_key_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagKeyUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagKey'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - workspaces
+      summary: Get Tag Key
+      operationId: get_tag_key_api_v1_workspaces_current_tag_keys__tag_key_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagKey'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Tag Key
+      operationId: delete_tag_key_api_v1_workspaces_current_tag_keys__tag_key_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/tag-keys/{tag_key_id}/tag-values:
+    post:
+      tags:
+      - workspaces
+      summary: Create Tag Value
+      operationId: create_tag_value_api_v1_workspaces_current_tag_keys__tag_key_id__tag_values_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagValueCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagValue'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - workspaces
+      summary: List Tag Values
+      operationId: list_tag_values_api_v1_workspaces_current_tag_keys__tag_key_id__tag_values_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagValue'
+                title: Response List Tag Values Api V1 Workspaces Current Tag Keys  Tag Key Id  Tag Values Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/tag-keys/{tag_key_id}/tag-values/{tag_value_id}:
+    get:
+      tags:
+      - workspaces
+      summary: Get Tag Value
+      operationId: get_tag_value_api_v1_workspaces_current_tag_keys__tag_key_id__tag_values__tag_value_id__get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      - name: tag_value_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Value Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagValue'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - workspaces
+      summary: Update Tag Value
+      operationId: update_tag_value_api_v1_workspaces_current_tag_keys__tag_key_id__tag_values__tag_value_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      - name: tag_value_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Value Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagValueUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TagValue'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Tag Value
+      operationId: delete_tag_value_api_v1_workspaces_current_tag_keys__tag_key_id__tag_values__tag_value_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_key_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Key Id
+      - name: tag_value_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tag Value Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/taggings:
+    post:
+      tags:
+      - workspaces
+      summary: Create Tagging
+      operationId: create_tagging_api_v1_workspaces_current_taggings_post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaggingCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tagging'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - workspaces
+      summary: List Taggings
+      operationId: list_taggings_api_v1_workspaces_current_taggings_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tag_value_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tag Value Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TaggingsResponse'
+                title: Response List Taggings Api V1 Workspaces Current Taggings Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/taggings/{tagging_id}:
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Tagging
+      operationId: delete_tagging_api_v1_workspaces_current_taggings__tagging_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: tagging_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Tagging Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/tags:
+    get:
+      tags:
+      - workspaces
+      summary: List Tags
+      operationId: list_tags_api_v1_workspaces_current_tags_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TagKeyWithValues'
+                type: array
+                title: Response List Tags Api V1 Workspaces Current Tags Get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/workspaces/current/tags/resource:
+    get:
+      tags:
+      - workspaces
+      summary: List Tags For Resource
+      operationId: list_tags_for_resource_api_v1_workspaces_current_tags_resource_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: resource_type
+        in: query
+        required: true
+        schema:
+          $ref: '#/components/schemas/ResourceType'
+      - name: resource_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Resource Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TagKeyWithValuesAndTaggings'
+                title: Response List Tags For Resource Api V1 Workspaces Current Tags Resource Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/tags/resources:
+    post:
+      tags:
+      - workspaces
+      summary: List Tags For Resources
+      operationId: list_tags_for_resources_api_v1_workspaces_current_tags_resources_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ListTagsForResourceRequest'
+              type: array
+              title: Resources
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties:
+                  items:
+                    $ref: '#/components/schemas/TagKeyWithValuesAndTaggings'
+                  type: array
+                propertyNames:
+                  format: uuid
+                type: object
+                title: Response List Tags For Resources Api V1 Workspaces Current Tags Resources Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/workspaces/pending:
+    get:
+      tags:
+      - workspaces
+      summary: List Pending Workspace Invites
+      description: Get all workspaces visible to this auth
+      operationId: list_pending_workspace_invites_api_v1_workspaces_pending_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/app__schemas__Tenant'
+                type: array
+                title: Response List Pending Workspace Invites Api V1 Workspaces Pending Get
+      security:
+      - Bearer Auth: []
+  /api/v1/workspaces/pending/{id}:
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Pending Workspace Invite
+      operationId: delete_pending_workspace_invite_api_v1_workspaces_pending__id__delete
+      security:
+      - Bearer Auth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/pending/{workspace_id}/claim:
+    post:
+      tags:
+      - workspaces
+      summary: Claim Pending Workspace Invite
+      operationId: claim_pending_workspace_invite_api_v1_workspaces_pending__workspace_id__claim_post
+      deprecated: true
+      security:
+      - Bearer Auth: []
+      parameters:
+      - name: workspace_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Workspace Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/members:
+    get:
+      tags:
+      - workspaces
+      summary: Get Current Workspace Members
+      operationId: get_current_workspace_members_api_v1_workspaces_current_members_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TenantMembers'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+    post:
+      tags:
+      - workspaces
+      summary: Add Member To Current Workspace
+      description: Add an existing organization member to the current workspace.
+      operationId: add_member_to_current_workspace_api_v1_workspaces_current_members_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityCreate'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Identity'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+  /api/v1/workspaces/current/members/active:
+    get:
+      tags:
+      - workspaces
+      summary: Get Current Active Workspace Members
+      operationId: get_current_active_workspace_members_api_v1_workspaces_current_members_active_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: emails
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Emails
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search query for email or name
+          title: Q
+        description: Search query for email or name
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Sort in descending order
+          default: true
+          title: Sort By Desc
+        description: Sort in descending order
+      - name: ls_user_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          default: []
+          title: Ls User Ids
+      - name: user_ids
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            format: uuid
+          deprecated: true
+          title: User Ids
+        deprecated: true
+      - name: is_disabled
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Disabled
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MemberSortField'
+          description: Field to sort by
+          default: created_at
+        description: Field to sort by
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/MemberIdentity'
+                title: Response Get Current Active Workspace Members Api V1 Workspaces Current Members Active Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/members/pending:
+    get:
+      tags:
+      - workspaces
+      summary: Get Current Pending Workspace Members
+      operationId: get_current_pending_workspace_members_api_v1_workspaces_current_members_pending_get
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 500
+          minimum: 1
+          default: 50
+          title: Limit
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          minimum: 0
+          default: 0
+          title: Offset
+      - name: emails
+        in: query
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+          default: []
+          title: Emails
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Search query for email or name
+          title: Q
+        description: Search query for email or name
+      - name: sort_by_desc
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Sort in descending order
+          default: true
+          title: Sort By Desc
+        description: Sort in descending order
+      - name: sort_by
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/MemberSortField'
+          description: Field to sort by
+          default: created_at
+        description: Field to sort by
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PendingIdentity'
+                title: Response Get Current Pending Workspace Members Api V1 Workspaces Current Members Pending Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/members/batch:
+    post:
+      tags:
+      - workspaces
+      summary: Add Members To Current Workspace Batch
+      description: Batch invite up to 500 users to the current workspace and organization.
+      operationId: add_members_to_current_workspace_batch_api_v1_workspaces_current_members_batch_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/PendingIdentityCreate'
+              type: array
+              title: Payloads
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/PendingIdentity'
+                type: array
+                title: Response Add Members To Current Workspace Batch Api V1 Workspaces Current Members Batch Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      - Organization ID: []
+  /api/v1/workspaces/current/members/{identity_id}:
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Current Workspace Member
+      operationId: delete_current_workspace_member_api_v1_workspaces_current_members__identity_id__delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: identity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Identity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - workspaces
+      summary: Patch Current Workspace Member
+      operationId: patch_current_workspace_member_api_v1_workspaces_current_members__identity_id__patch
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: identity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Identity Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IdentityPatch'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/workspaces/current/members/{identity_id}/pending:
+    delete:
+      tags:
+      - workspaces
+      summary: Delete Current Workspace Pending Member
+      operationId: delete_current_workspace_pending_member_api_v1_workspaces_current_members__identity_id__pending_delete
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: identity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Identity Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    TaggingsByResourceType:
+      properties:
+        alerts:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Alerts
+          default: []
+        dashboards:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Dashboards
+          default: []
+        datasets:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Datasets
+          default: []
+        deployments:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Deployments
+          default: []
+        experiments:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Experiments
+          default: []
+        fleet_integrations:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Fleet Integrations
+          default: []
+        mcp_servers:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Mcp Servers
+          default: []
+        projects:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Projects
+          default: []
+        prompts:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Prompts
+          default: []
+        queues:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Queues
+          default: []
+      type: object
+      title: TaggingsByResourceType
+    TenantUsageLimitInfo:
+      properties:
+        in_reject_set:
+          type: boolean
+          title: In Reject Set
+        usage_limit_type:
+          anyOf:
+          - $ref: '#/components/schemas/TenantUsageLimitType'
+          - type: 'null'
+        tenant_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tenant Limit
+      type: object
+      required:
+      - in_reject_set
+      title: TenantUsageLimitInfo
+    TagValueWithTaggings:
+      properties:
+        value:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tag_key_id:
+          type: string
+          format: uuid
+          title: Tag Key Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        taggings:
+          items:
+            $ref: '#/components/schemas/Tagging'
+          type: array
+          title: Taggings
+      type: object
+      required:
+      - value
+      - id
+      - tag_key_id
+      - created_at
+      - updated_at
+      title: TagValueWithTaggings
+    TenantShareTokensResponse:
+      properties:
+        entities:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/TenantShareRunToken'
+            - $ref: '#/components/schemas/TenantShareDatasetToken'
+            discriminator:
+              propertyName: type
+              mapping:
+                dataset: '#/components/schemas/TenantShareDatasetToken'
+                run: '#/components/schemas/TenantShareRunToken'
+          type: array
+          title: Entities
+      type: object
+      required:
+      - entities
+      title: TenantShareTokensResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AccessScope:
+      type: string
+      enum:
+      - organization
+      - workspace
+      title: AccessScope
+    TagKey:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - key
+      - id
+      - created_at
+      - updated_at
+      title: TagKey
+    InternalSecretsResponse:
+      properties:
+        encrypted_secrets:
+          type: string
+          title: Encrypted Secrets
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+      type: object
+      required:
+      - encrypted_secrets
+      title: InternalSecretsResponse
+    TagKeyCreate:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - key
+      title: TagKeyCreate
+    IdentityPatch:
+      properties:
+        read_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Read Only
+          deprecated: true
+        role_id:
+          type: string
+          format: uuid
+          title: Role Id
+      type: object
+      required:
+      - role_id
+      title: IdentityPatch
+    Identity:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        read_only:
+          type: boolean
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+      type: object
+      required:
+      - id
+      - organization_id
+      - created_at
+      - user_id
+      - ls_user_id
+      - read_only
+      title: Identity
+    TagKeyWithValues:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        values:
+          items:
+            $ref: '#/components/schemas/TagValue'
+          type: array
+          title: Values
+      type: object
+      required:
+      - key
+      - id
+      - created_at
+      - updated_at
+      title: TagKeyWithValues
+    MemberSortField:
+      type: string
+      enum:
+      - name
+      - email
+      - role
+      - created_at
+      title: MemberSortField
+      description: Sort fields for members list endpoints.
+    ProviderUserSlim:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        provider:
+          anyOf:
+          - $ref: '#/components/schemas/AuthProvider'
+          - type: 'null'
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        saml_provider_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Saml Provider Id
+        provider_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Provider User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+        is_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Disabled
+        provisioning_method:
+          anyOf:
+          - $ref: '#/components/schemas/ProvisioningMethod'
+          - type: 'null'
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      title: ProviderUserSlim
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TenantShareRunToken:
+      properties:
+        type:
+          type: string
+          const: run
+          title: Type
+        share_token:
+          type: string
+          title: Share Token
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        run_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Name
+        run_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Type
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        session_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Name
+      type: object
+      required:
+      - type
+      - share_token
+      - created_at
+      - run_id
+      title: TenantShareRunToken
+    ListTagsForResourceRequest:
+      properties:
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+        resource_type:
+          $ref: '#/components/schemas/ResourceType'
+      type: object
+      required:
+      - resource_id
+      - resource_type
+      title: ListTagsForResourceRequest
+    AuthProvider:
+      type: string
+      enum:
+      - email
+      - supabase:non-sso
+      - supabase:sso
+      - oidc
+      - custom-oidc
+      title: AuthProvider
+    IdentityCreate:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+          deprecated: true
+        org_identity_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Identity Id
+        ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ls User Id
+        read_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+      type: object
+      title: IdentityCreate
+    TenantBulkUnshareRequest:
+      properties:
+        share_tokens:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Share Tokens
+        unshare_all:
+          type: boolean
+          title: Unshare All
+          default: false
+      type: object
+      title: TenantBulkUnshareRequest
+    TaggingCreate:
+      properties:
+        tag_value_id:
+          type: string
+          format: uuid
+          title: Tag Value Id
+        resource_type:
+          $ref: '#/components/schemas/ResourceType'
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+      type: object
+      required:
+      - tag_value_id
+      - resource_type
+      - resource_id
+      title: TaggingCreate
+    TagValueUpdate:
+      properties:
+        value:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: TagValueUpdate
+    SecretUpsert:
+      properties:
+        key:
+          type: string
+          title: Key
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - key
+      - value
+      title: SecretUpsert
+    ProvisioningMethod:
+      type: string
+      enum:
+      - scim
+      - saml:jit
+      - bootstrap
+      title: ProvisioningMethod
+    TaggingsResponse:
+      properties:
+        tag_key:
+          type: string
+          title: Tag Key
+        tag_key_id:
+          type: string
+          format: uuid
+          title: Tag Key Id
+        tag_value:
+          type: string
+          title: Tag Value
+        tag_value_id:
+          type: string
+          format: uuid
+          title: Tag Value Id
+        resources:
+          $ref: '#/components/schemas/TaggingsByResourceType'
+      type: object
+      required:
+      - tag_key
+      - tag_key_id
+      - tag_value
+      - tag_value_id
+      - resources
+      title: TaggingsResponse
+    TagKeyWithValuesAndTaggings:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        values:
+          items:
+            $ref: '#/components/schemas/TagValueWithTaggings'
+          type: array
+          title: Values
+      type: object
+      required:
+      - key
+      - id
+      - created_at
+      - updated_at
+      title: TagKeyWithValuesAndTaggings
+    TenantShareDatasetToken:
+      properties:
+        type:
+          type: string
+          const: dataset
+          title: Type
+        share_token:
+          type: string
+          title: Share Token
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        dataset_id:
+          type: string
+          format: uuid
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+      type: object
+      required:
+      - type
+      - share_token
+      - created_at
+      - dataset_id
+      title: TenantShareDatasetToken
+    ResourceType:
+      type: string
+      enum:
+      - dashboard
+      - dataset
+      - deployment
+      - evaluator
+      - experiment
+      - fleet_integration
+      - mcp_server
+      - project
+      - prompt
+      - queue
+      title: ResourceType
+    SecretKey:
+      properties:
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - key
+      title: SecretKey
+    Tagging:
+      properties:
+        tag_value_id:
+          type: string
+          format: uuid
+          title: Tag Value Id
+        resource_type:
+          $ref: '#/components/schemas/ResourceType'
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - tag_value_id
+      - resource_type
+      - resource_id
+      - id
+      - created_at
+      title: Tagging
+    TagKeyUpdate:
+      properties:
+        key:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: TagKeyUpdate
+    PendingIdentity:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+      type: object
+      required:
+      - email
+      - id
+      - created_at
+      title: PendingIdentity
+    WorkspacePatch:
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ '@()]+$
+          title: Display Name
+      type: object
+      required:
+      - display_name
+      title: WorkspacePatch
+      description: Patch model for the workspace.
+    TagValue:
+      properties:
+        value:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tag_key_id:
+          type: string
+          format: uuid
+          title: Tag Key Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - value
+      - id
+      - tag_key_id
+      - created_at
+      - updated_at
+      title: TagValue
+    TenantUsageLimitType:
+      type: string
+      enum:
+      - payload_size
+      - events_ingested_per_hour
+      - total_unique_traces
+      - events_ingested_per_minute
+      - traces_deleted_per_hour
+      - user_defined_monthly_traces
+      - user_defined_monthly_longlived_traces
+      - user_defined_unknown
+      title: TenantUsageLimitType
+    TenantMembers:
+      properties:
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        members:
+          items:
+            $ref: '#/components/schemas/MemberIdentity'
+          type: array
+          title: Members
+        pending:
+          items:
+            $ref: '#/components/schemas/PendingIdentity'
+          type: array
+          title: Pending
+      type: object
+      required:
+      - tenant_id
+      - members
+      - pending
+      title: TenantMembers
+      description: Tenant members schema.
+    TenantStats:
+      properties:
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        dataset_count:
+          type: integer
+          title: Dataset Count
+        tracer_session_count:
+          type: integer
+          title: Tracer Session Count
+        repo_count:
+          type: integer
+          title: Repo Count
+        annotation_queue_count:
+          type: integer
+          title: Annotation Queue Count
+        deployment_count:
+          type: integer
+          title: Deployment Count
+        dashboards_count:
+          type: integer
+          title: Dashboards Count
+        evaluator_count:
+          type: integer
+          title: Evaluator Count
+      type: object
+      required:
+      - tenant_id
+      - dataset_count
+      - tracer_session_count
+      - repo_count
+      - annotation_queue_count
+      - deployment_count
+      - dashboards_count
+      - evaluator_count
+      title: TenantStats
+      description: Stats for a tenant.
+    Resource:
+      properties:
+        tagging_id:
+          type: string
+          format: uuid
+          title: Tagging Id
+        resource_name:
+          type: string
+          title: Resource Name
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+      type: object
+      required:
+      - tagging_id
+      - resource_name
+      - resource_id
+      title: Resource
+    TagValueCreate:
+      properties:
+        value:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - value
+      title: TagValueCreate
+    MemberIdentity:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user_id:
+          type: string
+          format: uuid
+          title: User Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        read_only:
+          type: boolean
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        linked_login_methods:
+          items:
+            $ref: '#/components/schemas/ProviderUserSlim'
+          type: array
+          title: Linked Login Methods
+          default: []
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        is_disabled:
+          type: boolean
+          title: Is Disabled
+          default: false
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+      type: object
+      required:
+      - id
+      - organization_id
+      - created_at
+      - user_id
+      - ls_user_id
+      - read_only
+      title: MemberIdentity
+    app__schemas__Tenant:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        display_name:
+          type: string
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+        data_plane_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Plane Url
+      type: object
+      required:
+      - id
+      - created_at
+      - display_name
+      - is_personal
+      - is_deleted
+      title: Tenant
+      description: Tenant schema.
+    WorkspaceCreate:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ '@()]+$
+          title: Display Name
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+      type: object
+      required:
+      - display_name
+      title: WorkspaceCreate
+      description: Creation model for the workspace.
+    TenantForUser:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        display_name:
+          type: string
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+        data_plane_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Plane Url
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        permissions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Permissions
+      type: object
+      required:
+      - id
+      - created_at
+      - display_name
+      - is_personal
+      - is_deleted
+      title: TenantForUser
+    PendingIdentityCreate:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - email
+      title: PendingIdentityCreate
+  securitySchemes:
+    API Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id
