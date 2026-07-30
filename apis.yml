@@ -7,9 +7,22 @@ description: 'LangChain is a comprehensive ecosystem for building and deploying 
   which provides low-level primitives for building custom agent workflows with greater
   control.'
 kind: contract
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consuming
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langchain.png
 tags:
 - Agents
 - Artificial Intelligence
@@ -22,36 +35,1195 @@ modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/langchain/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: langchain:langsmith
-  name: LangSmith API
-  description: The LangSmith API is used to programmatically create and manage LangSmith
-    resources including tracer sessions, datasets, examples, workspaces, audit logs,
-    filter views, insights jobs, tags, and prompts. LangSmith is the agent engineering
-    platform maintained by LangChain that provides observability, evaluation, and
-    deployment tooling for LLM and agent applications. The API is OpenAPI 3.1 with
-    345+ endpoints and uses an X-Api-Key header for authentication.
+- aid: langchain:langchain-access-policies-api
+  name: LangChain access_policies API
+  description: The access_policies API from LangChain — 3 operation(s) for access_policies.
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
-  - Agents
-  - Artificial Intelligence
-  - Large Language Models
-  - Observability
-  - Tracing
-  - Evaluation
-  - Datasets
-  - Prompts
+  - access_policies
   properties:
+  - type: OpenAPI
+    url: openapi/langchain-access-policies-api-openapi.yml
   - type: Documentation
     url: https://docs.langchain.com/langsmith
-  - type: OpenAPI
-    url: openapi/langchain-openapi.json
   - type: Signup
     url: https://smith.langchain.com/
   - type: Authentication
     url: https://docs.langchain.com/langsmith/create-account-api-key
-  - url: graphql/langchain-graphql.md
-    type: GraphQL
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-ace-api
+  name: LangChain ace API
+  description: The ace API from LangChain — 1 operation(s) for ace.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - ace
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-ace-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-alert-rules-api
+  name: LangChain alert_rules API
+  description: The alert_rules API from LangChain — 3 operation(s) for alert_rules.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - alert_rules
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-alert-rules-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-annotation-queues-api
+  name: LangChain annotation-queues API
+  description: The annotation-queues API from LangChain — 17 operation(s) for annotation-queues.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - annotation-queues
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-annotation-queues-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-api-key-api
+  name: LangChain api-key API
+  description: The api-key API from LangChain — 4 operation(s) for api-key.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - api-key
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-api-key-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-audit-logs-api
+  name: LangChain audit-logs API
+  description: The audit-logs API from LangChain — 1 operation(s) for audit-logs.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - audit-logs
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-audit-logs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-auth-api
+  name: LangChain auth API
+  description: The auth API from LangChain — 7 operation(s) for auth.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - auth
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-auth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-aws-marketplace-api
+  name: LangChain aws_marketplace API
+  description: The aws_marketplace API from LangChain — 1 operation(s) for aws_marketplace.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - aws_marketplace
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-aws-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-backfills-api
+  name: LangChain backfills API
+  description: The backfills API from LangChain — 1 operation(s) for backfills.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - backfills
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-backfills-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-beacon-api
+  name: LangChain beacon API
+  description: The beacon API from LangChain — 1 operation(s) for beacon.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - beacon
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-beacon-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-bulk-exports-api
+  name: LangChain bulk-exports API
+  description: The bulk-exports API from LangChain — 7 operation(s) for bulk-exports.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - bulk-exports
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-bulk-exports-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-charts-api
+  name: LangChain charts API
+  description: The charts API from LangChain — 13 operation(s) for charts.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - charts
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-charts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-comments-api
+  name: LangChain comments API
+  description: The comments API from LangChain — 3 operation(s) for comments.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - comments
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-comments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-commits-api
+  name: LangChain commits API
+  description: The commits API from LangChain — 2 operation(s) for commits.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - commits
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-commits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-data-planes-api
+  name: LangChain data_planes API
+  description: The data_planes API from LangChain — 1 operation(s) for data_planes.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - data_planes
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-data-planes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-datasets-api
+  name: LangChain datasets API
+  description: The datasets API from LangChain — 28 operation(s) for datasets.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-evaluators-api
+  name: LangChain evaluators API
+  description: The evaluators API from LangChain — 2 operation(s) for evaluators.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - evaluators
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-evaluators-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-examples-api
+  name: LangChain examples API
+  description: The examples API from LangChain — 9 operation(s) for examples.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - examples
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-examples-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-experiment-view-overrides-api
+  name: LangChain experiment-view-overrides API
+  description: >-
+    The experiment-view-overrides API from LangChain — 2 operation(s) for experiment-view-overrides.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - experiment-view-overrides
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-experiment-view-overrides-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-experiments-api
+  name: LangChain experiments API
+  description: The experiments API from LangChain — 1 operation(s) for experiments.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - experiments
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-experiments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-features-api
+  name: LangChain features API
+  description: The features API from LangChain — 4 operation(s) for features.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - features
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-features-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-feedback-api
+  name: LangChain feedback API
+  description: The feedback API from LangChain — 7 operation(s) for feedback.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - feedback
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-feedback-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-feedback-configs-api
+  name: LangChain feedback-configs API
+  description: The feedback-configs API from LangChain — 1 operation(s) for feedback-configs.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - feedback-configs
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-feedback-configs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-fleet-github-app-api
+  name: LangChain fleet github-app API
+  description: The fleet github-app API from LangChain — 9 operation(s) for fleet github-app.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - fleet github-app
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-fleet-github-app-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-fleet-integrations-api
+  name: LangChain fleet integrations API
+  description: The fleet integrations API from LangChain — 3 operation(s) for fleet integrations.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - fleet integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-fleet-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-fleet-mcp-api
+  name: LangChain fleet mcp API
+  description: The fleet mcp API from LangChain — 4 operation(s) for fleet mcp.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - fleet mcp
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-fleet-mcp-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-fleet-usage-api
+  name: LangChain fleet usage API
+  description: The fleet usage API from LangChain — 4 operation(s) for fleet usage.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - fleet usage
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-fleet-usage-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-fleet-webhooks-api
+  name: LangChain fleet_webhooks API
+  description: The fleet_webhooks API from LangChain — 1 operation(s) for fleet_webhooks.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - fleet_webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-fleet-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-hub-environments-api
+  name: LangChain hub_environments API
+  description: The hub_environments API from LangChain — 2 operation(s) for hub_environments.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - hub_environments
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-hub-environments-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-info-api
+  name: LangChain info API
+  description: The info API from LangChain — 2 operation(s) for info.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - info
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-integrations-api
+  name: LangChain integrations API
+  description: The integrations API from LangChain — 1 operation(s) for integrations.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-integrations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-likes-api
+  name: LangChain likes API
+  description: The likes API from LangChain — 1 operation(s) for likes.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - likes
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-likes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-mcp-api
+  name: LangChain mcp API
+  description: The mcp API from LangChain — 2 operation(s) for mcp.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - mcp
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-mcp-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-mcp-vendors-api
+  name: LangChain mcp_vendors API
+  description: The mcp_vendors API from LangChain — 6 operation(s) for mcp_vendors.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - mcp_vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-mcp-vendors-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-me-api
+  name: LangChain me API
+  description: The me API from LangChain — 4 operation(s) for me.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - me
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-me-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-metrics-api
+  name: LangChain metrics API
+  description: The metrics API from LangChain — 1 operation(s) for metrics.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - metrics
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-metrics-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-model-price-map-api
+  name: LangChain model-price-map API
+  description: The model-price-map API from LangChain — 2 operation(s) for model-price-map.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - model-price-map
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-model-price-map-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-nps-api
+  name: LangChain nps API
+  description: The nps API from LangChain — 1 operation(s) for nps.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - nps
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-nps-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-oauth-api
+  name: LangChain oauth API
+  description: The oauth API from LangChain — 7 operation(s) for oauth.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-ok-api
+  name: LangChain Ok API
+  description: The Ok API from LangChain — 1 operation(s) for ok.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - Ok
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-ok-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-optimization-jobs-api
+  name: LangChain optimization-jobs API
+  description: The optimization-jobs API from LangChain — 4 operation(s) for optimization-jobs.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - optimization-jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-optimization-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-organizations-api
+  name: LangChain Organizations API
+  description: The Organizations API from LangChain — 1 operation(s) for organizations.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-orgs-api
+  name: LangChain orgs API
+  description: The orgs API from LangChain — 39 operation(s) for orgs.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - orgs
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-orgs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-ownerships-api
+  name: LangChain ownerships API
+  description: The ownerships API from LangChain — 1 operation(s) for ownerships.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - ownerships
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-ownerships-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-playground-settings-api
+  name: LangChain playground-settings API
+  description: The playground-settings API from LangChain — 2 operation(s) for playground-settings.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - playground-settings
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-playground-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-prompt-webhooks-api
+  name: LangChain prompt-webhooks API
+  description: The prompt-webhooks API from LangChain — 3 operation(s) for prompt-webhooks.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - prompt-webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-prompt-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-prompts-api
+  name: LangChain prompts API
+  description: The prompts API from LangChain — 2 operation(s) for prompts.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - prompts
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-prompts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-public-api
+  name: LangChain public API
+  description: The public API from LangChain — 20 operation(s) for public.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - public
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-public-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-repos-api
+  name: LangChain repos API
+  description: The repos API from LangChain — 5 operation(s) for repos.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - repos
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-repos-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-run-api
+  name: LangChain run API
+  description: The run API from LangChain — 19 operation(s) for run.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - run
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-run-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-runs-api
+  name: LangChain runs API
+  description: The runs API from LangChain — 7 operation(s) for runs.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - runs
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-runs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-sandboxes-api
+  name: LangChain sandboxes API
+  description: The sandboxes API from LangChain — 11 operation(s) for sandboxes.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - sandboxes
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-sandboxes-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-sandboxes-internal-api
+  name: LangChain sandboxes-internal API
+  description: The sandboxes-internal API from LangChain — 1 operation(s) for sandboxes-internal.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - sandboxes-internal
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-sandboxes-internal-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-scim-tokens-api
+  name: LangChain SCIM Tokens API
+  description: The SCIM Tokens API from LangChain — 2 operation(s) for scim tokens.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - SCIM Tokens
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-scim-tokens-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-service-accounts-api
+  name: LangChain service-accounts API
+  description: The service-accounts API from LangChain — 2 operation(s) for service-accounts.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - service-accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-service-accounts-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-sessions-api
+  name: LangChain sessions API
+  description: The sessions API from LangChain — 1 operation(s) for sessions.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-settings-api
+  name: LangChain settings API
+  description: The settings API from LangChain — 2 operation(s) for settings.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - settings
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-tag-transitions-api
+  name: LangChain tag-transitions API
+  description: The tag-transitions API from LangChain — 1 operation(s) for tag-transitions.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - tag-transitions
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-tag-transitions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-tags-api
+  name: LangChain tags API
+  description: The tags API from LangChain — 2 operation(s) for tags.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - tags
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-tenant-api
+  name: LangChain tenant API
+  description: The tenant API from LangChain — 1 operation(s) for tenant.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - tenant
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-tenant-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-threads-api
+  name: LangChain threads API
+  description: The threads API from LangChain — 2 operation(s) for threads.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - threads
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-threads-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-tools-api
+  name: LangChain tools API
+  description: The tools API from LangChain — 3 operation(s) for tools.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - tools
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-tools-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-tracer-sessions-api
+  name: LangChain tracer-sessions API
+  description: The tracer-sessions API from LangChain — 14 operation(s) for tracer-sessions.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - tracer-sessions
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-tracer-sessions-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-ttl-settings-api
+  name: LangChain TTL Settings API
+  description: The TTL Settings API from LangChain — 2 operation(s) for ttl settings.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - TTL Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-ttl-settings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-usage-limits-api
+  name: LangChain usage-limits API
+  description: The usage-limits API from LangChain — 3 operation(s) for usage-limits.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - usage-limits
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-usage-limits-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-workspaces-api
+  name: LangChain workspaces API
+  description: The workspaces API from LangChain — 25 operation(s) for workspaces.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - workspaces
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
 common:
 - type: AgenticAccess
   url: agentic-access/langchain-agentic-access.yml
