@@ -1,0 +1,1742 @@
+{
+  "item": [
+    {
+      "id": "b90d47d1-5e33-4489-99a9-b5c97b8755e8",
+      "name": "optimization-jobs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "79876e3e-c58d-4143-8d48-b277106d3e8e",
+          "name": "List Jobs",
+          "request": {
+            "name": "List Jobs",
+            "description": {
+              "content": "List all prompt optimization jobs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "060a714e-3a14-410f-8cc3-58bfa4881ffd",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"d46447c0-5cd4-ac84-1841-268d8e3f2759\",\n    \"repo_id\": \"00d34b77-3ccb-0f72-3dae-392afdac6062\",\n    \"status\": \"failed\",\n    \"tenant_id\": \"b2e63f86-1d8e-a6d2-e161-6b18046a521b\",\n    \"algorithm\": \"promptim\",\n    \"config\": {\n      \"message_index\": 8511,\n      \"task_description\": \"string\",\n      \"dataset_name\": \"string\",\n      \"train_split\": \"string\",\n      \"dev_split\": \"string\",\n      \"test_split\": \"string\",\n      \"evaluators\": [\n        \"4c795038-88a7-4fee-6432-321695d31100\",\n        \"76b4567d-4e9b-6aaa-432d-18f6990aad5d\"\n      ],\n      \"num_epochs\": 397,\n      \"auto_commit\": false\n    },\n    \"created_at\": \"2005-12-08T18:47:45.674Z\",\n    \"updated_at\": \"1961-04-19T20:25:27.963Z\",\n    \"results\": [\n      {\n        \"timestamp\": \"1986-03-09T08:47:00.864Z\",\n        \"x\": 8308.24737561067,\n        \"y\": 7967.232687238592\n      },\n      {\n        \"timestamp\": \"2001-08-21T05:32:49.598Z\",\n        \"x\": 3407.676748414089,\n        \"y\": 6092.494641263363\n      }\n    ]\n  },\n  {\n    \"id\": \"4bdfab62-5513-9089-2240-e05cbf5d621c\",\n    \"repo_id\": \"1b398c99-a4b1-4564-f668-0d605b31ee17\",\n    \"status\": \"failed\",\n    \"tenant_id\": \"13e6af8b-d05b-bee3-d2f6-dd52bdd1ee5b\",\n    \"algorithm\": \"promptim\",\n    \"config\": {\n      \"message_index\": 8980,\n      \"task_description\": \"string\",\n      \"dataset_name\": \"string\",\n      \"train_split\": \"string\",\n      \"dev_split\": \"string\",\n      \"test_split\": \"string\",\n      \"evaluators\": [\n        \"daf1e0ee-22cc-95ec-f7dc-5eb693c9642f\",\n        \"65a67c0c-9223-f9d9-9867-fef8e70f19de\"\n      ],\n      \"num_epochs\": 1845,\n      \"auto_commit\": false\n    },\n    \"created_at\": \"1959-09-22T05:50:18.923Z\",\n    \"updated_at\": \"2013-09-29T14:29:46.089Z\",\n    \"results\": [\n      {\n        \"timestamp\": \"1997-12-18T18:11:19.993Z\",\n        \"x\": 3778.253106319912,\n        \"y\": 6363.613693285906\n      },\n      {\n        \"timestamp\": \"1981-06-06T20:23:08.918Z\",\n        \"x\": 8882.692520280456,\n        \"y\": 9802.790500209216\n      }\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bfac4543-1c9f-4533-ac98-73e8de06a29b",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "49c178dc-89d6-4c1a-b641-6489a061cf75",
+          "name": "Create Job",
+          "request": {
+            "name": "Create Job",
+            "description": {
+              "content": "Create a new prompt optimization job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "repo",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"algorithm\": \"<string>\",\n  \"config\": {\n    \"message_index\": \"<integer>\",\n    \"task_description\": \"<string>\",\n    \"dataset_name\": \"<string>\",\n    \"train_split\": \"<string>\",\n    \"dev_split\": \"<string>\",\n    \"test_split\": \"<string>\",\n    \"evaluators\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"num_epochs\": \"<integer>\",\n    \"auto_commit\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a251c984-60ee-4dab-80fd-ed7becd7d33b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"algorithm\": \"demo\",\n  \"config\": {\n    \"message_index\": 2112,\n    \"task_description\": \"string\",\n    \"dataset_name\": \"string\",\n    \"train_split\": \"string\",\n    \"dev_split\": \"string\",\n    \"test_split\": \"string\",\n    \"evaluators\": [\n      \"80666d13-c4c1-c3c4-8e78-7c5fb5828718\",\n      \"2b930105-cc05-a2d0-688b-0420c4394013\"\n    ],\n    \"num_epochs\": 6612,\n    \"auto_commit\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a926d242-e55d-93bd-1d9e-e7552015423d\",\n  \"repo_id\": \"df7f7cfa-b0c0-71b4-9fda-c51e5abccd24\",\n  \"status\": \"successful\",\n  \"tenant_id\": \"ed27ccde-9aaa-7eaa-7b9b-dee33f74aca3\",\n  \"algorithm\": \"demo\",\n  \"config\": {\n    \"message_index\": 8343,\n    \"task_description\": \"string\",\n    \"dataset_name\": \"string\",\n    \"train_split\": \"string\",\n    \"dev_split\": \"string\",\n    \"test_split\": \"string\",\n    \"evaluators\": [\n      \"5ec574a9-b75d-557c-8230-da7a90ac5642\",\n      \"12f0a31d-869c-3738-7496-ca26e668ddfa\"\n    ],\n    \"num_epochs\": 4766,\n    \"auto_commit\": true\n  },\n  \"created_at\": \"2025-03-20T05:19:15.030Z\",\n  \"updated_at\": \"1995-10-17T03:09:33.536Z\",\n  \"results\": [\n    {\n      \"timestamp\": \"2008-05-21T11:26:36.541Z\",\n      \"x\": 8639.934763491368,\n      \"y\": 6085.8338648775425\n    },\n    {\n      \"timestamp\": \"1995-08-21T00:03:45.344Z\",\n      \"x\": 9627.10962452794,\n      \"y\": 5822.767066367163\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "82d18435-d4d7-4fb5-9a23-2360a8bb8a2e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "repo",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"algorithm\": \"demo\",\n  \"config\": {\n    \"message_index\": 2112,\n    \"task_description\": \"string\",\n    \"dataset_name\": \"string\",\n    \"train_split\": \"string\",\n    \"dev_split\": \"string\",\n    \"test_split\": \"string\",\n    \"evaluators\": [\n      \"80666d13-c4c1-c3c4-8e78-7c5fb5828718\",\n      \"2b930105-cc05-a2d0-688b-0420c4394013\"\n    ],\n    \"num_epochs\": 6612,\n    \"auto_commit\": false\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f81f72f0-4f30-407e-bf72-2cea00e82dd5",
+          "name": "Get Job",
+          "request": {
+            "name": "Get Job",
+            "description": {
+              "content": "Get a specific optimization job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1115febf-792b-4e18-a2f7-f0a9f3346d98",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"90e78cf3-74e5-edb6-927e-47641cc445dc\",\n  \"repo_id\": \"2e930ae6-b612-f7a7-036b-6232d8828d5b\",\n  \"status\": \"created\",\n  \"tenant_id\": \"2483d4cf-5e22-b904-c0ba-46409f93a177\",\n  \"algorithm\": \"promptim\",\n  \"config\": {\n    \"message_index\": 3931,\n    \"task_description\": \"string\",\n    \"dataset_name\": \"string\",\n    \"train_split\": \"string\",\n    \"dev_split\": \"string\",\n    \"test_split\": \"string\",\n    \"evaluators\": [\n      \"5c44fdaf-6b64-7fc5-eb4c-5eb1626cde6a\",\n      \"1e7491a9-c1be-ac3b-9849-ff8e6f822606\"\n    ],\n    \"num_epochs\": 4082,\n    \"auto_commit\": false\n  },\n  \"created_at\": \"1965-07-30T18:18:06.356Z\",\n  \"updated_at\": \"1952-04-24T15:19:19.004Z\",\n  \"logs\": [\n    {\n      \"log_type\": \"error\",\n      \"message\": \"string\",\n      \"id\": \"6b9708a7-da46-6d7a-8fe7-81db089a4746\",\n      \"job_id\": \"7bc5c278-38a2-4b84-545a-7b1a069473f1\",\n      \"created_at\": \"2018-08-28T14:52:31.003Z\",\n      \"data\": {\n        \"key_0\": 812\n      }\n    },\n    {\n      \"log_type\": \"result\",\n      \"message\": \"string\",\n      \"id\": \"cf92f288-11f2-73d3-d929-012621c784de\",\n      \"job_id\": \"21be82a3-fe0a-adf2-f104-6041f14d9d7f\",\n      \"created_at\": \"1991-10-24T21:37:17.503Z\",\n      \"data\": {\n        \"key_0\": true,\n        \"key_1\": 2380.0273931207485,\n        \"key_2\": 5393,\n        \"key_3\": 5734\n      }\n    }\n  ],\n  \"results\": [\n    {\n      \"timestamp\": \"1955-09-20T21:17:47.667Z\",\n      \"x\": 6639.316015529529,\n      \"y\": 9233.062768199617\n    },\n    {\n      \"timestamp\": \"1981-08-09T14:02:16.636Z\",\n      \"x\": 7734.3220332497185,\n      \"y\": 3812.3847672021216\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fee9d5ad-0787-4f49-b438-2f8d278d607e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0504df05-1916-48f5-b18f-9f046a2480f6",
+          "name": "Update Job",
+          "request": {
+            "name": "Update Job",
+            "description": {
+              "content": "Replace an existing prompt optimization job with a new, modified job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"<string>\",\n  \"result\": {\n    \"timestamp\": \"<dateTime>\",\n    \"x\": \"<number>\",\n    \"y\": \"<number>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "548973d1-b6cd-4035-b75c-f954cfa8ed6f",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"created\",\n  \"result\": {\n    \"timestamp\": \"1978-06-06T09:23:08.114Z\",\n    \"x\": 4410.711992551714,\n    \"y\": 9299.172103467907\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a926d242-e55d-93bd-1d9e-e7552015423d\",\n  \"repo_id\": \"df7f7cfa-b0c0-71b4-9fda-c51e5abccd24\",\n  \"status\": \"successful\",\n  \"tenant_id\": \"ed27ccde-9aaa-7eaa-7b9b-dee33f74aca3\",\n  \"algorithm\": \"demo\",\n  \"config\": {\n    \"message_index\": 8343,\n    \"task_description\": \"string\",\n    \"dataset_name\": \"string\",\n    \"train_split\": \"string\",\n    \"dev_split\": \"string\",\n    \"test_split\": \"string\",\n    \"evaluators\": [\n      \"5ec574a9-b75d-557c-8230-da7a90ac5642\",\n      \"12f0a31d-869c-3738-7496-ca26e668ddfa\"\n    ],\n    \"num_epochs\": 4766,\n    \"auto_commit\": true\n  },\n  \"created_at\": \"2025-03-20T05:19:15.030Z\",\n  \"updated_at\": \"1995-10-17T03:09:33.536Z\",\n  \"results\": [\n    {\n      \"timestamp\": \"2008-05-21T11:26:36.541Z\",\n      \"x\": 8639.934763491368,\n      \"y\": 6085.8338648775425\n    },\n    {\n      \"timestamp\": \"1995-08-21T00:03:45.344Z\",\n      \"x\": 9627.10962452794,\n      \"y\": 5822.767066367163\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2110fa01-de65-4ed6-ae84-d96820df79dc",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"created\",\n  \"result\": {\n    \"timestamp\": \"1978-06-06T09:23:08.114Z\",\n    \"x\": 4410.711992551714,\n    \"y\": 9299.172103467907\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "aab0c68e-9325-4f79-a594-b6531fc0358b",
+          "name": "Delete Job",
+          "request": {
+            "name": "Delete Job",
+            "description": {
+              "content": "Delete a prompt optimization job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "410f6c20-a612-46c4-8f6e-4cb9a6f77de5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c23cb707-cbe2-4009-a5e9-13aff82eb2c1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e420ecc0-30b9-4d9e-8734-6e8be0f8b8b7",
+          "name": "List Job Logs",
+          "request": {
+            "name": "List Job Logs",
+            "description": {
+              "content": "List all logs for a specific prompt optimization job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de6d4bce-1090-4136-8e28-db48c8465b6e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"log_type\": \"link\",\n    \"message\": \"string\",\n    \"id\": \"e1b01f78-8e43-4534-f7f5-a25fb4ea77d5\",\n    \"job_id\": \"0537c585-d85b-c6a6-1c6f-661e50a40018\",\n    \"created_at\": \"1994-11-04T21:22:11.940Z\",\n    \"data\": {\n      \"key_0\": 2379.246648406853,\n      \"key_1\": false\n    }\n  },\n  {\n    \"log_type\": \"link\",\n    \"message\": \"string\",\n    \"id\": \"28c0a0ac-6098-b8a3-d242-64798f782132\",\n    \"job_id\": \"4ba4b54b-7923-9090-c385-9295333aaea3\",\n    \"created_at\": \"1959-04-01T22:24:54.771Z\",\n    \"data\": {\n      \"key_0\": \"string\",\n      \"key_1\": 3059\n    }\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01a10d7a-0557-4b68-9658-f456821edf75",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d780aa75-2141-4b02-a361-2e69d62229dc",
+          "name": "Create Log",
+          "request": {
+            "name": "Create Log",
+            "description": {
+              "content": "Create a new log entry for a prompt optimization job.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id",
+                "logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "job_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"log_type\": \"<string>\",\n  \"message\": \"<string>\",\n  \"data\": {\n    \"key_0\": true,\n    \"key_1\": 5144,\n    \"key_2\": \"string\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "657732b3-f30e-4d14-9ab8-e12f24199b51",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"log_type\": \"link\",\n  \"message\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 4993.733990284905,\n    \"key_2\": true,\n    \"key_3\": false,\n    \"key_4\": 5364\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"log_type\": \"error\",\n  \"message\": \"string\",\n  \"id\": \"05b23cd8-f95e-185f-1eb0-7191fa11d95f\",\n  \"job_id\": \"2501f231-c5a2-1720-ea7f-7d13ab5ed712\",\n  \"created_at\": \"1993-11-02T20:13:51.440Z\",\n  \"data\": {\n    \"key_0\": 3309.6500342702984,\n    \"key_1\": \"string\",\n    \"key_2\": 5730\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "05c82424-db73-4295-b98f-659a314f8564",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "job_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"log_type\": \"link\",\n  \"message\": \"<string>\",\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": 4993.733990284905,\n    \"key_2\": true,\n    \"key_3\": false,\n    \"key_4\": 5364\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28423c83-8666-4ec8-b51f-801b6dc0b179",
+          "name": "Get Log",
+          "request": {
+            "name": "Get Log",
+            "description": {
+              "content": "Get a specific prompt optimization job log.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id",
+                "logs",
+                ":log_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "log_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5b3c2f51-037f-4b63-8808-69fe9e398286",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs",
+                    ":log_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "log_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"log_type\": \"error\",\n  \"message\": \"string\",\n  \"id\": \"05b23cd8-f95e-185f-1eb0-7191fa11d95f\",\n  \"job_id\": \"2501f231-c5a2-1720-ea7f-7d13ab5ed712\",\n  \"created_at\": \"1993-11-02T20:13:51.440Z\",\n  \"data\": {\n    \"key_0\": 3309.6500342702984,\n    \"key_1\": \"string\",\n    \"key_2\": 5730\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85cbc301-af2f-4c86-b3ed-d4282ae375e0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs",
+                    ":log_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "log_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ff691cc-343d-48b0-8c1c-3eed62d49354",
+          "name": "Delete Log",
+          "request": {
+            "name": "Delete Log",
+            "description": {
+              "content": "Delete a prompt optimization job log.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "repos",
+                ":owner",
+                ":repo",
+                "optimization-jobs",
+                ":job_id",
+                "logs",
+                ":log_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "log_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f723d8b-084f-4dde-876d-088f16955104",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs",
+                    ":log_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "log_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "714a9f74-992f-496d-86c3-db94f1419231",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "repos",
+                    ":owner",
+                    ":repo",
+                    "optimization-jobs",
+                    ":job_id",
+                    "logs",
+                    ":log_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "log_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "26fde650-7270-4e53-99c2-54203125c85f",
+    "name": "LangSmith access_policies optimization-jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LangSmith API is used to programmatically create and manage LangSmith resources.\n\n## Host\nhttps://api.smith.langchain.com\n\n## Authentication\nTo authenticate with the LangSmith API, set the `X-Api-Key` header\nto a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).\n\n",
+      "type": "text/plain"
+    }
+  }
+}

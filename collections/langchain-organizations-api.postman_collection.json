@@ -1,0 +1,275 @@
+{
+  "item": [
+    {
+      "id": "5bd281b1-96b4-4806-9613-0c6f82200798",
+      "name": "Organizations",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8870731-7902-49fd-8093-8c5b8eb59661",
+          "name": "Get current organization info",
+          "request": {
+            "name": "Get current organization info",
+            "description": {
+              "content": "Returns organization info for the authenticated user's current organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "platform",
+                "orgs",
+                "current",
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "29f2d282-2d5a-4524-aa49-c22dc98325f5",
+              "name": "Organization info",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "orgs",
+                    "current",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"can_export_usage_backfill\": false,\n  \"config\": {\n    \"agent_builder_enabled\": true,\n    \"allow_custom_iframes\": true,\n    \"arbitrary_cost_tracking_enabled\": false,\n    \"byoc_enabled\": true,\n    \"can_add_seats\": true,\n    \"can_disable_public_sharing\": true,\n    \"can_restrict_browser_secrets\": true,\n    \"can_set_api_key_max_expiry\": true,\n    \"can_use_abac\": true,\n    \"can_use_audit_logs\": true,\n    \"can_use_bulk_export\": true,\n    \"can_use_langgraph_cloud\": false,\n    \"can_use_llm_auth_proxy\": true,\n    \"can_use_rbac\": true,\n    \"can_use_saml_sso\": true,\n    \"clio_enabled\": false,\n    \"datadog_rum_session_sample_rate\": 5160,\n    \"demo_lgp_new_graph_enabled\": false,\n    \"enable_align_evaluators\": false,\n    \"enable_burndown_vs_commit_view\": false,\n    \"enable_granular_usage_reporting\": false,\n    \"enable_include_extended_stats\": true,\n    \"enable_langgraph_pricing\": false,\n    \"enable_lgp_listeners_page\": true,\n    \"enable_markdown_in_tracing\": true,\n    \"enable_monthly_usage_charts\": false,\n    \"enable_org_usage_charts\": false,\n    \"enable_pricing_redesign\": false,\n    \"enable_querying_v2_endpoints\": false,\n    \"enable_run_tree_streaming\": false,\n    \"enable_thread_view_playground\": true,\n    \"enable_threads_improvements\": true,\n    \"ip_allowlist_enabled\": false,\n    \"kv_dataset_message_support\": true,\n    \"langgraph_deploy_own_cloud_enabled\": true,\n    \"langgraph_enterprise_enabled\": true,\n    \"langgraph_remote_reconciler_enabled\": true,\n    \"langsmith_alerts_poc_enabled\": false,\n    \"langsmith_deployment_distributed_runtime_enabled\": false,\n    \"langsmith_deployment_dr_enabled_dev\": true,\n    \"lgp_templates_enabled\": true,\n    \"llm_gateway_enabled\": false,\n    \"max_agent_builder_assistants\": 5919,\n    \"max_agent_builder_runs\": 2892,\n    \"max_free_langgraph_cloud_deployments\": 6951,\n    \"max_identities\": 2632,\n    \"max_langgraph_cloud_deployments\": 4768,\n    \"max_prompt_webhooks\": 845,\n    \"max_sandbox_cpu\": \"string\",\n    \"max_sandbox_memory\": \"string\",\n    \"max_sandbox_storage\": \"string\",\n    \"max_sandbox_volumes\": 2084,\n    \"max_sandboxes\": 3422,\n    \"max_workspaces\": 4236,\n    \"new_rule_evaluator_creation_version\": 6531,\n    \"plan_tier\": \"string\",\n    \"playground_evaluator_strategy\": \"string\",\n    \"premier_plan_approval_date\": \"string\",\n    \"prompt_optimization_jobs_enabled\": true,\n    \"show_playground_prompt_canvas\": true,\n    \"show_updated_resource_tags\": false,\n    \"show_updated_sidenav\": false,\n    \"startup_plan_approval_date\": \"string\",\n    \"tenant_skip_topk_facets\": true,\n    \"use_exact_search_for_prompts\": true\n  },\n  \"default_sso_provision\": false,\n  \"disabled\": false,\n  \"display_name\": \"string\",\n  \"id\": \"string\",\n  \"invites_enabled\": true,\n  \"ip_allowlist\": [\n    \"string\",\n    \"string\"\n  ],\n  \"ip_allowlist_enabled\": true,\n  \"is_personal\": false,\n  \"jit_provisioning_enabled\": false,\n  \"llm_auth_proxy_allowed_urls\": [\n    \"string\",\n    \"string\"\n  ],\n  \"llm_auth_proxy_enabled\": false,\n  \"llm_auth_proxy_jwt_audience\": \"string\",\n  \"marketplace_payouts_enabled\": false,\n  \"max_api_key_expiry_days\": 4755,\n  \"max_pat_expiry_days\": 3148,\n  \"max_service_key_expiry_days\": 3245,\n  \"member_disabled\": true,\n  \"pat_creation_disabled\": true,\n  \"permissions\": [\n    \"string\",\n    \"string\"\n  ],\n  \"public_sharing_disabled\": false,\n  \"reached_max_workspaces\": true,\n  \"scim_group_name_separator\": \"string\",\n  \"security_contact\": \"string\",\n  \"sso_login_slug\": \"string\",\n  \"sso_only\": true,\n  \"tier\": \"string\",\n  \"workspace_admin_can_invite_to_org\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dec062e9-9edf-4e1e-b5da-c55f9b24d696",
+              "name": "Invalid organization ID",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "orgs",
+                    "current",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ba0af6e-a4b9-48eb-95e5-c835364f823c",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "orgs",
+                    "current",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6e82f90-d84a-455e-837e-53abadb1d459",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "orgs",
+                    "current",
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "90795f1f-4412-4b8f-b0f6-ebf968679d11",
+    "name": "LangSmith access_policies Organizations API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LangSmith API is used to programmatically create and manage LangSmith resources.\n\n## Host\nhttps://api.smith.langchain.com\n\n## Authentication\nTo authenticate with the LangSmith API, set the `X-Api-Key` header\nto a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).\n\n",
+      "type": "text/plain"
+    }
+  }
+}

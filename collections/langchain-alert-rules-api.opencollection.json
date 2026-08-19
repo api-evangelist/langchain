@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies alert_rules API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "alert_rules",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create an alert rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/alerts/:session_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new alert rule. The request body must be a JSON-encoded alert rule object that follows the CreateAlertRuleRequest schema."
+        },
+        {
+          "info": {
+            "name": "Test an alert action to determine if configuration is valid",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/alerts/:session_id/test",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "alert_rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Alert rule ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Tests an alert action which will fire a notification to all configured recipients if the configuration is valid."
+        },
+        {
+          "info": {
+            "name": "Get an alert rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/alerts/:session_id/:alert_rule_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "alert_rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Alert rule ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets an alert rule."
+        },
+        {
+          "info": {
+            "name": "Update an alert rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/v1/platform/alerts/:session_id/:alert_rule_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "alert_rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Alert rule ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates an alert rule."
+        },
+        {
+          "info": {
+            "name": "Delete an alert rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v1/platform/alerts/:session_id/:alert_rule_id",
+            "params": [
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "path",
+                "description": "Session ID"
+              },
+              {
+                "name": "alert_rule_id",
+                "value": "",
+                "type": "path",
+                "description": "Alert rule ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes an alert rule"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

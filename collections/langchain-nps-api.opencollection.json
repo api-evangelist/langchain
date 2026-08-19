@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies nps API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "nps",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit an NPS response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/nps/response",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Records the authenticated user's NPS score and optional comment."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

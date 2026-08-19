@@ -1,0 +1,520 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies examples API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "examples",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Count Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/examples/count",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "full_text_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "splits",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Count all examples by query params"
+        },
+        {
+          "info": {
+            "name": "Read Example",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/examples/:example_id",
+            "params": [
+              {
+                "name": "example_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              },
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific example."
+        },
+        {
+          "info": {
+            "name": "Update Example",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/examples/:example_id",
+            "params": [
+              {
+                "name": "example_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a specific example."
+        },
+        {
+          "info": {
+            "name": "Delete Example",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/examples/:example_id",
+            "params": [
+              {
+                "name": "example_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft delete an example. Only deletes the example in the 'latest' version of the dataset."
+        },
+        {
+          "info": {
+            "name": "Read Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/examples",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "full_text_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "splits",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dataset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "random_seed",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "descending",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all examples by query params"
+        },
+        {
+          "info": {
+            "name": "Create Example",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/examples",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new example."
+        },
+        {
+          "info": {
+            "name": "Delete Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/examples",
+            "params": [
+              {
+                "name": "example_ids",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft delete examples. Only deletes the examples in the 'latest' version of the dataset."
+        },
+        {
+          "info": {
+            "name": "Create Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/examples/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create bulk examples."
+        },
+        {
+          "info": {
+            "name": "Legacy Update Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/examples/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Legacy update examples in bulk. For update involving attachments, use PATCH /v1/platform/datasets/{dataset_id}/examples instead."
+        },
+        {
+          "info": {
+            "name": "Upload Examples From Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/examples/upload/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload examples from a CSV file.\n\nNote: For non-csv upload, please use\nthe POST /v1/platform/datasets/{dataset_id}/examples endpoint which provides more efficient upload."
+        },
+        {
+          "info": {
+            "name": "Validate Example",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/examples/validate",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validate an example."
+        },
+        {
+          "info": {
+            "name": "Validate Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/examples/validate/bulk",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validate examples in bulk."
+        },
+        {
+          "info": {
+            "name": "Hard Delete Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/datasets/examples/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint hard deletes *all* versions of a dataset example(s).\nDeletion is performed by setting inputs, outputs, and metadata to null and deleting attachment files while keeping the example ID, dataset ID, and creation timestamp.\nIMPORTANT: attachment files can take up to 7 days to be deleted. inputs, outputs and metadata are nullified immediately."
+        },
+        {
+          "info": {
+            "name": "Upload Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/datasets/:dataset_id/examples",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "Dataset ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "{example_id}",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.inputs",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.outputs",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.attachments.{name}",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint allows clients to upload examples to a specified dataset by sending a multipart/form-data POST request.\nEach form part contains either JSON-encoded data or binary attachment files associated with an example."
+        },
+        {
+          "info": {
+            "name": "Update Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/v1/platform/datasets/:dataset_id/examples",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path",
+                "description": "Dataset ID"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "{example_id}",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.inputs",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.outputs",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.attachments_operations",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "{example_id}.attachment.{name}",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This endpoint allows clients to update existing examples in a specified dataset by sending a multipart/form-data PATCH request.\nEach form part contains either JSON-encoded data or binary attachment files to update an example."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

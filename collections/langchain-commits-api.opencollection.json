@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies commits API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "commits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List commits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/commits/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "Repository owner (tenant handle) or '-' for private repos"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "Repository handle"
+              },
+              {
+                "name": "include_stats",
+                "value": "",
+                "type": "query",
+                "description": "IncludeStats determines whether to compute num_downloads and num_views"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit is the pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset is the pagination offset"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Tag filters commits to only those with a specific tag (e.g. \"production\", \"staging\")"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Lists all commits for a repository with pagination support.\nThis endpoint supports both authenticated and unauthenticated access.\nAuthenticated users can access private repos, while unauthenticated users can only access public repos.\nThe include_stats parameter controls whether download and view statistics are computed (defaults to true)."
+        },
+        {
+          "info": {
+            "name": "Create a commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/commits/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "Repository owner (tenant handle) or '-' for private repos"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "Repository handle"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new commit in a repository.\nRequires authentication and write access to the repository."
+        },
+        {
+          "info": {
+            "name": "Get a commit",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/commits/:owner/:repo/:commit",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "Repository owner (tenant handle) or '-' for private repos"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "Repository handle"
+              },
+              {
+                "name": "commit",
+                "value": "",
+                "type": "path",
+                "description": "Commit hash, tag, or 'latest'"
+              },
+              {
+                "name": "get_examples",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of optional fields: \"model\", \"is_draft\""
+              },
+              {
+                "name": "include_model",
+                "value": "",
+                "type": "query",
+                "description": "Deprecated: use Include instead"
+              },
+              {
+                "name": "is_view",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a specific commit by hash, tag, or \"latest\" for a repository.\nThis endpoint supports both authenticated and unauthenticated access.\nAuthenticated users can access private repos, while unauthenticated users can only access public repos.\nCommit resolution logic:\n- \"latest\" or empty: Get the most recent commit\n- Less than 8 characters: Only check for tags\n- 8 or more characters: Prioritize commit hash over tag, check both"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

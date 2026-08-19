@@ -1,0 +1,2246 @@
+{
+  "item": [
+    {
+      "id": "ec1ef0a6-714f-4348-a974-c82dc92708f0",
+      "name": "alert_rules",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9458f3b2-e8f4-4021-91cf-234cf26c02ff",
+          "name": "Create an alert rule",
+          "request": {
+            "name": "Create an alert rule",
+            "description": {
+              "content": "Creates a new alert rule. The request body must be a JSON-encoded alert rule object that follows the CreateAlertRuleRequest schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "platform",
+                "alerts",
+                ":session_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) Session ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actions\": [\n    {\n      \"config\": \"<object>\",\n      \"target\": \"<string>\",\n      \"alert_rule_id\": \"<string>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"config\": \"<object>\",\n      \"target\": \"<string>\",\n      \"alert_rule_id\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"<string>\",\n    \"attribute\": \"<string>\",\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"operator\": \"<string>\",\n    \"type\": \"<string>\",\n    \"window_minutes\": \"<integer>\",\n    \"denominator_filter\": \"<string>\",\n    \"filter\": \"<string>\",\n    \"id\": \"<string>\",\n    \"threshold\": \"<number>\",\n    \"threshold_multiplier\": \"<number>\",\n    \"threshold_window_minutes\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c3a44f6e-3a04-4d8d-b1e0-e5365b3042f1",
+              "name": "Alert rule created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"pagerduty\",\n      \"alert_rule_id\": \"string\",\n      \"created_at\": \"string\",\n      \"id\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"created_at\": \"string\",\n      \"id\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"pct\",\n    \"attribute\": \"run_latency\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 55,\n    \"created_at\": \"string\",\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"session_id\": \"string\",\n    \"session_name\": \"string\",\n    \"threshold\": 3207.2079099277994,\n    \"threshold_multiplier\": 6123.006373799483,\n    \"threshold_window_minutes\": 25,\n    \"updated_at\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7189d96c-f981-4a64-97ca-af5b693d1b6b",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96df8b81-1dea-4b3c-9af6-df33eb3f44b3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4440998b-be96-4cd3-a595-92b16dd65d68",
+              "name": "Alert Rule Limit Reached",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2faf4fd6-ab0f-4ee4-bd30-be5eb7e624a0",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "764f82ea-e71c-4785-929a-b413b7411bc3",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "90a5309b-e0c9-47da-ae15-715aad07cf43",
+          "name": "Test an alert action to determine if configuration is valid",
+          "request": {
+            "name": "Test an alert action to determine if configuration is valid",
+            "description": {
+              "content": "Tests an alert action which will fire a notification to all configured recipients if the configuration is valid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "platform",
+                "alerts",
+                ":session_id",
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_rule_id",
+                  "description": "(Required) Alert rule ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c0a66fe2-ea2e-4224-b887-7dcb12f413c2",
+              "name": "Alert action fired successfully",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_1\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_2\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_3\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f346f8a7-479b-4b24-bc84-22343faa8d00",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92d2f4db-09c8-4cc5-88d1-24de43aad7c4",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3c9c3076-a708-42e8-8170-1b79b0a10248",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "91db2be2-ef8c-4cef-ac94-b65588d2199c",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1742150e-b6a5-4cb2-ad93-5227eb8eaac8",
+          "name": "Get an alert rule",
+          "request": {
+            "name": "Get an alert rule",
+            "description": {
+              "content": "Gets an alert rule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "platform",
+                "alerts",
+                ":session_id",
+                ":alert_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_rule_id",
+                  "description": "(Required) Alert rule ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f66727bd-5bb7-4dc1-a1e9-a2124b89d427",
+              "name": "Alert rule",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"pagerduty\",\n      \"alert_rule_id\": \"string\",\n      \"created_at\": \"string\",\n      \"id\": \"string\",\n      \"updated_at\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"created_at\": \"string\",\n      \"id\": \"string\",\n      \"updated_at\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"pct\",\n    \"attribute\": \"run_latency\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 55,\n    \"created_at\": \"string\",\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"session_id\": \"string\",\n    \"session_name\": \"string\",\n    \"threshold\": 3207.2079099277994,\n    \"threshold_multiplier\": 6123.006373799483,\n    \"threshold_window_minutes\": 25,\n    \"updated_at\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8d8c78d-dcea-4b5f-a7b4-bbf146a4e8c6",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bcf6724b-c5e4-4533-be52-7039079828c6",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b028d62b-823a-47b0-af1d-3f22db2ddf12",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27bce093-8a5a-4f58-b243-c37ba1341924",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "212a6133-850e-4d76-98a4-ada19e83f4b8",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "969bc146-539b-44c4-9376-6b15ae52ad05",
+          "name": "Delete an alert rule",
+          "request": {
+            "name": "Delete an alert rule",
+            "description": {
+              "content": "Deletes an alert rule",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "platform",
+                "alerts",
+                ":session_id",
+                ":alert_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_rule_id",
+                  "description": "(Required) Alert rule ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c149dd94-964b-4511-96fb-9f1251913cf5",
+              "name": "Alert rule deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_1\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_2\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_3\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a7142e6-454b-497a-ab5e-8da7f11f3450",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d813bef-1751-4f3d-99ee-20f55141abac",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92be4c02-64d6-44bd-860b-dd3ab980f372",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8357140f-b697-426d-b3b2-d636f8005221",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18e039b5-35f0-4e0f-9d51-b4b0f3a42672",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0cad2309-ccc1-4717-a02e-14f82c9d3d20",
+          "name": "Update an alert rule",
+          "request": {
+            "name": "Update an alert rule",
+            "description": {
+              "content": "Updates an alert rule.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "platform",
+                "alerts",
+                ":session_id",
+                ":alert_rule_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "session_id",
+                  "description": "(Required) Session ID"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alert_rule_id",
+                  "description": "(Required) Alert rule ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"actions\": [\n    {\n      \"config\": \"<object>\",\n      \"target\": \"<string>\",\n      \"alert_rule_id\": \"<string>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"config\": \"<object>\",\n      \"target\": \"<string>\",\n      \"alert_rule_id\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"<string>\",\n    \"attribute\": \"<string>\",\n    \"description\": \"<string>\",\n    \"name\": \"<string>\",\n    \"operator\": \"<string>\",\n    \"type\": \"<string>\",\n    \"window_minutes\": \"<integer>\",\n    \"denominator_filter\": \"<string>\",\n    \"filter\": \"<string>\",\n    \"id\": \"<string>\",\n    \"threshold\": \"<number>\",\n    \"threshold_multiplier\": \"<number>\",\n    \"threshold_window_minutes\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "cc30f2cc-5a0f-47b0-9503-a22dc7769c22",
+              "name": "Alert rule updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_1\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_2\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  },\n  \"key_3\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a20f812b-2a97-4213-8701-f98f5bad1c93",
+              "name": "Bad request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3054e764-1416-4e5d-b836-8ce7fe6c7f74",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b0af449-b69e-4fa0-be4a-cba56d9b464c",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cd9bb166-8a23-4717-b0cc-1d0f52a62933",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1a578bc4-f0c8-4704-9799-28c565b9d213",
+              "name": "Service unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "platform",
+                    "alerts",
+                    ":session_id",
+                    ":alert_rule_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "session_id",
+                      "description": "(Required) Session ID"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alert_rule_id",
+                      "description": "(Required) Alert rule ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"actions\": [\n    {\n      \"config\": {},\n      \"target\": \"webhook\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    },\n    {\n      \"config\": {},\n      \"target\": \"dynatrace\",\n      \"alert_rule_id\": \"string\",\n      \"id\": \"string\"\n    }\n  ],\n  \"rule\": {\n    \"aggregation\": \"avg\",\n    \"attribute\": \"run_count\",\n    \"description\": \"string\",\n    \"name\": \"string\",\n    \"operator\": \"gte\",\n    \"type\": \"change\",\n    \"window_minutes\": 27,\n    \"denominator_filter\": \"string\",\n    \"filter\": \"string\",\n    \"id\": \"string\",\n    \"threshold\": 5337.425885945054,\n    \"threshold_multiplier\": 8518.928177934777,\n    \"threshold_window_minutes\": 42\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bab368a1-861e-41cb-aa97-f012eaacd392",
+    "name": "LangSmith access_policies alert_rules API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LangSmith API is used to programmatically create and manage LangSmith resources.\n\n## Host\nhttps://api.smith.langchain.com\n\n## Authentication\nTo authenticate with the LangSmith API, set the `X-Api-Key` header\nto a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).\n\n",
+      "type": "text/plain"
+    }
+  }
+}

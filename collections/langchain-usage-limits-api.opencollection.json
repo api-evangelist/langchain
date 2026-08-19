@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies usage-limits API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "usage-limits",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Usage Limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/usage-limits",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List out the configured usage limits for a given tenant."
+        },
+        {
+          "info": {
+            "name": "Upsert Usage Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/usage-limits",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new usage limit."
+        },
+        {
+          "info": {
+            "name": "List Org Usage Limits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/usage-limits/org",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List out the configured usage limits for a given organization."
+        },
+        {
+          "info": {
+            "name": "Delete Usage Limit",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/usage-limits/:usage_limit_id",
+            "params": [
+              {
+                "name": "usage_limit_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a specific usage limit."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

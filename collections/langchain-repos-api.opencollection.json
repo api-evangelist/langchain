@@ -1,0 +1,401 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies repos API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "repos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Repos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/repos",
+            "params": [
+              {
+                "name": "with_latest_manifest",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tenant_handle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_commits",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_public",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "upstream_repo_owner",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "upstream_repo_handle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "repo_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "repo_types",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all repos."
+        },
+        {
+          "info": {
+            "name": "Create Repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/repos",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a repo."
+        },
+        {
+          "info": {
+            "name": "Delete Repos",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/repos",
+            "params": [
+              {
+                "name": "repo_ids",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete multiple repos with partial success support.\n\nReturns:\n    - 200: All repos deleted successfully\n    - 207: Some repos deleted successfully, some failed"
+        },
+        {
+          "info": {
+            "name": "Get Repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/repos/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a repo."
+        },
+        {
+          "info": {
+            "name": "Update Repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/repos/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a repo."
+        },
+        {
+          "info": {
+            "name": "Delete Repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/repos/:owner/:repo",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a repo."
+        },
+        {
+          "info": {
+            "name": "Fork Repo",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/repos/:owner/:repo/fork",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fork a repo."
+        },
+        {
+          "info": {
+            "name": "List Repo Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/repos/tags",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tenant_handle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tenant_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_commits",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tags",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_public",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "upstream_repo_owner",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "upstream_repo_handle",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "repo_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "repo_types",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all repo tags."
+        },
+        {
+          "info": {
+            "name": "Optimize Prompt Job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/repos/optimize-job",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Optimize prompt"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,73 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies audit-logs API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "audit-logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Audit Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/audit-logs",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination (base64-encoded JSON string)"
+              },
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by workspace ID"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "Start datetime (inclusive) in ISO 8601 format"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query",
+                "description": "End datetime (inclusive) in ISO 8601 format"
+              },
+              {
+                "name": "operations",
+                "value": "",
+                "type": "query",
+                "description": "Filter by operation names. If omitted, all operations are returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve audit log records for the authenticated user's organization in OCSF format.\n\nRequires both start_time and end_time parameters to filter logs within a date range.\nSupports cursor-based pagination.\n\nReturns results in OCSF API Activity (Class UID: 6003) format,\nwhich is compatible with security monitoring and SIEM tools.\nReference: https://schema.ocsf.io/1.7.0/classes/api_activity"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies experiment-view-overrides API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "experiment-view-overrides",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get experiment view override configurations for a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/datasets/:dataset_id/experiment-view-overrides",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "\"550e8400-e29b-41d4-a716-446655440000\"",
+                "type": "path",
+                "description": "Dataset ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves all experiment view override configurations for a specific dataset.\nThis endpoint returns column display overrides including color gradients,\nprecision settings, and column visibility configurations that customize how\nexperiment results are displayed in the UI.\n\nThe response includes all column overrides with their display settings:\n- Column identifiers (must start with inputs, outputs, reference_outputs, feedback, metrics, attachments, or metadata)\n- Color gradients for numeric data v"
+        },
+        {
+          "info": {
+            "name": "Create new experiment view override configuration for a dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/datasets/:dataset_id/experiment-view-overrides",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "\"550e8400-e29b-41d4-a716-446655440000\"",
+                "type": "path",
+                "description": "Dataset ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates a new experiment view override configuration for a dataset with column display settings.\nThis endpoint allows you to customize how experiment results are displayed by configuring\ncolumn-specific overrides including colors, precision, and visibility.\n\nThe request must include a 'column_overrides' array with at least one override configuration.\nEach column override can specify:\n- column: Required field name (must start with inputs, outputs, reference_outputs, feedback, metrics, attachments"
+        },
+        {
+          "info": {
+            "name": "Get experiment view override configuration by specific ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/datasets/:dataset_id/experiment-view-overrides/:id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "\"550e8400-e29b-41d4-a716-446655440000\"",
+                "type": "path",
+                "description": "Dataset ID"
+              },
+              {
+                "name": "id",
+                "value": "\"123e4567-e89b-12d3-a456-426614174000\"",
+                "type": "path",
+                "description": "Experiment view override ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves a specific experiment view override configuration using both dataset ID and override ID.\nThis endpoint provides more precise access to experiment view overrides when you have\nthe specific override ID, useful for direct links or cached references.\n\nThe response includes the same column override information as the dataset-level endpoint:\n- Column identifiers with validation prefixes\n- Color gradient settings for numeric data visualization\n- Numeric precision configurations\n- Column visib"
+        },
+        {
+          "info": {
+            "name": "Update existing experiment view override configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/datasets/:dataset_id/experiment-view-overrides/:id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "\"550e8400-e29b-41d4-a716-446655440000\"",
+                "type": "path",
+                "description": "Dataset ID"
+              },
+              {
+                "name": "id",
+                "value": "\"123e4567-e89b-12d3-a456-426614174000\"",
+                "type": "path",
+                "description": "Experiment view override ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates an existing experiment view override configuration by completely replacing\nthe column overrides for the specified dataset and override ID.\n\nThis endpoint performs a complete replacement of the column overrides configuration.\nAll existing column overrides will be replaced with the new configuration provided\nin the request body. To add or modify individual columns, include the complete\ndesired configuration in the request.\n\nThe request format is identical to the create endpoint:\n- column_o"
+        },
+        {
+          "info": {
+            "name": "Delete experiment view override configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/datasets/:dataset_id/experiment-view-overrides/:id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "\"550e8400-e29b-41d4-a716-446655440000\"",
+                "type": "path",
+                "description": "Dataset ID"
+              },
+              {
+                "name": "id",
+                "value": "\"123e4567-e89b-12d3-a456-426614174000\"",
+                "type": "path",
+                "description": "Experiment view override ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Permanently deletes an experiment view override configuration for a dataset.\nThis operation removes all column override settings including color gradients,\nprecision configurations, and visibility settings.\n\nAfter deletion, the experiment view will revert to default column display settings.\nThis action cannot be undone - you will need to recreate the override configuration\nif you want to restore custom column settings.\n\nBoth the dataset and override must exist and be accessible by the authentica"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

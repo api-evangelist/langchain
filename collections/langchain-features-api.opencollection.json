@@ -1,0 +1,149 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies features API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "features",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List feature configurations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/features",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a consolidated view of default models and disabled models per feature for the workspace."
+        },
+        {
+          "info": {
+            "name": "Set default model for a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/v1/platform/features/:feature/default-model",
+            "params": [
+              {
+                "name": "feature",
+                "value": "",
+                "type": "path",
+                "description": "Feature name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Sets or replaces the default model for a feature in the workspace."
+        },
+        {
+          "info": {
+            "name": "Delete default model for a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v1/platform/features/:feature/default-model",
+            "params": [
+              {
+                "name": "feature",
+                "value": "",
+                "type": "path",
+                "description": "Feature name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes the default model for a feature in the workspace."
+        },
+        {
+          "info": {
+            "name": "Disable a model for a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/v1/platform/features/:feature/disabled-models",
+            "params": [
+              {
+                "name": "feature",
+                "value": "",
+                "type": "path",
+                "description": "Feature name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Adds a model to the disabled list for a feature in the workspace."
+        },
+        {
+          "info": {
+            "name": "Re-enable a disabled model for a feature",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v1/platform/features/:feature/disabled-models/:model",
+            "params": [
+              {
+                "name": "feature",
+                "value": "",
+                "type": "path",
+                "description": "Feature name"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "path",
+                "description": "Model name (URL-encoded)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Removes a model from the disabled list for a feature in the workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

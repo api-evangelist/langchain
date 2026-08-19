@@ -1,0 +1,2980 @@
+{
+  "item": [
+    {
+      "id": "82b22d16-605c-4168-ba37-2aafc9c78ef6",
+      "name": "runs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "2c628cd3-e754-4616-9e46-089c96ec92e7",
+          "name": "Create a Run",
+          "request": {
+            "name": "Create a Run",
+            "description": {
+              "content": "Queues a single run for ingestion. The request body must be a JSON-encoded run object that follows the Run schema.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 8028.655139656807\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 371.0591898876814\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": false\n  },\n  \"inputs\": {\n    \"key_0\": 5986,\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": 6015.019017663559,\n    \"key_4\": 6500\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": \"string\"\n  },\n  \"outputs\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": false\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "95af2bcc-0e2a-4d1d-9428-703f9c663e1b",
+              "name": "Run created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b442a9cd-de5c-433f-a66e-0c76dd08d752",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88394350-2249-4b76-bb36-84de7713dc83",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b3b31da-56fe-4dde-9edf-65ca7d996f62",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f06afc98-3e52-4515-aa50-9b34b3c86bb9",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41d5e3cf-20c2-4ace-8d5b-3403756df5cd",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77f6cf0b-b717-4536-8bac-b5c1be237e3c",
+          "name": "Ingest Runs (Batch JSON)",
+          "request": {
+            "name": "Ingest Runs (Batch JSON)",
+            "description": {
+              "content": "Ingests a batch of runs in a single JSON payload. The payload must have `post` and/or `patch` arrays containing run objects.\nPrefer this endpoint over single‑run ingestion when submitting hundreds of runs, but `/runs/multipart` offers better handling for very large fields and attachments.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runs",
+                "batch"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"<string>\",\n      \"end_time\": \"<string>\",\n      \"error\": \"<string>\",\n      \"events\": [\n        {\n          \"key_0\": false,\n          \"key_1\": true\n        },\n        {\n          \"key_0\": false\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 5868\n      },\n      \"id\": \"<string>\",\n      \"input_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 5531\n      },\n      \"inputs\": {\n        \"key_0\": false\n      },\n      \"name\": \"<string>\",\n      \"output_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 7062.184068887203,\n        \"key_1\": \"string\",\n        \"key_2\": 5652\n      },\n      \"parent_run_id\": \"<string>\",\n      \"reference_example_id\": \"<string>\",\n      \"run_type\": \"<string>\",\n      \"serialized\": {\n        \"key_0\": 4671.712806156099,\n        \"key_1\": true,\n        \"key_2\": 9430.086097059433,\n        \"key_3\": false\n      },\n      \"session_id\": \"<string>\",\n      \"session_name\": \"<string>\",\n      \"start_time\": \"<string>\",\n      \"status\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trace_id\": \"<string>\"\n    },\n    {\n      \"dotted_order\": \"<string>\",\n      \"end_time\": \"<string>\",\n      \"error\": \"<string>\",\n      \"events\": [\n        {\n          \"key_0\": 649\n        },\n        {\n          \"key_0\": 1410,\n          \"key_1\": 6609.816189188771,\n          \"key_2\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4395.359345967193\n      },\n      \"id\": \"<string>\",\n      \"input_attachments\": {\n        \"key_0\": 5214.27608670895,\n        \"key_1\": 8684.818009708615\n      },\n      \"inputs\": {\n        \"key_0\": false,\n        \"key_1\": false,\n        \"key_2\": 9976.809625341155\n      },\n      \"name\": \"<string>\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 3155\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 597.1953617267034\n      },\n      \"parent_run_id\": \"<string>\",\n      \"reference_example_id\": \"<string>\",\n      \"run_type\": \"<string>\",\n      \"serialized\": {\n        \"key_0\": \"string\",\n        \"key_1\": true\n      },\n      \"session_id\": \"<string>\",\n      \"session_name\": \"<string>\",\n      \"start_time\": \"<string>\",\n      \"status\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trace_id\": \"<string>\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"<string>\",\n      \"end_time\": \"<string>\",\n      \"error\": \"<string>\",\n      \"events\": [\n        {\n          \"key_0\": 2251.5255115979116,\n          \"key_1\": false,\n          \"key_2\": \"string\",\n          \"key_3\": \"string\",\n          \"key_4\": 5132\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\",\n        \"key_1\": 3873.7749271705347\n      },\n      \"id\": \"<string>\",\n      \"input_attachments\": {\n        \"key_0\": 3463.503185004191,\n        \"key_1\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 2638.801256417408,\n        \"key_1\": 7093.981772762374,\n        \"key_2\": 2357.0998728666605\n      },\n      \"name\": \"<string>\",\n      \"output_attachments\": {\n        \"key_0\": 587.778690331232,\n        \"key_1\": 7965.169943023678\n      },\n      \"outputs\": {\n        \"key_0\": 9885.277297774117,\n        \"key_1\": \"string\",\n        \"key_2\": 722.6169172005991,\n        \"key_3\": true\n      },\n      \"parent_run_id\": \"<string>\",\n      \"reference_example_id\": \"<string>\",\n      \"run_type\": \"<string>\",\n      \"serialized\": {\n        \"key_0\": 1719.7250754579563\n      },\n      \"session_id\": \"<string>\",\n      \"session_name\": \"<string>\",\n      \"start_time\": \"<string>\",\n      \"status\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trace_id\": \"<string>\"\n    },\n    {\n      \"dotted_order\": \"<string>\",\n      \"end_time\": \"<string>\",\n      \"error\": \"<string>\",\n      \"events\": [\n        {\n          \"key_0\": false\n        },\n        {\n          \"key_0\": false\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\",\n        \"key_1\": 5329\n      },\n      \"id\": \"<string>\",\n      \"input_attachments\": {\n        \"key_0\": 5594,\n        \"key_1\": 1221\n      },\n      \"inputs\": {\n        \"key_0\": false,\n        \"key_1\": 3694.8897492818523,\n        \"key_2\": \"string\",\n        \"key_3\": true,\n        \"key_4\": 8918.72829835131\n      },\n      \"name\": \"<string>\",\n      \"output_attachments\": {\n        \"key_0\": false\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"parent_run_id\": \"<string>\",\n      \"reference_example_id\": \"<string>\",\n      \"run_type\": \"<string>\",\n      \"serialized\": {\n        \"key_0\": \"string\"\n      },\n      \"session_id\": \"<string>\",\n      \"session_name\": \"<string>\",\n      \"start_time\": \"<string>\",\n      \"status\": \"<string>\",\n      \"tags\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trace_id\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15fcc275-c6e5-45fc-8318-6d88dec031da",
+              "name": "Runs batch ingested",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 9747\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\"\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 8970\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 945\n      },\n      \"outputs\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"llm\",\n      \"serialized\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 7839\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9350.16941911293,\n          \"key_1\": 9307.56876613303\n        },\n        {\n          \"key_0\": 4398\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 9029,\n        \"key_1\": 2473.715183609226\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": true\n      },\n      \"inputs\": {\n        \"key_0\": 4675,\n        \"key_1\": false,\n        \"key_2\": 4961.606518980085\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 1978.713656368295\n      },\n      \"outputs\": {\n        \"key_0\": true\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": true\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 8830.377794909675,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 8462.385012542865\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 3807,\n        \"key_1\": \"string\",\n        \"key_2\": 7595.285811473739,\n        \"key_3\": 917.358242594819\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 3992,\n        \"key_1\": 2047,\n        \"key_2\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 3521\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": 9235.351134393233,\n        \"key_1\": 9302.943411652546\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 7905.379138622479\n        },\n        {\n          \"key_0\": 5071\n        }\n      ],\n      \"extra\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": 8455.79067787367,\n        \"key_1\": true\n      },\n      \"inputs\": {\n        \"key_0\": true\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 9817,\n        \"key_1\": 9531\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4646\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"embedding\",\n      \"serialized\": {\n        \"key_0\": 7008,\n        \"key_1\": \"string\"\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62f0d2f4-e6b0-4762-bc8f-8d2864b07195",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 9747\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\"\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 8970\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 945\n      },\n      \"outputs\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"llm\",\n      \"serialized\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 7839\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9350.16941911293,\n          \"key_1\": 9307.56876613303\n        },\n        {\n          \"key_0\": 4398\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 9029,\n        \"key_1\": 2473.715183609226\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": true\n      },\n      \"inputs\": {\n        \"key_0\": 4675,\n        \"key_1\": false,\n        \"key_2\": 4961.606518980085\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 1978.713656368295\n      },\n      \"outputs\": {\n        \"key_0\": true\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": true\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 8830.377794909675,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 8462.385012542865\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 3807,\n        \"key_1\": \"string\",\n        \"key_2\": 7595.285811473739,\n        \"key_3\": 917.358242594819\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 3992,\n        \"key_1\": 2047,\n        \"key_2\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 3521\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": 9235.351134393233,\n        \"key_1\": 9302.943411652546\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 7905.379138622479\n        },\n        {\n          \"key_0\": 5071\n        }\n      ],\n      \"extra\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": 8455.79067787367,\n        \"key_1\": true\n      },\n      \"inputs\": {\n        \"key_0\": true\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 9817,\n        \"key_1\": 9531\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4646\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"embedding\",\n      \"serialized\": {\n        \"key_0\": 7008,\n        \"key_1\": \"string\"\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d19fda22-2898-43e6-bb9a-9ea2a3959253",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 9747\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\"\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 8970\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 945\n      },\n      \"outputs\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"llm\",\n      \"serialized\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 7839\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9350.16941911293,\n          \"key_1\": 9307.56876613303\n        },\n        {\n          \"key_0\": 4398\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 9029,\n        \"key_1\": 2473.715183609226\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": true\n      },\n      \"inputs\": {\n        \"key_0\": 4675,\n        \"key_1\": false,\n        \"key_2\": 4961.606518980085\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 1978.713656368295\n      },\n      \"outputs\": {\n        \"key_0\": true\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": true\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 8830.377794909675,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 8462.385012542865\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 3807,\n        \"key_1\": \"string\",\n        \"key_2\": 7595.285811473739,\n        \"key_3\": 917.358242594819\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 3992,\n        \"key_1\": 2047,\n        \"key_2\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 3521\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": 9235.351134393233,\n        \"key_1\": 9302.943411652546\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 7905.379138622479\n        },\n        {\n          \"key_0\": 5071\n        }\n      ],\n      \"extra\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": 8455.79067787367,\n        \"key_1\": true\n      },\n      \"inputs\": {\n        \"key_0\": true\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 9817,\n        \"key_1\": 9531\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4646\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"embedding\",\n      \"serialized\": {\n        \"key_0\": 7008,\n        \"key_1\": \"string\"\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c1a68c0-6504-4f64-b313-a6e90f0b6493",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 9747\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\"\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 8970\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 945\n      },\n      \"outputs\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"llm\",\n      \"serialized\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 7839\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9350.16941911293,\n          \"key_1\": 9307.56876613303\n        },\n        {\n          \"key_0\": 4398\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 9029,\n        \"key_1\": 2473.715183609226\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": true\n      },\n      \"inputs\": {\n        \"key_0\": 4675,\n        \"key_1\": false,\n        \"key_2\": 4961.606518980085\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 1978.713656368295\n      },\n      \"outputs\": {\n        \"key_0\": true\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": true\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 8830.377794909675,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 8462.385012542865\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 3807,\n        \"key_1\": \"string\",\n        \"key_2\": 7595.285811473739,\n        \"key_3\": 917.358242594819\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 3992,\n        \"key_1\": 2047,\n        \"key_2\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 3521\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": 9235.351134393233,\n        \"key_1\": 9302.943411652546\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 7905.379138622479\n        },\n        {\n          \"key_0\": 5071\n        }\n      ],\n      \"extra\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": 8455.79067787367,\n        \"key_1\": true\n      },\n      \"inputs\": {\n        \"key_0\": true\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 9817,\n        \"key_1\": 9531\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4646\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"embedding\",\n      \"serialized\": {\n        \"key_0\": 7008,\n        \"key_1\": \"string\"\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88ea619f-6952-418a-967a-43bdc70ca84d",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 9747\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\"\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 8970\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 945\n      },\n      \"outputs\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"llm\",\n      \"serialized\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 7839\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9350.16941911293,\n          \"key_1\": 9307.56876613303\n        },\n        {\n          \"key_0\": 4398\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 9029,\n        \"key_1\": 2473.715183609226\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": true\n      },\n      \"inputs\": {\n        \"key_0\": 4675,\n        \"key_1\": false,\n        \"key_2\": 4961.606518980085\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 1978.713656368295\n      },\n      \"outputs\": {\n        \"key_0\": true\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": true\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 8830.377794909675,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 8462.385012542865\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 3807,\n        \"key_1\": \"string\",\n        \"key_2\": 7595.285811473739,\n        \"key_3\": 917.358242594819\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 3992,\n        \"key_1\": 2047,\n        \"key_2\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 3521\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": 9235.351134393233,\n        \"key_1\": 9302.943411652546\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 7905.379138622479\n        },\n        {\n          \"key_0\": 5071\n        }\n      ],\n      \"extra\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": 8455.79067787367,\n        \"key_1\": true\n      },\n      \"inputs\": {\n        \"key_0\": true\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 9817,\n        \"key_1\": 9531\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4646\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"embedding\",\n      \"serialized\": {\n        \"key_0\": 7008,\n        \"key_1\": \"string\"\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "23f4eab4-d877-4f43-8ac5-11d92cdf3b8a",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "batch"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"patch\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": \"string\",\n          \"key_1\": 9747\n        },\n        {\n          \"key_0\": true\n        }\n      ],\n      \"extra\": {\n        \"key_0\": \"string\"\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 8970\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": \"string\",\n        \"key_1\": 945\n      },\n      \"outputs\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"llm\",\n      \"serialized\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": 7839\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 9350.16941911293,\n          \"key_1\": 9307.56876613303\n        },\n        {\n          \"key_0\": 4398\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 9029,\n        \"key_1\": 2473.715183609226\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": true\n      },\n      \"inputs\": {\n        \"key_0\": 4675,\n        \"key_1\": false,\n        \"key_2\": 4961.606518980085\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 1978.713656368295\n      },\n      \"outputs\": {\n        \"key_0\": true\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": true\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ],\n  \"post\": [\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 8830.377794909675,\n          \"key_1\": \"string\"\n        },\n        {\n          \"key_0\": \"string\"\n        }\n      ],\n      \"extra\": {\n        \"key_0\": 8462.385012542865\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": false,\n        \"key_1\": true,\n        \"key_2\": \"string\"\n      },\n      \"inputs\": {\n        \"key_0\": 3807,\n        \"key_1\": \"string\",\n        \"key_2\": 7595.285811473739,\n        \"key_3\": 917.358242594819\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 3992,\n        \"key_1\": 2047,\n        \"key_2\": \"string\"\n      },\n      \"outputs\": {\n        \"key_0\": 3521\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"parser\",\n      \"serialized\": {\n        \"key_0\": 9235.351134393233,\n        \"key_1\": 9302.943411652546\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    },\n    {\n      \"dotted_order\": \"string\",\n      \"end_time\": \"string\",\n      \"error\": \"string\",\n      \"events\": [\n        {\n          \"key_0\": 7905.379138622479\n        },\n        {\n          \"key_0\": 5071\n        }\n      ],\n      \"extra\": {\n        \"key_0\": false,\n        \"key_1\": \"string\",\n        \"key_2\": true\n      },\n      \"id\": \"string\",\n      \"input_attachments\": {\n        \"key_0\": 8455.79067787367,\n        \"key_1\": true\n      },\n      \"inputs\": {\n        \"key_0\": true\n      },\n      \"name\": \"string\",\n      \"output_attachments\": {\n        \"key_0\": 9817,\n        \"key_1\": 9531\n      },\n      \"outputs\": {\n        \"key_0\": \"string\",\n        \"key_1\": 4646\n      },\n      \"parent_run_id\": \"string\",\n      \"reference_example_id\": \"string\",\n      \"run_type\": \"embedding\",\n      \"serialized\": {\n        \"key_0\": 7008,\n        \"key_1\": \"string\"\n      },\n      \"session_id\": \"string\",\n      \"session_name\": \"string\",\n      \"start_time\": \"string\",\n      \"status\": \"string\",\n      \"tags\": [\n        \"string\",\n        \"string\"\n      ],\n      \"trace_id\": \"string\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "944e32a6-a0a9-4146-9390-59cb6459fd29",
+          "name": "Ingest Runs (Multipart)",
+          "request": {
+            "name": "Ingest Runs (Multipart)",
+            "description": {
+              "content": "Ingests multiple runs, feedback objects, and binary attachments in a single `multipart/form-data` request.\n**Part‑name pattern**: `<event>.<run_id>[.<field>]` where `event` ∈ {`post`, `patch`, `feedback`, `attachment`}.\n* `post|patch.<run_id>` – JSON run payload.\n* `post|patch.<run_id>.<field>` – out‑of‑band run data (`inputs`, `outputs`, `events`, `error`, `extra`, `serialized`).\n* `feedback.<run_id>` – JSON feedback payload (must include `trace_id`).\n* `attachment.<run_id>.<filename>` – arbitrary binary attachment stored in S3.\n**Headers**: every part must set `Content-Type` **and** either a `Content-Length` header or `length` parameter. Per‑part `Content-Encoding` is **not** allowed; the top‑level request may be `Content-Encoding: gzip` or `Content-Encoding: zstd`.\n**Best performance** for high‑volume ingestion.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runs",
+                "multipart"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "post.{run_id}",
+                  "type": "file",
+                  "description": "Run to create (JSON)"
+                },
+                {
+                  "key": "patch.{run_id}",
+                  "type": "file",
+                  "description": "Run to update (JSON)"
+                },
+                {
+                  "key": "post.{run_id}.inputs",
+                  "type": "file",
+                  "description": "Large inputs object (JSON) stored out‑of‑band"
+                },
+                {
+                  "key": "patch.{run_id}.outputs",
+                  "type": "file",
+                  "description": "Large outputs object (JSON) stored out‑of‑band"
+                },
+                {
+                  "key": "feedback.{run_id}",
+                  "type": "file",
+                  "description": "Feedback object (JSON) – must include trace_id"
+                },
+                {
+                  "key": "attachment.{run_id}.{filename}",
+                  "type": "file",
+                  "description": "Binary attachment linked to run {run_id}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8f165614-3666-412f-9cb9-e52259ea12fb",
+              "name": "Accepted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Run to create (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Run to update (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large inputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}.inputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large outputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}.outputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Feedback object (JSON) – must include trace_id",
+                        "type": "text/plain"
+                      },
+                      "key": "feedback.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary attachment linked to run {run_id}",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment.{run_id}.{filename}",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d9e21846-41a6-4ea4-b7d2-67b4c28fc3f9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Run to create (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Run to update (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large inputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}.inputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large outputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}.outputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Feedback object (JSON) – must include trace_id",
+                        "type": "text/plain"
+                      },
+                      "key": "feedback.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary attachment linked to run {run_id}",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment.{run_id}.{filename}",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "646700c9-541a-4204-997a-dc938f86dbb0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Run to create (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Run to update (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large inputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}.inputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large outputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}.outputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Feedback object (JSON) – must include trace_id",
+                        "type": "text/plain"
+                      },
+                      "key": "feedback.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary attachment linked to run {run_id}",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment.{run_id}.{filename}",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42ac06f8-b811-4b1a-a4b3-3bb84c6136f8",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Run to create (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Run to update (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large inputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}.inputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large outputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}.outputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Feedback object (JSON) – must include trace_id",
+                        "type": "text/plain"
+                      },
+                      "key": "feedback.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary attachment linked to run {run_id}",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment.{run_id}.{filename}",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "41bfba6e-e24b-4a5b-92ae-d384f596203e",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Run to create (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Run to update (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large inputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}.inputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large outputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}.outputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Feedback object (JSON) – must include trace_id",
+                        "type": "text/plain"
+                      },
+                      "key": "feedback.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary attachment linked to run {run_id}",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment.{run_id}.{filename}",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b88951c-ff1e-433b-9854-232278584017",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    "multipart"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "Run to create (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Run to update (JSON)",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large inputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "post.{run_id}.inputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Large outputs object (JSON) stored out‑of‑band",
+                        "type": "text/plain"
+                      },
+                      "key": "patch.{run_id}.outputs",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Feedback object (JSON) – must include trace_id",
+                        "type": "text/plain"
+                      },
+                      "key": "feedback.{run_id}",
+                      "value": "<binary>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Binary attachment linked to run {run_id}",
+                        "type": "text/plain"
+                      },
+                      "key": "attachment.{run_id}.{filename}",
+                      "value": "<binary>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f5e0d927-dde7-4410-992e-18ca324d0abe",
+          "name": "Update a Run",
+          "request": {
+            "name": "Update a Run",
+            "description": {
+              "content": "Updates a run identified by its ID. The body should contain only the fields to be changed; unknown fields are ignored.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "runs",
+                ":run_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "run_id",
+                  "description": "(Required) Run ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": \"string\"\n    },\n    {\n      \"key_0\": 8028.655139656807\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 371.0591898876814\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": false\n  },\n  \"inputs\": {\n    \"key_0\": 5986,\n    \"key_1\": \"string\",\n    \"key_2\": \"string\",\n    \"key_3\": 6015.019017663559,\n    \"key_4\": 6500\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": \"string\"\n  },\n  \"outputs\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": true,\n    \"key_1\": true,\n    \"key_2\": false\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9ccfb4ce-cd8a-4660-a4a1-2758be6d2209",
+              "name": "Run updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"value\": \"<Error: Could not resolve allOf schema\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8ef590f-7419-403a-8132-2e4dc0ee440a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a875a74c-287e-4888-ae79-0efb6b157a4b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e65db76e-8919-4e36-a643-3243ceeb2212",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f56dc71-6d62-41ba-93f8-e70958d2811f",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "271ad096-11e7-42db-9f05-4466551ea257",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe95de4a-fcc1-4e73-be1a-67fe58ac2d11",
+              "name": "Too Many Requests",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"dotted_order\": \"<string>\",\n  \"end_time\": \"<string>\",\n  \"error\": \"<string>\",\n  \"events\": [\n    {\n      \"key_0\": 8457.531616554077,\n      \"key_1\": false,\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 3901\n    }\n  ],\n  \"extra\": {\n    \"key_0\": 1145\n  },\n  \"id\": \"<string>\",\n  \"input_attachments\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\"\n  },\n  \"inputs\": {\n    \"key_0\": 2747.9845131337443,\n    \"key_1\": 2825,\n    \"key_2\": false\n  },\n  \"name\": \"<string>\",\n  \"output_attachments\": {\n    \"key_0\": 7915\n  },\n  \"outputs\": {\n    \"key_0\": false,\n    \"key_1\": false\n  },\n  \"parent_run_id\": \"<string>\",\n  \"reference_example_id\": \"<string>\",\n  \"run_type\": \"<string>\",\n  \"serialized\": {\n    \"key_0\": 7025,\n    \"key_1\": 986.5081884455717\n  },\n  \"session_id\": \"<string>\",\n  \"session_name\": \"<string>\",\n  \"start_time\": \"<string>\",\n  \"status\": \"<string>\",\n  \"tags\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trace_id\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"details\": \"{\\\"field\\\":\\\"dataset_id\\\",\\\"reason\\\":\\\"required\\\"}\",\n  \"error\": \"Invalid request: missing required fields\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4bf628ef-0b2b-4dd5-b6ba-999dd90c1e0e",
+          "name": "Query runs",
+          "request": {
+            "name": "Query runs",
+            "description": {
+              "content": "**Alpha:** The request and response contract may change;\nReturns a paginated list of runs for the given projects within min/max start_time. Supports filters, cursor pagination, and `selects` to select fields to return.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "runs",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ai_query\": \"<string>\",\n  \"cursor\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"has_error\": \"<boolean>\",\n  \"ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"is_root\": \"<boolean>\",\n  \"max_start_time\": \"<dateTime>\",\n  \"min_start_time\": \"<dateTime>\",\n  \"page_size\": 100,\n  \"project_ids\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"reference_examples\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"run_type\": \"<string>\",\n  \"selects\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sort_order\": \"DESC\",\n  \"trace_filter\": \"<string>\",\n  \"trace_id\": \"<uuid>\",\n  \"tree_filter\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b26bcab-aec8-4eca-85a3-4a884a563591",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json (required for JSON body)",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ai_query\": \"runs that used tool calls\",\n  \"cursor\": \"eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=\",\n  \"filter\": \"and(eq(run_type, \\\"llm\\\"), gt(latency, 5))\",\n  \"has_error\": false,\n  \"ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"f47ac10b-58cc-4372-a567-0e02b2c3d479\"\n  ],\n  \"is_root\": true,\n  \"max_start_time\": \"2024-12-31T23:59:59Z\",\n  \"min_start_time\": \"2024-01-01T00:00:00Z\",\n  \"page_size\": 100,\n  \"project_ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n  ],\n  \"reference_examples\": [\n    \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n    \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\"\n  ],\n  \"run_type\": \"LLM\",\n  \"selects\": [\n    \"ID\",\n    \"NAME\",\n    \"PROJECT_ID\",\n    \"START_TIME\",\n    \"RUN_TYPE\",\n    \"STATUS\"\n  ],\n  \"sort_order\": \"DESC\",\n  \"trace_filter\": \"eq(status, \\\"success\\\")\",\n  \"trace_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n  \"tree_filter\": \"has(tags, \\\"production\\\")\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"items\": [\n    {\n      \"app_path\": \"/app/chains/chat.py:invoke\",\n      \"attachments\": {\n        \"{\\\"output.png\\\"\": \"\\\"https://storage.example.com/bucket/key?X-Amz-Signature=abc\\\"}\"\n      },\n      \"completion_cost\": 0.0003,\n      \"completion_cost_details\": {\n        \"raw\": {\n          \"key_0\": 4662.982768850512,\n          \"key_1\": 4484.071412866213\n        }\n      },\n      \"completion_token_details\": {\n        \"raw\": {\n          \"key_0\": 9102,\n          \"key_1\": 9413\n        }\n      },\n      \"completion_tokens\": 150,\n      \"dotted_order\": \"20240115T103000000000Z018e4c7ea9fb7ef0a5b66ea3a82e9327.\",\n      \"end_time\": \"2024-01-15T10:30:01.500Z\",\n      \"error\": \"context deadline exceeded\",\n      \"error_preview\": \"string\",\n      \"events\": [\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        },\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        }\n      ],\n      \"extra\": {},\n      \"feedback_stats\": {\n        \"key_0\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_2\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n      \"id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"inputs\": {},\n      \"inputs_preview\": \"string\",\n      \"is_in_dataset\": true,\n      \"is_root\": true,\n      \"latency_seconds\": 1.523,\n      \"manifest\": {},\n      \"metadata\": {},\n      \"name\": \"ChatOpenAI\",\n      \"outputs\": {},\n      \"outputs_preview\": \"string\",\n      \"parent_run_ids\": [\n        \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n        \"a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d\"\n      ],\n      \"price_model_id\": \"e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b\",\n      \"project_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"prompt_cost\": 0.0002,\n      \"prompt_cost_details\": {\n        \"raw\": {\n          \"key_0\": 8372.25825595786,\n          \"key_1\": 6277.888152550938\n        }\n      },\n      \"prompt_token_details\": {\n        \"raw\": {\n          \"key_0\": 7458\n        }\n      },\n      \"prompt_tokens\": 200,\n      \"reference_dataset_id\": \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\",\n      \"reference_example_id\": \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n      \"run_type\": \"LLM\",\n      \"share_url\": \"https://smith.langchain.com/public/4f7a1b2c-8d9e-4a0b-9c1d-2e3f4a5b6c7d/r\",\n      \"start_time\": \"2024-01-15T10:30:00.000Z\",\n      \"status\": \"SUCCESS\",\n      \"tags\": [\n        \"production\",\n        \"gpt-4\"\n      ],\n      \"thread_evaluation_time\": \"2013-02-16T08:12:02.105Z\",\n      \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n      \"total_cost\": 0.000525,\n      \"total_tokens\": 350,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n    },\n    {\n      \"app_path\": \"/app/chains/chat.py:invoke\",\n      \"attachments\": {\n        \"{\\\"output.png\\\"\": \"\\\"https://storage.example.com/bucket/key?X-Amz-Signature=abc\\\"}\"\n      },\n      \"completion_cost\": 0.0003,\n      \"completion_cost_details\": {\n        \"raw\": {\n          \"key_0\": 2597.129896908105\n        }\n      },\n      \"completion_token_details\": {\n        \"raw\": {\n          \"key_0\": 2366,\n          \"key_1\": 2887\n        }\n      },\n      \"completion_tokens\": 150,\n      \"dotted_order\": \"20240115T103000000000Z018e4c7ea9fb7ef0a5b66ea3a82e9327.\",\n      \"end_time\": \"2024-01-15T10:30:01.500Z\",\n      \"error\": \"context deadline exceeded\",\n      \"error_preview\": \"string\",\n      \"events\": [\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        },\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        }\n      ],\n      \"extra\": {},\n      \"feedback_stats\": {\n        \"key_0\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_2\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_3\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n      \"id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"inputs\": {},\n      \"inputs_preview\": \"string\",\n      \"is_in_dataset\": true,\n      \"is_root\": true,\n      \"latency_seconds\": 1.523,\n      \"manifest\": {},\n      \"metadata\": {},\n      \"name\": \"ChatOpenAI\",\n      \"outputs\": {},\n      \"outputs_preview\": \"string\",\n      \"parent_run_ids\": [\n        \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n        \"a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d\"\n      ],\n      \"price_model_id\": \"e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b\",\n      \"project_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"prompt_cost\": 0.0002,\n      \"prompt_cost_details\": {\n        \"raw\": {\n          \"key_0\": 727.0234617587456\n        }\n      },\n      \"prompt_token_details\": {\n        \"raw\": {\n          \"key_0\": 269,\n          \"key_1\": 6176\n        }\n      },\n      \"prompt_tokens\": 200,\n      \"reference_dataset_id\": \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\",\n      \"reference_example_id\": \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n      \"run_type\": \"LLM\",\n      \"share_url\": \"https://smith.langchain.com/public/4f7a1b2c-8d9e-4a0b-9c1d-2e3f4a5b6c7d/r\",\n      \"start_time\": \"2024-01-15T10:30:00.000Z\",\n      \"status\": \"SUCCESS\",\n      \"tags\": [\n        \"production\",\n        \"gpt-4\"\n      ],\n      \"thread_evaluation_time\": \"1991-08-16T11:03:33.309Z\",\n      \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n      \"total_cost\": 0.000525,\n      \"total_tokens\": 350,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n    }\n  ],\n  \"next_cursor\": \"eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03425312-62cb-44a2-a18a-e5ce54e0049a",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json (required for JSON body)",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ai_query\": \"runs that used tool calls\",\n  \"cursor\": \"eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=\",\n  \"filter\": \"and(eq(run_type, \\\"llm\\\"), gt(latency, 5))\",\n  \"has_error\": false,\n  \"ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"f47ac10b-58cc-4372-a567-0e02b2c3d479\"\n  ],\n  \"is_root\": true,\n  \"max_start_time\": \"2024-12-31T23:59:59Z\",\n  \"min_start_time\": \"2024-01-01T00:00:00Z\",\n  \"page_size\": 100,\n  \"project_ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n  ],\n  \"reference_examples\": [\n    \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n    \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\"\n  ],\n  \"run_type\": \"LLM\",\n  \"selects\": [\n    \"ID\",\n    \"NAME\",\n    \"PROJECT_ID\",\n    \"START_TIME\",\n    \"RUN_TYPE\",\n    \"STATUS\"\n  ],\n  \"sort_order\": \"DESC\",\n  \"trace_filter\": \"eq(status, \\\"success\\\")\",\n  \"trace_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n  \"tree_filter\": \"has(tags, \\\"production\\\")\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6814b04b-4ded-412c-8117-cc9c9528c50e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json (required for JSON body)",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"ai_query\": \"runs that used tool calls\",\n  \"cursor\": \"eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=\",\n  \"filter\": \"and(eq(run_type, \\\"llm\\\"), gt(latency, 5))\",\n  \"has_error\": false,\n  \"ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"f47ac10b-58cc-4372-a567-0e02b2c3d479\"\n  ],\n  \"is_root\": true,\n  \"max_start_time\": \"2024-12-31T23:59:59Z\",\n  \"min_start_time\": \"2024-01-01T00:00:00Z\",\n  \"page_size\": 100,\n  \"project_ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n  ],\n  \"reference_examples\": [\n    \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n    \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\"\n  ],\n  \"run_type\": \"LLM\",\n  \"selects\": [\n    \"ID\",\n    \"NAME\",\n    \"PROJECT_ID\",\n    \"START_TIME\",\n    \"RUN_TYPE\",\n    \"STATUS\"\n  ],\n  \"sort_order\": \"DESC\",\n  \"trace_filter\": \"eq(status, \\\"success\\\")\",\n  \"trace_id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\",\n  \"tree_filter\": \"has(tags, \\\"production\\\")\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dc8987b7-f2f7-4830-9c01-9fb4d49e688e",
+          "name": "Get a single run",
+          "request": {
+            "name": "Get a single run",
+            "description": {
+              "content": "**Alpha:** The request and response contract may change;\nReturns one run by ID for the given session and start_time. Use the `selects` query parameter (repeatable) to select fields to return.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "runs",
+                ":run_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<uuid>",
+                  "description": "(Required) `project_id` is the UUID of the tracing project that owns the run."
+                },
+                {
+                  "disabled": false,
+                  "key": "selects",
+                  "value": "<string>",
+                  "description": "`selects` lists which properties to include on the returned run (repeatable query parameter). Accepts any value of the `RunSelectField` enum. If omitted, only `id` is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "selects",
+                  "value": "<string>",
+                  "description": "`selects` lists which properties to include on the returned run (repeatable query parameter). Accepts any value of the `RunSelectField` enum. If omitted, only `id` is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "start_time",
+                  "value": "<dateTime>",
+                  "description": "(Required) `start_time` is the run's `start_time` (RFC3339 date-time), used together with `project_id` to locate the run."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "run_id",
+                  "description": "(Required) Run UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f06e9edb-f1a2-4353-9474-4a01ddc5cf31",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"app_path\": \"/app/chains/chat.py:invoke\",\n  \"attachments\": {\n    \"{\\\"output.png\\\"\": \"\\\"https://storage.example.com/bucket/key?X-Amz-Signature=abc\\\"}\"\n  },\n  \"completion_cost\": 0.0003,\n  \"completion_cost_details\": {\n    \"raw\": {\n      \"key_0\": 5132.3909174152905,\n      \"key_1\": 4573.457920000039\n    }\n  },\n  \"completion_token_details\": {\n    \"raw\": {\n      \"key_0\": 5528,\n      \"key_1\": 3234,\n      \"key_2\": 6006\n    }\n  },\n  \"completion_tokens\": 150,\n  \"dotted_order\": \"20240115T103000000000Z018e4c7ea9fb7ef0a5b66ea3a82e9327.\",\n  \"end_time\": \"2024-01-15T10:30:01.500Z\",\n  \"error\": \"context deadline exceeded\",\n  \"error_preview\": \"string\",\n  \"events\": [\n    {\n      \"kwargs\": {},\n      \"name\": \"new_token\",\n      \"time\": \"2024-01-15T10:30:00.312Z\"\n    },\n    {\n      \"kwargs\": {},\n      \"name\": \"new_token\",\n      \"time\": \"2024-01-15T10:30:00.312Z\"\n    }\n  ],\n  \"extra\": {},\n  \"feedback_stats\": {\n    \"key_0\": {\n      \"avg\": 0.87,\n      \"comments\": [\n        \"good answer\",\n        \"needs citation\"\n      ],\n      \"contains_thread_feedback\": false,\n      \"errors\": 0,\n      \"max\": 0.95,\n      \"min\": 0.8,\n      \"n\": 42,\n      \"stdev\": 0.05,\n      \"values\": {\n        \"key_0\": 6955\n      }\n    },\n    \"key_1\": {\n      \"avg\": 0.87,\n      \"comments\": [\n        \"good answer\",\n        \"needs citation\"\n      ],\n      \"contains_thread_feedback\": false,\n      \"errors\": 0,\n      \"max\": 0.95,\n      \"min\": 0.8,\n      \"n\": 42,\n      \"stdev\": 0.05,\n      \"values\": {\n        \"key_0\": 6467,\n        \"key_1\": 5446,\n        \"key_2\": 6858\n      }\n    }\n  },\n  \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n  \"id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n  \"inputs\": {},\n  \"inputs_preview\": \"string\",\n  \"is_in_dataset\": true,\n  \"is_root\": true,\n  \"latency_seconds\": 1.523,\n  \"manifest\": {},\n  \"metadata\": {},\n  \"name\": \"ChatOpenAI\",\n  \"outputs\": {},\n  \"outputs_preview\": \"string\",\n  \"parent_run_ids\": [\n    \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n    \"a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d\"\n  ],\n  \"price_model_id\": \"e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b\",\n  \"project_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n  \"prompt_cost\": 0.0002,\n  \"prompt_cost_details\": {\n    \"raw\": {\n      \"key_0\": 2169.2095931667222,\n      \"key_1\": 9760.201526791212,\n      \"key_2\": 6741.226555212665\n    }\n  },\n  \"prompt_token_details\": {\n    \"raw\": {\n      \"key_0\": 1915,\n      \"key_1\": 2478\n    }\n  },\n  \"prompt_tokens\": 200,\n  \"reference_dataset_id\": \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\",\n  \"reference_example_id\": \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n  \"run_type\": \"LLM\",\n  \"share_url\": \"https://smith.langchain.com/public/4f7a1b2c-8d9e-4a0b-9c1d-2e3f4a5b6c7d/r\",\n  \"start_time\": \"2024-01-15T10:30:00.000Z\",\n  \"status\": \"SUCCESS\",\n  \"tags\": [\n    \"production\",\n    \"gpt-4\"\n  ],\n  \"thread_evaluation_time\": \"2013-08-14T15:17:34.035Z\",\n  \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n  \"total_cost\": 0.000525,\n  \"total_tokens\": 350,\n  \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75845e5e-9b89-417a-8df0-a4051a57005f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e79ed05-968f-472c-8de2-1d98bcbe7995",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ebd1d3a-b853-4e01-8ab0-8b79208c3e59",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "runs",
+                    ":run_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "start_time",
+                      "value": "<dateTime>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "run_id",
+                      "description": "(Required) Run UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "89dd0c6d-0e88-448c-a60a-11abbb1a74af",
+          "name": "List runs in a trace",
+          "request": {
+            "name": "List runs in a trace",
+            "description": {
+              "content": "**Alpha:** The request and response contract may change;\nReturns runs for a trace ID within min/max start time. Optional `filter`; repeatable `selects` to select fields to return.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "traces",
+                ":trace_id",
+                "runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "`filter` narrows which runs within this trace are returned, using a LangSmith filter expression evaluated against each run. For example: `eq(run_type, \"llm\")` for LLM runs only, or `eq(status, \"error\")` for failed runs.\nSee https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_start_time",
+                  "value": "<dateTime>",
+                  "description": "(Required) `max_start_time` is the inclusive upper bound for run `start_time` (RFC3339 date-time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_start_time",
+                  "value": "<dateTime>",
+                  "description": "(Required) `min_start_time` is the inclusive lower bound for run `start_time` (RFC3339 date-time)."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<uuid>",
+                  "description": "(Required) `project_id` is the UUID of the tracing project that owns the trace."
+                },
+                {
+                  "disabled": false,
+                  "key": "selects",
+                  "value": "<string>",
+                  "description": "`selects` lists which properties to include on each returned run (repeatable query parameter). Accepts any value of the `RunSelectField` enum. If omitted, only `id` is returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "selects",
+                  "value": "<string>",
+                  "description": "`selects` lists which properties to include on each returned run (repeatable query parameter). Accepts any value of the `RunSelectField` enum. If omitted, only `id` is returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "trace_id",
+                  "description": "(Required) Trace UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5e29c8b6-22ba-4764-a49c-62e32afe3b26",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "traces",
+                    ":trace_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "min_start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "trace_id",
+                      "description": "(Required) Trace UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"app_path\": \"/app/chains/chat.py:invoke\",\n      \"attachments\": {\n        \"{\\\"output.png\\\"\": \"\\\"https://storage.example.com/bucket/key?X-Amz-Signature=abc\\\"}\"\n      },\n      \"completion_cost\": 0.0003,\n      \"completion_cost_details\": {\n        \"raw\": {\n          \"key_0\": 8108.41366548294\n        }\n      },\n      \"completion_token_details\": {\n        \"raw\": {\n          \"key_0\": 6276,\n          \"key_1\": 60\n        }\n      },\n      \"completion_tokens\": 150,\n      \"dotted_order\": \"20240115T103000000000Z018e4c7ea9fb7ef0a5b66ea3a82e9327.\",\n      \"end_time\": \"2024-01-15T10:30:01.500Z\",\n      \"error\": \"context deadline exceeded\",\n      \"error_preview\": \"string\",\n      \"events\": [\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        },\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        }\n      ],\n      \"extra\": {},\n      \"feedback_stats\": {\n        \"key_0\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_2\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n      \"id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"inputs\": {},\n      \"inputs_preview\": \"string\",\n      \"is_in_dataset\": true,\n      \"is_root\": true,\n      \"latency_seconds\": 1.523,\n      \"manifest\": {},\n      \"metadata\": {},\n      \"name\": \"ChatOpenAI\",\n      \"outputs\": {},\n      \"outputs_preview\": \"string\",\n      \"parent_run_ids\": [\n        \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n        \"a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d\"\n      ],\n      \"price_model_id\": \"e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b\",\n      \"project_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"prompt_cost\": 0.0002,\n      \"prompt_cost_details\": {\n        \"raw\": {\n          \"key_0\": 9687.044601948215,\n          \"key_1\": 26.550735817546524\n        }\n      },\n      \"prompt_token_details\": {\n        \"raw\": {\n          \"key_0\": 4749\n        }\n      },\n      \"prompt_tokens\": 200,\n      \"reference_dataset_id\": \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\",\n      \"reference_example_id\": \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n      \"run_type\": \"LLM\",\n      \"share_url\": \"https://smith.langchain.com/public/4f7a1b2c-8d9e-4a0b-9c1d-2e3f4a5b6c7d/r\",\n      \"start_time\": \"2024-01-15T10:30:00.000Z\",\n      \"status\": \"SUCCESS\",\n      \"tags\": [\n        \"production\",\n        \"gpt-4\"\n      ],\n      \"thread_evaluation_time\": \"1992-08-12T03:32:45.321Z\",\n      \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n      \"total_cost\": 0.000525,\n      \"total_tokens\": 350,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n    },\n    {\n      \"app_path\": \"/app/chains/chat.py:invoke\",\n      \"attachments\": {\n        \"{\\\"output.png\\\"\": \"\\\"https://storage.example.com/bucket/key?X-Amz-Signature=abc\\\"}\"\n      },\n      \"completion_cost\": 0.0003,\n      \"completion_cost_details\": {\n        \"raw\": {\n          \"key_0\": 3436.2913873275656\n        }\n      },\n      \"completion_token_details\": {\n        \"raw\": {\n          \"key_0\": 6539,\n          \"key_1\": 6487\n        }\n      },\n      \"completion_tokens\": 150,\n      \"dotted_order\": \"20240115T103000000000Z018e4c7ea9fb7ef0a5b66ea3a82e9327.\",\n      \"end_time\": \"2024-01-15T10:30:01.500Z\",\n      \"error\": \"context deadline exceeded\",\n      \"error_preview\": \"string\",\n      \"events\": [\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        },\n        {\n          \"kwargs\": {},\n          \"name\": \"new_token\",\n          \"time\": \"2024-01-15T10:30:00.312Z\"\n        }\n      ],\n      \"extra\": {},\n      \"feedback_stats\": {\n        \"key_0\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n      \"id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"inputs\": {},\n      \"inputs_preview\": \"string\",\n      \"is_in_dataset\": true,\n      \"is_root\": true,\n      \"latency_seconds\": 1.523,\n      \"manifest\": {},\n      \"metadata\": {},\n      \"name\": \"ChatOpenAI\",\n      \"outputs\": {},\n      \"outputs_preview\": \"string\",\n      \"parent_run_ids\": [\n        \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n        \"a1b2c3d4-e5f6-4a5b-8c9d-0e1f2a3b4c5d\"\n      ],\n      \"price_model_id\": \"e5f6a7b8-c9d0-4e1f-2a3b-4c5d6e7f8a9b\",\n      \"project_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"prompt_cost\": 0.0002,\n      \"prompt_cost_details\": {\n        \"raw\": {\n          \"key_0\": 5014.312551250152\n        }\n      },\n      \"prompt_token_details\": {\n        \"raw\": {\n          \"key_0\": 8825\n        }\n      },\n      \"prompt_tokens\": 200,\n      \"reference_dataset_id\": \"c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f\",\n      \"reference_example_id\": \"b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e\",\n      \"run_type\": \"LLM\",\n      \"share_url\": \"https://smith.langchain.com/public/4f7a1b2c-8d9e-4a0b-9c1d-2e3f4a5b6c7d/r\",\n      \"start_time\": \"2024-01-15T10:30:00.000Z\",\n      \"status\": \"SUCCESS\",\n      \"tags\": [\n        \"production\",\n        \"gpt-4\"\n      ],\n      \"thread_evaluation_time\": \"1970-12-02T05:41:14.419Z\",\n      \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n      \"total_cost\": 0.000525,\n      \"total_tokens\": 350,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f8f58aa-e67d-49fb-9f45-01b154867fa7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "traces",
+                    ":trace_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "min_start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "trace_id",
+                      "description": "(Required) Trace UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "02fcfc32-480f-4c93-8d22-4a833b5f2561",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "traces",
+                    ":trace_id",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "max_start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "min_start_time",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "trace_id",
+                      "description": "(Required) Trace UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "application/json",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "5c621a72-0bb7-4f54-9ca5-9c2a12bae0f5",
+    "name": "LangSmith access_policies runs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LangSmith API is used to programmatically create and manage LangSmith resources.\n\n## Host\nhttps://api.smith.langchain.com\n\n## Authentication\nTo authenticate with the LangSmith API, set the `X-Api-Key` header\nto a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).\n\n",
+      "type": "text/plain"
+    }
+  }
+}

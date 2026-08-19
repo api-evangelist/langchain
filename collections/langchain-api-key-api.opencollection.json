@@ -1,0 +1,142 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies api-key API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "api-key",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Api Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/api-key",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the current tenant's API keys"
+        },
+        {
+          "info": {
+            "name": "Generate Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/api-key",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generate an api key for the user"
+        },
+        {
+          "info": {
+            "name": "Delete Api Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/api-key/:api_key_id",
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an api key for the user"
+        },
+        {
+          "info": {
+            "name": "Get Personal Access Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/api-key/current",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "DEPRECATED: Use /orgs/current/personal-access-tokens instead"
+        },
+        {
+          "info": {
+            "name": "Generate Personal Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/api-key/current",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "DEPRECATED: Use /orgs/current/personal-access-tokens instead"
+        },
+        {
+          "info": {
+            "name": "Delete Personal Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/api-key/current/:pat_id",
+            "params": [
+              {
+                "name": "pat_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "DEPRECATED: Use /orgs/current/personal-access-tokens/{pat_id} instead"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

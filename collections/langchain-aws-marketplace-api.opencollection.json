@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies aws_marketplace API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "aws_marketplace",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "AWS Marketplace fulfillment URL registration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/aws-marketplace/register",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "x-amzn-marketplace-token",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Receives the x-amzn-marketplace-token posted by AWS Marketplace when a customer clicks \"Set Up Account\", resolves the customer identity, fetches entitlements, stores both in the DB, and redirects to the thank-you page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

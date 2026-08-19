@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies beacon API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "beacon",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Submit a self-hosted usage snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/beacon/usage-snapshot",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Records aggregate entity counts (workspaces, projects, datasets, active users, etc.)\nfrom a self-hosted deployment. Called daily by installs where PHONE_HOME_ENABLED\nand PHONE_HOME_USAGE_REPORTING_ENABLED are set. Authenticates via license key."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies me API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "me",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Onboarding State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/me/onboarding_state",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get onboarding state for the current user."
+        },
+        {
+          "info": {
+            "name": "Create Onboarding State",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/me/onboarding_state",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Initialize onboarding state for the current user."
+        },
+        {
+          "info": {
+            "name": "Update Onboarding State Field",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/me/onboarding_state/:field",
+            "params": [
+              {
+                "name": "field",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a specific onboarding completion field for the current user.\n\nValid fields:\n- tracing_completed_at\n- lgstudio_completed_at\n- playground_completed_at\n- evaluation_completed_at\n- success_viewed_at"
+        },
+        {
+          "info": {
+            "name": "Get Ls User Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/me/ls_user_id",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the LangSmith user ID for the current user."
+        },
+        {
+          "info": {
+            "name": "Get the authenticated user's provider user ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/me/providers/:providerType",
+            "params": [
+              {
+                "name": "providerType",
+                "value": "",
+                "type": "path",
+                "description": "Provider type (e.g. slack, github)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the provider user ID associated with the authenticated user for a given provider type, or null if not set. Scoped to the current tenant."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies settings API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/settings",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get settings."
+        },
+        {
+          "info": {
+            "name": "Set Tenant Handle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/settings/handle",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set tenant handle."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

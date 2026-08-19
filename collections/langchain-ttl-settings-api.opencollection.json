@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies TTL Settings API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "TTL Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get workspace TTL settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/workspaces/current/ttl-settings",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the longlived trace TTL settings for a workspace"
+        },
+        {
+          "info": {
+            "name": "Update workspace TTL settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/workspaces/current/ttl-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update the longlived trace TTL for a workspace."
+        },
+        {
+          "info": {
+            "name": "List Ttl Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/ttl-settings",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List out the configured TTL settings for a given tenant."
+        },
+        {
+          "info": {
+            "name": "Upsert Ttl Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/ttl-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert Ttl Settings"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

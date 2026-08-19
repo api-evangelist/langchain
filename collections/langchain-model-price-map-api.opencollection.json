@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies model-price-map API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "model-price-map",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Model Price Map",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/model-price-map",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Read Model Price Map"
+        },
+        {
+          "info": {
+            "name": "Create New Model Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/model-price-map",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create New Model Price"
+        },
+        {
+          "info": {
+            "name": "Update Model Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/model-price-map/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Model Price"
+        },
+        {
+          "info": {
+            "name": "Delete Model Price",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/model-price-map/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Model Price"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

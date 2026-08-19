@@ -1,0 +1,146 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies mcp API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "mcp",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/mcp/tools",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "oauth_provider_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ls_user_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "force_refresh",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Return MCP tools — from cache if fresh, otherwise by fetching from remote.\n\nOn cache miss, tries manifest fetch first (fast), then falls back to full\nMCP handshake. Caches the result before returning.\n\nPass force_refresh=true to bypass the cache and always fetch from the\nremote server (the result is still cached via upsert for future requests).\n\nThe ls_user_id query parameter allows service-key callers (which don't carry\nls_user_id in auth) to specify the user for per-user OAuth cache lookups."
+        },
+        {
+          "info": {
+            "name": "Invalidate Tools Cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/mcp/tools",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "oauth_provider_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ls_user_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Invalidate cached MCP tools for a given server URL.\n\nCalled when a tool call fails with a stale-tools error, so subsequent\nrequests to GET /mcp/tools will re-fetch from the remote server."
+        },
+        {
+          "info": {
+            "name": "Proxy Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/mcp/proxy",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "accept_stream",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "timeout",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Proxy Get"
+        },
+        {
+          "info": {
+            "name": "Proxy",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/mcp/proxy",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Proxy"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies integrations API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "integrations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Agent Builder integrations settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/agent-builder/integrations",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns default policy, integration overrides, and known integrations for the current workspace."
+        },
+        {
+          "info": {
+            "name": "Update Agent Builder integrations settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/v1/agent-builder/integrations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Replaces default policy and integration overrides for the current workspace."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

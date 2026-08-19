@@ -1,0 +1,700 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies run API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "run",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/rules",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "evaluator_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_backfill_progress",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all run rules."
+        },
+        {
+          "info": {
+            "name": "Create Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/rules",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new run rule."
+        },
+        {
+          "info": {
+            "name": "Validate Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/rules/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validate a rule by executing it with test data without creating a saved rule.\n\nThis endpoint allows testing LLM-as-judge evaluators before saving them. It accepts\na rule configuration (same as rule creation) and test data, executes the evaluator,\nand returns the evaluation results in the same format as batch_invoke_evaluator.\n\nOnly LLM-as-judge rules (evaluators) are supported. Code evaluators are not allowed.\n\nThe evaluator execution traces are written to the database (in the \"evaluators\"\nproje"
+        },
+        {
+          "info": {
+            "name": "Update Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/runs/rules/:rule_id",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a run rule."
+        },
+        {
+          "info": {
+            "name": "Delete Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/runs/rules/:rule_id",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a run rule."
+        },
+        {
+          "info": {
+            "name": "Thread Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/threads/:thread_id",
+            "params": [
+              {
+                "name": "thread_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "variables",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get preview of a thread."
+        },
+        {
+          "info": {
+            "name": "List Rule Logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/rules/:rule_id/logs",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List logs for a particular rule"
+        },
+        {
+          "info": {
+            "name": "List Rule Logs V2",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/rules/:rule_id/logs/v2",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "backfill",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List logs for a particular rule with cursor-based pagination.\n\nThis endpoint handles S3-stored outcomes correctly by using run_outcomes_count\nto predict batch sizes and avoid over-fetching."
+        },
+        {
+          "info": {
+            "name": "Get Last Applied Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/rules/:rule_id/last_applied",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "backfill",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the last applied rule."
+        },
+        {
+          "info": {
+            "name": "Trigger Rule",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/rules/:rule_id/trigger",
+            "params": [
+              {
+                "name": "rule_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Trigger a run rule manually."
+        },
+        {
+          "info": {
+            "name": "Trigger Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/rules/trigger",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Trigger an array of run rules manually."
+        },
+        {
+          "info": {
+            "name": "Read Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_s3_stored_attributes",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_serialized",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_messages",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific run."
+        },
+        {
+          "info": {
+            "name": "Update Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a run."
+        },
+        {
+          "info": {
+            "name": "Read Run Share State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/runs/:run_id/share",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the state of sharing of a run."
+        },
+        {
+          "info": {
+            "name": "Share Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/runs/:run_id/share",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Share a run."
+        },
+        {
+          "info": {
+            "name": "Unshare Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/runs/:run_id/share",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unshare a run."
+        },
+        {
+          "info": {
+            "name": "Validate Runs Query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/query/validate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Validate runs query syntax, returns errors for broken queries."
+        },
+        {
+          "info": {
+            "name": "Query Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Query Runs"
+        },
+        {
+          "info": {
+            "name": "Generate Query For Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/generate-query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get runs filter expression query for a given natural language query."
+        },
+        {
+          "info": {
+            "name": "Stats Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/stats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all runs by query in body payload."
+        },
+        {
+          "info": {
+            "name": "Group Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/group",
+            "headers": [
+              {
+                "name": "accept",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get runs grouped by an expression"
+        },
+        {
+          "info": {
+            "name": "Stats Group Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/group/stats",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get stats for the grouped runs."
+        },
+        {
+          "info": {
+            "name": "Delete Runs Abac",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/delete/traces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete specific runs by trace IDs."
+        },
+        {
+          "info": {
+            "name": "Delete Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete specific runs by trace IDs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

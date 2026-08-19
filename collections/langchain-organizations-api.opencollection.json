@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies Organizations API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get current organization info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/orgs/current/info",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns organization info for the authenticated user's current organization."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

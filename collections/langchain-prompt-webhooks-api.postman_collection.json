@@ -1,0 +1,1016 @@
+{
+  "item": [
+    {
+      "id": "5fd66b5b-6b62-4dfd-ac80-4b614c9b9797",
+      "name": "prompt-webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e0afa692-9ddb-4cfe-9979-265220779664",
+          "name": "List Prompt Webhooks",
+          "request": {
+            "name": "List Prompt Webhooks",
+            "description": {
+              "content": "List all prompt webhooks for the current tenant.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "prompt-webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "48c22e60-b152-4ffc-95ba-9482669d3f36",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"url\": \"http://MjHSOZeGSJhRZOXiYZFVCBIjkAAytOx.jelLp91AGr9MOvYgtC8W2LPR5XCb3Vw556iTgV\",\n    \"id\": \"1a980855-c8a0-a76d-c86d-5594971dade5\",\n    \"tenant_id\": \"5adeaeec-b0df-6e4e-6ac2-17a67ccf4590\",\n    \"created_at\": \"2015-12-08T18:56:06.621Z\",\n    \"updated_at\": \"1986-09-12T12:36:43.997Z\",\n    \"headers\": {\n      \"key_0\": 1514\n    },\n    \"include_prompts\": [\n      \"6d0f7602-14d1-a34b-d350-53c3fa4f175f\",\n      \"d8044a0d-2a01-6e55-f875-464f8287cdee\"\n    ],\n    \"exclude_prompts\": [\n      \"b8276d63-722d-daf6-35f4-68fca5ac0776\",\n      \"6955e2ac-4fb8-eb0f-cb66-e3e0ced6c725\"\n    ],\n    \"triggers\": [\n      \"tag:create\",\n      \"commit\"\n    ]\n  },\n  {\n    \"url\": \"https://MGznN.vslKUmpntuVg,6QBV+AA7pyBpw\",\n    \"id\": \"4148c991-550f-1128-7002-826767e83e10\",\n    \"tenant_id\": \"39db6da3-439b-8b9b-5225-f1d442491b1c\",\n    \"created_at\": \"1984-05-13T10:45:02.881Z\",\n    \"updated_at\": \"1997-07-28T13:11:08.809Z\",\n    \"headers\": {\n      \"key_0\": true,\n      \"key_1\": true\n    },\n    \"include_prompts\": [\n      \"970fc3ab-275d-0984-0912-0c7155e47987\",\n      \"d89c718f-a5ae-3f8e-9302-5c532ceb3263\"\n    ],\n    \"exclude_prompts\": [\n      \"c5da7da9-bbe5-fb83-a98a-b41c3f99aa2b\",\n      \"8681ddcb-def5-24aa-19d0-82fede949c58\"\n    ],\n    \"triggers\": [\n      \"tag:create\",\n      \"tag:create\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b9bdf1d6-e6b6-4521-902e-6a9730d22cca",
+          "name": "Create Prompt Webhook",
+          "request": {
+            "name": "Create Prompt Webhook",
+            "description": {
+              "content": "Create a new prompt webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "prompt-webhooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"<uri>\",\n  \"headers\": {\n    \"key_0\": true\n  },\n  \"include_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exclude_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"triggers\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e3716f8-bf27-4f0d-967d-a8bf705af28b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"headers\": {\n    \"key_0\": 8070\n  },\n  \"include_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exclude_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"triggers\": [\n    \"tag:update\",\n    \"commit\"\n  ],\n  \"id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://koxlgeuGazZO.laxtMXLk+PzJeWHq0ueXk\",\n  \"id\": \"d28e3e39-4f7a-9615-f62a-e02c1da75ec5\",\n  \"tenant_id\": \"0fad2a11-b21a-5ec4-c101-684d814f9349\",\n  \"created_at\": \"1955-05-17T21:57:08.411Z\",\n  \"updated_at\": \"2022-02-09T08:11:38.185Z\",\n  \"headers\": {\n    \"key_0\": 3404,\n    \"key_1\": 97\n  },\n  \"include_prompts\": [\n    \"a914ed64-4d59-92d8-a4d5-37b7d6e6f844\",\n    \"d0f60d1b-056b-90b1-1447-e2d2c573c05c\"\n  ],\n  \"exclude_prompts\": [\n    \"5aba02af-2667-2cf7-5952-5e5e5391933e\",\n    \"46ca01e4-7fb3-e244-5c5f-2214fb7d4dab\"\n  ],\n  \"triggers\": [\n    \"tag:update\",\n    \"tag:update\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ba57c23-ca63-4b5c-8bf3-845ad893be05",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"url\": \"<uri>\",\n  \"headers\": {\n    \"key_0\": 8070\n  },\n  \"include_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exclude_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"triggers\": [\n    \"tag:update\",\n    \"commit\"\n  ],\n  \"id\": \"<uuid>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7dfd3c70-e4b9-415a-9e8f-2722d9ddf389",
+          "name": "Get Prompt Webhook",
+          "request": {
+            "name": "Get Prompt Webhook",
+            "description": {
+              "content": "Get a specific prompt webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "prompt-webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5de91b6d-11e7-45ae-bae5-4883ddd8cb29",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://koxlgeuGazZO.laxtMXLk+PzJeWHq0ueXk\",\n  \"id\": \"d28e3e39-4f7a-9615-f62a-e02c1da75ec5\",\n  \"tenant_id\": \"0fad2a11-b21a-5ec4-c101-684d814f9349\",\n  \"created_at\": \"1955-05-17T21:57:08.411Z\",\n  \"updated_at\": \"2022-02-09T08:11:38.185Z\",\n  \"headers\": {\n    \"key_0\": 3404,\n    \"key_1\": 97\n  },\n  \"include_prompts\": [\n    \"a914ed64-4d59-92d8-a4d5-37b7d6e6f844\",\n    \"d0f60d1b-056b-90b1-1447-e2d2c573c05c\"\n  ],\n  \"exclude_prompts\": [\n    \"5aba02af-2667-2cf7-5952-5e5e5391933e\",\n    \"46ca01e4-7fb3-e244-5c5f-2214fb7d4dab\"\n  ],\n  \"triggers\": [\n    \"tag:update\",\n    \"tag:update\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab429943-47b2-44a3-a365-2d5c04cfa97d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1ddffd89-ff01-43c6-8dab-240eeb3428b1",
+          "name": "Update Prompt Webhook",
+          "request": {
+            "name": "Update Prompt Webhook",
+            "description": {
+              "content": "Update a specific prompt webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "prompt-webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"include_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exclude_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"url\": \"<uri>\",\n  \"headers\": {\n    \"key_0\": 3206,\n    \"key_1\": 7692\n  },\n  \"triggers\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "311c4d29-d245-41d7-a635-39d755c64b20",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"include_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exclude_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"url\": \"<uri>\",\n  \"headers\": {\n    \"key_0\": 7418\n  },\n  \"triggers\": [\n    \"tag:update\",\n    \"tag:update\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"url\": \"https://koxlgeuGazZO.laxtMXLk+PzJeWHq0ueXk\",\n  \"id\": \"d28e3e39-4f7a-9615-f62a-e02c1da75ec5\",\n  \"tenant_id\": \"0fad2a11-b21a-5ec4-c101-684d814f9349\",\n  \"created_at\": \"1955-05-17T21:57:08.411Z\",\n  \"updated_at\": \"2022-02-09T08:11:38.185Z\",\n  \"headers\": {\n    \"key_0\": 3404,\n    \"key_1\": 97\n  },\n  \"include_prompts\": [\n    \"a914ed64-4d59-92d8-a4d5-37b7d6e6f844\",\n    \"d0f60d1b-056b-90b1-1447-e2d2c573c05c\"\n  ],\n  \"exclude_prompts\": [\n    \"5aba02af-2667-2cf7-5952-5e5e5391933e\",\n    \"46ca01e4-7fb3-e244-5c5f-2214fb7d4dab\"\n  ],\n  \"triggers\": [\n    \"tag:update\",\n    \"tag:update\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ab71ffa-f0da-4ec5-a680-87b2e7b46234",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"include_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"exclude_prompts\": [\n    \"<uuid>\",\n    \"<uuid>\"\n  ],\n  \"url\": \"<uri>\",\n  \"headers\": {\n    \"key_0\": 7418\n  },\n  \"triggers\": [\n    \"tag:update\",\n    \"tag:update\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2cdd12e0-ede7-4f81-9779-77c1746ab0a7",
+          "name": "Delete Prompt Webhook",
+          "request": {
+            "name": "Delete Prompt Webhook",
+            "description": {
+              "content": "Delete a specific prompt webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "prompt-webhooks",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "webhook_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e7eb56c2-a416-4e8c-91e5-045dd9686d34",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ebeffe3-fcfa-425a-b344-99b06ed01970",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "webhook_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "379921b7-2963-459b-a6ac-541e5dd475c6",
+          "name": "Test Prompt Webhook",
+          "request": {
+            "name": "Test Prompt Webhook",
+            "description": {
+              "content": "Test a specific prompt webhook.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "prompt-webhooks",
+                "test"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook\": {\n    \"url\": \"<uri>\",\n    \"headers\": {\n      \"key_0\": \"string\"\n    },\n    \"include_prompts\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"exclude_prompts\": [\n      \"<uuid>\",\n      \"<uuid>\"\n    ],\n    \"triggers\": [\n      \"<string>\",\n      \"<string>\"\n    ]\n  },\n  \"payload\": {\n    \"prompt_id\": \"<string>\",\n    \"prompt_name\": \"<string>\",\n    \"manifest\": {\n      \"key_0\": 2399.8221208667082,\n      \"key_1\": false\n    },\n    \"commit_hash\": \"<string>\",\n    \"created_at\": \"<string>\",\n    \"created_by\": \"<string>\",\n    \"event\": \"<string>\",\n    \"tag_name\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4478b23a-17a5-4fe8-8272-c9684e0fe021",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://ywrKzjDduIjf.dcicqem34m2\",\n    \"headers\": {\n      \"key_0\": 3844\n    },\n    \"include_prompts\": [\n      \"46ed9f67-2225-a111-5c1d-c50d6e84917d\",\n      \"efb40ed1-3a1d-6ce9-87b4-29b30d7161bd\"\n    ],\n    \"exclude_prompts\": [\n      \"e2867b99-0c4a-7967-429b-a9cf39083a8b\",\n      \"aaf5f597-162b-1494-d376-93630e01944e\"\n    ],\n    \"triggers\": [\n      \"commit\",\n      \"tag:update\"\n    ]\n  },\n  \"payload\": {\n    \"prompt_id\": \"string\",\n    \"prompt_name\": \"string\",\n    \"manifest\": {\n      \"key_0\": true\n    },\n    \"commit_hash\": \"string\",\n    \"created_at\": \"string\",\n    \"created_by\": \"string\",\n    \"event\": \"tag:update\",\n    \"tag_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\",\n  \"key_1\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52de54f6-dc87-40a0-b2b1-ecd354e058c9",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v1",
+                    "prompt-webhooks",
+                    "test"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook\": {\n    \"url\": \"https://ywrKzjDduIjf.dcicqem34m2\",\n    \"headers\": {\n      \"key_0\": 3844\n    },\n    \"include_prompts\": [\n      \"46ed9f67-2225-a111-5c1d-c50d6e84917d\",\n      \"efb40ed1-3a1d-6ce9-87b4-29b30d7161bd\"\n    ],\n    \"exclude_prompts\": [\n      \"e2867b99-0c4a-7967-429b-a9cf39083a8b\",\n      \"aaf5f597-162b-1494-d376-93630e01944e\"\n    ],\n    \"triggers\": [\n      \"commit\",\n      \"tag:update\"\n    ]\n  },\n  \"payload\": {\n    \"prompt_id\": \"string\",\n    \"prompt_name\": \"string\",\n    \"manifest\": {\n      \"key_0\": true\n    },\n    \"commit_hash\": \"string\",\n    \"created_at\": \"string\",\n    \"created_by\": \"string\",\n    \"event\": \"tag:update\",\n    \"tag_name\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "d304ab42-9d04-4149-96b7-d65cde3397ba",
+    "name": "LangSmith access_policies prompt-webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LangSmith API is used to programmatically create and manage LangSmith resources.\n\n## Host\nhttps://api.smith.langchain.com\n\n## Authentication\nTo authenticate with the LangSmith API, set the `X-Api-Key` header\nto a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).\n\n",
+      "type": "text/plain"
+    }
+  }
+}

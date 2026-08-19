@@ -1,0 +1,1256 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies orgs API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "orgs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Ttl Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/ttl-settings",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List out the configured TTL settings for a given org (org-level and tenant-level)."
+        },
+        {
+          "info": {
+            "name": "Upsert Ttl Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/orgs/ttl-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert Ttl Settings"
+        },
+        {
+          "info": {
+            "name": "List Organizations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs",
+            "params": [
+              {
+                "name": "skip_create",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_tier",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all orgs visible to this auth"
+        },
+        {
+          "info": {
+            "name": "Create Organization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create Organization"
+        },
+        {
+          "info": {
+            "name": "Create Customers And Get Stripe Setup Intent",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/setup",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Customers And Get Stripe Setup Intent"
+        },
+        {
+          "info": {
+            "name": "Get Organization Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Organization Info"
+        },
+        {
+          "info": {
+            "name": "Get Current Organization Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/info",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Organization Info"
+        },
+        {
+          "info": {
+            "name": "Update Current Organization Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/orgs/current/info",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Current Organization Info"
+        },
+        {
+          "info": {
+            "name": "Get Organization Billing Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/billing",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Organization Billing Info"
+        },
+        {
+          "info": {
+            "name": "Get Dashboard",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/dashboard",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "color_scheme",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Dashboard"
+        },
+        {
+          "info": {
+            "name": "On Payment Method Created",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/payment-method",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "On Payment Method Created"
+        },
+        {
+          "info": {
+            "name": "Get Company Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/business-info",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Company Info"
+        },
+        {
+          "info": {
+            "name": "Set Company Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/business-info",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set Company Info"
+        },
+        {
+          "info": {
+            "name": "Change Payment Plan",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/plan",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Change Payment Plan"
+        },
+        {
+          "info": {
+            "name": "List Organization Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/roles",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Organization Roles"
+        },
+        {
+          "info": {
+            "name": "Create Organization Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/roles",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Organization Roles"
+        },
+        {
+          "info": {
+            "name": "Update Organization Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/orgs/current/roles/:role_id",
+            "params": [
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Organization Roles"
+        },
+        {
+          "info": {
+            "name": "Delete Organization Roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/current/roles/:role_id",
+            "params": [
+              {
+                "name": "role_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Organization Roles"
+        },
+        {
+          "info": {
+            "name": "List Permissions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/permissions",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "List Permissions"
+        },
+        {
+          "info": {
+            "name": "List Pending Organization Invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/pending",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all pending orgs visible to this auth"
+        },
+        {
+          "info": {
+            "name": "Get Current Org Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/members",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Org Members"
+        },
+        {
+          "info": {
+            "name": "Add Member To Current Org",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/members",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Member To Current Org"
+        },
+        {
+          "info": {
+            "name": "Get Current Active Org Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/members/active",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "emails",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query for email or name"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order"
+              },
+              {
+                "name": "ls_user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_disabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Active Org Members"
+        },
+        {
+          "info": {
+            "name": "Get Current Pending Org Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/members/pending",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "emails",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query for email or name"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Pending Org Members"
+        },
+        {
+          "info": {
+            "name": "Add Members To Current Org Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/members/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Batch invite up to 500 users to the current org."
+        },
+        {
+          "info": {
+            "name": "Add Basic Auth Members To Current Org",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/members/basic/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Batch add up to 500 users to the org and specified workspaces in basic auth mode."
+        },
+        {
+          "info": {
+            "name": "Delete Current Org Pending Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/current/members/:identity_id/pending",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "When an admin deletes a pending member invite."
+        },
+        {
+          "info": {
+            "name": "Delete Pending Organization Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/pending/:organization_id",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete Pending Organization Invite"
+        },
+        {
+          "info": {
+            "name": "Claim Pending Organization Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/pending/:organization_id/claim",
+            "params": [
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Claim Pending Organization Invite"
+        },
+        {
+          "info": {
+            "name": "Update Current Org Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/orgs/current/members/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "This is used for updating a user's role (all auth modes) or full_name/password (basic auth)"
+        },
+        {
+          "info": {
+            "name": "Remove Member From Current Org",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/current/members/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Remove a user from the current organization."
+        },
+        {
+          "info": {
+            "name": "Update Current User",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/orgs/members/basic",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a user's full_name/password (basic auth only)"
+        },
+        {
+          "info": {
+            "name": "Get Current Sso Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/sso-settings",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get SSO provider settings for the current organization."
+        },
+        {
+          "info": {
+            "name": "Create Sso Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/sso-settings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create SSO provider settings for the current organization."
+        },
+        {
+          "info": {
+            "name": "Update Sso Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/orgs/current/sso-settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update SSO provider settings defaults for the current organization."
+        },
+        {
+          "info": {
+            "name": "Delete Sso Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/current/sso-settings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete SSO provider settings for the current organization."
+        },
+        {
+          "info": {
+            "name": "Update Allowed Login Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/orgs/current/login-methods",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update allowed login methods for the current organization."
+        },
+        {
+          "info": {
+            "name": "Get Org Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/billing/usage",
+            "params": [
+              {
+                "name": "starting_on",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ending_before",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "on_current_plan",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Org Usage"
+        },
+        {
+          "info": {
+            "name": "Get Granular Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/billing/granular-usage",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workspace_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get granular usage data with flexible grouping.\n\nworkspace_ids filters results to the specified workspaces. Only workspaces\nthe user has read access to will be included in the results."
+        },
+        {
+          "info": {
+            "name": "Export Granular Usage Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/billing/granular-usage/export",
+            "params": [
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "workspace_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "group_by",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export granular usage data as CSV.\n\nReturns the same data as the granular-usage endpoint but formatted as a\ndownloadable CSV file. Only workspaces the user has read access to will\nbe included in the results."
+        },
+        {
+          "info": {
+            "name": "Get Current User Login Methods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/user/login-methods",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get login methods for the current user."
+        },
+        {
+          "info": {
+            "name": "Create Stripe Checkout Sessions Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/stripe_checkout_session",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Kick off a Stripe checkout session flow."
+        },
+        {
+          "info": {
+            "name": "Create Stripe Account Links Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/stripe_account_links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Kick off a Stripe account link flow."
+        },
+        {
+          "info": {
+            "name": "List Org Service Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/service-keys",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Org Service Keys"
+        },
+        {
+          "info": {
+            "name": "Create Org Service Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/service-keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create org-scoped service key. If workspaces is None, key is org-wide."
+        },
+        {
+          "info": {
+            "name": "Delete Org Service Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/current/service-keys/:api_key_id",
+            "params": [
+              {
+                "name": "api_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Org Service Key"
+        },
+        {
+          "info": {
+            "name": "List Org Personal Access Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/orgs/current/personal-access-tokens",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Org Personal Access Tokens"
+        },
+        {
+          "info": {
+            "name": "Create Org Personal Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/personal-access-tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Org Personal Access Token"
+        },
+        {
+          "info": {
+            "name": "Delete Org Personal Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/orgs/current/personal-access-tokens/:pat_id",
+            "params": [
+              {
+                "name": "pat_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Org Personal Access Token"
+        },
+        {
+          "info": {
+            "name": "Set Default Sso Provision",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/orgs/current/set-default-sso-provision",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set the current organization as the default for SSO provisioning in self-hosted environments."
+        },
+        {
+          "info": {
+            "name": "List org members with workspace roles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/orgs/current/members",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Page size (default 50, max 500)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Page offset (default 0)"
+              },
+              {
+                "name": "active_is",
+                "value": "",
+                "type": "query",
+                "description": "Filter: true = only active members; false = only pending members"
+              },
+              {
+                "name": "pending_is",
+                "value": "",
+                "type": "query",
+                "description": "Filter: true = only pending members; false = only active members"
+              },
+              {
+                "name": "name_like",
+                "value": "",
+                "type": "query",
+                "description": "Glob filter on display name; use * as wildcard (repeatable, matches any)"
+              },
+              {
+                "name": "email_like",
+                "value": "",
+                "type": "query",
+                "description": "Glob filter on email; use * as wildcard (repeatable, matches any)"
+              },
+              {
+                "name": "workspace_name_like",
+                "value": "",
+                "type": "query",
+                "description": "Glob filter on workspace name or ID; use * as wildcard (repeatable, matches any)"
+              },
+              {
+                "name": "organization_role_like",
+                "value": "",
+                "type": "query",
+                "description": "Glob filter on organization role name; use * as wildcard (repeatable, matches any)"
+              },
+              {
+                "name": "workspace_role_like",
+                "value": "",
+                "type": "query",
+                "description": "Glob filter on workspace role name; use * as wildcard (repeatable, matches any)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns a paginated list of org members (active and pending) enriched with workspace memberships."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

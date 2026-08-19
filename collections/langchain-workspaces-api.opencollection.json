@@ -1,0 +1,987 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies workspaces API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "workspaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Workspaces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces",
+            "params": [
+              {
+                "name": "include_deleted",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all workspaces visible to this auth in the current org. Does not create a new workspace/org."
+        },
+        {
+          "info": {
+            "name": "Create Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new workspace."
+        },
+        {
+          "info": {
+            "name": "Patch Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a workspace."
+        },
+        {
+          "info": {
+            "name": "Delete Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/:workspace_id",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Workspace"
+        },
+        {
+          "info": {
+            "name": "Get Current Workspace Stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/stats",
+            "params": [
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Workspace Stats"
+        },
+        {
+          "info": {
+            "name": "Get Current Workspace Usage Limits Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/usage_limits",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Workspace Usage Limits Info"
+        },
+        {
+          "info": {
+            "name": "Get Shared Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/shared",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all shared entities and their tokens by the workspace."
+        },
+        {
+          "info": {
+            "name": "Bulk Unshare Entities",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/current/shared",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Bulk unshare entities by share tokens for the workspace."
+        },
+        {
+          "info": {
+            "name": "List Current Workspace Secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/secrets",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Current Workspace Secrets"
+        },
+        {
+          "info": {
+            "name": "Upsert Current Workspace Secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/secrets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upsert Current Workspace Secrets"
+        },
+        {
+          "info": {
+            "name": "Get Current Workspace Encrypted Secrets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/secrets/encrypted",
+            "params": [
+              {
+                "name": "service",
+                "value": "",
+                "type": "query",
+                "description": "Service requesting encrypted secrets"
+              },
+              {
+                "name": "key_names",
+                "value": "",
+                "type": "query",
+                "description": "Optional list of workspace secret keys to return"
+              },
+              {
+                "name": "expand_iam_role",
+                "value": "",
+                "type": "query",
+                "description": "If true, expand AWS_IAM_ROLE_ARN into temporary credentials via STS"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get encrypted workspace secrets for use with Fleet and external services."
+        },
+        {
+          "info": {
+            "name": "List Tag Keys",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/tag-keys",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Tag Keys"
+        },
+        {
+          "info": {
+            "name": "Create Tag Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/tag-keys",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Tag Key"
+        },
+        {
+          "info": {
+            "name": "Get Tag Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Tag Key"
+        },
+        {
+          "info": {
+            "name": "Update Tag Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Tag Key"
+        },
+        {
+          "info": {
+            "name": "Delete Tag Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Tag Key"
+        },
+        {
+          "info": {
+            "name": "List Tag Values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id/tag-values",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Tag Values"
+        },
+        {
+          "info": {
+            "name": "Create Tag Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id/tag-values",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Tag Value"
+        },
+        {
+          "info": {
+            "name": "Get Tag Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id/tag-values/:tag_value_id",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Tag Value"
+        },
+        {
+          "info": {
+            "name": "Update Tag Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id/tag-values/:tag_value_id",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Tag Value"
+        },
+        {
+          "info": {
+            "name": "Delete Tag Value",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/current/tag-keys/:tag_key_id/tag-values/:tag_value_id",
+            "params": [
+              {
+                "name": "tag_key_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Tag Value"
+        },
+        {
+          "info": {
+            "name": "List Taggings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/taggings",
+            "params": [
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Taggings"
+        },
+        {
+          "info": {
+            "name": "Create Tagging",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/taggings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Tagging"
+        },
+        {
+          "info": {
+            "name": "Delete Tagging",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/current/taggings/:tagging_id",
+            "params": [
+              {
+                "name": "tagging_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Tagging"
+        },
+        {
+          "info": {
+            "name": "List Tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/tags",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Tags"
+        },
+        {
+          "info": {
+            "name": "List Tags For Resource",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/tags/resource",
+            "params": [
+              {
+                "name": "resource_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Tags For Resource"
+        },
+        {
+          "info": {
+            "name": "List Tags For Resources",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/tags/resources",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Tags For Resources"
+        },
+        {
+          "info": {
+            "name": "List Pending Workspace Invites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/pending",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all workspaces visible to this auth"
+        },
+        {
+          "info": {
+            "name": "Delete Pending Workspace Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/pending/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete Pending Workspace Invite"
+        },
+        {
+          "info": {
+            "name": "Claim Pending Workspace Invite",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/pending/:workspace_id/claim",
+            "params": [
+              {
+                "name": "workspace_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Claim Pending Workspace Invite"
+        },
+        {
+          "info": {
+            "name": "Get Current Workspace Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/members",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Workspace Members"
+        },
+        {
+          "info": {
+            "name": "Add Member To Current Workspace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/members",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add an existing organization member to the current workspace."
+        },
+        {
+          "info": {
+            "name": "Get Current Active Workspace Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/members/active",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "emails",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query for email or name"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order"
+              },
+              {
+                "name": "ls_user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user_ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "is_disabled",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Active Workspace Members"
+        },
+        {
+          "info": {
+            "name": "Get Current Pending Workspace Members",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/workspaces/current/members/pending",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "emails",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "q",
+                "value": "",
+                "type": "query",
+                "description": "Search query for email or name"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Current Pending Workspace Members"
+        },
+        {
+          "info": {
+            "name": "Add Members To Current Workspace Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/workspaces/current/members/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Batch invite up to 500 users to the current workspace and organization."
+        },
+        {
+          "info": {
+            "name": "Patch Current Workspace Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/workspaces/current/members/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Patch Current Workspace Member"
+        },
+        {
+          "info": {
+            "name": "Delete Current Workspace Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/current/members/:identity_id",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Current Workspace Member"
+        },
+        {
+          "info": {
+            "name": "Delete Current Workspace Pending Member",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/workspaces/current/members/:identity_id/pending",
+            "params": [
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Current Workspace Pending Member"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,282 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies runs API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "runs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/runs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Queues a single run for ingestion. The request body must be a JSON-encoded run object that follows the Run schema."
+        },
+        {
+          "info": {
+            "name": "Ingest Runs (Batch JSON)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/runs/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Ingests a batch of runs in a single JSON payload. The payload must have `post` and/or `patch` arrays containing run objects.\nPrefer this endpoint over single‑run ingestion when submitting hundreds of runs, but `/runs/multipart` offers better handling for very large fields and attachments."
+        },
+        {
+          "info": {
+            "name": "Ingest Runs (Multipart)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/runs/multipart",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "post.{run_id}",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "patch.{run_id}",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "post.{run_id}.inputs",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "patch.{run_id}.outputs",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "feedback.{run_id}",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "attachment.{run_id}.{filename}",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Ingests multiple runs, feedback objects, and binary attachments in a single `multipart/form-data` request.\n**Part‑name pattern**: `<event>.<run_id>[.<field>]` where `event` ∈ {`post`, `patch`, `feedback`, `attachment`}.\n* `post|patch.<run_id>` – JSON run payload.\n* `post|patch.<run_id>.<field>` – out‑of‑band run data (`inputs`, `outputs`, `events`, `error`, `extra`, `serialized`).\n* `feedback.<run_id>` – JSON feedback payload (must include `trace_id`).\n* `attachment.<run_id>.<filename>` – arbitr"
+        },
+        {
+          "info": {
+            "name": "Update a Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Run ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a run identified by its ID. The body should contain only the fields to be changed; unknown fields are ignored."
+        },
+        {
+          "info": {
+            "name": "Query runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/runs/query",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "**Alpha:** The request and response contract may change;\nReturns a paginated list of runs for the given projects within min/max start_time. Supports filters, cursor pagination, and `selects` to select fields to return."
+        },
+        {
+          "info": {
+            "name": "Get a single run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/runs/:run_id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path",
+                "description": "Run UUID"
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "`project_id` is the UUID of the tracing project that owns the run."
+              },
+              {
+                "name": "selects",
+                "value": "",
+                "type": "query",
+                "description": "`selects` lists which properties to include on the returned run (repeatable query parameter). Accepts any value of the `RunSelectField` enum. If omitted, only `id` is returned."
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query",
+                "description": "`start_time` is the run's `start_time` (RFC3339 date-time), used together with `project_id` to locate the run."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "**Alpha:** The request and response contract may change;\nReturns one run by ID for the given session and start_time. Use the `selects` query parameter (repeatable) to select fields to return."
+        },
+        {
+          "info": {
+            "name": "List runs in a trace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/traces/:trace_id/runs",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "trace_id",
+                "value": "",
+                "type": "path",
+                "description": "Trace UUID"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "`filter` narrows which runs within this trace are returned, using a LangSmith filter expression evaluated against each run. For example: `eq(run_type, \"llm\")` for LLM runs only, or `eq(status, \"error\")` for failed runs.\nSee https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax."
+              },
+              {
+                "name": "max_start_time",
+                "value": "",
+                "type": "query",
+                "description": "`max_start_time` is the inclusive upper bound for run `start_time` (RFC3339 date-time)."
+              },
+              {
+                "name": "min_start_time",
+                "value": "",
+                "type": "query",
+                "description": "`min_start_time` is the inclusive lower bound for run `start_time` (RFC3339 date-time)."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "`project_id` is the UUID of the tracing project that owns the trace."
+              },
+              {
+                "name": "selects",
+                "value": "",
+                "type": "query",
+                "description": "`selects` lists which properties to include on each returned run (repeatable query parameter). Accepts any value of the `RunSelectField` enum. If omitted, only `id` is returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "**Alpha:** The request and response contract may change;\nReturns runs for a trace ID within min/max start time. Optional `filter`; repeatable `selects` to select fields to return."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

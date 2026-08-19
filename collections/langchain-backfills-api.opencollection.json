@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies backfills API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "backfills",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Restart a backfill job",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/ops/backfills/restart",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the backfill job record, causing the backfill to restart from the beginning on the next cron tick. Requires instance admin access."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

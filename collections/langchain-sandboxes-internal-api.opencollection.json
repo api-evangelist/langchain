@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies sandboxes-internal API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "sandboxes-internal",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Internal: start a stopped sandbox (service-to-service)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/internal/start/:name",
+            "headers": [
+              {
+                "name": "X-Tenant-Id",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox display name or route name (sb-<uuid>)"
+              }
+            ]
+          },
+          "docs": "Called by the sandbox-router to wake stopped sandboxes. Blocks until the sandbox is ready or times out. The name parameter accepts either the display name or route name (sb-<uuid>)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies threads API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "threads",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Query Threads",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/threads/query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "**Alpha:** The request and response contract may change;\nQuery threads within a project (session), with cursor-based pagination.\nReturns threads matching the given time range and optional filter."
+        },
+        {
+          "info": {
+            "name": "Query Thread Traces",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/threads/:thread_id/traces",
+            "params": [
+              {
+                "name": "thread_id",
+                "value": "",
+                "type": "path",
+                "description": "Thread ID"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "`cursor` is the opaque string from a previous response's `next_cursor`. Omit on the first request; pass the returned cursor to fetch the next page."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "`filter` narrows which traces are returned for this thread, using a LangSmith filter expression evaluated against each root trace run.\nFor example: eq(status, \"success\") or has(tags, \"production\").\nSee https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax."
+              },
+              {
+                "name": "page_size",
+                "value": "20",
+                "type": "query",
+                "description": "`page_size` is the maximum number of traces to return in this response. Defaults to 20 when omitted; must be between 1 and 100 inclusive when set."
+              },
+              {
+                "name": "project_id",
+                "value": "",
+                "type": "query",
+                "description": "`project_id` is the tracing project UUID (required)."
+              },
+              {
+                "name": "selects",
+                "value": "NAME,START_TIME",
+                "type": "query",
+                "description": "`selects` lists which properties to include on each returned trace (repeatable query parameter). Accepts any value of the `ThreadTraceSelectField` enum. Properties not listed are omitted from each trace object; `trace_id` is always returned."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "**Alpha:** The request and response contract may change;\nRetrieve all traces belonging to a specific thread within a project."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

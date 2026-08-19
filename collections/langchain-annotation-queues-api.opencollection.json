@@ -1,0 +1,719 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies annotation-queues API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "annotation-queues",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Annotation Queues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "queue_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "assigned_to_me",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Annotation Queues"
+        },
+        {
+          "info": {
+            "name": "Create Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Delete Annotation Queues",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/annotation-queues",
+            "params": [
+              {
+                "name": "queue_ids",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete multiple annotation queues with partial success support.\n\nReturns:\n    - 200: All queues deleted successfully\n    - 207: Some queues deleted successfully, some failed"
+        },
+        {
+          "info": {
+            "name": "Populate Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues/populate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Populate annotation queue with runs from an experiment."
+        },
+        {
+          "info": {
+            "name": "Get Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Update Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/annotation-queues/:queue_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Delete Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/annotation-queues/:queue_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Get Runs From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id/runs",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "archived",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_stats",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Runs From Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Add Runs To Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues/:queue_id/runs",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Runs To Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Add Runs To Annotation Queue By Key",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues/:queue_id/runs/by-key",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Add Runs To Annotation Queue By Key"
+        },
+        {
+          "info": {
+            "name": "Export Annotation Queue Archived Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues/:queue_id/export",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Export Annotation Queue Archived Runs"
+        },
+        {
+          "info": {
+            "name": "Get Run From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id/run/:index",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "index",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_extra",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a run from an annotation queue"
+        },
+        {
+          "info": {
+            "name": "Get Annotation Queues For Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:run_id/queues",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Annotation Queues For Run"
+        },
+        {
+          "info": {
+            "name": "Update Run In Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/annotation-queues/:queue_id/runs/:queue_run_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "queue_run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Run In Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Delete Run From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/annotation-queues/:queue_id/runs/:queue_run_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "queue_run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Run From Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Delete Runs From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues/:queue_id/runs/delete",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete Runs From Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Get Total Size From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id/total_size",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Total Size From Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Get Total Archived From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id/total_archived",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_time",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "end_time",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Total Archived From Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Get Size From Annotation Queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id/size",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Size From Annotation Queue"
+        },
+        {
+          "info": {
+            "name": "Create Identity Annotation Queue Run Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/annotation-queues/status/:annotation_queue_run_id",
+            "params": [
+              {
+                "name": "annotation_queue_run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Identity Annotation Queue Run Status"
+        },
+        {
+          "info": {
+            "name": "Resolve Annotation Queue Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/annotation-queues/:queue_id/runs/resolve/:queue_run_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "queue_run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Resolve a queue run ID to its section and run data for deep linking."
+        },
+        {
+          "info": {
+            "name": "Add a reviewer to an annotation queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/annotation-queues/:queue_id/reviewers",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path",
+                "description": "Queue ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Assigns a single identity as a reviewer for the queue. Idempotent."
+        },
+        {
+          "info": {
+            "name": "Remove a reviewer from an annotation queue",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v1/platform/annotation-queues/:queue_id/reviewers/:identity_id",
+            "params": [
+              {
+                "name": "queue_id",
+                "value": "",
+                "type": "path",
+                "description": "Queue ID"
+              },
+              {
+                "name": "identity_id",
+                "value": "",
+                "type": "path",
+                "description": "Identity ID of the reviewer to remove"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unassigns an identity as a reviewer for the queue. Idempotent."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

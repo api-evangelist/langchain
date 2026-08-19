@@ -1,0 +1,1091 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies datasets API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Read Datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_corrections_datasets",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all datasets by query params and owner."
+        },
+        {
+          "info": {
+            "name": "Create Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new dataset."
+        },
+        {
+          "info": {
+            "name": "Delete Datasets",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/datasets",
+            "params": [
+              {
+                "name": "dataset_ids",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete multiple datasets."
+        },
+        {
+          "info": {
+            "name": "Read Datasets Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/stream",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "data_type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "exclude_corrections_datasets",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stream all datasets by query params and owner as JSON patches."
+        },
+        {
+          "info": {
+            "name": "Read Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific dataset."
+        },
+        {
+          "info": {
+            "name": "Update Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/datasets/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a specific dataset."
+        },
+        {
+          "info": {
+            "name": "Delete Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/datasets/:dataset_id",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a specific dataset."
+        },
+        {
+          "info": {
+            "name": "Upload Csv Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/upload",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new dataset from a CSV or JSONL file."
+        },
+        {
+          "info": {
+            "name": "Upload Experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/upload-experiment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Upload an experiment that has already been run."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/versions",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "example",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get dataset versions."
+        },
+        {
+          "info": {
+            "name": "Diff Dataset Versions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/versions/diff",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "from_version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "to_version",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get diff between two dataset versions."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/version",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get dataset version by as_of or exact tag."
+        },
+        {
+          "info": {
+            "name": "Update Dataset Version",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/datasets/:dataset_id/tags",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Set a tag on a dataset version."
+        },
+        {
+          "info": {
+            "name": "Download Dataset Openai",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/openai",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download a dataset as OpenAI Evals Jsonl format."
+        },
+        {
+          "info": {
+            "name": "Download Dataset Openai Ft",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/openai_ft",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download a dataset as OpenAI Jsonl format."
+        },
+        {
+          "info": {
+            "name": "Download Dataset Csv",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/csv",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download a dataset as CSV format."
+        },
+        {
+          "info": {
+            "name": "Download Dataset Jsonl",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/jsonl",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Download a dataset as CSV format."
+        },
+        {
+          "info": {
+            "name": "Read Examples With Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/:dataset_id/runs",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format, e.g., 'csv'"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch examples for a dataset, and fetch the runs for each example if they are associated with the given session_ids."
+        },
+        {
+          "info": {
+            "name": "Read Examples With Runs Grouped",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/:dataset_id/group/runs",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch examples for a dataset, and fetch the runs for each example if they are associated with the given session_ids."
+        },
+        {
+          "info": {
+            "name": "Read Delta",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/:dataset_id/runs/delta",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetch the number of regressions/improvements for each example in a dataset, between sessions[0] and sessions[1]."
+        },
+        {
+          "info": {
+            "name": "Read Delta Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/:dataset_id/runs/delta/stream",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stream feedback deltas for multiple feedback keys.\n\nReturns results in chunks as they become available. Each chunk contains\nresults for one or more feedback keys. Errors for individual chunks are\nincluded in the response rather than failing the entire operation.\n\nResponse format (SSE):\n    event: data\n    data: {\"feedback_deltas\": {\"key1\": {session_id: {...}}, ...}, \"errors\": null}\n\n    event: data\n    data: {\"feedback_deltas\": {\"key2\": {...}}, \"errors\": null}\n\n    event: end"
+        },
+        {
+          "info": {
+            "name": "Read Grouped Experiments",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/:dataset_id/experiments/grouped",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stream grouped and aggregated experiments."
+        },
+        {
+          "info": {
+            "name": "Read Dataset Share State",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/share",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the state of sharing a dataset"
+        },
+        {
+          "info": {
+            "name": "Share Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/datasets/:dataset_id/share",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "share_projects",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Share a dataset."
+        },
+        {
+          "info": {
+            "name": "Unshare Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/datasets/:dataset_id/share",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Unshare a dataset."
+        },
+        {
+          "info": {
+            "name": "Read Comparative Experiments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/comparative",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all comparative experiments for a given dataset."
+        },
+        {
+          "info": {
+            "name": "Create Comparative Experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/comparative",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a comparative experiment."
+        },
+        {
+          "info": {
+            "name": "Delete Comparative Experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/datasets/comparative/:comparative_experiment_id",
+            "params": [
+              {
+                "name": "comparative_experiment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a specific comparative experiment."
+        },
+        {
+          "info": {
+            "name": "Clone Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/clone",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Clone a dataset."
+        },
+        {
+          "info": {
+            "name": "Get Dataset Splits",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/datasets/:dataset_id/splits",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Dataset Splits"
+        },
+        {
+          "info": {
+            "name": "Update Dataset Splits",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/datasets/:dataset_id/splits",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Dataset Splits"
+        },
+        {
+          "info": {
+            "name": "Generate",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/:dataset_id/generate",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Generate synthetic examples for a dataset."
+        },
+        {
+          "info": {
+            "name": "Dataset Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/playground_experiment/batch",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Dataset Handler"
+        },
+        {
+          "info": {
+            "name": "Stream Dataset Handler",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/playground_experiment/stream",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stream Dataset Handler"
+        },
+        {
+          "info": {
+            "name": "Studio Experiment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/datasets/studio_experiment",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Studio Experiment"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,694 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies public API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "public",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Shared Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/run",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "exclude_s3_stored_attributes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the shared run."
+        },
+        {
+          "info": {
+            "name": "Get Shared Run By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/run/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "exclude_s3_stored_attributes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get the shared run."
+        },
+        {
+          "info": {
+            "name": "Query Shared Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/runs/query",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get run by ids or the shared run if not specifed."
+        },
+        {
+          "info": {
+            "name": "Read Shared Feedbacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/feedbacks",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_comment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_score",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Read Shared Feedbacks"
+        },
+        {
+          "info": {
+            "name": "Read Shared Dataset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/datasets",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get dataset by ids or the shared dataset if not specifed."
+        },
+        {
+          "info": {
+            "name": "Count Shared Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/examples/count",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Count all examples by query params"
+        },
+        {
+          "info": {
+            "name": "Read Shared Examples",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/examples",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "as_of",
+                "value": "",
+                "type": "query",
+                "description": "Only modifications made on or before this time are included. If None, the latest version of the dataset is used."
+              },
+              {
+                "name": "metadata",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "select",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get example by ids or the shared example if not specifed."
+        },
+        {
+          "info": {
+            "name": "Read Shared Dataset Tracer Sessions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/datasets/sessions",
+            "headers": [
+              {
+                "name": "accept",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dataset_version",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_feedback_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "facets",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get projects run on a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Read Shared Dataset Tracer Sessions Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/datasets/sessions-bulk",
+            "params": [
+              {
+                "name": "share_tokens",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get sessions from multiple datasets using share tokens."
+        },
+        {
+          "info": {
+            "name": "Read Shared Dataset Examples With Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/examples/runs",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get examples with associated runs from sessions in a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Read Shared Delta",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/datasets/runs/delta",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Fetch the number of regressions/improvements for each example in a dataset, between sessions[0] and sessions[1]."
+        },
+        {
+          "info": {
+            "name": "Read Shared Delta Stream",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/datasets/runs/delta/stream",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Stream feedback deltas for multiple feedback keys.\n\nReturns results in chunks as they become available. Each chunk contains\nresults for one or more feedback keys. Errors for individual chunks are\nincluded in the response rather than failing the entire operation.\n\nResponse format (SSE):\n    event: data\n    data: {\"feedback_deltas\": {\"key1\": {session_id: {...}}, ...}, \"errors\": null}\n\n    event: data\n    data: {\"feedback_deltas\": {\"key2\": {...}}, \"errors\": null}\n\n    event: end"
+        },
+        {
+          "info": {
+            "name": "Query Shared Dataset Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/datasets/runs/query",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get runs in projects run over a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Generate Query For Shared Dataset Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/datasets/runs/generate-query",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get runs in projects run over a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Stats Shared Dataset Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/public/:share_token/datasets/runs/stats",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Get run stats in projects run over a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Read Shared Dataset Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/datasets/runs/:run_id",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "exclude_s3_stored_attributes",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get runs in projects run over a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Read Shared Dataset Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/datasets/feedback",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_comment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_score",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get feedback for runs in projects run over a dataset that has been shared."
+        },
+        {
+          "info": {
+            "name": "Read Shared Comparative Experiments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/:share_token/datasets/comparative",
+            "params": [
+              {
+                "name": "share_token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get all comparative experiments for a given dataset."
+        },
+        {
+          "info": {
+            "name": "Get Message Json Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/schemas/:version/message.json",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Message Json Schema"
+        },
+        {
+          "info": {
+            "name": "Get Tool Def Json Schema",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/public/schemas/:version/tooldef.json",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get Tool Def Json Schema"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

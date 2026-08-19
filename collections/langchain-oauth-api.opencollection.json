@@ -1,0 +1,285 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies oauth API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "oauth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get OAuth2 authorization server metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/.well-known/oauth-authorization-server",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns OAuth2 authorization server metadata per RFC 8414, including supported endpoints, grant types, and response types."
+        },
+        {
+          "info": {
+            "name": "Initiate OAuth2 authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/oauth/authorize",
+            "params": [
+              {
+                "name": "response_type",
+                "value": "",
+                "type": "query",
+                "description": "Must be 'code'"
+              },
+              {
+                "name": "client_id",
+                "value": "",
+                "type": "query",
+                "description": "OAuth2 client ID"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "",
+                "type": "query",
+                "description": "Redirect URI registered with the client"
+              },
+              {
+                "name": "code_challenge",
+                "value": "",
+                "type": "query",
+                "description": "PKCE code challenge"
+              },
+              {
+                "name": "code_challenge_method",
+                "value": "",
+                "type": "query",
+                "description": "PKCE method, must be 'S256'"
+              },
+              {
+                "name": "state",
+                "value": "",
+                "type": "query",
+                "description": "Opaque state value to prevent CSRF"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Validates authorization request parameters and redirects to the frontend consent page per RFC 6749."
+        },
+        {
+          "info": {
+            "name": "Approve OAuth2 authorization request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/oauth/authorize/approve",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "organization_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "code_challenge",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "code_challenge_method",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "state",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Issues an authorization code after the authenticated user approves the request. Called by the frontend consent page. Requires authentication."
+        },
+        {
+          "info": {
+            "name": "Authorize a device code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/oauth/device/authorize",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "organization_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "user_code",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Marks a device code as authorized for the authenticated user. Called by the /activate page when the user enters their user code. Requires authentication."
+        },
+        {
+          "info": {
+            "name": "Request OAuth2 device authorization",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/oauth/device/code",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "client_id",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Issues a device code and user code for the device authorization flow per RFC 8628."
+        },
+        {
+          "info": {
+            "name": "Revoke an OAuth2 token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/oauth/revoke",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "token",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Revokes an access token or refresh token per RFC 7009. Always returns 200 regardless of whether the token was found."
+        },
+        {
+          "info": {
+            "name": "Exchange grant for OAuth2 tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/oauth/token",
+            "body": {
+              "type": "multipart-form",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "code_verifier",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "device_code",
+                  "type": "text",
+                  "value": ""
+                },
+                {
+                  "name": "refresh_token",
+                  "type": "text",
+                  "value": ""
+                }
+              ]
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Token endpoint that dispatches by grant_type: authorization_code, urn:ietf:params:oauth:grant-type:device_code, or refresh_token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

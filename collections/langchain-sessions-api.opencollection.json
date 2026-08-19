@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies sessions API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "sessions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List agent versions for a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/sessions/:sessionID/agent-versions",
+            "params": [
+              {
+                "name": "sessionID",
+                "value": "",
+                "type": "path",
+                "description": "Tracing project (session) UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all agent versions (commit SHAs) seen in the given tracing project, ordered by first_seen_at descending."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,29 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies Ok API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ok",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ok",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/ok"
+          },
+          "docs": "Ok"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

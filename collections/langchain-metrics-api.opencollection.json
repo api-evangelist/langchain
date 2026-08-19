@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies metrics API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "metrics",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Queue Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/metrics/queue/:queue_name",
+            "params": [
+              {
+                "name": "queue_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Return cached SAQ queue counts for the requested queue."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

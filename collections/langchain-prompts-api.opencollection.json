@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies prompts API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "prompts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Invoke Prompt",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/prompts/invoke_prompt",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invoke Prompt"
+        },
+        {
+          "info": {
+            "name": "Prompt Canvas",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/prompts/canvas",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Prompt Canvas"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

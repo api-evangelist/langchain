@@ -1,0 +1,228 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies evaluators API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "evaluators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List evaluators",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/evaluators",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Filter by evaluator type"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name substring (also searches creator names)"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by tag value IDs"
+              },
+              {
+                "name": "feedback_key",
+                "value": "",
+                "type": "query",
+                "description": "Filter by feedback key"
+              },
+              {
+                "name": "resource_id",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource IDs"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field to sort by"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort in descending order"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results (1-100)"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset for pagination"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List evaluators for the current workspace, with optional filtering by type, name, tag, feedback key, or resource ID."
+        },
+        {
+          "info": {
+            "name": "Create evaluator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v1/platform/evaluators",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new LLM or code evaluator for the current workspace."
+        },
+        {
+          "info": {
+            "name": "Bulk delete evaluators",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v1/platform/evaluators",
+            "params": [
+              {
+                "name": "evaluator_ids",
+                "value": "",
+                "type": "query",
+                "description": "Evaluator IDs to delete"
+              },
+              {
+                "name": "delete_run_rules",
+                "value": "",
+                "type": "query",
+                "description": "When true, delete all run rules for this evaluator before deleting the evaluator"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete multiple evaluators by their IDs. Returns per-item success/failure."
+        },
+        {
+          "info": {
+            "name": "Get evaluator",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v1/platform/evaluators/:evaluator_id",
+            "params": [
+              {
+                "name": "evaluator_id",
+                "value": "",
+                "type": "path",
+                "description": "Evaluator ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a single evaluator by its ID."
+        },
+        {
+          "info": {
+            "name": "Update evaluator",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/v1/platform/evaluators/:evaluator_id",
+            "params": [
+              {
+                "name": "evaluator_id",
+                "value": "",
+                "type": "path",
+                "description": "Evaluator ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update an existing evaluator's name, LLM configuration, or code configuration."
+        },
+        {
+          "info": {
+            "name": "Delete evaluator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v1/platform/evaluators/:evaluator_id",
+            "params": [
+              {
+                "name": "evaluator_id",
+                "value": "",
+                "type": "path",
+                "description": "Evaluator ID"
+              },
+              {
+                "name": "delete_run_rules",
+                "value": "",
+                "type": "query",
+                "description": "When true, delete all run rules for this evaluator before deleting the evaluator"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete an evaluator. When delete_run_rules is true, all run rules referencing this evaluator are deleted first (same tenant). Associated llm_evaluators and code_evaluators rows are removed by foreign-key cascade when the evaluator row is deleted."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

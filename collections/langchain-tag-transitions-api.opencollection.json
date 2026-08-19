@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies tag-transitions API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "tag-transitions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get tag transition history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/repos/:owner/:repo/tags/:tag_name/history",
+            "params": [
+              {
+                "name": "owner",
+                "value": "",
+                "type": "path",
+                "description": "Repository owner (tenant handle)"
+              },
+              {
+                "name": "repo",
+                "value": "",
+                "type": "path",
+                "description": "Repository handle"
+              },
+              {
+                "name": "tag_name",
+                "value": "",
+                "type": "path",
+                "description": "Tag name"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the paginated audit log of transitions for a specific\ntag in a repository. Each entry records a commit change\n(from_commit → to_commit) along with who performed it."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

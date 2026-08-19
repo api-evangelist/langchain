@@ -1,0 +1,635 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies charts API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "charts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Clone Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts/section/clone",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Clone a dashboard."
+        },
+        {
+          "info": {
+            "name": "Read Sections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/charts/section",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all sections for the tenant."
+        },
+        {
+          "info": {
+            "name": "Create Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts/section",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new section."
+        },
+        {
+          "info": {
+            "name": "Read Charts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all charts for the tenant."
+        },
+        {
+          "info": {
+            "name": "Read Chart Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts/preview",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a preview for a chart without actually creating it."
+        },
+        {
+          "info": {
+            "name": "Create Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new chart."
+        },
+        {
+          "info": {
+            "name": "Read Single Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts/:chart_id",
+            "params": [
+              {
+                "name": "chart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single chart by ID."
+        },
+        {
+          "info": {
+            "name": "Update Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/charts/:chart_id",
+            "params": [
+              {
+                "name": "chart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a chart."
+        },
+        {
+          "info": {
+            "name": "Delete Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/charts/:chart_id",
+            "params": [
+              {
+                "name": "chart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a chart."
+        },
+        {
+          "info": {
+            "name": "Read Single Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/charts/section/:section_id",
+            "params": [
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single section by ID."
+        },
+        {
+          "info": {
+            "name": "Update Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/charts/section/:section_id",
+            "params": [
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a section."
+        },
+        {
+          "info": {
+            "name": "Delete Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/charts/section/:section_id",
+            "params": [
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a section."
+        },
+        {
+          "info": {
+            "name": "Org Read Sections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/org-charts/section",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "title_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "tag_value_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all sections for the tenant."
+        },
+        {
+          "info": {
+            "name": "Org Create Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/org-charts/section",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new section."
+        },
+        {
+          "info": {
+            "name": "Org Read Charts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/org-charts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all charts for the tenant."
+        },
+        {
+          "info": {
+            "name": "Org Read Chart Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/org-charts/preview",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a preview for a chart without actually creating it."
+        },
+        {
+          "info": {
+            "name": "Org Create Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/org-charts/create",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new chart."
+        },
+        {
+          "info": {
+            "name": "Org Read Single Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/org-charts/:chart_id",
+            "params": [
+              {
+                "name": "chart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single chart by ID."
+        },
+        {
+          "info": {
+            "name": "Org Update Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/org-charts/:chart_id",
+            "params": [
+              {
+                "name": "chart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a chart."
+        },
+        {
+          "info": {
+            "name": "Org Delete Chart",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/org-charts/:chart_id",
+            "params": [
+              {
+                "name": "chart_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a chart."
+        },
+        {
+          "info": {
+            "name": "Org Read Single Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/org-charts/section/:section_id",
+            "params": [
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single section by ID."
+        },
+        {
+          "info": {
+            "name": "Org Update Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/org-charts/section/:section_id",
+            "params": [
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a section."
+        },
+        {
+          "info": {
+            "name": "Org Delete Section",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/org-charts/section/:section_id",
+            "params": [
+              {
+                "name": "section_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a section."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

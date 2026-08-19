@@ -1,0 +1,470 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies sandboxes API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "sandboxes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sandbox claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/sandboxes/boxes",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name substring"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status (provisioning, ready, failed, stopped)"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort column (name, status, created_at)"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (asc, desc)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List sandbox claims for the authenticated tenant, with optional filtering, sorting, and pagination."
+        },
+        {
+          "info": {
+            "name": "Create a sandbox claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/boxes",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new sandbox from a snapshot. The snapshot may be identified by `snapshot_id` (UUID) or by `snapshot_name` (tenant-scoped unique name); exactly one must be set."
+        },
+        {
+          "info": {
+            "name": "Batch delete sandbox claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/boxes/batch-delete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete multiple sandbox claims by name in a single request."
+        },
+        {
+          "info": {
+            "name": "Get a sandbox claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/sandboxes/boxes/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve a sandbox claim by name. Stale provisioning claims are auto-failed."
+        },
+        {
+          "info": {
+            "name": "Update a sandbox claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/v2/sandboxes/boxes/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Current sandbox claim display name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a sandbox claim's display name. The name must be unique within the tenant."
+        },
+        {
+          "info": {
+            "name": "Delete a sandbox claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v2/sandboxes/boxes/:name",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a sandbox claim by name. Deletes the Firecracker pod/service and DB record."
+        },
+        {
+          "info": {
+            "name": "Generate a service access token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/boxes/:name/service-url",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a short-lived JWT for accessing an HTTP service running on a specific port inside a sandbox. Returns a browser_url (sets auth cookie via redirect), a service_url (for use with the X-Langsmith-Sandbox-Service-Token header), the raw token, and its expiry."
+        },
+        {
+          "info": {
+            "name": "Capture a snapshot from a sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/boxes/:name/snapshot",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a snapshot by capturing the current state of a sandbox or promoting an existing checkpoint."
+        },
+        {
+          "info": {
+            "name": "Start a sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/boxes/:name/start",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Start a stopped or failed sandbox. This endpoint is not idempotent."
+        },
+        {
+          "info": {
+            "name": "Get sandbox claim status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/sandboxes/boxes/:name/status",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieve the lightweight status of a sandbox claim for polling."
+        },
+        {
+          "info": {
+            "name": "Stop a sandbox",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/boxes/:name/stop",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path",
+                "description": "Sandbox claim display name"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Stop a ready sandbox. This endpoint is not idempotent; the filesystem is preserved for later restart."
+        },
+        {
+          "info": {
+            "name": "List snapshots",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/sandboxes/snapshots",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name substring"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Filter by status (building, ready, failed, deleting)"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort column (name, status, created_at)"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query",
+                "description": "Sort direction (asc, desc)"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List sandbox snapshots for the authenticated tenant, with optional filtering, sorting, and pagination."
+        },
+        {
+          "info": {
+            "name": "Create a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/v2/sandboxes/snapshots",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a snapshot from a Docker image (async build)."
+        },
+        {
+          "info": {
+            "name": "Get a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/sandboxes/snapshots/:snapshot_id",
+            "params": [
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "Snapshot UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a sandbox snapshot by ID."
+        },
+        {
+          "info": {
+            "name": "Delete a snapshot",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/v2/sandboxes/snapshots/:snapshot_id",
+            "params": [
+              {
+                "name": "snapshot_id",
+                "value": "",
+                "type": "path",
+                "description": "Snapshot UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a snapshot by ID. The underlying storage is reclaimed asynchronously."
+        },
+        {
+          "info": {
+            "name": "Get sandbox resource usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/v2/sandboxes/usage",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get current sandbox resource usage and quota limits for the workspace"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

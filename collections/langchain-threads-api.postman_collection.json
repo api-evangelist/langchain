@@ -1,0 +1,725 @@
+{
+  "item": [
+    {
+      "id": "8e07a81c-633f-479a-afa8-540b0c418a48",
+      "name": "threads",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "25168ecd-782c-4a9c-aeb6-e82f6b027c14",
+          "name": "Query Threads",
+          "request": {
+            "name": "Query Threads",
+            "description": {
+              "content": "**Alpha:** The request and response contract may change;\nQuery threads within a project (session), with cursor-based pagination.\nReturns threads matching the given time range and optional filter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "threads",
+                "query"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"cursor\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"max_start_time\": \"<dateTime>\",\n  \"min_start_time\": \"<dateTime>\",\n  \"page_size\": 20,\n  \"project_id\": \"<uuid>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "99ecd530-23aa-49f0-8fd8-379a61ecc71c",
+              "name": "items and pagination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cursor\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"max_start_time\": \"<dateTime>\",\n  \"min_start_time\": \"<dateTime>\",\n  \"page_size\": 20,\n  \"project_id\": \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"items\": [\n    {\n      \"count\": 3,\n      \"feedback_stats\": {\n        \"key_0\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_2\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_3\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"first_inputs\": \"string\",\n      \"first_trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"last_error\": \"string\",\n      \"last_outputs\": \"string\",\n      \"last_trace_id\": \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\",\n      \"latency_p50\": 0.15,\n      \"latency_p99\": 0.42,\n      \"max_start_time\": \"2025-01-15T12:05:00.000Z\",\n      \"min_start_time\": \"2025-01-15T12:00:00.000Z\",\n      \"start_time\": \"2025-01-15T12:00:00.000Z\",\n      \"thread_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"total_cost\": 0.045,\n      \"total_cost_details\": {\n        \"key_0\": 7834.395349095355,\n        \"key_1\": 9024.333367134903\n      },\n      \"total_token_details\": {\n        \"key_0\": 3814,\n        \"key_1\": 6090\n      },\n      \"total_tokens\": 450,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9328\"\n    },\n    {\n      \"count\": 3,\n      \"feedback_stats\": {\n        \"key_0\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"key_1\": {\n          \"avg\": 0.87,\n          \"comments\": [\n            \"good answer\",\n            \"needs citation\"\n          ],\n          \"contains_thread_feedback\": false,\n          \"errors\": 0,\n          \"max\": 0.95,\n          \"min\": 0.8,\n          \"n\": 42,\n          \"sources\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"stdev\": 0.05,\n          \"values\": {\n            \"key_0\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"key_1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      },\n      \"first_inputs\": \"string\",\n      \"first_trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"last_error\": \"string\",\n      \"last_outputs\": \"string\",\n      \"last_trace_id\": \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\",\n      \"latency_p50\": 0.15,\n      \"latency_p99\": 0.42,\n      \"max_start_time\": \"2025-01-15T12:05:00.000Z\",\n      \"min_start_time\": \"2025-01-15T12:00:00.000Z\",\n      \"start_time\": \"2025-01-15T12:00:00.000Z\",\n      \"thread_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\",\n      \"total_cost\": 0.045,\n      \"total_cost_details\": {\n        \"key_0\": 4967.550800368066\n      },\n      \"total_token_details\": {\n        \"key_0\": 9796\n      },\n      \"total_tokens\": 450,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9328\"\n    }\n  ],\n  \"next_cursor\": \"eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1bb020db-3c97-4de5-a8f1-5c7e85053d12",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cursor\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"max_start_time\": \"<dateTime>\",\n  \"min_start_time\": \"<dateTime>\",\n  \"page_size\": 20,\n  \"project_id\": \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "296f1faa-3410-4517-b207-833787e48960",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cursor\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"max_start_time\": \"<dateTime>\",\n  \"min_start_time\": \"<dateTime>\",\n  \"page_size\": 20,\n  \"project_id\": \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e28884f9-43c2-4382-8a36-69c4d9e13e25",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    "query"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"cursor\": \"<string>\",\n  \"filter\": \"<string>\",\n  \"max_start_time\": \"<dateTime>\",\n  \"min_start_time\": \"<dateTime>\",\n  \"page_size\": 20,\n  \"project_id\": \"0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4f9dcef9-02d5-4bb9-9238-dc0a66063f9c",
+          "name": "Query Thread Traces",
+          "request": {
+            "name": "Query Thread Traces",
+            "description": {
+              "content": "**Alpha:** The request and response contract may change;\nRetrieve all traces belonging to a specific thread within a project.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "threads",
+                ":thread_id",
+                "traces"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "`cursor` is the opaque string from a previous response's `next_cursor`. Omit on the first request; pass the returned cursor to fetch the next page."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "`filter` narrows which traces are returned for this thread, using a LangSmith filter expression evaluated against each root trace run.\nFor example: eq(status, \"success\") or has(tags, \"production\").\nSee https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax."
+                },
+                {
+                  "disabled": false,
+                  "key": "page_size",
+                  "value": "20",
+                  "description": "`page_size` is the maximum number of traces to return in this response. Defaults to 20 when omitted; must be between 1 and 100 inclusive when set."
+                },
+                {
+                  "disabled": false,
+                  "key": "project_id",
+                  "value": "<uuid>",
+                  "description": "(Required) `project_id` is the tracing project UUID (required)."
+                },
+                {
+                  "disabled": false,
+                  "key": "selects",
+                  "value": "<string>",
+                  "description": "`selects` lists which properties to include on each returned trace (repeatable query parameter). Accepts any value of the `ThreadTraceSelectField` enum. Properties not listed are omitted from each trace object; `trace_id` is always returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "selects",
+                  "value": "<string>",
+                  "description": "`selects` lists which properties to include on each returned trace (repeatable query parameter). Accepts any value of the `ThreadTraceSelectField` enum. Properties not listed are omitted from each trace object; `trace_id` is always returned."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "thread_id",
+                  "description": "(Required) Thread ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-API-Key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f6776361-09b3-4b13-ad9a-6c9ef2f1f36f",
+              "name": "items and pagination",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    ":thread_id",
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "NAME"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "START_TIME"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) Thread ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"has_more\": true,\n  \"items\": [\n    {\n      \"completion_cost\": 3412.983071896345,\n      \"completion_cost_details\": {\n        \"raw\": {\n          \"key_0\": 6748.258294585764,\n          \"key_1\": 146.37571894007385\n        }\n      },\n      \"completion_token_details\": {\n        \"raw\": {\n          \"key_0\": 9349,\n          \"key_1\": 1784\n        }\n      },\n      \"completion_tokens\": 9835,\n      \"end_time\": \"2025-01-15T12:00:01.500Z\",\n      \"error_preview\": \"string\",\n      \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n      \"inputs_preview\": \"string\",\n      \"latency\": 868.5232299336443,\n      \"name\": \"string\",\n      \"op\": 2367.837568375373,\n      \"outputs_preview\": \"string\",\n      \"prompt_cost\": 3008.5975268882403,\n      \"prompt_cost_details\": {\n        \"raw\": {\n          \"key_0\": 4075.645242887006\n        }\n      },\n      \"prompt_token_details\": {\n        \"raw\": {\n          \"key_0\": 7857,\n          \"key_1\": 4016\n        }\n      },\n      \"prompt_tokens\": 2402,\n      \"start_time\": \"2025-01-15T12:00:00.000Z\",\n      \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n      \"total_cost\": 1190.9063389324726,\n      \"total_tokens\": 4787,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n    },\n    {\n      \"completion_cost\": 5911.01944033306,\n      \"completion_cost_details\": {\n        \"raw\": {\n          \"key_0\": 6198.797707290083,\n          \"key_1\": 5495.738269386561,\n          \"key_2\": 5847.733297290206,\n          \"key_3\": 8153.3458942705975\n        }\n      },\n      \"completion_token_details\": {\n        \"raw\": {\n          \"key_0\": 4927,\n          \"key_1\": 9232,\n          \"key_2\": 3625,\n          \"key_3\": 8398\n        }\n      },\n      \"completion_tokens\": 8717,\n      \"end_time\": \"2025-01-15T12:00:01.500Z\",\n      \"error_preview\": \"string\",\n      \"first_token_time\": \"2024-01-15T10:30:00.312Z\",\n      \"inputs_preview\": \"string\",\n      \"latency\": 928.4211740815529,\n      \"name\": \"string\",\n      \"op\": 4563.637976514927,\n      \"outputs_preview\": \"string\",\n      \"prompt_cost\": 7837.607093625312,\n      \"prompt_cost_details\": {\n        \"raw\": {\n          \"key_0\": 7871.258196845661\n        }\n      },\n      \"prompt_token_details\": {\n        \"raw\": {\n          \"key_0\": 9643,\n          \"key_1\": 1609\n        }\n      },\n      \"prompt_tokens\": 9440,\n      \"start_time\": \"2025-01-15T12:00:00.000Z\",\n      \"thread_id\": \"d4e5f6a7-b8c9-4d5e-1f2a-3b4c5d6e7f8a\",\n      \"total_cost\": 9001.660530049468,\n      \"total_tokens\": 2427,\n      \"trace_id\": \"018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327\"\n    }\n  ],\n  \"next_cursor\": \"eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cbd63db-66ee-4fa5-b5c3-840801398062",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    ":thread_id",
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "NAME"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "START_TIME"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) Thread ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3379de0d-5c79-4d2c-9b27-1f60eb674401",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    ":thread_id",
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "NAME"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "START_TIME"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) Thread ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e817f942-a8db-4832-af5a-cbaff3a0b6a6",
+              "name": "Unprocessable Entity",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "threads",
+                    ":thread_id",
+                    "traces"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page_size",
+                      "value": "20"
+                    },
+                    {
+                      "key": "project_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "NAME"
+                    },
+                    {
+                      "key": "selects",
+                      "value": "START_TIME"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "thread_id",
+                      "description": "(Required) Thread ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-API-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "0c813124-8813-4a5b-afa0-3e7452981564",
+    "name": "LangSmith access_policies threads API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The LangSmith API is used to programmatically create and manage LangSmith resources.\n\n## Host\nhttps://api.smith.langchain.com\n\n## Authentication\nTo authenticate with the LangSmith API, set the `X-Api-Key` header\nto a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).\n\n",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,471 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies feedback API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "feedback",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Feedback Formula Ep",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback/formulas",
+            "params": [
+              {
+                "name": "dataset_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List feedback formulas for a given dataset or tracing project"
+        },
+        {
+          "info": {
+            "name": "Create Feedback Formula Ep",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/feedback/formulas",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new feedback formula"
+        },
+        {
+          "info": {
+            "name": "Get Feedback Formula Ep",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback/formulas/:feedback_formula_id",
+            "params": [
+              {
+                "name": "feedback_formula_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a feedback formula by id"
+        },
+        {
+          "info": {
+            "name": "Update Feedback Formula Ep",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/v1/feedback/formulas/:feedback_formula_id",
+            "params": [
+              {
+                "name": "feedback_formula_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a feedback formula"
+        },
+        {
+          "info": {
+            "name": "Delete Feedback Formula Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/feedback/formulas/:feedback_formula_id",
+            "params": [
+              {
+                "name": "feedback_formula_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a feedback formula by id"
+        },
+        {
+          "info": {
+            "name": "Read Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback/:feedback_id",
+            "params": [
+              {
+                "name": "feedback_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_user_names",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a specific feedback."
+        },
+        {
+          "info": {
+            "name": "Update Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/feedback/:feedback_id",
+            "params": [
+              {
+                "name": "feedback_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Replace an existing feedback entry with a new, modified entry."
+        },
+        {
+          "info": {
+            "name": "Delete Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/feedback/:feedback_id",
+            "params": [
+              {
+                "name": "feedback_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Delete a feedback."
+        },
+        {
+          "info": {
+            "name": "Read Feedbacks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback",
+            "params": [
+              {
+                "name": "run",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "session",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "source",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_comment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "has_score",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "level",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "max_created_at",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "min_created_at",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "include_user_names",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "comparative_experiment_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all Feedback by query params."
+        },
+        {
+          "info": {
+            "name": "Create Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/feedback",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new feedback."
+        },
+        {
+          "info": {
+            "name": "Eagerly Create Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/feedback/eager",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new feedback.\n\nThis method is invoked under the assumption that the run\nis already visible in the app, thus already present in DB"
+        },
+        {
+          "info": {
+            "name": "List Feedback Ingest Tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback/tokens",
+            "params": [
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List all feedback ingest tokens for a run."
+        },
+        {
+          "info": {
+            "name": "Create Feedback Ingest Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/feedback/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new feedback ingest token."
+        },
+        {
+          "info": {
+            "name": "Create Feedback With Token Get",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback/tokens/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "score",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "value",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "comment",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "correction",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Create a new feedback with a token."
+        },
+        {
+          "info": {
+            "name": "Create Feedback With Token Post",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/feedback/tokens/:token",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new feedback with a token."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

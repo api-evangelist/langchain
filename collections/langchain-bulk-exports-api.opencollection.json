@@ -1,0 +1,275 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies bulk-exports API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "bulk-exports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Bulk Exports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the current workspace's bulk exports"
+        },
+        {
+          "info": {
+            "name": "Create Bulk Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/bulk-exports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new bulk export"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Export Destinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports/destinations",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get the current workspace's bulk export destinations"
+        },
+        {
+          "info": {
+            "name": "Create Bulk Export Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/bulk-exports/destinations",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new bulk export destination"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Export Runs Filtered",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports/runs",
+            "params": [
+              {
+                "name": "source_bulk_export_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all bulk export runs for exports that were created from a scheduled bulk export"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports/:bulk_export_id",
+            "params": [
+              {
+                "name": "bulk_export_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single bulk export by ID"
+        },
+        {
+          "info": {
+            "name": "Cancel Bulk Export",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/bulk-exports/:bulk_export_id",
+            "params": [
+              {
+                "name": "bulk_export_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Cancel a bulk export by ID"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Export Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports/destinations/:destination_id",
+            "params": [
+              {
+                "name": "destination_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single bulk export destination by ID"
+        },
+        {
+          "info": {
+            "name": "Update Bulk Export Destination",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/bulk-exports/destinations/:destination_id",
+            "params": [
+              {
+                "name": "destination_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update a bulk export destination"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Export Runs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports/:bulk_export_id/runs",
+            "params": [
+              {
+                "name": "bulk_export_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a bulk export's runs"
+        },
+        {
+          "info": {
+            "name": "Get Bulk Export Run",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/bulk-exports/:bulk_export_id/runs/:run_id",
+            "params": [
+              {
+                "name": "bulk_export_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "run_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a single bulk export's run by ID"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

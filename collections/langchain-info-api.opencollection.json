@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies info API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Server Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/info"
+          },
+          "docs": "Get information about the current deployment of LangSmith."
+        },
+        {
+          "info": {
+            "name": "Get Health Info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/info/health"
+          },
+          "docs": "Get health information about the current deployment of LangSmith."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

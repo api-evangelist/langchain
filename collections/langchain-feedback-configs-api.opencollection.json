@@ -1,0 +1,133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies feedback-configs API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "feedback-configs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Feedback Configs Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/feedback-configs",
+            "params": [
+              {
+                "name": "key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "name_contains",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_by_desc",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "read_after_write",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "List Feedback Configs Endpoint"
+        },
+        {
+          "info": {
+            "name": "Create Feedback Config Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/feedback-configs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create Feedback Config Endpoint"
+        },
+        {
+          "info": {
+            "name": "Update Feedback Config Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/feedback-configs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Update Feedback Config Endpoint"
+        },
+        {
+          "info": {
+            "name": "Delete Feedback Config Endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/feedback-configs",
+            "params": [
+              {
+                "name": "feedback_key",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Soft delete a feedback config by marking it as deleted.\n\nThe config can be recreated later with the same key (simple reuse pattern).\nExisting feedback records with this key will remain unchanged."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

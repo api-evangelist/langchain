@@ -1,0 +1,128 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies auth API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/login"
+          },
+          "docs": "Login"
+        },
+        {
+          "info": {
+            "name": "Send Sso Email Confirmation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/sso/email-verification/send",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Send an email to confirm the email address for an SSO user."
+        },
+        {
+          "info": {
+            "name": "Check Sso Email Verification Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/sso/email-verification/status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Retrieve the email verification status of an SSO user."
+        },
+        {
+          "info": {
+            "name": "Confirm Sso User Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/sso/email-verification/confirm",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Confirm the email of an SSO user."
+        },
+        {
+          "info": {
+            "name": "Get Sso Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/sso/settings/:sso_login_slug",
+            "params": [
+              {
+                "name": "sso_login_slug",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get SSO provider settings from login slug."
+        },
+        {
+          "info": {
+            "name": "Lookup Sso By Email",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/sso/email-lookup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Look up SSO providers available for a SCIM-provisioned email address."
+        },
+        {
+          "info": {
+            "name": "Get public auth info",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/auth/public",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns public authentication information for the current workspace-level session."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

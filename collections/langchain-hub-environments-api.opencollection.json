@@ -1,0 +1,110 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies hub_environments API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "hub_environments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List hub environments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/v1/hub/environments",
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns the hub environments model for the current tenant.\nReturns 404 if no custom configuration exists."
+        },
+        {
+          "info": {
+            "name": "Create hub environments model",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/hub/environments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Creates the hub environments configuration for the current tenant."
+        },
+        {
+          "info": {
+            "name": "Update hub environments model",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/v1/hub/environments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Model ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Replaces the environments array on an existing model."
+        },
+        {
+          "info": {
+            "name": "Delete hub environments model",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/v1/hub/environments/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Model ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the hub environments configuration. Tenant reverts to defaults."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

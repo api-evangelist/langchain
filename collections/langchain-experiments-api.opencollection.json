@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LangSmith access_policies experiments API",
+    "version": "0.1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "experiments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Evaluate Experiment Adhoc",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/v1/runs/experiments/:experiment_id/evaluate",
+            "params": [
+              {
+                "name": "experiment_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-API-Key",
+              "value": "{{X-API-Key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Evaluate an existing experiment with a specific evaluator.\n\nThis triggers immediate evaluation using the run_over_dataset approach,\nprocessing runs in batches to handle large experiments efficiently."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
