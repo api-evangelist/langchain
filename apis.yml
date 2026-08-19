@@ -33,7 +33,7 @@ tags:
 created: '2026-01-02'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/langchain/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: langchain:langchain-access-policies-api
   name: LangChain access_policies API
