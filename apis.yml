@@ -41,6 +41,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Access Policies
+  tags_raw:
   - access_policies
   properties:
   - type: OpenAPI
@@ -59,6 +61,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - ACE
+  tags_raw:
   - ace
   properties:
   - type: OpenAPI
@@ -77,6 +81,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Alert Rules
+  tags_raw:
   - alert_rules
   properties:
   - type: OpenAPI
@@ -95,6 +101,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Annotation Queues
+  tags_raw:
   - annotation-queues
   properties:
   - type: OpenAPI
@@ -113,6 +121,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - APIKeys
+  tags_raw:
   - api-key
   properties:
   - type: OpenAPI
@@ -131,6 +141,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Audit Logs
+  tags_raw:
   - audit-logs
   properties:
   - type: OpenAPI
@@ -149,6 +161,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -167,6 +181,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - AWS Marketplace
+  tags_raw:
   - aws_marketplace
   properties:
   - type: OpenAPI
@@ -203,6 +219,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Beacon
+  tags_raw:
   - beacon
   properties:
   - type: OpenAPI
@@ -239,6 +257,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Charts
+  tags_raw:
   - charts
   properties:
   - type: OpenAPI
@@ -257,6 +277,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Comments
+  tags_raw:
   - comments
   properties:
   - type: OpenAPI
@@ -275,6 +297,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Commits
+  tags_raw:
   - commits
   properties:
   - type: OpenAPI
@@ -293,6 +317,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Dataplanes
+  tags_raw:
   - data_planes
   properties:
   - type: OpenAPI
@@ -311,6 +337,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Datasets
+  tags_raw:
   - datasets
   properties:
   - type: OpenAPI
@@ -329,6 +357,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Evaluators
+  tags_raw:
   - evaluators
   properties:
   - type: OpenAPI
@@ -347,6 +377,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Examples
+  tags_raw:
   - examples
   properties:
   - type: OpenAPI
@@ -384,6 +416,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Experiments
+  tags_raw:
   - experiments
   properties:
   - type: OpenAPI
@@ -402,6 +436,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Features
+  tags_raw:
   - features
   properties:
   - type: OpenAPI
@@ -420,6 +456,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Feedback
+  tags_raw:
   - feedback
   properties:
   - type: OpenAPI
@@ -527,7 +565,8 @@ apis:
   description: The fleet_webhooks API from LangChain — 1 operation(s) for fleet_webhooks.
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
-  tags:
+  tags: []
+  tags_raw:
   - fleet_webhooks
   properties:
   - type: OpenAPI
@@ -545,7 +584,8 @@ apis:
   description: The hub_environments API from LangChain — 2 operation(s) for hub_environments.
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
-  tags:
+  tags: []
+  tags_raw:
   - hub_environments
   properties:
   - type: OpenAPI
@@ -564,6 +604,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Info
+  tags_raw:
   - info
   properties:
   - type: OpenAPI
@@ -582,6 +624,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Integration
+  tags_raw:
   - integrations
   properties:
   - type: OpenAPI
@@ -600,6 +644,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Likes
+  tags_raw:
   - likes
   properties:
   - type: OpenAPI
@@ -618,6 +664,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - MCP
+  tags_raw:
   - mcp
   properties:
   - type: OpenAPI
@@ -635,7 +683,8 @@ apis:
   description: The mcp_vendors API from LangChain — 6 operation(s) for mcp_vendors.
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
-  tags:
+  tags: []
+  tags_raw:
   - mcp_vendors
   properties:
   - type: OpenAPI
@@ -654,6 +703,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Me
+  tags_raw:
   - me
   properties:
   - type: OpenAPI
@@ -672,6 +723,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Metrics
+  tags_raw:
   - metrics
   properties:
   - type: OpenAPI
@@ -708,6 +761,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - NPS
+  tags_raw:
   - nps
   properties:
   - type: OpenAPI
@@ -726,6 +781,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
@@ -780,6 +837,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
@@ -798,6 +857,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Organization
+  tags_raw:
   - orgs
   properties:
   - type: OpenAPI
@@ -870,6 +931,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Prompts
+  tags_raw:
   - prompts
   properties:
   - type: OpenAPI
@@ -888,6 +951,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Public
+  tags_raw:
   - public
   properties:
   - type: OpenAPI
@@ -906,6 +971,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Repos
+  tags_raw:
   - repos
   properties:
   - type: OpenAPI
@@ -924,6 +991,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Run
+  tags_raw:
   - run
   properties:
   - type: OpenAPI
@@ -942,6 +1011,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Runs
+  tags_raw:
   - runs
   properties:
   - type: OpenAPI
@@ -960,6 +1031,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Sandboxes
+  tags_raw:
   - sandboxes
   properties:
   - type: OpenAPI
@@ -1014,6 +1087,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Service Accounts
+  tags_raw:
   - service-accounts
   properties:
   - type: OpenAPI
@@ -1032,6 +1107,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Sessions
+  tags_raw:
   - sessions
   properties:
   - type: OpenAPI
@@ -1050,6 +1127,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Settings
+  tags_raw:
   - settings
   properties:
   - type: OpenAPI
@@ -1086,6 +1165,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Tags
+  tags_raw:
   - tags
   properties:
   - type: OpenAPI
@@ -1104,6 +1185,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Tenant
+  tags_raw:
   - tenant
   properties:
   - type: OpenAPI
@@ -1122,6 +1205,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Threads
+  tags_raw:
   - threads
   properties:
   - type: OpenAPI
@@ -1140,6 +1225,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Tools
+  tags_raw:
   - tools
   properties:
   - type: OpenAPI
@@ -1212,6 +1299,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Workspaces
+  tags_raw:
   - workspaces
   properties:
   - type: OpenAPI
