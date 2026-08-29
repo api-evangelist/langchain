@@ -7,6 +7,18 @@ description: 'LangChain is a comprehensive ecosystem for building and deploying 
   which provides low-level primitives for building custom agent workflows with greater
   control.'
 kind: contract
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
@@ -1314,6 +1326,9 @@ apis:
   - type: GraphQL
     url: graphql/langchain-graphql.md
 common:
+- type: CapabilityMap
+  url: capabilities/langchain-capability-edges.yml
+  name: LangChain Business Capability Map
 - type: AgenticAccess
   url: agentic-access/langchain-agentic-access.yml
 - type: DomainSecurity
