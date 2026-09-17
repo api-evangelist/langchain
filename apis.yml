@@ -43,6 +43,7 @@ tags:
 - LLM Observability
 - Tracing
 - Evaluation
+- LangChain
 created: '2026-01-02'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/langchain/refs/heads/main/apis.yml
