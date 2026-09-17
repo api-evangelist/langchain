@@ -788,26 +788,6 @@ apis:
     url: https://docs.langchain.com/langsmith/create-account-api-key
   - type: GraphQL
     url: graphql/langchain-graphql.md
-- aid: langchain:langchain-oauth-api
-  name: LangChain oauth API
-  description: The oauth API from LangChain — 7 operation(s) for oauth.
-  humanURL: https://docs.langchain.com/langsmith
-  baseURL: https://api.smith.langchain.com
-  tags:
-  - Authentication
-  tags_raw:
-  - oauth
-  properties:
-  - type: OpenAPI
-    url: openapi/langchain-oauth-api-openapi.yml
-  - type: Documentation
-    url: https://docs.langchain.com/langsmith
-  - type: Signup
-    url: https://smith.langchain.com/
-  - type: Authentication
-    url: https://docs.langchain.com/langsmith/create-account-api-key
-  - type: GraphQL
-    url: graphql/langchain-graphql.md
 - aid: langchain:langchain-ok-api
   name: LangChain Ok API
   description: The Ok API from LangChain — 1 operation(s) for ok.
@@ -1318,6 +1298,24 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/langchain-workspaces-api-openapi.yml
+  - type: Documentation
+    url: https://docs.langchain.com/langsmith
+  - type: Signup
+    url: https://smith.langchain.com/
+  - type: Authentication
+    url: https://docs.langchain.com/langsmith/create-account-api-key
+  - type: GraphQL
+    url: graphql/langchain-graphql.md
+- aid: langchain:langchain-oauth-api
+  name: LangChain OAUTH API
+  description: The oauth API from LangChain — 7 operation(s) for oauth.
+  humanURL: https://docs.langchain.com/langsmith
+  baseURL: https://api.smith.langchain.com
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/langchain-oauth-api-openapi.yml
   - type: Documentation
     url: https://docs.langchain.com/langsmith
   - type: Signup
