@@ -40,9 +40,10 @@ x-docs-platform: mintlify
 x-docs-platform-confidence: medium
 x-docs-platform-checked: 2026-09-17
 tags:
+- LLM
+- LangChain
 - Agents
 - Artificial Intelligence
-- LLM
 - LLM Observability
 - Tracing
 - Evaluation
