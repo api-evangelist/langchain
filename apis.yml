@@ -36,14 +36,25 @@ accessModel:
 position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/langchain.png
+x-docs-platform: mintlify
+x-docs-platform-confidence: medium
+x-docs-platform-checked: 2026-09-17
 tags:
+- Agents
+- Artificial Intelligence
+- LLM
+- LLM Observability
+- Tracing
+- Evaluation
+tags_raw:
+- Large Language Models
+- LangChain
 - Agents
 - Artificial Intelligence
 - Large Language Models
 - LLM Observability
 - Tracing
 - Evaluation
-- LangChain
 created: '2026-01-02'
 modified: '2026-05-19'
 url: https://raw.githubusercontent.com/api-evangelist/langchain/refs/heads/main/apis.yml
@@ -391,7 +402,7 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
-  - Examples
+  - Example
   tags_raw:
   - examples
   properties:
@@ -1025,7 +1036,7 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
-  - Sandboxes
+  - Sandbox
   tags_raw:
   - sandboxes
   properties:
@@ -1179,7 +1190,7 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
-  - Tenant
+  - Tenants
   tags_raw:
   - tenant
   properties:
@@ -1293,7 +1304,7 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
-  - Workspaces
+  - Workspace
   tags_raw:
   - workspaces
   properties:
@@ -1313,6 +1324,8 @@ apis:
   humanURL: https://docs.langchain.com/langsmith
   baseURL: https://api.smith.langchain.com
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
