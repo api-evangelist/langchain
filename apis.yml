@@ -1340,6 +1340,10 @@ apis:
   - type: GraphQL
     url: graphql/langchain-graphql.md
 common:
+- type: Pricing
+  url: https://www.langchain.com/pricing
+- type: Plans
+  url: plans/langchain-plans-pricing.yml
 - type: CapabilityMap
   url: capabilities/langchain-capability-edges.yml
   name: LangChain Business Capability Map

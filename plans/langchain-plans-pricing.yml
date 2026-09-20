@@ -1,152 +1,61 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: LangChain
-providerId: langchain
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - Agents
-  - Artificial Intelligence
-  - Large Language Models
-  - LLM Observability
-  - Tracing
-  - Evaluation
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.langchain.com/pricing
+sources:
+- https://www.langchain.com/pricing
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T130003
+  grounding: every price_text was found verbatim in the fetched page text
+audience: developer-api
+pricing_basis: tiered-subscription
+published: true
+note: 'LangSmith pricing page: three seat-based tiers plus pay-as-you-go metering in LCUs ($1.50) and
+  LSUs ($1.00). Deployment metering rates listed (e.g. Runtime Compute · 0.045 LCU / vCPU-hr), sandbox
+  rates, and Tuned Evaluators at 0.01 LCU/Evaluation Run. Usage calculator shows an example estimate of
+  $49 / mo. Startup credits up to $10,000 mentioned.'
+plan_count: 5
+currency: USD
 plans:
-  - id: langchain-free
-    name: Free
-    type: freemium
-    description: Free entry tier for the LangChain API surface. Intended for evaluation, prototyping,
-      and low-volume integrations. Real limits and pricing must be reconciled with the provider's published
-      plan documentation.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: LangSmith API
-  - id: langchain-pro
-    name: Professional
-    type: paid
-    description: Production tier for LangChain. Provides higher quotas, priority support, and access to
-      the broader API portfolio. Pricing placeholder; align with the provider's pricing page.
-    entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
-        type: metered
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1000
-        price: TBD
-        userMultiplied: false
-    elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: LangSmith API
-  - id: langchain-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for LangChain. Includes dedicated capacity, contractual SLAs,
-      security review, data residency options, and named technical account management.
-    entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: -1
-        timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.smith.langchain.com
-        unit: 1
-        price: custom
-        userMultiplied: false
-    elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: LangSmith API
-maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- name: Developer
+  price_text: $0 / seat per month
+  price: 0
+  currency: USD
+  period: month
+  unit: seat
+  included_quota: Up to 5k base traces / mo, then pay-as-you-go; Community support; 1 seat; Includes 5
+    LCU of Fleet usage / mo for free; Includes 5 LCU & 1 LSU of Sandbox usage / mo for free
+  overage: then pay as you go
+- name: Plus
+  price_text: $39 / seat per month
+  price: 39
+  currency: USD
+  period: month
+  unit: seat
+  included_quota: Up to 10k base traces / mo, then pay-as-you-go; Access to Deployment, Engine, and more;
+    Add unlimited seats; 1 free Serverless (Small) deployment; Includes 25 LCU of Fleet usage / mo
+  overage: then pay as you go
+- name: Enterprise
+  price_text: Custom pricing
+  period: none
+  included_quota: Self-hosted and hybrid deployment options; Custom SSO, ABAC, and RBAC; Support SLA;
+    Custom seats and workspaces
+  overage: then pay as you go
+- name: LCU (LangChain Compute Unit)
+  price_text: $1.50 / LCU
+  price: 1.5
+  currency: USD
+  period: per-use
+  unit: LCU
+- name: LSU (LangChain Storage Unit)
+  price_text: $1.00 / LSU
+  price: 1.0
+  currency: USD
+  period: per-use
+  unit: LSU
+rate_limit_statements:
+- See hourly trace ingestion and trace event limits here .
+- Limited to 10 Sandboxes.
+- 'Developer : 5 LCUs included per organization each month. After the allowance is used, Fleet pauses
+  new runs until the allowance resets or the organization upgrades to Plus.'
