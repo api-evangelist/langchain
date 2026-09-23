@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies features API
+  title: LangSmith Features API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: features
+- name: Features
 paths:
   /v1/platform/features:
     get:
@@ -31,7 +28,7 @@ paths:
       - Bearer Auth: []
       description: Returns a consolidated view of default models and disabled models per feature for the workspace.
       tags:
-      - features
+      - Features
       summary: List feature configurations
       responses:
         '200':
@@ -61,6 +58,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/features.ErrorResponse'
       parameters: []
+      operationId: getV1PlatformFeatures
+      x-operation-id-source: derived
   /v1/platform/features/{feature}/default-model:
     put:
       security:
@@ -69,7 +68,7 @@ paths:
       - Bearer Auth: []
       description: Sets or replaces the default model for a feature in the workspace.
       tags:
-      - features
+      - Features
       summary: Set default model for a feature
       parameters:
       - description: Feature name
@@ -111,6 +110,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/features.UpsertDefaultModelRequest'
+      operationId: putV1PlatformFeaturesByFeatureDefaultModel
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -118,7 +119,7 @@ paths:
       - Bearer Auth: []
       description: Removes the default model for a feature in the workspace.
       tags:
-      - features
+      - Features
       summary: Delete default model for a feature
       parameters:
       - description: Feature name
@@ -148,6 +149,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/features.ErrorResponse'
+      operationId: deleteV1PlatformFeaturesByFeatureDefaultModel
+      x-operation-id-source: derived
   /v1/platform/features/{feature}/disabled-models:
     put:
       security:
@@ -156,7 +159,7 @@ paths:
       - Bearer Auth: []
       description: Adds a model to the disabled list for a feature in the workspace.
       tags:
-      - features
+      - Features
       summary: Disable a model for a feature
       parameters:
       - description: Feature name
@@ -198,6 +201,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/features.DisableModelRequest'
+      operationId: putV1PlatformFeaturesByFeatureDisabledModels
+      x-operation-id-source: derived
   /v1/platform/features/{feature}/disabled-models/{model}:
     delete:
       security:
@@ -206,7 +211,7 @@ paths:
       - Bearer Auth: []
       description: Removes a model from the disabled list for a feature in the workspace.
       tags:
-      - features
+      - Features
       summary: Re-enable a disabled model for a feature
       parameters:
       - description: Feature name
@@ -248,12 +253,14 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/features.ErrorResponse'
+      operationId: deleteV1PlatformFeaturesByFeatureDisabledModelsByModel
+      x-operation-id-source: derived
 components:
   schemas:
-    features.ErrorResponse:
+    features.DisableModelRequest:
       type: object
       properties:
-        error:
+        model:
           type: string
     features.UpsertDefaultModelRequest:
       type: object
@@ -271,25 +278,25 @@ components:
             type: string
         feature:
           type: string
-    features.DisableModelRequest:
+    features.ErrorResponse:
       type: object
       properties:
-        model:
+        error:
           type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

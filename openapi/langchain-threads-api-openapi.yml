@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies threads API
+  title: LangSmith Threads API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: threads
+- name: Threads
 paths:
   /v2/threads/query:
     post:
@@ -35,7 +32,7 @@ paths:
 
         Returns threads matching the given time range and optional filter.'
       tags:
-      - threads
+      - Threads
       summary: Query Threads
       parameters: []
       responses:
@@ -75,6 +72,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/threads.QueryThreadsRequestBody'
+      operationId: postV2ThreadsQuery
+      x-operation-id-source: derived
   /v2/threads/{thread_id}/traces:
     get:
       security:
@@ -85,7 +84,7 @@ paths:
 
         Retrieve all traces belonging to a specific thread within a project.'
       tags:
-      - threads
+      - Threads
       summary: Query Thread Traces
       parameters:
       - description: Thread ID
@@ -194,12 +193,102 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+      operationId: getV2ThreadsByThreadIdTraces
+      x-operation-id-source: derived
 components:
   schemas:
-    query.RunFeedbackStats:
+    query.RunFeedbackStat:
       type: object
-      additionalProperties:
-        $ref: '#/components/schemas/query.RunFeedbackStat'
+      properties:
+        avg:
+          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
+          type: number
+          example: 0.87
+        comments:
+          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
+          type: array
+          items:
+            type: string
+          example:
+          - good answer
+          - needs citation
+        contains_thread_feedback:
+          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
+          type: boolean
+          example: false
+        errors:
+          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
+          type: integer
+          default: 0
+          example: 0
+        max:
+          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.95
+        min:
+          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.8
+        n:
+          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
+          type: integer
+          example: 42
+        sources:
+          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
+          type: array
+          items: {}
+        stdev:
+          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
+          type: number
+          example: 0.05
+        values:
+          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    query.RunCompletionTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its completion-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    threads.QueryThreadsRequestBody:
+      type: object
+      properties:
+        cursor:
+          description: '`cursor` is the opaque string from a previous response''s `next_cursor`. Omit on the first request; pass the returned cursor to fetch the next page.'
+          type: string
+        filter:
+          description: '`filter` narrows which threads are returned, using a LangSmith filter expression evaluated against each thread''s root run.
+
+            For example: has(tags, "production") or eq(status, "error").
+
+            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
+          type: string
+        max_start_time:
+          description: '`max_start_time` is the inclusive upper bound on thread activity (RFC3339 date-time).'
+          type: string
+          format: date-time
+        min_start_time:
+          description: '`min_start_time` is the inclusive lower bound on thread activity (RFC3339 date-time).'
+          type: string
+          format: date-time
+        page_size:
+          description: '`page_size` is the maximum number of threads to return in this response. Defaults to 20 when omitted; must be between 1 and 100 inclusive when set. The response may contain fewer threads than `page_size` even when `has_more` is true.'
+          type: integer
+          default: 20
+          maximum: 100
+          minimum: 1
+          example: 20
+        project_id:
+          description: '`project_id` is the tracing project UUID.'
+          type: string
+          format: uuid
+          example: 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
     threads.ThreadTraceListItem:
       type: object
       properties:
@@ -289,31 +378,15 @@ components:
           additionalProperties:
             type: integer
             format: int64
-    threads.QueryThreadsResponseBody:
-      type: object
-      properties:
-        has_more:
-          description: '`has_more` is true when another page of threads exists after this one.'
-          type: boolean
-          example: true
-        items:
-          description: '`items` is the page of thread summaries, sorted by the thread''s most recent activity.'
-          type: array
-          items:
-            $ref: '#/components/schemas/threads.ThreadListItem'
-        next_cursor:
-          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
-          type: string
-          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
-    query.RunCompletionTokenDetails:
+    query.RunCompletionCostDetails:
       type: object
       properties:
         raw:
-          description: '`raw` maps each category name to its completion-token count.'
+          description: '`raw` maps each category name to its estimated USD cost.'
           type: object
           additionalProperties:
-            type: integer
-            format: int64
+            type: number
+            format: float64
     threads.ThreadListItem:
       type: object
       properties:
@@ -403,89 +476,26 @@ components:
           type: string
           format: uuid
           example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9328
-    query.RunFeedbackStat:
+    threads.QueryThreadsResponseBody:
       type: object
       properties:
-        avg:
-          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
-          type: number
-          example: 0.87
-        comments:
-          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
+        has_more:
+          description: '`has_more` is true when another page of threads exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of thread summaries, sorted by the thread''s most recent activity.'
           type: array
           items:
-            type: string
-          example:
-          - good answer
-          - needs citation
-        contains_thread_feedback:
-          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
-          type: boolean
-          example: false
-        errors:
-          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
-          type: integer
-          default: 0
-          example: 0
-        max:
-          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
-          type: number
-          example: 0.95
-        min:
-          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
-          type: number
-          example: 0.8
-        n:
-          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
-          type: integer
-          example: 42
-        sources:
-          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
-          type: array
-          items: {}
-        stdev:
-          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
-          type: number
-          example: 0.05
-        values:
-          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    threads.QueryThreadsRequestBody:
+            $ref: '#/components/schemas/threads.ThreadListItem'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
+    query.RunFeedbackStats:
       type: object
-      properties:
-        cursor:
-          description: '`cursor` is the opaque string from a previous response''s `next_cursor`. Omit on the first request; pass the returned cursor to fetch the next page.'
-          type: string
-        filter:
-          description: '`filter` narrows which threads are returned, using a LangSmith filter expression evaluated against each thread''s root run.
-
-            For example: has(tags, "production") or eq(status, "error").
-
-            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
-          type: string
-        max_start_time:
-          description: '`max_start_time` is the inclusive upper bound on thread activity (RFC3339 date-time).'
-          type: string
-          format: date-time
-        min_start_time:
-          description: '`min_start_time` is the inclusive lower bound on thread activity (RFC3339 date-time).'
-          type: string
-          format: date-time
-        page_size:
-          description: '`page_size` is the maximum number of threads to return in this response. Defaults to 20 when omitted; must be between 1 and 100 inclusive when set. The response may contain fewer threads than `page_size` even when `has_more` is true.'
-          type: integer
-          default: 20
-          maximum: 100
-          minimum: 1
-          example: 20
-        project_id:
-          description: '`project_id` is the tracing project UUID.'
-          type: string
-          format: uuid
-          example: 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
+      additionalProperties:
+        $ref: '#/components/schemas/query.RunFeedbackStat'
     threads.QueryThreadTracesResponseBody:
       type: object
       properties:
@@ -511,29 +521,20 @@ components:
           additionalProperties:
             type: number
             format: float64
-    query.RunCompletionCostDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its estimated USD cost.'
-          type: object
-          additionalProperties:
-            type: number
-            format: float64
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

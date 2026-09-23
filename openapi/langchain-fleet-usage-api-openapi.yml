@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies fleet usage API
+  title: LangSmith fleet usage API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -88,6 +85,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errutil.InternalError'
+      operationId: getV1PlatformFleetUsageAgents
+      x-operation-id-source: derived
   /v1/platform/fleet/usage/models:
     get:
       security:
@@ -153,6 +152,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errutil.InternalError'
+      operationId: getV1PlatformFleetUsageModels
+      x-operation-id-source: derived
   /v1/platform/fleet/usage/tools:
     get:
       security:
@@ -218,6 +219,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errutil.InternalError'
+      operationId: getV1PlatformFleetUsageTools
+      x-operation-id-source: derived
   /v1/platform/fleet/usage/users:
     get:
       security:
@@ -283,8 +286,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/errutil.InternalError'
+      operationId: getV1PlatformFleetUsageUsers
+      x-operation-id-source: derived
 components:
   schemas:
+    usage.AgentUsageResponse:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.AgentUsage'
+    usage.UserUsageResponse:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.UserUsage'
     errutil.InternalError:
       type: object
     usage.ModelUsageResponse:
@@ -294,39 +313,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.ModelUsage'
-    usage.AgentUsageResponse:
-      type: object
-      properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.AgentUsage'
-    usage.UserUsage:
-      type: object
-      properties:
-        agent_count:
-          type: integer
-        first_used:
-          type: string
-        last_used:
-          type: string
-        ls_user_id:
-          type: string
-        owner_email:
-          type: string
-        run_count:
-          type: integer
-        total_cost:
-          type: number
-    errutil.UserError:
-      type: object
-    usage.ToolUsageResponse:
-      type: object
-      properties:
-        tools:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.ToolUsage'
     usage.ModelUsage:
       type: object
       properties:
@@ -338,13 +324,6 @@ components:
           type: integer
         total_cost:
           type: number
-    usage.UserUsageResponse:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.UserUsage'
     usage.AgentUsage:
       type: object
       properties:
@@ -377,20 +356,46 @@ components:
           type: integer
         tool_name:
           type: string
+    errutil.UserError:
+      type: object
+    usage.ToolUsageResponse:
+      type: object
+      properties:
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.ToolUsage'
+    usage.UserUsage:
+      type: object
+      properties:
+        agent_count:
+          type: integer
+        first_used:
+          type: string
+        last_used:
+          type: string
+        ls_user_id:
+          type: string
+        owner_email:
+          type: string
+        run_count:
+          type: integer
+        total_cost:
+          type: number
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

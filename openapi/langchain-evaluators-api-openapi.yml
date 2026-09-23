@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies evaluators API
+  title: LangSmith Evaluators API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: evaluators
+- name: Evaluators
 paths:
   /v1/platform/evaluators:
     get:
@@ -31,7 +28,7 @@ paths:
       - Bearer Auth: []
       description: List evaluators for the current workspace, with optional filtering by type, name, tag, feedback key, or resource ID.
       tags:
-      - evaluators
+      - Evaluators
       summary: List evaluators
       parameters:
       - description: Filter by evaluator type
@@ -129,6 +126,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/evaluators.ErrorResponse'
+      operationId: getV1PlatformEvaluators
+      x-operation-id-source: derived
     post:
       security:
       - API Key: []
@@ -136,7 +135,7 @@ paths:
       - Bearer Auth: []
       description: Create a new LLM or code evaluator for the current workspace.
       tags:
-      - evaluators
+      - Evaluators
       summary: Create evaluator
       parameters: []
       responses:
@@ -176,6 +175,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/evaluators.CreateEvaluatorRequest'
+      operationId: postV1PlatformEvaluators
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -183,7 +184,7 @@ paths:
       - Bearer Auth: []
       description: Delete multiple evaluators by their IDs. Returns per-item success/failure.
       tags:
-      - evaluators
+      - Evaluators
       summary: Bulk delete evaluators
       parameters:
       - description: Evaluator IDs to delete
@@ -234,6 +235,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/evaluators.ErrorResponse'
+      operationId: deleteV1PlatformEvaluators
+      x-operation-id-source: derived
   /v1/platform/evaluators/{evaluator_id}:
     get:
       security:
@@ -242,7 +245,7 @@ paths:
       - Bearer Auth: []
       description: Retrieve a single evaluator by its ID.
       tags:
-      - evaluators
+      - Evaluators
       summary: Get evaluator
       parameters:
       - description: Evaluator ID
@@ -288,6 +291,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/evaluators.ErrorResponse'
+      operationId: getV1PlatformEvaluatorsByEvaluatorId
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -295,7 +300,7 @@ paths:
       - Bearer Auth: []
       description: Delete an evaluator. When delete_run_rules is true, all run rules referencing this evaluator are deleted first (same tenant). Associated llm_evaluators and code_evaluators rows are removed by foreign-key cascade when the evaluator row is deleted.
       tags:
-      - evaluators
+      - Evaluators
       summary: Delete evaluator
       parameters:
       - description: Evaluator ID
@@ -349,6 +354,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/evaluators.ErrorResponse'
+      operationId: deleteV1PlatformEvaluatorsByEvaluatorId
+      x-operation-id-source: derived
     patch:
       security:
       - API Key: []
@@ -356,7 +363,7 @@ paths:
       - Bearer Auth: []
       description: Update an existing evaluator's name, LLM configuration, or code configuration.
       tags:
-      - evaluators
+      - Evaluators
       summary: Update evaluator
       parameters:
       - description: Evaluator ID
@@ -408,70 +415,15 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/evaluators.UpdateEvaluatorRequest'
+      operationId: patchV1PlatformEvaluatorsByEvaluatorId
+      x-operation-id-source: derived
 components:
   schemas:
-    evaluators.CreateEvaluatorRequest:
-      type: object
-      properties:
-        code_evaluator:
-          $ref: '#/components/schemas/evaluators.CreateCodeEvaluatorRequest'
-        llm_evaluator:
-          $ref: '#/components/schemas/evaluators.CreateLLMEvaluatorRequest'
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/evaluators.EvaluatorType'
-    evaluators.BulkDeleteEvaluatorsResponse:
-      type: object
-      properties:
-        failed:
-          type: array
-          items:
-            $ref: '#/components/schemas/evaluators.BulkDeleteEvaluatorFailedItem'
-        succeeded:
-          type: array
-          items:
-            type: string
     evaluators.UpdateEvaluatorResponse:
       type: object
       properties:
         evaluator:
           $ref: '#/components/schemas/evaluators.Evaluator'
-    evaluators.CodeEvaluator:
-      type: object
-      properties:
-        code:
-          type: string
-        evaluator_id:
-          type: string
-        language:
-          description: 'Default: "python"'
-          type: string
-    evaluators.ListEvaluatorsResponse:
-      type: object
-      properties:
-        evaluators:
-          type: array
-          items:
-            $ref: '#/components/schemas/evaluators.Evaluator'
-        total:
-          type: integer
-    evaluators.EvaluatorType:
-      type: string
-      enum:
-      - llm
-      - code
-      x-enum-varnames:
-      - EvaluatorTypeLLM
-      - EvaluatorTypeCode
-    evaluators.CreateCodeEvaluatorRequest:
-      type: object
-      properties:
-        code:
-          type: string
-        language:
-          description: 'Default: "python"'
-          type: string
     evaluators.EvaluatorRunRule:
       type: object
       properties:
@@ -493,26 +445,33 @@ components:
           type: string
         use_corrections_dataset:
           type: boolean
-    evaluators.BulkDeleteEvaluatorFailedItem:
-      type: object
-      properties:
-        error:
-          type: string
-        id:
-          type: string
-    evaluators.UpdateLLMEvaluatorRequest:
+    evaluators.CreateLLMEvaluatorRequest:
       type: object
       properties:
         commit_hash_or_tag:
           type: string
-        num_few_shot_examples:
-          type: integer
         prompt_repo_handle:
           type: string
-        use_corrections_dataset:
-          type: boolean
         variable_mapping:
           type: object
+    evaluators.BulkDeleteEvaluatorsResponse:
+      type: object
+      properties:
+        failed:
+          type: array
+          items:
+            $ref: '#/components/schemas/evaluators.BulkDeleteEvaluatorFailedItem'
+        succeeded:
+          type: array
+          items:
+            type: string
+    evaluators.UpdateCodeEvaluatorRequest:
+      type: object
+      properties:
+        code:
+          type: string
+        language:
+          type: string
     evaluators.CreateEvaluatorResponse:
       type: object
       properties:
@@ -543,21 +502,56 @@ components:
         variable_mapping:
           description: JSONB
           type: object
-    evaluators.UpdateEvaluatorRequest:
+    evaluators.CodeEvaluator:
+      type: object
+      properties:
+        code:
+          type: string
+        evaluator_id:
+          type: string
+        language:
+          description: 'Default: "python"'
+          type: string
+    evaluators.CreateEvaluatorRequest:
       type: object
       properties:
         code_evaluator:
-          $ref: '#/components/schemas/evaluators.UpdateCodeEvaluatorRequest'
+          $ref: '#/components/schemas/evaluators.CreateCodeEvaluatorRequest'
         llm_evaluator:
-          $ref: '#/components/schemas/evaluators.UpdateLLMEvaluatorRequest'
+          $ref: '#/components/schemas/evaluators.CreateLLMEvaluatorRequest'
         name:
           type: string
-    evaluators.UpdateCodeEvaluatorRequest:
+        type:
+          $ref: '#/components/schemas/evaluators.EvaluatorType'
+    evaluators.UpdateLLMEvaluatorRequest:
+      type: object
+      properties:
+        commit_hash_or_tag:
+          type: string
+        num_few_shot_examples:
+          type: integer
+        prompt_repo_handle:
+          type: string
+        use_corrections_dataset:
+          type: boolean
+        variable_mapping:
+          type: object
+    evaluators.ListEvaluatorsResponse:
+      type: object
+      properties:
+        evaluators:
+          type: array
+          items:
+            $ref: '#/components/schemas/evaluators.Evaluator'
+        total:
+          type: integer
+    evaluators.CreateCodeEvaluatorRequest:
       type: object
       properties:
         code:
           type: string
         language:
+          description: 'Default: "python"'
           type: string
     evaluators.ErrorResponse:
       type: object
@@ -565,6 +559,21 @@ components:
         error:
           description: Error message
           type: string
+    evaluators.BulkDeleteEvaluatorFailedItem:
+      type: object
+      properties:
+        error:
+          type: string
+        id:
+          type: string
+    evaluators.EvaluatorType:
+      type: string
+      enum:
+      - llm
+      - code
+      x-enum-varnames:
+      - EvaluatorTypeLLM
+      - EvaluatorTypeCode
     evaluators.Evaluator:
       type: object
       properties:
@@ -596,29 +605,29 @@ components:
           $ref: '#/components/schemas/evaluators.EvaluatorType'
         updated_at:
           type: string
-    evaluators.CreateLLMEvaluatorRequest:
+    evaluators.UpdateEvaluatorRequest:
       type: object
       properties:
-        commit_hash_or_tag:
+        code_evaluator:
+          $ref: '#/components/schemas/evaluators.UpdateCodeEvaluatorRequest'
+        llm_evaluator:
+          $ref: '#/components/schemas/evaluators.UpdateLLMEvaluatorRequest'
+        name:
           type: string
-        prompt_repo_handle:
-          type: string
-        variable_mapping:
-          type: object
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies tenant API
+  title: LangSmith Tenant API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: tenant
+- name: Tenant
 paths:
   /api/v1/tenants:
     get:
       tags:
-      - tenant
+      - Tenant
       summary: List Tenants
       description: Get all tenants visible to this auth
       operationId: list_tenants_api_v1_tenants_get
@@ -65,7 +62,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - tenant
+      - Tenant
       summary: Create Tenant
       description: Create a new organization and corresponding workspace.
       operationId: create_tenant_api_v1_tenants_post
@@ -92,6 +89,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     TenantCreate:
       properties:
         id:
@@ -123,71 +141,6 @@ components:
       - display_name
       title: TenantCreate
       description: Creation model for the tenant.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    app__schemas__Tenant:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        display_name:
-          type: string
-          title: Display Name
-        is_personal:
-          type: boolean
-          title: Is Personal
-        is_deleted:
-          type: boolean
-          title: Is Deleted
-        tenant_handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tenant Handle
-        data_plane_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Plane Url
-      type: object
-      required:
-      - id
-      - created_at
-      - display_name
-      - is_personal
-      - is_deleted
-      title: Tenant
-      description: Tenant schema.
     TenantForUser:
       properties:
         id:
@@ -254,6 +207,50 @@ components:
       - is_personal
       - is_deleted
       title: TenantForUser
+    app__schemas__Tenant:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        display_name:
+          type: string
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+        data_plane_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Plane Url
+      type: object
+      required:
+      - id
+      - created_at
+      - display_name
+      - is_personal
+      - is_deleted
+      title: Tenant
+      description: Tenant schema.
     HTTPValidationError:
       properties:
         detail:
@@ -264,19 +261,19 @@ components:
       type: object
       title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies optimization-jobs API
+  title: LangSmith Optimization Jobs API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -328,18 +325,150 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PromptOptimizationJobUpdate:
+    DemoConfig:
       properties:
-        status:
+        message_index:
+          type: integer
+          title: Message Index
+        metaprompt:
+          additionalProperties: true
+          type: object
+          title: Metaprompt
+        examples:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Examples
+        overall_feedback:
           anyOf:
-          - $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+          - type: string
           - type: 'null'
-        result:
-          anyOf:
-          - $ref: '#/components/schemas/PromptOptimizationResult'
-          - type: 'null'
+          title: Overall Feedback
       type: object
-      title: PromptOptimizationJobUpdate
+      required:
+      - message_index
+      - metaprompt
+      - examples
+      - overall_feedback
+      title: DemoConfig
+    EPromptOptimizationJobLogType:
+      type: string
+      enum:
+      - info
+      - result
+      - error
+      - link
+      title: EPromptOptimizationJobLogType
+    PromptOptimizationResult:
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        x:
+          type: number
+          title: X
+        y:
+          type: number
+          title: Y
+      type: object
+      required:
+      - timestamp
+      - x
+      - y
+      title: PromptOptimizationResult
+    PromptOptimizationJobLogCreate:
+      properties:
+        log_type:
+          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
+        message:
+          type: string
+          title: Message
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+      type: object
+      required:
+      - log_type
+      - message
+      title: PromptOptimizationJobLogCreate
+    PromptOptimizationJobWithLogs:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        repo_id:
+          type: string
+          format: uuid
+          title: Repo Id
+        status:
+          $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+        results:
+          items:
+            $ref: '#/components/schemas/PromptOptimizationResult'
+          type: array
+          title: Results
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        logs:
+          items:
+            $ref: '#/components/schemas/PromptOptimizationJobLog'
+          type: array
+          title: Logs
+      type: object
+      required:
+      - id
+      - repo_id
+      - status
+      - tenant_id
+      - algorithm
+      - config
+      - created_at
+      - updated_at
+      - logs
+      title: PromptOptimizationJobWithLogs
+    PromptOptimizationJobCreate:
+      properties:
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+      type: object
+      required:
+      - algorithm
+      - config
+      title: PromptOptimizationJobCreate
+    EPromptOptimizationAlgorithm:
+      type: string
+      enum:
+      - promptim
+      - demo
+      title: EPromptOptimizationAlgorithm
     ValidationError:
       properties:
         loc:
@@ -361,24 +490,6 @@ components:
       - msg
       - type
       title: ValidationError
-    PromptOptimizationResult:
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        x:
-          type: number
-          title: X
-        y:
-          type: number
-          title: Y
-      type: object
-      required:
-      - timestamp
-      - x
-      - y
-      title: PromptOptimizationResult
     PromptOptimizationJobLog:
       properties:
         log_type:
@@ -412,51 +523,6 @@ components:
       - job_id
       - created_at
       title: PromptOptimizationJobLog
-    DemoConfig:
-      properties:
-        message_index:
-          type: integer
-          title: Message Index
-        metaprompt:
-          additionalProperties: true
-          type: object
-          title: Metaprompt
-        examples:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Examples
-        overall_feedback:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Overall Feedback
-      type: object
-      required:
-      - message_index
-      - metaprompt
-      - examples
-      - overall_feedback
-      title: DemoConfig
-    PromptOptimizationJobLogCreate:
-      properties:
-        log_type:
-          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
-        message:
-          type: string
-          title: Message
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-      type: object
-      required:
-      - log_type
-      - message
-      title: PromptOptimizationJobLogCreate
     HTTPValidationError:
       properties:
         detail:
@@ -466,6 +532,68 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    PromptOptimizationJobUpdate:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+          - type: 'null'
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/PromptOptimizationResult'
+          - type: 'null'
+      type: object
+      title: PromptOptimizationJobUpdate
+    PromptimConfig:
+      properties:
+        message_index:
+          type: integer
+          title: Message Index
+        task_description:
+          type: string
+          title: Task Description
+        dataset_name:
+          type: string
+          title: Dataset Name
+        train_split:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Train Split
+        dev_split:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dev Split
+        test_split:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Test Split
+        evaluators:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Evaluators
+        num_epochs:
+          type: integer
+          title: Num Epochs
+        auto_commit:
+          type: boolean
+          title: Auto Commit
+      type: object
+      required:
+      - message_index
+      - task_description
+      - dataset_name
+      - train_split
+      - dev_split
+      - test_split
+      - evaluators
+      - num_epochs
+      - auto_commit
+      title: PromptimConfig
     PromptOptimizationJob:
       properties:
         id:
@@ -521,151 +649,20 @@ components:
       - successful
       - failed
       title: EPromptOptimizationJobStatus
-    PromptOptimizationJobCreate:
-      properties:
-        algorithm:
-          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
-        config:
-          anyOf:
-          - $ref: '#/components/schemas/PromptimConfig'
-          - $ref: '#/components/schemas/DemoConfig'
-          title: Config
-      type: object
-      required:
-      - algorithm
-      - config
-      title: PromptOptimizationJobCreate
-    EPromptOptimizationAlgorithm:
-      type: string
-      enum:
-      - promptim
-      - demo
-      title: EPromptOptimizationAlgorithm
-    PromptimConfig:
-      properties:
-        message_index:
-          type: integer
-          title: Message Index
-        task_description:
-          type: string
-          title: Task Description
-        dataset_name:
-          type: string
-          title: Dataset Name
-        train_split:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Train Split
-        dev_split:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dev Split
-        test_split:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Test Split
-        evaluators:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Evaluators
-        num_epochs:
-          type: integer
-          title: Num Epochs
-        auto_commit:
-          type: boolean
-          title: Auto Commit
-      type: object
-      required:
-      - message_index
-      - task_description
-      - dataset_name
-      - train_split
-      - dev_split
-      - test_split
-      - evaluators
-      - num_epochs
-      - auto_commit
-      title: PromptimConfig
-    EPromptOptimizationJobLogType:
-      type: string
-      enum:
-      - info
-      - result
-      - error
-      - link
-      title: EPromptOptimizationJobLogType
-    PromptOptimizationJobWithLogs:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        repo_id:
-          type: string
-          format: uuid
-          title: Repo Id
-        status:
-          $ref: '#/components/schemas/EPromptOptimizationJobStatus'
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        algorithm:
-          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
-        config:
-          anyOf:
-          - $ref: '#/components/schemas/PromptimConfig'
-          - $ref: '#/components/schemas/DemoConfig'
-          title: Config
-        results:
-          items:
-            $ref: '#/components/schemas/PromptOptimizationResult'
-          type: array
-          title: Results
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        logs:
-          items:
-            $ref: '#/components/schemas/PromptOptimizationJobLog'
-          type: array
-          title: Logs
-      type: object
-      required:
-      - id
-      - repo_id
-      - status
-      - tenant_id
-      - algorithm
-      - config
-      - created_at
-      - updated_at
-      - logs
-      title: PromptOptimizationJobWithLogs
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

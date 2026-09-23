@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies API
+  title: LangSmith Access Policies API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: access_policies
+- name: Access Policies
 paths:
   /v1/platform/orgs/current/access-policies:
     get:
@@ -31,7 +28,7 @@ paths:
       - Bearer Auth: []
       description: Lists all access policies for the organization.
       tags:
-      - access_policies
+      - Access Policies
       summary: List access policies
       responses:
         '200':
@@ -59,6 +56,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/abac.ErrorResponse'
       parameters: []
+      operationId: getV1PlatformOrgsCurrentAccessPolicies
+      x-operation-id-source: derived
     post:
       security:
       - API Key: []
@@ -66,7 +65,7 @@ paths:
       - Bearer Auth: []
       description: Creates a new access policy.
       tags:
-      - access_policies
+      - Access Policies
       summary: Create an access policy
       parameters: []
       responses:
@@ -112,6 +111,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/authz_internal.CreateAccessPolicyPayload'
+      operationId: postV1PlatformOrgsCurrentAccessPolicies
+      x-operation-id-source: derived
   /v1/platform/orgs/current/access-policies/roles/{role_id}/access-policies:
     post:
       security:
@@ -120,7 +121,7 @@ paths:
       - Bearer Auth: []
       description: Attaches one or more access policies to a specific role. The request body must contain an array of access policy IDs.
       tags:
-      - access_policies
+      - Access Policies
       summary: Attach access policies to a role
       parameters:
       - description: Role ID
@@ -168,6 +169,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/authz_internal.AttachAccessPoliciesPayload'
+      operationId: postV1PlatformOrgsCurrentAccessPoliciesRolesByRoleIdAccessPolicies
+      x-operation-id-source: derived
   /v1/platform/orgs/current/access-policies/{access_policy_id}:
     get:
       security:
@@ -176,7 +179,7 @@ paths:
       - Bearer Auth: []
       description: Gets a specific access policy by ID.
       tags:
-      - access_policies
+      - Access Policies
       summary: Get an access policy
       parameters:
       - description: Access Policy ID
@@ -222,6 +225,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/abac.ErrorResponse'
+      operationId: getV1PlatformOrgsCurrentAccessPoliciesByAccessPolicyId
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -229,7 +234,7 @@ paths:
       - Bearer Auth: []
       description: Deletes a specific access policy by ID.
       tags:
-      - access_policies
+      - Access Policies
       summary: Delete an access policy
       parameters:
       - description: Access Policy ID
@@ -265,8 +270,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/abac.ErrorResponse'
+      operationId: deleteV1PlatformOrgsCurrentAccessPoliciesByAccessPolicyId
+      x-operation-id-source: derived
 components:
   schemas:
+    authz_internal.AbacAttributeName:
+      type: string
+      enum:
+      - resource_tag_key
+      x-enum-varnames:
+      - AbacAttributeNameResourceTagKey
+    authz_internal.Condition:
+      type: object
+      properties:
+        attribute_key:
+          type: string
+        attribute_name:
+          $ref: '#/components/schemas/authz_internal.AbacAttributeName'
+        attribute_value:
+          type: string
+        operator:
+          $ref: '#/components/schemas/authz_internal.AbacOperator'
     authz_internal.AbacOperator:
       type: string
       enum:
@@ -295,34 +319,37 @@ components:
       - AbacOperatorNotEqualsIgnoreCaseIfExists
       - AbacOperatorMatchesIfExists
       - AbacOperatorNotMatchesIfExists
-    authz_internal.Condition:
+    authz_internal.AttachAccessPoliciesPayload:
       type: object
       properties:
-        attribute_key:
-          type: string
-        attribute_name:
-          $ref: '#/components/schemas/authz_internal.AbacAttributeName'
-        attribute_value:
-          type: string
-        operator:
-          $ref: '#/components/schemas/authz_internal.AbacOperator'
-    authz_internal.ConditionGroup:
-      type: object
-      properties:
-        conditions:
+        access_policy_ids:
           type: array
           items:
-            $ref: '#/components/schemas/authz_internal.Condition'
-        permission:
-          $ref: '#/components/schemas/authz_internal.Permission'
-        resource_type:
+            type: string
+    abac.ErrorResponse:
+      type: object
+      properties:
+        error:
           type: string
-    authz_internal.AbacAttributeName:
-      type: string
-      enum:
-      - resource_tag_key
-      x-enum-varnames:
-      - AbacAttributeNameResourceTagKey
+          example: 'Invalid request: missing required fields'
+    authz_internal.CreateAccessPolicyPayload:
+      type: object
+      properties:
+        condition_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/authz_internal.ConditionGroup'
+        description:
+          type: string
+        effect:
+          type: string
+        name:
+          type: string
+        role_ids:
+          description: if present, attach to the specified roles
+          type: array
+          items:
+            type: string
     authz_internal.AccessPolicy:
       type: object
       properties:
@@ -345,6 +372,17 @@ components:
           items:
             type: string
         updated_at:
+          type: string
+    authz_internal.ConditionGroup:
+      type: object
+      properties:
+        conditions:
+          type: array
+          items:
+            $ref: '#/components/schemas/authz_internal.Condition'
+        permission:
+          $ref: '#/components/schemas/authz_internal.Permission'
+        resource_type:
           type: string
     authz_internal.Permission:
       type: string
@@ -478,19 +516,6 @@ components:
       - OrganizationPATsCreate
       - OrganizationRead
       - OrganizationManage
-    authz_internal.AttachAccessPoliciesPayload:
-      type: object
-      properties:
-        access_policy_ids:
-          type: array
-          items:
-            type: string
-    abac.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: 'Invalid request: missing required fields'
     authz_internal.ListAccessPoliciesResponse:
       type: object
       properties:
@@ -498,43 +523,25 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/authz_internal.AccessPolicy'
-    authz_internal.CreateAccessPolicyPayload:
-      type: object
-      properties:
-        condition_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/authz_internal.ConditionGroup'
-        description:
-          type: string
-        effect:
-          type: string
-        name:
-          type: string
-        role_ids:
-          description: if present, attach to the specified roles
-          type: array
-          items:
-            type: string
     authz_internal.AccessPolicyCreateResponse:
       type: object
       properties:
         id:
           type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

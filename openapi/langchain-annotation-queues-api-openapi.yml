@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies annotation-queues API
+  title: LangSmith Annotation Queues API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: annotation-queues
+- name: Annotation Queues
 paths:
   /api/v1/annotation-queues:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Annotation Queues
       operationId: get_annotation_queues_api_v1_annotation_queues_get
       security:
@@ -149,7 +146,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Create Annotation Queue
       operationId: create_annotation_queue_api_v1_annotation_queues_post
       security:
@@ -177,9 +174,16 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Delete Annotation Queues
-      description: "Delete multiple annotation queues with partial success support.\n\nReturns:\n    - 200: All queues deleted successfully\n    - 207: Some queues deleted successfully, some failed"
+      description: 'Delete multiple annotation queues with partial success support.
+
+
+        Returns:
+
+        - 200: All queues deleted successfully
+
+        - 207: Some queues deleted successfully, some failed'
       operationId: delete_annotation_queues_api_v1_annotation_queues_delete
       security:
       - API Key: []
@@ -211,7 +215,7 @@ paths:
   /api/v1/annotation-queues/populate:
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Populate Annotation Queue
       description: Populate annotation queue with runs from an experiment.
       operationId: populate_annotation_queue_api_v1_annotation_queues_populate_post
@@ -240,7 +244,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}:
     delete:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Delete Annotation Queue
       operationId: delete_annotation_queue_api_v1_annotation_queues__queue_id__delete
       security:
@@ -269,7 +273,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     patch:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Update Annotation Queue
       operationId: update_annotation_queue_api_v1_annotation_queues__queue_id__patch
       security:
@@ -304,7 +308,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Annotation Queue
       operationId: get_annotation_queue_api_v1_annotation_queues__queue_id__get
       security:
@@ -335,7 +339,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/runs:
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Add Runs To Annotation Queue
       operationId: add_runs_to_annotation_queue_api_v1_annotation_queues__queue_id__runs_post
       security:
@@ -382,7 +386,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Runs From Annotation Queue
       operationId: get_runs_from_annotation_queue_api_v1_annotation_queues__queue_id__runs_get
       security:
@@ -461,7 +465,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/runs/by-key:
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Add Runs To Annotation Queue By Key
       operationId: add_runs_to_annotation_queue_by_key_api_v1_annotation_queues__queue_id__runs_by_key_post
       security:
@@ -504,7 +508,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/export:
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Export Annotation Queue Archived Runs
       operationId: export_annotation_queue_archived_runs_api_v1_annotation_queues__queue_id__export_post
       security:
@@ -540,7 +544,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/run/{index}:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Run From Annotation Queue
       description: Get a run from an annotation queue
       operationId: get_run_from_annotation_queue_api_v1_annotation_queues__queue_id__run__index__get
@@ -585,7 +589,7 @@ paths:
   /api/v1/annotation-queues/{run_id}/queues:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Annotation Queues For Run
       operationId: get_annotation_queues_for_run_api_v1_annotation_queues__run_id__queues_get
       security:
@@ -619,7 +623,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/runs/{queue_run_id}:
     patch:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Update Run In Annotation Queue
       operationId: update_run_in_annotation_queue_api_v1_annotation_queues__queue_id__runs__queue_run_id__patch
       security:
@@ -661,7 +665,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Delete Run From Annotation Queue
       operationId: delete_run_from_annotation_queue_api_v1_annotation_queues__queue_id__runs__queue_run_id__delete
       security:
@@ -698,7 +702,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/runs/delete:
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Delete Runs From Annotation Queue
       operationId: delete_runs_from_annotation_queue_api_v1_annotation_queues__queue_id__runs_delete_post
       security:
@@ -734,7 +738,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/total_size:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Total Size From Annotation Queue
       operationId: get_total_size_from_annotation_queue_api_v1_annotation_queues__queue_id__total_size_get
       security:
@@ -765,7 +769,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/total_archived:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Total Archived From Annotation Queue
       operationId: get_total_archived_from_annotation_queue_api_v1_annotation_queues__queue_id__total_archived_get
       security:
@@ -814,7 +818,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/size:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Get Size From Annotation Queue
       operationId: get_size_from_annotation_queue_api_v1_annotation_queues__queue_id__size_get
       security:
@@ -857,7 +861,7 @@ paths:
   /api/v1/annotation-queues/status/{annotation_queue_run_id}:
     post:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Create Identity Annotation Queue Run Status
       operationId: create_identity_annotation_queue_run_status_api_v1_annotation_queues_status__annotation_queue_run_id__post
       security:
@@ -893,7 +897,7 @@ paths:
   /api/v1/annotation-queues/{queue_id}/runs/resolve/{queue_run_id}:
     get:
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Resolve Annotation Queue Run
       description: Resolve a queue run ID to its section and run data for deep linking.
       operationId: resolve_annotation_queue_run_api_v1_annotation_queues__queue_id__runs_resolve__queue_run_id__get
@@ -937,7 +941,7 @@ paths:
       - Bearer Auth: []
       description: Assigns a single identity as a reviewer for the queue. Idempotent.
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Add a reviewer to an annotation queue
       parameters:
       - description: Queue ID
@@ -983,6 +987,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/annotationqueues.AddReviewerRequest'
+      operationId: postV1PlatformAnnotationQueuesByQueueIdReviewers
+      x-operation-id-source: derived
   /v1/platform/annotation-queues/{queue_id}/reviewers/{identity_id}:
     delete:
       security:
@@ -991,7 +997,7 @@ paths:
       - Bearer Auth: []
       description: Unassigns an identity as a reviewer for the queue. Idempotent.
       tags:
-      - annotation-queues
+      - Annotation Queues
       summary: Remove a reviewer from an annotation queue
       parameters:
       - description: Queue ID
@@ -1033,565 +1039,10 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+      operationId: deleteV1PlatformAnnotationQueuesByQueueIdReviewersByIdentityId
+      x-operation-id-source: derived
 components:
   schemas:
-    AssignedReviewerSchema:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-      type: object
-      required:
-      - id
-      title: AssignedReviewerSchema
-      description: Identity info for an assigned reviewer on an annotation queue.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    AnnotationQueueBulkDeleteRunsRequest:
-      properties:
-        delete_all:
-          type: boolean
-          title: Delete All
-          default: false
-        run_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Run Ids
-        exclude_run_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Exclude Run Ids
-      type: object
-      title: AnnotationQueueBulkDeleteRunsRequest
-    AnnotationQueueRubricItemSchema:
-      properties:
-        feedback_key:
-          type: string
-          title: Feedback Key
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        value_descriptions:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Value Descriptions
-        score_descriptions:
-          anyOf:
-          - additionalProperties:
-              type: string
-            type: object
-          - type: 'null'
-          title: Score Descriptions
-        is_required:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Required
-        is_assertion:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Assertion
-      type: object
-      required:
-      - feedback_key
-      title: AnnotationQueueRubricItemSchema
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ExportAnnotationQueueRunsRequest:
-      properties:
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        include_annotator_detail:
-          type: boolean
-          title: Include Annotator Detail
-          default: false
-      type: object
-      title: ExportAnnotationQueueRunsRequest
-      description: Export annotation queue runs request schema.
-    IdentityAnnotationQueueRunStatusCreateSchema:
-      properties:
-        status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Status
-        override_added_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Override Added At
-      type: object
-      title: IdentityAnnotationQueueRunStatusCreateSchema
-      description: Identity annotation queue run status create schema.
-    PopulateAnnotationQueueSchema:
-      properties:
-        queue_id:
-          type: string
-          format: uuid
-          title: Queue Id
-        session_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Session Ids
-      type: object
-      required:
-      - queue_id
-      - session_ids
-      title: PopulateAnnotationQueueSchema
-    AnnotationQueueSchema:
-      properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        num_reviewers_per_item:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Reviewers Per Item
-          default: 1
-        enable_reservations:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enable Reservations
-          default: true
-        reservation_minutes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Reservation Minutes
-          default: 1
-        reviewer_access_mode:
-          type: string
-          title: Reviewer Access Mode
-          default: any
-        name:
-          type: string
-          title: Name
-        id:
-          type: string
-          format: uuid
-          title: Id
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        source_rule_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Source Rule Id
-        run_rule_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Rule Id
-        default_dataset:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Dataset
-        queue_type:
-          type: string
-          enum:
-          - single
-          - pairwise
-          title: Queue Type
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        assigned_reviewers:
-          items:
-            $ref: '#/components/schemas/AssignedReviewerSchema'
-          type: array
-          title: Assigned Reviewers
-          default: []
-      type: object
-      required:
-      - name
-      - id
-      - tenant_id
-      - queue_type
-      title: AnnotationQueueSchema
-      description: AnnotationQueue schema.
-    annotationqueues.AddReviewerRequest:
-      type: object
-      required:
-      - identity_id
-      properties:
-        identity_id:
-          type: string
-    AnnotationQueueSizeSchema:
-      properties:
-        size:
-          type: integer
-          title: Size
-      type: object
-      required:
-      - size
-      title: AnnotationQueueSizeSchema
-      description: Size of an Annotation Queue
-    AnnotationQueueRunSchema:
-      properties:
-        run_id:
-          type: string
-          format: uuid
-          title: Run Id
-        queue_id:
-          type: string
-          format: uuid
-          title: Queue Id
-        last_reviewed_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Reviewed Time
-        added_at:
-          type: string
-          format: date-time
-          title: Added At
-        id:
-          type: string
-          format: uuid
-          title: Id
-      type: object
-      required:
-      - run_id
-      - queue_id
-      - id
-      title: AnnotationQueueRunSchema
-    AddRunToQueueByKeyRequest:
-      properties:
-        run_id:
-          type: string
-          format: uuid
-          title: Run Id
-        session_id:
-          type: string
-          format: uuid
-          title: Session Id
-        start_time:
-          type: string
-          format: date-time
-          title: Start Time
-      type: object
-      required:
-      - run_id
-      - session_id
-      - start_time
-      title: AddRunToQueueByKeyRequest
-      description: Add run to AQ by SmithDB key. is_root derived server-side (LSAQ-141).
-    AnnotationQueueCreateSchema:
-      properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        num_reviewers_per_item:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Reviewers Per Item
-          default: 1
-        enable_reservations:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enable Reservations
-          default: true
-        reservation_minutes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Reservation Minutes
-          default: 1
-        reviewer_access_mode:
-          type: string
-          title: Reviewer Access Mode
-          default: any
-        name:
-          type: string
-          title: Name
-        id:
-          type: string
-          format: uuid
-          title: Id
-        default_dataset:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Dataset
-        rubric_items:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AnnotationQueueRubricItemSchema'
-            type: array
-          - type: 'null'
-          title: Rubric Items
-        rubric_instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rubric Instructions
-        session_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Session Ids
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - name
-      title: AnnotationQueueCreateSchema
-      description: AnnotationQueue schema.
-    AnnotationQueueSchemaWithRubric:
-      properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        num_reviewers_per_item:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Reviewers Per Item
-          default: 1
-        enable_reservations:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Enable Reservations
-          default: true
-        reservation_minutes:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Reservation Minutes
-          default: 1
-        reviewer_access_mode:
-          type: string
-          title: Reviewer Access Mode
-          default: any
-        name:
-          type: string
-          title: Name
-        id:
-          type: string
-          format: uuid
-          title: Id
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        source_rule_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Source Rule Id
-        run_rule_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Rule Id
-        default_dataset:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Dataset
-        queue_type:
-          type: string
-          enum:
-          - single
-          - pairwise
-          title: Queue Type
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        assigned_reviewers:
-          items:
-            $ref: '#/components/schemas/AssignedReviewerSchema'
-          type: array
-          title: Assigned Reviewers
-          default: []
-        rubric_items:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AnnotationQueueRubricItemSchema'
-            type: array
-          - type: 'null'
-          title: Rubric Items
-        rubric_instructions:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Rubric Instructions
-      type: object
-      required:
-      - name
-      - id
-      - tenant_id
-      - queue_type
-      title: AnnotationQueueSchemaWithRubric
-      description: AnnotationQueue schema with rubric.
-    AnnotationQueueRunAddSchema:
-      properties:
-        run_id:
-          type: string
-          format: uuid
-          title: Run Id
-          deprecated: true
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-          deprecated: true
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-          deprecated: true
-        trace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace Id
-          deprecated: true
-        parent_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Parent Run Id
-          deprecated: true
-        trace_tier:
-          anyOf:
-          - $ref: '#/components/schemas/TraceTier'
-          - type: 'null'
-          deprecated: true
-      type: object
-      required:
-      - run_id
-      title: AnnotationQueueRunAddSchema
-      description: 'Deprecated: use plain UUID list or AddRunToQueueByKeyRequest instead.'
     RunSchemaWithAnnotationQueueInfo:
       properties:
         name:
@@ -1946,6 +1397,217 @@ components:
       - queue_run_id
       title: RunSchemaWithAnnotationQueueInfo
       description: Run schema with annotation queue info.
+    AnnotationQueueSchemaWithRubric:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        num_reviewers_per_item:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Reviewers Per Item
+          default: 1
+        enable_reservations:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Reservations
+          default: true
+        reservation_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reservation Minutes
+          default: 1
+        reviewer_access_mode:
+          type: string
+          title: Reviewer Access Mode
+          default: any
+        name:
+          type: string
+          title: Name
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        source_rule_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Rule Id
+        run_rule_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Rule Id
+        default_dataset:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset
+        queue_type:
+          type: string
+          enum:
+          - single
+          - pairwise
+          title: Queue Type
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        assigned_reviewers:
+          items:
+            $ref: '#/components/schemas/AssignedReviewerSchema'
+          type: array
+          title: Assigned Reviewers
+          default: []
+        rubric_items:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AnnotationQueueRubricItemSchema'
+            type: array
+          - type: 'null'
+          title: Rubric Items
+        rubric_instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rubric Instructions
+      type: object
+      required:
+      - name
+      - id
+      - tenant_id
+      - queue_type
+      title: AnnotationQueueSchemaWithRubric
+      description: AnnotationQueue schema with rubric.
+    AnnotationQueueBulkDeleteRunsRequest:
+      properties:
+        delete_all:
+          type: boolean
+          title: Delete All
+          default: false
+        run_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Run Ids
+        exclude_run_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Exclude Run Ids
+      type: object
+      title: AnnotationQueueBulkDeleteRunsRequest
+    PopulateAnnotationQueueSchema:
+      properties:
+        queue_id:
+          type: string
+          format: uuid
+          title: Queue Id
+        session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Session Ids
+      type: object
+      required:
+      - queue_id
+      - session_ids
+      title: PopulateAnnotationQueueSchema
+    AnnotationQueueUpdateSchema:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        default_dataset:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset
+        num_reviewers_per_item:
+          anyOf:
+          - type: integer
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Num Reviewers Per Item
+          default: 1
+        enable_reservations:
+          type: boolean
+          title: Enable Reservations
+          default: true
+        reservation_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reservation Minutes
+        rubric_items:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AnnotationQueueRubricItemSchema'
+            type: array
+          - type: 'null'
+          title: Rubric Items
+        rubric_instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rubric Instructions
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Metadata
+          default:
+            __missing__: __missing__
+        reviewer_access_mode:
+          anyOf:
+          - type: string
+            enum:
+            - any
+            - assigned
+          - type: 'null'
+          title: Reviewer Access Mode
+      type: object
+      title: AnnotationQueueUpdateSchema
+      description: AnnotationQueue update schema.
     AnnotationQueueSchemaWithSize:
       properties:
         description:
@@ -2042,6 +1704,95 @@ components:
       - total_runs
       title: AnnotationQueueSchemaWithSize
       description: AnnotationQueue schema with size.
+    AnnotationQueueRubricItemSchema:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        value_descriptions:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Value Descriptions
+        score_descriptions:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Score Descriptions
+        is_required:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Required
+        is_assertion:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Assertion
+      type: object
+      required:
+      - feedback_key
+      title: AnnotationQueueRubricItemSchema
+    AssignedReviewerSchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+      type: object
+      required:
+      - id
+      title: AssignedReviewerSchema
+      description: Identity info for an assigned reviewer on an annotation queue.
+    AnnotationQueueRunSchema:
+      properties:
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        queue_id:
+          type: string
+          format: uuid
+          title: Queue Id
+        last_reviewed_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Reviewed Time
+        added_at:
+          type: string
+          format: date-time
+          title: Added At
+        id:
+          type: string
+          format: uuid
+          title: Id
+      type: object
+      required:
+      - run_id
+      - queue_id
+      - id
+      title: AnnotationQueueRunSchema
     RunTypeEnum:
       type: string
       enum:
@@ -2054,49 +1805,76 @@ components:
       - parser
       title: RunTypeEnum
       description: Enum for run types.
-    AnnotationQueueRunUpdateSchema:
+    AnnotationQueueRunAddSchema:
       properties:
-        last_reviewed_time:
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+          deprecated: true
+        start_time:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
-          title: Last Reviewed Time
-        added_at:
+          title: Start Time
+          deprecated: true
+        session_id:
           anyOf:
           - type: string
-            format: date-time
+            format: uuid
           - type: 'null'
-          title: Added At
+          title: Session Id
+          deprecated: true
+        trace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace Id
+          deprecated: true
+        parent_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Run Id
+          deprecated: true
+        trace_tier:
+          anyOf:
+          - $ref: '#/components/schemas/TraceTier'
+          - type: 'null'
+          deprecated: true
       type: object
-      title: AnnotationQueueRunUpdateSchema
-    AnnotationQueueUpdateSchema:
+      required:
+      - run_id
+      title: AnnotationQueueRunAddSchema
+      description: 'Deprecated: use plain UUID list or AddRunToQueueByKeyRequest instead.'
+    AnnotationQueueSchema:
       properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
         description:
           anyOf:
           - type: string
           - type: 'null'
           title: Description
-        default_dataset:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Dataset
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
         num_reviewers_per_item:
           anyOf:
           - type: integer
-          - $ref: '#/components/schemas/Missing'
           - type: 'null'
           title: Num Reviewers Per Item
           default: 1
         enable_reservations:
-          type: boolean
+          anyOf:
+          - type: boolean
+          - type: 'null'
           title: Enable Reservations
           default: true
         reservation_minutes:
@@ -2104,59 +1882,66 @@ components:
           - type: integer
           - type: 'null'
           title: Reservation Minutes
-        rubric_items:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/AnnotationQueueRubricItemSchema'
-            type: array
-          - type: 'null'
-          title: Rubric Items
-        rubric_instructions:
+          default: 1
+        reviewer_access_mode:
+          type: string
+          title: Reviewer Access Mode
+          default: any
+        name:
+          type: string
+          title: Name
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        source_rule_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Rubric Instructions
+          title: Source Rule Id
+        run_rule_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Rule Id
+        default_dataset:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset
+        queue_type:
+          type: string
+          enum:
+          - single
+          - pairwise
+          title: Queue Type
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
-          - $ref: '#/components/schemas/Missing'
           - type: 'null'
           title: Metadata
-          default:
-            __missing__: __missing__
-        reviewer_access_mode:
-          anyOf:
-          - type: string
-            enum:
-            - any
-            - assigned
-          - type: 'null'
-          title: Reviewer Access Mode
-      type: object
-      title: AnnotationQueueUpdateSchema
-      description: AnnotationQueue update schema.
-    Missing:
-      properties:
-        __missing__:
-          type: string
-          const: __missing__
-          title: Missing
+        assigned_reviewers:
+          items:
+            $ref: '#/components/schemas/AssignedReviewerSchema'
+          type: array
+          title: Assigned Reviewers
+          default: []
       type: object
       required:
-      - __missing__
-      title: Missing
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
-    annotationqueues.AddReviewerResponse:
-      type: object
-      properties:
-        identity_id:
-          type: string
+      - name
+      - id
+      - tenant_id
+      - queue_type
+      title: AnnotationQueueSchema
+      description: AnnotationQueue schema.
     ResolvedAnnotationQueueRunSchema:
       properties:
         section:
@@ -2175,20 +1960,243 @@ components:
       - position
       title: ResolvedAnnotationQueueRunSchema
       description: Resolved annotation queue run position for deep linking.
+    AddRunToQueueByKeyRequest:
+      properties:
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        session_id:
+          type: string
+          format: uuid
+          title: Session Id
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+      type: object
+      required:
+      - run_id
+      - session_id
+      - start_time
+      title: AddRunToQueueByKeyRequest
+      description: Add run to AQ by SmithDB key. is_root derived server-side (LSAQ-141).
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    Missing:
+      properties:
+        __missing__:
+          type: string
+          const: __missing__
+          title: Missing
+      type: object
+      required:
+      - __missing__
+      title: Missing
+    AnnotationQueueCreateSchema:
+      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        num_reviewers_per_item:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Reviewers Per Item
+          default: 1
+        enable_reservations:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Enable Reservations
+          default: true
+        reservation_minutes:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Reservation Minutes
+          default: 1
+        reviewer_access_mode:
+          type: string
+          title: Reviewer Access Mode
+          default: any
+        name:
+          type: string
+          title: Name
+        id:
+          type: string
+          format: uuid
+          title: Id
+        default_dataset:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Dataset
+        rubric_items:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/AnnotationQueueRubricItemSchema'
+            type: array
+          - type: 'null'
+          title: Rubric Items
+        rubric_instructions:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rubric Instructions
+        session_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Session Ids
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - name
+      title: AnnotationQueueCreateSchema
+      description: AnnotationQueue schema.
+    ExportAnnotationQueueRunsRequest:
+      properties:
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        include_annotator_detail:
+          type: boolean
+          title: Include Annotator Detail
+          default: false
+      type: object
+      title: ExportAnnotationQueueRunsRequest
+      description: Export annotation queue runs request schema.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    AnnotationQueueRunUpdateSchema:
+      properties:
+        last_reviewed_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Reviewed Time
+        added_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Added At
+      type: object
+      title: AnnotationQueueRunUpdateSchema
+    IdentityAnnotationQueueRunStatusCreateSchema:
+      properties:
+        status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Status
+        override_added_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Override Added At
+      type: object
+      title: IdentityAnnotationQueueRunStatusCreateSchema
+      description: Identity annotation queue run status create schema.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    AnnotationQueueSizeSchema:
+      properties:
+        size:
+          type: integer
+          title: Size
+      type: object
+      required:
+      - size
+      title: AnnotationQueueSizeSchema
+      description: Size of an Annotation Queue
+    annotationqueues.AddReviewerRequest:
+      type: object
+      required:
+      - identity_id
+      properties:
+        identity_id:
+          type: string
+    annotationqueues.AddReviewerResponse:
+      type: object
+      properties:
+        identity_id:
+          type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

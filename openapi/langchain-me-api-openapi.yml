@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies me API
+  title: LangSmith Me API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: me
+- name: Me
 paths:
   /api/v1/me/onboarding_state:
     get:
       tags:
-      - me
+      - Me
       summary: Get Onboarding State
       description: Get onboarding state for the current user.
       operationId: get_onboarding_state_api_v1_me_onboarding_state_get
@@ -41,7 +38,7 @@ paths:
       - Bearer Auth: []
     post:
       tags:
-      - me
+      - Me
       summary: Create Onboarding State
       description: Initialize onboarding state for the current user.
       operationId: create_onboarding_state_api_v1_me_onboarding_state_post
@@ -57,7 +54,7 @@ paths:
   /api/v1/me/onboarding_state/{field}:
     put:
       tags:
-      - me
+      - Me
       summary: Update Onboarding State Field
       description: 'Update a specific onboarding completion field for the current user.
 
@@ -99,7 +96,7 @@ paths:
   /api/v1/me/ls_user_id:
     get:
       tags:
-      - me
+      - Me
       summary: Get Ls User Id
       description: Get the LangSmith user ID for the current user.
       operationId: get_ls_user_id_api_v1_me_ls_user_id_get
@@ -121,7 +118,7 @@ paths:
       - Bearer Auth: []
       description: Returns the provider user ID associated with the authenticated user for a given provider type, or null if not set. Scoped to the current tenant.
       tags:
-      - me
+      - Me
       summary: Get the authenticated user's provider user ID
       parameters:
       - description: Provider type (e.g. slack, github)
@@ -155,29 +152,19 @@ paths:
             application/json:
               schema:
                 type: string
+      operationId: getMeProvidersByProviderType
+      x-operation-id-source: derived
 components:
   schemas:
-    ValidationError:
+    HTTPValidationError:
       properties:
-        loc:
+        detail:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Detail
       type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: HTTPValidationError
     UserOnboardingStateResponse:
       properties:
         id:
@@ -233,29 +220,41 @@ components:
       - created_at
       - updated_at
       title: UserOnboardingStateResponse
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

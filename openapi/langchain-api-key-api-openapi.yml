@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies api-key API
+  title: LangSmith API Key API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: api-key
+- name: API Key
 paths:
   /api/v1/api-key:
     get:
       tags:
-      - api-key
+      - API Key
       summary: Get Api Keys
       description: Get the current tenant's API keys
       operationId: get_api_keys_api_v1_api_key_get
@@ -46,7 +43,7 @@ paths:
       - Bearer Auth: []
     post:
       tags:
-      - api-key
+      - API Key
       summary: Generate Api Key
       description: Generate an api key for the user
       operationId: generate_api_key_api_v1_api_key_post
@@ -78,7 +75,7 @@ paths:
   /api/v1/api-key/{api_key_id}:
     delete:
       tags:
-      - api-key
+      - API Key
       summary: Delete Api Key
       description: Delete an api key for the user
       operationId: delete_api_key_api_v1_api_key__api_key_id__delete
@@ -110,7 +107,7 @@ paths:
   /api/v1/api-key/current:
     get:
       tags:
-      - api-key
+      - API Key
       summary: Get Personal Access Tokens
       description: 'DEPRECATED: Use /orgs/current/personal-access-tokens instead'
       operationId: get_personal_access_tokens_api_v1_api_key_current_get
@@ -131,7 +128,7 @@ paths:
       - Bearer Auth: []
     post:
       tags:
-      - api-key
+      - API Key
       summary: Generate Personal Access Token
       description: 'DEPRECATED: Use /orgs/current/personal-access-tokens instead'
       operationId: generate_personal_access_token_api_v1_api_key_current_post
@@ -163,7 +160,7 @@ paths:
   /api/v1/api-key/current/{pat_id}:
     delete:
       tags:
-      - api-key
+      - API Key
       summary: Delete Personal Access Token
       description: 'DEPRECATED: Use /orgs/current/personal-access-tokens/{pat_id} instead'
       operationId: delete_personal_access_token_api_v1_api_key_current__pat_id__delete
@@ -216,52 +213,60 @@ components:
       - msg
       - type
       title: ValidationError
-    APIKeyCreateRequest:
+    APIKeyGetResponse:
       properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
         description:
           type: string
           title: Description
-          default: Default API key
         read_only:
           type: boolean
           title: Read Only
           default: false
           deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
         expires_at:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
           title: Expires At
-        workspaces:
+        workspace_names:
           anyOf:
           - items:
               type: string
-              format: uuid
             type: array
           - type: 'null'
-          title: Workspaces
-        role_id:
+          title: Workspace Names
+        default_workspace_name:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Role Id
-        org_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Role Id
-        default_workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Workspace Id
+          title: Default Workspace Name
       type: object
-      title: APIKeyCreateRequest
-      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
+      required:
+      - id
+      - short_key
+      - description
+      title: APIKeyGetResponse
+      description: API key GET schema.
     APIKeyCreateResponse:
       properties:
         created_at:
@@ -320,60 +325,52 @@ components:
       - key
       title: APIKeyCreateResponse
       description: API key POST schema.
-    APIKeyGetResponse:
+    APIKeyCreateRequest:
       properties:
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        short_key:
-          type: string
-          title: Short Key
         description:
           type: string
           title: Description
+          default: Default API key
         read_only:
           type: boolean
           title: Read Only
           default: false
           deprecated: true
-        last_used_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Used At
         expires_at:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
           title: Expires At
-        workspace_names:
+        workspaces:
           anyOf:
           - items:
               type: string
+              format: uuid
             type: array
           - type: 'null'
-          title: Workspace Names
-        default_workspace_name:
+          title: Workspaces
+        role_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Default Workspace Name
+          title: Role Id
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        default_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Workspace Id
       type: object
-      required:
-      - id
-      - short_key
-      - description
-      title: APIKeyGetResponse
-      description: API key GET schema.
+      title: APIKeyCreateRequest
+      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
     HTTPValidationError:
       properties:
         detail:
@@ -384,19 +381,19 @@ components:
       type: object
       title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

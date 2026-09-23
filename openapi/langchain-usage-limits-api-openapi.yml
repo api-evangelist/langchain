@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies usage-limits API
+  title: LangSmith Usage Limits API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: usage-limits
+- name: usage limits
 paths:
   /api/v1/usage-limits:
     get:
       tags:
-      - usage-limits
+      - usage limits
       summary: List Usage Limits
       description: List out the configured usage limits for a given tenant.
       operationId: list_usage_limits_api_v1_usage_limits_get
@@ -46,7 +43,7 @@ paths:
       - Bearer Auth: []
     put:
       tags:
-      - usage-limits
+      - usage limits
       summary: Upsert Usage Limit
       description: Create a new usage limit.
       operationId: upsert_usage_limit_api_v1_usage_limits_put
@@ -76,7 +73,7 @@ paths:
   /api/v1/usage-limits/org:
     get:
       tags:
-      - usage-limits
+      - usage limits
       summary: List Org Usage Limits
       description: List out the configured usage limits for a given organization.
       operationId: list_org_usage_limits_api_v1_usage_limits_org_get
@@ -97,7 +94,7 @@ paths:
   /api/v1/usage-limits/{usage_limit_id}:
     delete:
       tags:
-      - usage-limits
+      - usage limits
       summary: Delete Usage Limit
       description: Delete a specific usage limit.
       operationId: delete_usage_limit_api_v1_usage_limits__usage_limit_id__delete
@@ -127,23 +124,13 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UpsertUsageLimit:
-      properties:
-        limit_type:
-          $ref: '#/components/schemas/UsageLimitType'
-        limit_value:
-          type: integer
-          title: Limit Value
-        id:
-          type: string
-          format: uuid
-          title: Id
-      type: object
-      required:
-      - limit_type
-      - limit_value
-      title: UpsertUsageLimit
-      description: Request body for creating or updating a usage limit.
+    UsageLimitType:
+      type: string
+      enum:
+      - monthly_traces
+      - monthly_longlived_traces
+      title: UsageLimitType
+      description: Type of usage limit.
     ValidationError:
       properties:
         loc:
@@ -197,13 +184,23 @@ components:
       - updated_at
       title: UsageLimit
       description: Usage limit model.
-    UsageLimitType:
-      type: string
-      enum:
-      - monthly_traces
-      - monthly_longlived_traces
-      title: UsageLimitType
-      description: Type of usage limit.
+    UpsertUsageLimit:
+      properties:
+        limit_type:
+          $ref: '#/components/schemas/UsageLimitType'
+        limit_value:
+          type: integer
+          title: Limit Value
+        id:
+          type: string
+          format: uuid
+          title: Id
+      type: object
+      required:
+      - limit_type
+      - limit_value
+      title: UpsertUsageLimit
+      description: Request body for creating or updating a usage limit.
     HTTPValidationError:
       properties:
         detail:
@@ -214,19 +211,19 @@ components:
       type: object
       title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

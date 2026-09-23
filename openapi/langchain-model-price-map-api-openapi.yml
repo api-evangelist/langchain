@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies model-price-map API
+  title: LangSmith Model Price Map API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -133,6 +130,81 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ModelPriceMapCreateSchema:
+      properties:
+        name:
+          type: string
+          title: Name
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        match_path:
+          items:
+            type: string
+          type: array
+          title: Match Path
+          default:
+          - model
+          - model_name
+          - model_id
+          - model_path
+          - endpoint_name
+        match_pattern:
+          type: string
+          title: Match Pattern
+        prompt_cost:
+          anyOf:
+          - type: number
+          - type: string
+          title: Prompt Cost
+        completion_cost:
+          anyOf:
+          - type: number
+          - type: string
+          title: Completion Cost
+        prompt_cost_details:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Prompt Cost Details
+        completion_cost_details:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - type: number
+              - type: string
+            type: object
+          - type: 'null'
+          title: Completion Cost Details
+        provider:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Provider
+      type: object
+      required:
+      - name
+      - match_pattern
+      - prompt_cost
+      - completion_cost
+      title: ModelPriceMapCreateSchema
+      description: Model price map create schema.
     ValidationError:
       properties:
         loc:
@@ -220,95 +292,20 @@ components:
       - completion_cost
       title: ModelPriceMapUpdateSchema
       description: Model price map update schema.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ModelPriceMapCreateSchema:
-      properties:
-        name:
-          type: string
-          title: Name
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        match_path:
-          items:
-            type: string
-          type: array
-          title: Match Path
-          default:
-          - model
-          - model_name
-          - model_id
-          - model_path
-          - endpoint_name
-        match_pattern:
-          type: string
-          title: Match Pattern
-        prompt_cost:
-          anyOf:
-          - type: number
-          - type: string
-          title: Prompt Cost
-        completion_cost:
-          anyOf:
-          - type: number
-          - type: string
-          title: Completion Cost
-        prompt_cost_details:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: number
-              - type: string
-            type: object
-          - type: 'null'
-          title: Prompt Cost Details
-        completion_cost_details:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - type: number
-              - type: string
-            type: object
-          - type: 'null'
-          title: Completion Cost Details
-        provider:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Provider
-      type: object
-      required:
-      - name
-      - match_pattern
-      - prompt_cost
-      - completion_cost
-      title: ModelPriceMapCreateSchema
-      description: Model price map create schema.
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

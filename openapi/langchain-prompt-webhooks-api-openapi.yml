@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies prompt-webhooks API
+  title: LangSmith Prompt Webhooks API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -215,6 +212,84 @@ components:
       - tag:update
       title: EPromptWebhookTrigger
       description: Valid trigger types for prompt webhooks.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PromptWebhookTest:
+      properties:
+        webhook:
+          $ref: '#/components/schemas/PromptWebhookBase'
+        payload:
+          $ref: '#/components/schemas/PromptWebhookPayload'
+      type: object
+      required:
+      - webhook
+      - payload
+      title: PromptWebhookTest
+      description: Schema for testing a prompt webhook.
+    PromptWebhookCreate:
+      properties:
+        url:
+          type: string
+          minLength: 1
+          format: uri
+          title: Url
+        headers:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Headers
+        include_prompts:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Include Prompts
+        exclude_prompts:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Exclude Prompts
+        triggers:
+          items:
+            $ref: '#/components/schemas/EPromptWebhookTrigger'
+          type: array
+          title: Triggers
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+      type: object
+      required:
+      - url
+      title: PromptWebhookCreate
+      description: Schema for creating a prompt webhook.
     PromptWebhook:
       properties:
         url:
@@ -274,7 +349,7 @@ components:
       - updated_at
       title: PromptWebhook
       description: Schema for a prompt webhook.
-    PromptWebhookCreate:
+    PromptWebhookBase:
       properties:
         url:
           type: string
@@ -308,38 +383,11 @@ components:
             $ref: '#/components/schemas/EPromptWebhookTrigger'
           type: array
           title: Triggers
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
       type: object
       required:
       - url
-      title: PromptWebhookCreate
-      description: Schema for creating a prompt webhook.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: PromptWebhookBase
+      description: Base schema for prompt webhooks.
     PromptWebhookPayload:
       properties:
         prompt_id:
@@ -419,57 +467,6 @@ components:
       type: object
       title: PromptWebhookUpdate
       description: Schema for updating a prompt webhook.
-    PromptWebhookBase:
-      properties:
-        url:
-          type: string
-          minLength: 1
-          format: uri
-          title: Url
-        headers:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Headers
-        include_prompts:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Include Prompts
-        exclude_prompts:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Exclude Prompts
-        triggers:
-          items:
-            $ref: '#/components/schemas/EPromptWebhookTrigger'
-          type: array
-          title: Triggers
-      type: object
-      required:
-      - url
-      title: PromptWebhookBase
-      description: Base schema for prompt webhooks.
-    PromptWebhookTest:
-      properties:
-        webhook:
-          $ref: '#/components/schemas/PromptWebhookBase'
-        payload:
-          $ref: '#/components/schemas/PromptWebhookPayload'
-      type: object
-      required:
-      - webhook
-      - payload
-      title: PromptWebhookTest
-      description: Schema for testing a prompt webhook.
     HTTPValidationError:
       properties:
         detail:
@@ -480,19 +477,19 @@ components:
       type: object
       title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

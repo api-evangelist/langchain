@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies playground-settings API
+  title: LangSmith Playground Settings API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -171,37 +168,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PlaygroundSettingsCreateRequest:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        settings:
-          additionalProperties: true
-          type: object
-          title: Settings
-        options:
-          anyOf:
-          - $ref: '#/components/schemas/PlaygroundSavedOptions'
-          - type: 'null'
-        settings_type:
-          type: string
-          enum:
-          - complex
-          - simple
-          title: Settings Type
-          default: complex
-      type: object
-      required:
-      - settings
-      title: PlaygroundSettingsCreateRequest
     ValidationError:
       properties:
         loc:
@@ -223,79 +189,6 @@ components:
       - msg
       - type
       title: ValidationError
-    PlaygroundSavedOptions:
-      properties:
-        requests_per_second:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Requests Per Second
-      type: object
-      title: PlaygroundSavedOptions
-    PlaygroundSettingsUpdateRequest:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Settings
-        options:
-          anyOf:
-          - $ref: '#/components/schemas/PlaygroundSavedOptions'
-          - type: 'null'
-        available_in_playground:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Playground
-        available_in_evaluators:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Evaluators
-        available_in_agent_builder:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Agent Builder
-        available_in_polly:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Polly
-        available_in_insights_heavy:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Insights Heavy
-        available_in_insights_light:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Insights Light
-        available_in_issues_agent_heavy:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Issues Agent Heavy
-        available_in_issues_agent_light:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Issues Agent Light
-      type: object
-      title: PlaygroundSettingsUpdateRequest
     HTTPValidationError:
       properties:
         detail:
@@ -395,20 +288,124 @@ components:
       - created_at
       - updated_at
       title: PlaygroundSettingsResponse
+    PlaygroundSettingsUpdateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Settings
+        options:
+          anyOf:
+          - $ref: '#/components/schemas/PlaygroundSavedOptions'
+          - type: 'null'
+        available_in_playground:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Playground
+        available_in_evaluators:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Evaluators
+        available_in_agent_builder:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Agent Builder
+        available_in_polly:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Polly
+        available_in_insights_heavy:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Insights Heavy
+        available_in_insights_light:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Insights Light
+        available_in_issues_agent_heavy:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Issues Agent Heavy
+        available_in_issues_agent_light:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Issues Agent Light
+      type: object
+      title: PlaygroundSettingsUpdateRequest
+    PlaygroundSettingsCreateRequest:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        settings:
+          additionalProperties: true
+          type: object
+          title: Settings
+        options:
+          anyOf:
+          - $ref: '#/components/schemas/PlaygroundSavedOptions'
+          - type: 'null'
+        settings_type:
+          type: string
+          enum:
+          - complex
+          - simple
+          title: Settings Type
+          default: complex
+      type: object
+      required:
+      - settings
+      title: PlaygroundSettingsCreateRequest
+    PlaygroundSavedOptions:
+      properties:
+        requests_per_second:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Requests Per Second
+      type: object
+      title: PlaygroundSavedOptions
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

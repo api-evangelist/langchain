@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies runs API
+  title: LangSmith Runs API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: runs
+- name: Runs
 paths:
   /runs:
     post:
@@ -31,7 +28,7 @@ paths:
       - Bearer Auth: []
       description: Queues a single run for ingestion. The request body must be a JSON-encoded run object that follows the Run schema.
       tags:
-      - runs
+      - Runs
       summary: Create a Run
       parameters: []
       responses:
@@ -84,6 +81,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/runs.Run'
+      operationId: postRuns
+      x-operation-id-source: derived
   /runs/batch:
     post:
       security:
@@ -94,7 +93,7 @@ paths:
 
         Prefer this endpoint over single‑run ingestion when submitting hundreds of runs, but `/runs/multipart` offers better handling for very large fields and attachments.'
       tags:
-      - runs
+      - Runs
       summary: Ingest Runs (Batch JSON)
       parameters: []
       responses:
@@ -156,6 +155,8 @@ paths:
                   type: array
                   items:
                     $ref: '#/components/schemas/runs.Run'
+      operationId: postRunsBatch
+      x-operation-id-source: derived
   /runs/multipart:
     post:
       security:
@@ -164,21 +165,21 @@ paths:
       - Bearer Auth: []
       description: 'Ingests multiple runs, feedback objects, and binary attachments in a single `multipart/form-data` request.
 
-        **Part‑name pattern**: `<event>.<run_id>[.<field>]` where `event` ∈ {`post`, `patch`, `feedback`, `attachment`}.
+        **Part‑name pattern**: `.[.]` where `event` ∈ {`post`, `patch`, `feedback`, `attachment`}.
 
-        * `post|patch.<run_id>` – JSON run payload.
+        * `post|patch.` – JSON run payload.
 
-        * `post|patch.<run_id>.<field>` – out‑of‑band run data (`inputs`, `outputs`, `events`, `error`, `extra`, `serialized`).
+        * `post|patch..` – out‑of‑band run data (`inputs`, `outputs`, `events`, `error`, `extra`, `serialized`).
 
-        * `feedback.<run_id>` – JSON feedback payload (must include `trace_id`).
+        * `feedback.` – JSON feedback payload (must include `trace_id`).
 
-        * `attachment.<run_id>.<filename>` – arbitrary binary attachment stored in S3.
+        * `attachment..` – arbitrary binary attachment stored in S3.
 
         **Headers**: every part must set `Content-Type` **and** either a `Content-Length` header or `length` parameter. Per‑part `Content-Encoding` is **not** allowed; the top‑level request may be `Content-Encoding: gzip` or `Content-Encoding: zstd`.
 
         **Best performance** for high‑volume ingestion.'
       tags:
-      - runs
+      - Runs
       summary: Ingest Runs (Multipart)
       parameters: []
       responses:
@@ -251,6 +252,8 @@ paths:
                   type: string
                   format: binary
                   description: Binary attachment linked to run {run_id}
+      operationId: postRunsMultipart
+      x-operation-id-source: derived
   /runs/{run_id}:
     patch:
       security:
@@ -259,7 +262,7 @@ paths:
       - Bearer Auth: []
       description: Updates a run identified by its ID. The body should contain only the fields to be changed; unknown fields are ignored.
       tags:
-      - runs
+      - Runs
       summary: Update a Run
       parameters:
       - description: Run ID
@@ -325,6 +328,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/runs.Run'
+      operationId: patchRunsByRunId
+      x-operation-id-source: derived
   /v2/runs/query:
     post:
       security:
@@ -335,7 +340,7 @@ paths:
 
         Returns a paginated list of runs for the given projects within min/max start_time. Supports filters, cursor pagination, and `selects` to select fields to return.'
       tags:
-      - runs
+      - Runs
       summary: Query runs
       parameters:
       - description: application/json
@@ -377,6 +382,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/query.QueryRunsRequestBody'
+      operationId: postV2RunsQuery
+      x-operation-id-source: derived
   /v2/runs/{run_id}:
     get:
       security:
@@ -387,7 +394,7 @@ paths:
 
         Returns one run by ID for the given session and start_time. Use the `selects` query parameter (repeatable) to select fields to return.'
       tags:
-      - runs
+      - Runs
       summary: Get a single run
       parameters:
       - description: application/json
@@ -504,6 +511,8 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+      operationId: getV2RunsByRunId
+      x-operation-id-source: derived
   /v2/traces/{trace_id}/runs:
     get:
       security:
@@ -514,7 +523,7 @@ paths:
 
         Returns runs for a trace ID within min/max start time. Optional `filter`; repeatable `selects` to select fields to return.'
       tags:
-      - runs
+      - Runs
       summary: List runs in a trace
       parameters:
       - description: application/json
@@ -639,117 +648,10 @@ paths:
                 type: object
                 additionalProperties:
                   type: string
+      operationId: getV2TracesByTraceIdRuns
+      x-operation-id-source: derived
 components:
   schemas:
-    runs.ErrorResponse:
-      type: object
-      properties:
-        details:
-          description: Optional error details as JSON string
-          type: string
-          example: '{"field":"dataset_id","reason":"required"}'
-        error:
-          description: Error message
-          type: string
-          example: 'Invalid request: missing required fields'
-    runs.Run:
-      type: object
-      properties:
-        dotted_order:
-          type: string
-        end_time:
-          type: string
-        error:
-          type: string
-        events:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        extra:
-          type: object
-          additionalProperties: true
-        id:
-          type: string
-        input_attachments:
-          type: object
-          additionalProperties: true
-        inputs:
-          type: object
-          additionalProperties: true
-        name:
-          type: string
-        output_attachments:
-          type: object
-          additionalProperties: true
-        outputs:
-          type: object
-          additionalProperties: true
-        parent_run_id:
-          type: string
-        reference_example_id:
-          type: string
-        run_type:
-          type: string
-          enum:
-          - tool
-          - chain
-          - llm
-          - retriever
-          - embedding
-          - prompt
-          - parser
-        serialized:
-          type: object
-          additionalProperties: true
-        session_id:
-          type: string
-        session_name:
-          type: string
-        start_time:
-          type: string
-        status:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        trace_id:
-          type: string
-    query.RunFeedbackStats:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/query.RunFeedbackStat'
-    query.RunPromptTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its prompt-token count.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    query.RunAttachmentURLs:
-      type: object
-      additionalProperties:
-        type: string
-    query.QueryTraceResponseBody:
-      type: object
-      properties:
-        items:
-          description: '`items` lists runs in the trace for the requested time window, in `start_time` order.'
-          type: array
-          items:
-            $ref: '#/components/schemas/query.RunResponse'
-    query.RunCompletionTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its completion-token count.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
     query.RunFeedbackStat:
       type: object
       properties:
@@ -800,16 +702,170 @@ components:
           additionalProperties:
             type: integer
             format: int64
-    query.RunStatus:
+    query.RunCompletionTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its completion-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    query.RunEvent:
+      type: object
+      properties:
+        kwargs:
+          description: '`kwargs` is the event payload — an opaque JSON object whose shape depends on `name` and on the emitting SDK. For example LangChain emits `{"token": {...}}` for `new_token` events, tool-call start/end details for tool events, and arbitrary user-defined payloads for custom events. Clients should treat `kwargs` as untyped JSON: do not assume specific keys exist for a given `name`, and tolerate additional unknown keys appearing over time.'
+          type: object
+        name:
+          description: '`name` is the event kind. Common values emitted by the LangChain/LangSmith tracer SDKs include `"start"`, `"end"`, and `"new_token"`, but applications may emit arbitrary strings for their own instrumentation.'
+          type: string
+          example: new_token
+        time:
+          description: '`time` is when the event occurred (RFC3339 date-time with millisecond precision).'
+          type: string
+          format: date-time
+          example: '2024-01-15T10:30:00.312Z'
+    query.RunAttachmentURLs:
+      type: object
+      additionalProperties:
+        type: string
+    query.RunPromptTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its prompt-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    query.RunCompletionCostDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
+          type: object
+          additionalProperties:
+            type: number
+            format: float64
+    query.RunType:
       type: string
       enum:
-      - SUCCESS
-      - ERROR
-      - PENDING
+      - TOOL
+      - CHAIN
+      - LLM
+      - RETRIEVER
+      - EMBEDDING
+      - PROMPT
+      - PARSER
       x-enum-varnames:
-      - RunStatusSuccess
-      - RunStatusError
-      - RunStatusPending
+      - RunTypeTool
+      - RunTypeChain
+      - RunTypeLLM
+      - RunTypeRetriever
+      - RunTypeEmbedding
+      - RunTypePrompt
+      - RunTypeParser
+    query.QueryTraceResponseBody:
+      type: object
+      properties:
+        items:
+          description: '`items` lists runs in the trace for the requested time window, in `start_time` order.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunResponse'
+    query.RunSelectField:
+      type: string
+      enum:
+      - ID
+      - NAME
+      - RUN_TYPE
+      - STATUS
+      - START_TIME
+      - END_TIME
+      - LATENCY_SECONDS
+      - FIRST_TOKEN_TIME
+      - ERROR
+      - ERROR_PREVIEW
+      - EXTRA
+      - METADATA
+      - EVENTS
+      - INPUTS
+      - INPUTS_PREVIEW
+      - OUTPUTS
+      - OUTPUTS_PREVIEW
+      - MANIFEST
+      - PARENT_RUN_IDS
+      - PROJECT_ID
+      - TRACE_ID
+      - THREAD_ID
+      - DOTTED_ORDER
+      - IS_ROOT
+      - REFERENCE_EXAMPLE_ID
+      - REFERENCE_DATASET_ID
+      - TOTAL_TOKENS
+      - PROMPT_TOKENS
+      - COMPLETION_TOKENS
+      - TOTAL_COST
+      - PROMPT_COST
+      - COMPLETION_COST
+      - PROMPT_TOKEN_DETAILS
+      - COMPLETION_TOKEN_DETAILS
+      - PROMPT_COST_DETAILS
+      - COMPLETION_COST_DETAILS
+      - PRICE_MODEL_ID
+      - TAGS
+      - APP_PATH
+      - ATTACHMENTS
+      - THREAD_EVALUATION_TIME
+      - IS_IN_DATASET
+      - SHARE_URL
+      - FEEDBACK_STATS
+      x-enum-varnames:
+      - RunSelectID
+      - RunSelectName
+      - RunSelectRunType
+      - RunSelectStatus
+      - RunSelectStartTime
+      - RunSelectEndTime
+      - RunSelectLatencySeconds
+      - RunSelectFirstTokenTime
+      - RunSelectError
+      - RunSelectErrorPreview
+      - RunSelectExtra
+      - RunSelectMetadata
+      - RunSelectEvents
+      - RunSelectInputs
+      - RunSelectInputsPreview
+      - RunSelectOutputs
+      - RunSelectOutputsPreview
+      - RunSelectManifest
+      - RunSelectParentRunIDs
+      - RunSelectProjectID
+      - RunSelectTraceID
+      - RunSelectThreadID
+      - RunSelectDottedOrder
+      - RunSelectIsRoot
+      - RunSelectReferenceExampleID
+      - RunSelectReferenceDatasetID
+      - RunSelectTotalTokens
+      - RunSelectPromptTokens
+      - RunSelectCompletionTokens
+      - RunSelectTotalCost
+      - RunSelectPromptCost
+      - RunSelectCompletionCost
+      - RunSelectPromptTokenDetails
+      - RunSelectCompletionTokenDetails
+      - RunSelectPromptCostDetails
+      - RunSelectCompletionCostDetails
+      - RunSelectPriceModelID
+      - RunSelectTags
+      - RunSelectAppPath
+      - RunSelectAttachments
+      - RunSelectThreadEvaluationTime
+      - RunSelectIsInDataset
+      - RunSelectShareURL
+      - RunSelectFeedbackStats
     query.RunResponse:
       type: object
       properties:
@@ -1005,21 +1061,64 @@ components:
           type: string
           format: uuid
           example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
-    query.RunEvent:
+    query.RunPromptCostDetails:
       type: object
       properties:
-        kwargs:
-          description: '`kwargs` is the event payload — an opaque JSON object whose shape depends on `name` and on the emitting SDK. For example LangChain emits `{"token": {...}}` for `new_token` events, tool-call start/end details for tool events, and arbitrary user-defined payloads for custom events. Clients should treat `kwargs` as untyped JSON: do not assume specific keys exist for a given `name`, and tolerate additional unknown keys appearing over time.'
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
           type: object
-        name:
-          description: '`name` is the event kind. Common values emitted by the LangChain/LangSmith tracer SDKs include `"start"`, `"end"`, and `"new_token"`, but applications may emit arbitrary strings for their own instrumentation.'
+          additionalProperties:
+            type: number
+            format: float64
+    query.RunFeedbackStats:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/query.RunFeedbackStat'
+    query.SortOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      x-enum-varnames:
+      - SortOrderAsc
+      - SortOrderDesc
+    runs.ErrorResponse:
+      type: object
+      properties:
+        details:
+          description: Optional error details as JSON string
           type: string
-          example: new_token
-        time:
-          description: '`time` is when the event occurred (RFC3339 date-time with millisecond precision).'
+          example: '{"field":"dataset_id","reason":"required"}'
+        error:
+          description: Error message
           type: string
-          format: date-time
-          example: '2024-01-15T10:30:00.312Z'
+          example: 'Invalid request: missing required fields'
+    query.QueryRunsResponseBody:
+      type: object
+      properties:
+        has_more:
+          description: '`has_more` is true when another page of runs exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of runs, sorted by `start_time` in the direction given by the request `sort_order`.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunResponse'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
+    query.RunStatus:
+      type: string
+      enum:
+      - SUCCESS
+      - ERROR
+      - PENDING
+      x-enum-varnames:
+      - RunStatusSuccess
+      - RunStatusError
+      - RunStatusPending
     query.QueryRunsRequestBody:
       type: object
       properties:
@@ -1135,172 +1234,84 @@ components:
             See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
           type: string
           example: has(tags, "production")
-    query.RunPromptCostDetails:
+    runs.Run:
       type: object
       properties:
-        raw:
-          description: '`raw` maps each category name to its estimated USD cost.'
-          type: object
-          additionalProperties:
-            type: number
-            format: float64
-    query.RunCompletionCostDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its estimated USD cost.'
-          type: object
-          additionalProperties:
-            type: number
-            format: float64
-    query.RunSelectField:
-      type: string
-      enum:
-      - ID
-      - NAME
-      - RUN_TYPE
-      - STATUS
-      - START_TIME
-      - END_TIME
-      - LATENCY_SECONDS
-      - FIRST_TOKEN_TIME
-      - ERROR
-      - ERROR_PREVIEW
-      - EXTRA
-      - METADATA
-      - EVENTS
-      - INPUTS
-      - INPUTS_PREVIEW
-      - OUTPUTS
-      - OUTPUTS_PREVIEW
-      - MANIFEST
-      - PARENT_RUN_IDS
-      - PROJECT_ID
-      - TRACE_ID
-      - THREAD_ID
-      - DOTTED_ORDER
-      - IS_ROOT
-      - REFERENCE_EXAMPLE_ID
-      - REFERENCE_DATASET_ID
-      - TOTAL_TOKENS
-      - PROMPT_TOKENS
-      - COMPLETION_TOKENS
-      - TOTAL_COST
-      - PROMPT_COST
-      - COMPLETION_COST
-      - PROMPT_TOKEN_DETAILS
-      - COMPLETION_TOKEN_DETAILS
-      - PROMPT_COST_DETAILS
-      - COMPLETION_COST_DETAILS
-      - PRICE_MODEL_ID
-      - TAGS
-      - APP_PATH
-      - ATTACHMENTS
-      - THREAD_EVALUATION_TIME
-      - IS_IN_DATASET
-      - SHARE_URL
-      - FEEDBACK_STATS
-      x-enum-varnames:
-      - RunSelectID
-      - RunSelectName
-      - RunSelectRunType
-      - RunSelectStatus
-      - RunSelectStartTime
-      - RunSelectEndTime
-      - RunSelectLatencySeconds
-      - RunSelectFirstTokenTime
-      - RunSelectError
-      - RunSelectErrorPreview
-      - RunSelectExtra
-      - RunSelectMetadata
-      - RunSelectEvents
-      - RunSelectInputs
-      - RunSelectInputsPreview
-      - RunSelectOutputs
-      - RunSelectOutputsPreview
-      - RunSelectManifest
-      - RunSelectParentRunIDs
-      - RunSelectProjectID
-      - RunSelectTraceID
-      - RunSelectThreadID
-      - RunSelectDottedOrder
-      - RunSelectIsRoot
-      - RunSelectReferenceExampleID
-      - RunSelectReferenceDatasetID
-      - RunSelectTotalTokens
-      - RunSelectPromptTokens
-      - RunSelectCompletionTokens
-      - RunSelectTotalCost
-      - RunSelectPromptCost
-      - RunSelectCompletionCost
-      - RunSelectPromptTokenDetails
-      - RunSelectCompletionTokenDetails
-      - RunSelectPromptCostDetails
-      - RunSelectCompletionCostDetails
-      - RunSelectPriceModelID
-      - RunSelectTags
-      - RunSelectAppPath
-      - RunSelectAttachments
-      - RunSelectThreadEvaluationTime
-      - RunSelectIsInDataset
-      - RunSelectShareURL
-      - RunSelectFeedbackStats
-    query.QueryRunsResponseBody:
-      type: object
-      properties:
-        has_more:
-          description: '`has_more` is true when another page of runs exists after this one.'
-          type: boolean
-          example: true
-        items:
-          description: '`items` is the page of runs, sorted by `start_time` in the direction given by the request `sort_order`.'
+        dotted_order:
+          type: string
+        end_time:
+          type: string
+        error:
+          type: string
+        events:
           type: array
           items:
-            $ref: '#/components/schemas/query.RunResponse'
-        next_cursor:
-          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+            type: object
+            additionalProperties: true
+        extra:
+          type: object
+          additionalProperties: true
+        id:
           type: string
-          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
-    query.RunType:
-      type: string
-      enum:
-      - TOOL
-      - CHAIN
-      - LLM
-      - RETRIEVER
-      - EMBEDDING
-      - PROMPT
-      - PARSER
-      x-enum-varnames:
-      - RunTypeTool
-      - RunTypeChain
-      - RunTypeLLM
-      - RunTypeRetriever
-      - RunTypeEmbedding
-      - RunTypePrompt
-      - RunTypeParser
-    query.SortOrder:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      x-enum-varnames:
-      - SortOrderAsc
-      - SortOrderDesc
+        input_attachments:
+          type: object
+          additionalProperties: true
+        inputs:
+          type: object
+          additionalProperties: true
+        name:
+          type: string
+        output_attachments:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties: true
+        parent_run_id:
+          type: string
+        reference_example_id:
+          type: string
+        run_type:
+          type: string
+          enum:
+          - tool
+          - chain
+          - llm
+          - retriever
+          - embedding
+          - prompt
+          - parser
+        serialized:
+          type: object
+          additionalProperties: true
+        session_id:
+          type: string
+        session_name:
+          type: string
+        start_time:
+          type: string
+        status:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        trace_id:
+          type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

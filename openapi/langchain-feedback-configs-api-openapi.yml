@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies feedback-configs API
+  title: LangSmith Feedback Configs API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -190,24 +187,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UpdateFeedbackConfigSchema:
+    CreateFeedbackConfigSchema:
       properties:
         feedback_key:
           type: string
           title: Feedback Key
         feedback_config:
-          anyOf:
-          - $ref: '#/components/schemas/FeedbackConfig'
-          - type: 'null'
+          $ref: '#/components/schemas/FeedbackConfig'
         is_lower_score_better:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Lower Score Better
+          default: false
       type: object
       required:
       - feedback_key
-      title: UpdateFeedbackConfigSchema
+      - feedback_config
+      title: CreateFeedbackConfigSchema
     ValidationError:
       properties:
         loc:
@@ -229,82 +226,6 @@ components:
       - msg
       - type
       title: ValidationError
-    FeedbackType:
-      type: string
-      enum:
-      - continuous
-      - categorical
-      - freeform
-      title: FeedbackType
-      description: Enum for feedback types.
-    CreateFeedbackConfigSchema:
-      properties:
-        feedback_key:
-          type: string
-          title: Feedback Key
-        feedback_config:
-          $ref: '#/components/schemas/FeedbackConfig'
-        is_lower_score_better:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Lower Score Better
-          default: false
-      type: object
-      required:
-      - feedback_key
-      - feedback_config
-      title: CreateFeedbackConfigSchema
-    FeedbackCategory:
-      properties:
-        value:
-          type: number
-          title: Value
-        label:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Label
-      type: object
-      required:
-      - value
-      title: FeedbackCategory
-      description: Specific value and label pair for feedback
-    FeedbackConfig:
-      properties:
-        type:
-          $ref: '#/components/schemas/FeedbackType'
-        min:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Max
-        categories:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/FeedbackCategory'
-            type: array
-          - type: 'null'
-          title: Categories
-      type: object
-      required:
-      - type
-      title: FeedbackConfig
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     FeedbackConfigSchema:
       properties:
         feedback_key:
@@ -332,20 +253,96 @@ components:
       - tenant_id
       - modified_at
       title: FeedbackConfigSchema
+    FeedbackConfig:
+      properties:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max
+        categories:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FeedbackCategory'
+            type: array
+          - type: 'null'
+          title: Categories
+      type: object
+      required:
+      - type
+      title: FeedbackConfig
+    UpdateFeedbackConfigSchema:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+        is_lower_score_better:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Lower Score Better
+      type: object
+      required:
+      - feedback_key
+      title: UpdateFeedbackConfigSchema
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

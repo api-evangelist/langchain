@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies run API
+  title: LangSmith Run API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: run
+- name: Run
 paths:
   /api/v1/runs/rules:
     get:
       tags:
-      - run
+      - Run
       summary: List Rules
       description: List all run rules.
       operationId: list_rules_api_v1_runs_rules_get
@@ -128,7 +125,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - run
+      - Run
       summary: Create Rule
       description: Create a new run rule.
       operationId: create_rule_api_v1_runs_rules_post
@@ -158,7 +155,7 @@ paths:
   /api/v1/runs/rules/validate:
     post:
       tags:
-      - run
+      - Run
       summary: Validate Rule
       description: 'Validate a rule by executing it with test data without creating a saved rule.
 
@@ -207,7 +204,7 @@ paths:
   /api/v1/runs/rules/{rule_id}:
     patch:
       tags:
-      - run
+      - Run
       summary: Update Rule
       description: Update a run rule.
       operationId: update_rule_api_v1_runs_rules__rule_id__patch
@@ -244,7 +241,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - run
+      - Run
       summary: Delete Rule
       description: Delete a run rule.
       operationId: delete_rule_api_v1_runs_rules__rule_id__delete
@@ -275,7 +272,7 @@ paths:
   /api/v1/runs/threads/{thread_id}:
     get:
       tags:
-      - run
+      - Run
       summary: Thread Preview
       description: Get preview of a thread.
       operationId: thread_preview_api_v1_runs_threads__thread_id__get
@@ -333,7 +330,7 @@ paths:
   /api/v1/runs/rules/{rule_id}/logs:
     get:
       tags:
-      - run
+      - Run
       summary: List Rule Logs
       description: List logs for a particular rule
       operationId: list_rule_logs_api_v1_runs_rules__rule_id__logs_get
@@ -412,7 +409,7 @@ paths:
   /api/v1/runs/rules/{rule_id}/logs/v2:
     get:
       tags:
-      - run
+      - Run
       summary: List Rule Logs V2
       description: 'List logs for a particular rule with cursor-based pagination.
 
@@ -500,7 +497,7 @@ paths:
   /api/v1/runs/rules/{rule_id}/last_applied:
     get:
       tags:
-      - run
+      - Run
       summary: Get Last Applied Rule
       description: Get the last applied rule.
       operationId: get_last_applied_rule_api_v1_runs_rules__rule_id__last_applied_get
@@ -539,7 +536,7 @@ paths:
   /api/v1/runs/rules/{rule_id}/trigger:
     post:
       tags:
-      - run
+      - Run
       summary: Trigger Rule
       description: Trigger a run rule manually.
       operationId: trigger_rule_api_v1_runs_rules__rule_id__trigger_post
@@ -571,7 +568,7 @@ paths:
   /api/v1/runs/rules/trigger:
     post:
       tags:
-      - run
+      - Run
       summary: Trigger Rules
       description: Trigger an array of run rules manually.
       operationId: trigger_rules_api_v1_runs_rules_trigger_post
@@ -600,7 +597,7 @@ paths:
   /api/v1/runs/{run_id}:
     get:
       tags:
-      - run
+      - Run
       summary: Read Run
       description: Get a specific run.
       operationId: read_run_api_v1_runs__run_id__get
@@ -670,7 +667,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     patch:
       tags:
-      - run
+      - Run
       summary: Update Run
       description: Update a run.
       operationId: update_run_api_v1_runs__run_id__patch
@@ -701,7 +698,7 @@ paths:
   /api/v1/runs/{run_id}/share:
     get:
       tags:
-      - run
+      - Run
       summary: Read Run Share State
       description: Get the state of sharing of a run.
       operationId: read_run_share_state_api_v1_runs__run_id__share_get
@@ -735,7 +732,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     put:
       tags:
-      - run
+      - Run
       summary: Share Run
       description: Share a run.
       operationId: share_run_api_v1_runs__run_id__share_put
@@ -766,7 +763,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - run
+      - Run
       summary: Unshare Run
       description: Unshare a run.
       operationId: unshare_run_api_v1_runs__run_id__share_delete
@@ -797,7 +794,7 @@ paths:
   /api/v1/runs/query/validate:
     post:
       tags:
-      - run
+      - Run
       summary: Validate Runs Query
       description: Validate runs query syntax, returns errors for broken queries.
       operationId: validate_runs_query_api_v1_runs_query_validate_post
@@ -823,7 +820,7 @@ paths:
   /api/v1/runs/query:
     post:
       tags:
-      - run
+      - Run
       summary: Query Runs
       operationId: query_runs_api_v1_runs_query_post
       requestBody:
@@ -852,7 +849,7 @@ paths:
   /api/v1/runs/generate-query:
     post:
       tags:
-      - run
+      - Run
       summary: Generate Query For Runs
       description: Get runs filter expression query for a given natural language query.
       operationId: generate_query_for_runs_api_v1_runs_generate_query_post
@@ -882,7 +879,7 @@ paths:
   /api/v1/runs/stats:
     post:
       tags:
-      - run
+      - Run
       summary: Stats Runs
       description: Get all runs by query in body payload.
       operationId: stats_runs_api_v1_runs_stats_post
@@ -917,7 +914,7 @@ paths:
   /api/v1/runs/group:
     post:
       tags:
-      - run
+      - Run
       summary: Group Runs
       description: Get runs grouped by an expression
       operationId: group_runs_api_v1_runs_group_post
@@ -955,7 +952,7 @@ paths:
   /api/v1/runs/group/stats:
     post:
       tags:
-      - run
+      - Run
       summary: Stats Group Runs
       description: Get stats for the grouped runs.
       operationId: stats_group_runs_api_v1_runs_group_stats_post
@@ -985,7 +982,7 @@ paths:
   /api/v1/runs/delete/traces:
     post:
       tags:
-      - run
+      - Run
       summary: Delete Runs Abac
       description: Delete specific runs by trace IDs.
       operationId: delete_runs_abac_api_v1_runs_delete_traces_post
@@ -1014,7 +1011,7 @@ paths:
   /api/v1/runs/delete:
     post:
       tags:
-      - run
+      - Run
       summary: Delete Runs
       description: Delete specific runs by trace IDs.
       operationId: delete_runs_api_v1_runs_delete_post
@@ -1042,304 +1039,22 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
-    RunGroupBy:
+    PagerdutySeverity:
       type: string
       enum:
-      - conversation
-      title: RunGroupBy
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ListRunsResponse:
-      properties:
-        runs:
-          items:
-            $ref: '#/components/schemas/RunSchema'
-          type: array
-          title: Runs
-        cursors:
-          additionalProperties:
-            anyOf:
-            - type: string
-            - type: 'null'
-          type: object
-          title: Cursors
-        search_cursors:
-          anyOf:
-          - additionalProperties:
-              anyOf:
-              - {}
-              - type: 'null'
-            type: object
-          - type: 'null'
-          title: Search Cursors
-        parsed_query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Parsed Query
-      type: object
-      required:
-      - runs
-      - cursors
-      title: ListRunsResponse
-    ThreadMessagesFormatType:
+      - critical
+      - warning
+      - error
+      - info
+      title: PagerdutySeverity
+      description: Enum for severity.
+    RuleLogActionOutcome:
       type: string
       enum:
-      - all_messages
-      - human_ai_pairs
-      - first_human_last_ai
-      title: ThreadMessagesFormatType
-      description: Enum for thread messages format types.
-    RunsQueryValidationError:
-      properties:
-        field:
-          type: string
-          title: Field
-        message:
-          type: string
-          title: Message
-      type: object
-      required:
-      - field
-      - message
-      title: RunsQueryValidationError
-      description: A single validation error for the runs query validate endpoint.
-    RunRuleSpendLimitWindow:
-      type: string
-      enum:
-      - weekly
-      title: RunRuleSpendLimitWindow
-    Body_delete_runs_api_v1_runs_delete_post:
-      properties:
-        session_id:
-          type: string
-          format: uuid
-          title: Session Id
-        trace_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Trace Ids
-      type: object
-      required:
-      - session_id
-      - trace_ids
-      title: Body_delete_runs_api_v1_runs_delete_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    RunsFilterDataSourceTypeEnum:
-      type: string
-      enum:
-      - current
-      - historical
-      - lite
-      - root_lite
-      - runs_feedbacks_rmt_wide
-      title: RunsFilterDataSourceTypeEnum
-      description: Enum for run data source types.
-    RunStatsQueryParams:
-      properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-        trace:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace
-        parent_run:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Parent Run
-        run_type:
-          anyOf:
-          - $ref: '#/components/schemas/RunTypeEnum'
-          - type: 'null'
-        session:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Session
-        reference_example:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Reference Example
-        execution_order:
-          anyOf:
-          - type: integer
-            maximum: 1.0
-            minimum: 1.0
-          - type: 'null'
-          title: Execution Order
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        error:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Error
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-        filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filter
-        trace_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Filter
-        tree_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tree Filter
-        is_root:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Root
-        data_source_type:
-          anyOf:
-          - $ref: '#/components/schemas/RunsFilterDataSourceTypeEnum'
-          - type: 'null'
-        skip_pagination:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Skip Pagination
-        search_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search Filter
-        use_experimental_search:
-          type: boolean
-          title: Use Experimental Search
-          default: false
-        group_by:
-          anyOf:
-          - $ref: '#/components/schemas/RunStatsGroupBy'
-          - type: 'null'
-        groups:
-          anyOf:
-          - items:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: array
-          - type: 'null'
-          title: Groups
-        select:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunStatsSelect'
-            type: array
-          - type: 'null'
-          title: Select
-      type: object
-      title: RunStatsQueryParams
-      description: Query params for run stats.
-    RunsGenerateQueryFeedbackKeys:
-      type: string
-      enum:
-      - user_score
-      - user_edited
-      - user_removed
-      - user_opened_run
-      - user_selected_run
-      - results_size
-      - valid_filter
-      title: RunsGenerateQueryFeedbackKeys
-    TriggerRulesRequest:
-      properties:
-        rule_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Rule Ids
-        dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Dataset Id
-      type: object
-      title: TriggerRulesRequest
-    RunRuleSpendLimitSchema:
-      properties:
-        limit_usd:
-          anyOf:
-          - type: number
-            exclusiveMinimum: 0.0
-          - type: string
-          title: Limit Usd
-        window:
-          $ref: '#/components/schemas/RunRuleSpendLimitWindow'
-      type: object
-      required:
-      - limit_usd
-      - window
-      title: RunRuleSpendLimitSchema
+      - success
+      - skipped
+      - error
+      title: RuleLogActionOutcome
     ResponseBodyForRunsGenerateQuery:
       properties:
         filter:
@@ -1357,30 +1072,405 @@ components:
       - filter
       - feedback_urls
       title: ResponseBodyForRunsGenerateQuery
-    RunStatsGroupBy:
+    RunRulesValidateSchema:
       properties:
-        attribute:
+        display_name:
           type: string
-          enum:
-          - name
-          - run_type
-          - tag
-          - metadata
-          title: Attribute
-        path:
+          title: Display Name
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          default: true
+        dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dataset Id
+        sampling_rate:
+          type: number
+          title: Sampling Rate
+        filter:
           anyOf:
           - type: string
           - type: 'null'
-          title: Path
-        max_groups:
-          type: integer
-          title: Max Groups
-          default: 5
+          title: Filter
+        trace_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter
+        tree_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter
+        backfill_from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Backfill From
+        use_corrections_dataset:
+          type: boolean
+          title: Use Corrections Dataset
+          default: false
+        num_few_shot_examples:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Few Shot Examples
+        extend_only:
+          type: boolean
+          title: Extend Only
+          default: false
+        transient:
+          type: boolean
+          title: Transient
+          default: false
+        add_to_annotation_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Add To Annotation Queue Id
+        add_to_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Add To Dataset Id
+        add_to_dataset_prefer_correction:
+          type: boolean
+          title: Add To Dataset Prefer Correction
+          default: false
+        evaluators:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EvaluatorTopLevel'
+            type: array
+          - type: 'null'
+          title: Evaluators
+        code_evaluators:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CodeEvaluatorTopLevel'
+            type: array
+          - type: 'null'
+          title: Code Evaluators
+        evaluator_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Evaluator Id
+        alerts:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunRulesPagerdutyAlertSchema'
+            type: array
+          - type: 'null'
+          title: Alerts
+        webhooks:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunRulesWebhookSchema'
+            type: array
+          - type: 'null'
+          title: Webhooks
+        evaluator_version:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Evaluator Version
+        create_alignment_queue:
+          type: boolean
+          title: Create Alignment Queue
+          default: false
+        include_extended_stats:
+          type: boolean
+          title: Include Extended Stats
+          default: false
+        spend_limit:
+          anyOf:
+          - $ref: '#/components/schemas/RunRuleSpendLimitSchema'
+          - type: 'null'
+        group_by:
+          anyOf:
+          - type: string
+            const: thread_id
+          - type: 'null'
+          title: Group By
+        test_inputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Test Inputs
+        test_outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Test Outputs
+        test_reference_outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Test Reference Outputs
+        test_attachments:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Test Attachments
       type: object
       required:
-      - attribute
-      title: RunStatsGroupBy
-      description: Group by param for run stats.
+      - display_name
+      - sampling_rate
+      title: RunRulesValidateSchema
+      description: 'Schema for validating rules without creating them.
+
+
+        Extends RunRulesCreateSchema with test data fields for validation.
+
+        Only LLM-as-judge rules (evaluators) are supported, not code_evaluators.'
+    RunRulesSchema:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          default: true
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        session_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Session Name
+        dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        display_name:
+          type: string
+          title: Display Name
+        sampling_rate:
+          type: number
+          title: Sampling Rate
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        trace_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter
+        tree_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter
+        add_to_annotation_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Add To Annotation Queue Id
+        add_to_annotation_queue_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Add To Annotation Queue Name
+        add_to_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Add To Dataset Id
+        add_to_dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Add To Dataset Name
+        add_to_dataset_prefer_correction:
+          type: boolean
+          title: Add To Dataset Prefer Correction
+          default: false
+        corrections_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Corrections Dataset Id
+        use_corrections_dataset:
+          type: boolean
+          title: Use Corrections Dataset
+          default: false
+        num_few_shot_examples:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Num Few Shot Examples
+        evaluators:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EvaluatorTopLevel'
+            type: array
+          - type: 'null'
+          title: Evaluators
+        code_evaluators:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CodeEvaluatorTopLevel'
+            type: array
+          - type: 'null'
+          title: Code Evaluators
+        alerts:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunRulesPagerdutyAlertSchema'
+            type: array
+          - type: 'null'
+          title: Alerts
+        webhooks:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunRulesWebhookSchema'
+            type: array
+          - type: 'null'
+          title: Webhooks
+        extend_only:
+          type: boolean
+          title: Extend Only
+          default: false
+        include_extended_stats:
+          type: boolean
+          title: Include Extended Stats
+          default: false
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        backfill_from:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Backfill From
+        backfill_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Backfill Id
+        backfill_status:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Backfill Status
+        backfill_progress:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Backfill Progress
+        backfill_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Backfill Error
+        backfill_completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Backfill Completed At
+        transient:
+          type: boolean
+          title: Transient
+          default: false
+        evaluator_version:
+          type: integer
+          title: Evaluator Version
+        evaluator_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Evaluator Id
+        alignment_annotation_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Alignment Annotation Queue Id
+        group_by:
+          anyOf:
+          - type: string
+            const: thread_id
+          - type: 'null'
+          title: Group By
+      type: object
+      required:
+      - id
+      - tenant_id
+      - display_name
+      - sampling_rate
+      - webhooks
+      - created_at
+      - updated_at
+      - evaluator_version
+      title: RunRulesSchema
+      description: Run rules schema.
+    Body_delete_runs_abac_api_v1_runs_delete_traces_post:
+      properties:
+        session_id:
+          type: string
+          format: uuid
+          title: Session Id
+        trace_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Trace Ids
+      type: object
+      required:
+      - session_id
+      - trace_ids
+      title: Body_delete_runs_abac_api_v1_runs_delete_traces_post
     RunStats:
       properties:
         run_count:
@@ -1534,236 +1624,7 @@ components:
           title: Completion Cost Details
       type: object
       title: RunStats
-    RunRulesUpdateSchema:
-      properties:
-        display_name:
-          type: string
-          title: Display Name
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          default: true
-        dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Dataset Id
-        sampling_rate:
-          type: number
-          title: Sampling Rate
-        filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filter
-        trace_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Filter
-        tree_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tree Filter
-        backfill_from:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Backfill From
-        use_corrections_dataset:
-          type: boolean
-          title: Use Corrections Dataset
-          default: false
-        num_few_shot_examples:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Few Shot Examples
-        extend_only:
-          type: boolean
-          title: Extend Only
-          default: false
-        transient:
-          type: boolean
-          title: Transient
-          default: false
-        add_to_annotation_queue_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Add To Annotation Queue Id
-        add_to_dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Add To Dataset Id
-        add_to_dataset_prefer_correction:
-          type: boolean
-          title: Add To Dataset Prefer Correction
-          default: false
-        evaluators:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EvaluatorTopLevel'
-            type: array
-          - type: 'null'
-          title: Evaluators
-        code_evaluators:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/CodeEvaluatorTopLevel'
-            type: array
-          - type: 'null'
-          title: Code Evaluators
-        evaluator_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Evaluator Id
-        alerts:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunRulesPagerdutyAlertSchema'
-            type: array
-          - type: 'null'
-          title: Alerts
-        webhooks:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunRulesWebhookSchema'
-            type: array
-          - type: 'null'
-          title: Webhooks
-        evaluator_version:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Evaluator Version
-        create_alignment_queue:
-          type: boolean
-          title: Create Alignment Queue
-          default: false
-        include_extended_stats:
-          type: boolean
-          title: Include Extended Stats
-          default: false
-        spend_limit:
-          anyOf:
-          - $ref: '#/components/schemas/RunRuleSpendLimitSchema'
-          - type: 'null'
-      type: object
-      required:
-      - display_name
-      - sampling_rate
-      title: RunRulesUpdateSchema
-    RunSelect:
-      type: string
-      enum:
-      - id
-      - name
-      - run_type
-      - start_time
-      - end_time
-      - status
-      - error
-      - extra
-      - events
-      - inputs
-      - inputs_preview
-      - inputs_s3_urls
-      - inputs_or_signed_url
-      - outputs
-      - outputs_preview
-      - outputs_s3_urls
-      - outputs_or_signed_url
-      - s3_urls
-      - error_or_signed_url
-      - events_or_signed_url
-      - extra_or_signed_url
-      - serialized_or_signed_url
-      - parent_run_id
-      - manifest_id
-      - manifest_s3_id
-      - manifest
-      - session_id
-      - serialized
-      - reference_example_id
-      - reference_dataset_id
-      - total_tokens
-      - prompt_tokens
-      - prompt_token_details
-      - completion_tokens
-      - completion_token_details
-      - total_cost
-      - prompt_cost
-      - prompt_cost_details
-      - completion_cost
-      - completion_cost_details
-      - price_model_id
-      - first_token_time
-      - trace_id
-      - dotted_order
-      - last_queued_at
-      - feedback_stats
-      - child_run_ids
-      - parent_run_ids
-      - tags
-      - in_dataset
-      - app_path
-      - share_token
-      - trace_tier
-      - trace_first_received_at
-      - ttl_seconds
-      - trace_upgrade
-      - thread_id
-      - trace_min_max_start_time
-      - messages
-      - inserted_at
-      title: RunSelect
-      description: Enum for available run columns.
-    RunRulesAlertType:
-      type: string
-      enum:
-      - pagerduty
-      title: RunRulesAlertType
-      description: Enum for alert types.
-    RunRulesPagerdutyAlertSchema:
-      properties:
-        type:
-          anyOf:
-          - $ref: '#/components/schemas/RunRulesAlertType'
-          - type: 'null'
-          default: pagerduty
-        routing_key:
-          type: string
-          title: Routing Key
-        summary:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Summary
-        severity:
-          anyOf:
-          - $ref: '#/components/schemas/PagerdutySeverity'
-          - type: 'null'
-          default: warning
-      type: object
-      required:
-      - routing_key
-      title: RunRulesPagerdutyAlertSchema
-    BodyParamsForRunsQuerySchema:
+    RunStatsQueryParams:
       properties:
         id:
           anyOf:
@@ -1872,205 +1733,128 @@ components:
           type: boolean
           title: Use Experimental Search
           default: false
-        cursor:
+        group_by:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/RunStatsGroupBy'
           - type: 'null'
-          title: Cursor
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          default: 100
-        select:
-          items:
-            $ref: '#/components/schemas/RunSelect'
-          type: array
-          title: Select
-          default:
-          - id
-          - name
-          - run_type
-          - start_time
-          - end_time
-          - status
-          - error
-          - extra
-          - events
-          - inputs
-          - outputs
-          - parent_run_id
-          - manifest_id
-          - manifest_s3_id
-          - manifest
-          - session_id
-          - serialized
-          - reference_example_id
-          - reference_dataset_id
-          - total_tokens
-          - prompt_tokens
-          - prompt_token_details
-          - completion_tokens
-          - completion_token_details
-          - total_cost
-          - prompt_cost
-          - prompt_cost_details
-          - completion_cost
-          - completion_cost_details
-          - price_model_id
-          - first_token_time
-          - trace_id
-          - dotted_order
-          - last_queued_at
-          - feedback_stats
-          - parent_run_ids
-          - tags
-          - in_dataset
-          - app_path
-          - share_token
-          - trace_tier
-          - trace_first_received_at
-          - ttl_seconds
-          - trace_upgrade
-          - thread_id
-        order:
-          $ref: '#/components/schemas/RunDateOrder'
-          default: desc
-        skip_prev_cursor:
-          type: boolean
-          title: Skip Prev Cursor
-          default: false
-      type: object
-      title: BodyParamsForRunsQuerySchema
-      description: Query params for runs query endpoint.
-    EvaluatorStructuredOutput:
-      properties:
-        hub_ref:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Hub Ref
-        prompt:
+        groups:
           anyOf:
           - items:
-              prefixItems:
+              anyOf:
               - type: string
-              - type: string
-              type: array
-              maxItems: 2
-              minItems: 2
+              - type: 'null'
             type: array
           - type: 'null'
-          title: Prompt
-        template_format:
+          title: Groups
+        select:
           anyOf:
-          - type: string
+          - items:
+              $ref: '#/components/schemas/RunStatsSelect'
+            type: array
           - type: 'null'
-          title: Template Format
-        schema:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Schema
-        variable_mapping:
+          title: Select
+      type: object
+      title: RunStatsQueryParams
+      description: Query params for run stats.
+    RunSelect:
+      type: string
+      enum:
+      - id
+      - name
+      - run_type
+      - start_time
+      - end_time
+      - status
+      - error
+      - extra
+      - events
+      - inputs
+      - inputs_preview
+      - inputs_s3_urls
+      - inputs_or_signed_url
+      - outputs
+      - outputs_preview
+      - outputs_s3_urls
+      - outputs_or_signed_url
+      - s3_urls
+      - error_or_signed_url
+      - events_or_signed_url
+      - extra_or_signed_url
+      - serialized_or_signed_url
+      - parent_run_id
+      - manifest_id
+      - manifest_s3_id
+      - manifest
+      - session_id
+      - serialized
+      - reference_example_id
+      - reference_dataset_id
+      - total_tokens
+      - prompt_tokens
+      - prompt_token_details
+      - completion_tokens
+      - completion_token_details
+      - total_cost
+      - prompt_cost
+      - prompt_cost_details
+      - completion_cost
+      - completion_cost_details
+      - price_model_id
+      - first_token_time
+      - trace_id
+      - dotted_order
+      - last_queued_at
+      - feedback_stats
+      - child_run_ids
+      - parent_run_ids
+      - tags
+      - in_dataset
+      - app_path
+      - share_token
+      - trace_tier
+      - trace_first_received_at
+      - ttl_seconds
+      - trace_upgrade
+      - thread_id
+      - trace_min_max_start_time
+      - messages
+      - inserted_at
+      title: RunSelect
+      description: Enum for available run columns.
+    RunRulesWebhookSchema:
+      properties:
+        url:
+          type: string
+          title: Url
+        headers:
           anyOf:
           - additionalProperties:
               type: string
             type: object
           - type: 'null'
-          title: Variable Mapping
-        model:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Model
+          title: Headers
       type: object
-      title: EvaluatorStructuredOutput
-      description: Evaluator structured output schema.
-    RuleLogsPaginatedResponse:
+      required:
+      - url
+      title: RunRulesWebhookSchema
+    TriggerRulesRequest:
       properties:
-        logs:
-          items:
-            $ref: '#/components/schemas/RuleLogSchema'
-          type: array
-          title: Logs
-        cursor:
+        rule_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Rule Ids
+        dataset_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Cursor
-        has_more:
-          type: boolean
-          title: Has More
+          title: Dataset Id
       type: object
-      required:
-      - logs
-      - has_more
-      title: RuleLogsPaginatedResponse
-      description: Paginated response for rule logs with cursor-based pagination.
-    RunShareSchema:
-      properties:
-        run_id:
-          type: string
-          format: uuid
-          title: Run Id
-        share_token:
-          type: string
-          format: uuid
-          title: Share Token
-      type: object
-      required:
-      - run_id
-      - share_token
-      title: RunShareSchema
-    RuleLogActionOutcome:
-      type: string
-      enum:
-      - success
-      - skipped
-      - error
-      title: RuleLogActionOutcome
-    RunStatsSelect:
-      type: string
-      enum:
-      - run_count
-      - latency_p50
-      - latency_p99
-      - latency_avg
-      - first_token_p50
-      - first_token_p99
-      - total_tokens
-      - prompt_tokens
-      - completion_tokens
-      - median_tokens
-      - completion_tokens_p50
-      - prompt_tokens_p50
-      - tokens_p99
-      - completion_tokens_p99
-      - prompt_tokens_p99
-      - last_run_start_time
-      - feedback_stats
-      - thread_feedback_stats
-      - run_facets
-      - error_rate
-      - streaming_rate
-      - total_cost
-      - prompt_cost
-      - completion_cost
-      - cost_p50
-      - cost_p99
-      - session_feedback_stats
-      - all_run_stats
-      - all_token_stats
-      - prompt_token_details
-      - completion_token_details
-      - prompt_cost_details
-      - completion_cost_details
-      title: RunStatsSelect
-      description: Metrics you can select from run stats endpoint.
+      title: TriggerRulesRequest
     RunSchema:
       properties:
         name:
@@ -2388,30 +2172,109 @@ components:
       - app_path
       title: RunSchema
       description: Run schema.
-    RunRulesValidateSchema:
+    ThreadMessagesFormatType:
+      type: string
+      enum:
+      - all_messages
+      - human_ai_pairs
+      - first_human_last_ai
+      title: ThreadMessagesFormatType
+      description: Enum for thread messages format types.
+    ThreadPreviewResponse:
       properties:
-        display_name:
+        thread_id:
           type: string
-          title: Display Name
-        session_id:
+          title: Thread Id
+        previews:
+          additionalProperties:
+            type: string
+          propertyNames:
+            $ref: '#/components/schemas/ThreadMessagesFormatType'
+          type: object
+          title: Previews
+      type: object
+      required:
+      - thread_id
+      - previews
+      title: ThreadPreviewResponse
+      description: Response to preview a thread.
+    RunRulesAlertType:
+      type: string
+      enum:
+      - pagerduty
+      title: RunRulesAlertType
+      description: Enum for alert types.
+    BodyParamsForRunsQuerySchema:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+        trace:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Session Id
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          default: true
-        dataset_id:
+          title: Trace
+        parent_run:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Dataset Id
-        sampling_rate:
-          type: number
-          title: Sampling Rate
+          title: Parent Run
+        run_type:
+          anyOf:
+          - $ref: '#/components/schemas/RunTypeEnum'
+          - type: 'null'
+        session:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Session
+        reference_example:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Reference Example
+        execution_order:
+          anyOf:
+          - type: integer
+            maximum: 1.0
+            minimum: 1.0
+          - type: 'null'
+          title: Execution Order
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        error:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Error
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
         filter:
           anyOf:
           - type: string
@@ -2427,160 +2290,122 @@ components:
           - type: string
           - type: 'null'
           title: Tree Filter
-        backfill_from:
+        is_root:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Root
+        data_source_type:
+          anyOf:
+          - $ref: '#/components/schemas/RunsFilterDataSourceTypeEnum'
+          - type: 'null'
+        skip_pagination:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Skip Pagination
+        search_filter:
           anyOf:
           - type: string
-            format: date-time
           - type: 'null'
-          title: Backfill From
-        use_corrections_dataset:
+          title: Search Filter
+        use_experimental_search:
           type: boolean
-          title: Use Corrections Dataset
+          title: Use Experimental Search
           default: false
-        num_few_shot_examples:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Num Few Shot Examples
-        extend_only:
-          type: boolean
-          title: Extend Only
-          default: false
-        transient:
-          type: boolean
-          title: Transient
-          default: false
-        add_to_annotation_queue_id:
+        cursor:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Add To Annotation Queue Id
-        add_to_dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Add To Dataset Id
-        add_to_dataset_prefer_correction:
+          title: Cursor
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 100
+        select:
+          items:
+            $ref: '#/components/schemas/RunSelect'
+          type: array
+          title: Select
+          default:
+          - id
+          - name
+          - run_type
+          - start_time
+          - end_time
+          - status
+          - error
+          - extra
+          - events
+          - inputs
+          - outputs
+          - parent_run_id
+          - manifest_id
+          - manifest_s3_id
+          - manifest
+          - session_id
+          - serialized
+          - reference_example_id
+          - reference_dataset_id
+          - total_tokens
+          - prompt_tokens
+          - prompt_token_details
+          - completion_tokens
+          - completion_token_details
+          - total_cost
+          - prompt_cost
+          - prompt_cost_details
+          - completion_cost
+          - completion_cost_details
+          - price_model_id
+          - first_token_time
+          - trace_id
+          - dotted_order
+          - last_queued_at
+          - feedback_stats
+          - parent_run_ids
+          - tags
+          - in_dataset
+          - app_path
+          - share_token
+          - trace_tier
+          - trace_first_received_at
+          - ttl_seconds
+          - trace_upgrade
+          - thread_id
+        order:
+          $ref: '#/components/schemas/RunDateOrder'
+          default: desc
+        skip_prev_cursor:
           type: boolean
-          title: Add To Dataset Prefer Correction
+          title: Skip Prev Cursor
           default: false
-        evaluators:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EvaluatorTopLevel'
-            type: array
-          - type: 'null'
-          title: Evaluators
-        code_evaluators:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/CodeEvaluatorTopLevel'
-            type: array
-          - type: 'null'
-          title: Code Evaluators
-        evaluator_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Evaluator Id
-        alerts:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunRulesPagerdutyAlertSchema'
-            type: array
-          - type: 'null'
-          title: Alerts
-        webhooks:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunRulesWebhookSchema'
-            type: array
-          - type: 'null'
-          title: Webhooks
-        evaluator_version:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Evaluator Version
-        create_alignment_queue:
-          type: boolean
-          title: Create Alignment Queue
-          default: false
-        include_extended_stats:
-          type: boolean
-          title: Include Extended Stats
-          default: false
-        spend_limit:
-          anyOf:
-          - $ref: '#/components/schemas/RunRuleSpendLimitSchema'
-          - type: 'null'
-        group_by:
-          anyOf:
-          - type: string
-            const: thread_id
-          - type: 'null'
-          title: Group By
-        test_inputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Test Inputs
-        test_outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Test Outputs
-        test_reference_outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Test Reference Outputs
-        test_attachments:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Test Attachments
       type: object
-      required:
-      - display_name
-      - sampling_rate
-      title: RunRulesValidateSchema
-      description: 'Schema for validating rules without creating them.
-
-
-        Extends RunRulesCreateSchema with test data fields for validation.
-
-        Only LLM-as-judge rules (evaluators) are supported, not code_evaluators.'
-    PagerdutySeverity:
-      type: string
-      enum:
-      - critical
-      - warning
-      - error
-      - info
-      title: PagerdutySeverity
-      description: Enum for severity.
-    RuleLogActionResponse:
+      title: BodyParamsForRunsQuerySchema
+      description: Query params for runs query endpoint.
+    RuleLogsPaginatedResponse:
       properties:
-        outcome:
-          $ref: '#/components/schemas/RuleLogActionOutcome'
-        payload:
+        logs:
+          items:
+            $ref: '#/components/schemas/RuleLogSchema'
+          type: array
+          title: Logs
+        cursor:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - type: string
           - type: 'null'
-          title: Payload
+          title: Cursor
+        has_more:
+          type: boolean
+          title: Has More
       type: object
       required:
-      - outcome
-      title: RuleLogActionResponse
+      - logs
+      - has_more
+      title: RuleLogsPaginatedResponse
+      description: Paginated response for rule logs with cursor-based pagination.
     RunRulesCreateSchema:
       properties:
         display_name:
@@ -2721,6 +2546,72 @@ components:
       - display_name
       - sampling_rate
       title: RunRulesCreateSchema
+    EvaluatorStructuredOutput:
+      properties:
+        hub_ref:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Hub Ref
+        prompt:
+          anyOf:
+          - items:
+              prefixItems:
+              - type: string
+              - type: string
+              type: array
+              maxItems: 2
+              minItems: 2
+            type: array
+          - type: 'null'
+          title: Prompt
+        template_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Template Format
+        schema:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Schema
+        variable_mapping:
+          anyOf:
+          - additionalProperties:
+              type: string
+            type: object
+          - type: 'null'
+          title: Variable Mapping
+        model:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Model
+      type: object
+      title: EvaluatorStructuredOutput
+      description: Evaluator structured output schema.
+    RunRuleSpendLimitSchema:
+      properties:
+        limit_usd:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: string
+          title: Limit Usd
+        window:
+          $ref: '#/components/schemas/RunRuleSpendLimitWindow'
+      type: object
+      required:
+      - limit_usd
+      - window
+      title: RunRuleSpendLimitSchema
+    RunRuleSpendLimitWindow:
+      type: string
+      enum:
+      - weekly
+      title: RunRuleSpendLimitWindow
     RunTypeEnum:
       type: string
       enum:
@@ -2733,30 +2624,71 @@ components:
       - parser
       title: RunTypeEnum
       description: Enum for run types.
-    RunRulesWebhookSchema:
+    RunDateOrder:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: RunDateOrder
+      description: Enum for run start date order.
+    CodeEvaluatorLanguage:
+      type: string
+      enum:
+      - python
+      - javascript
+      title: CodeEvaluatorLanguage
+    RunsGenerateQueryFeedbackKeys:
+      type: string
+      enum:
+      - user_score
+      - user_edited
+      - user_removed
+      - user_opened_run
+      - user_selected_run
+      - results_size
+      - valid_filter
+      title: RunsGenerateQueryFeedbackKeys
+    RunGroupRequest:
       properties:
-        url:
+        session_id:
           type: string
-          title: Url
-        headers:
+          format: uuid
+          title: Session Id
+        group_by:
+          $ref: '#/components/schemas/RunGroupBy'
+        filter:
           anyOf:
-          - additionalProperties:
-              type: string
-            type: object
+          - type: string
           - type: 'null'
-          title: Headers
+          title: Filter
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 10
       type: object
       required:
-      - url
-      title: RunRulesWebhookSchema
-    EvaluatorTopLevel:
-      properties:
-        structured:
-          $ref: '#/components/schemas/EvaluatorStructuredOutput'
-      type: object
-      required:
-      - structured
-      title: EvaluatorTopLevel
+      - session_id
+      - group_by
+      title: RunGroupRequest
     RunsQueryValidationResponse:
       properties:
         valid:
@@ -2772,6 +2704,25 @@ components:
       - valid
       title: RunsQueryValidationResponse
       description: Response for POST /runs/query/validate.
+    RuleLogActionResponse:
+      properties:
+        outcome:
+          $ref: '#/components/schemas/RuleLogActionOutcome'
+        payload:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Payload
+      type: object
+      required:
+      - outcome
+      title: RuleLogActionResponse
+    RunGroupBy:
+      type: string
+      enum:
+      - conversation
+      title: RunGroupBy
     RequestBodyForRunsGenerateQuery:
       properties:
         query:
@@ -2786,6 +2737,85 @@ components:
       required:
       - query
       title: RequestBodyForRunsGenerateQuery
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    RuleLogSchema:
+      properties:
+        rule_id:
+          type: string
+          format: uuid
+          title: Rule Id
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        run_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Name
+        run_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Run Type
+        run_session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Session Id
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        application_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Application Time
+        add_to_annotation_queue:
+          anyOf:
+          - $ref: '#/components/schemas/RuleLogActionResponse'
+          - type: 'null'
+        add_to_dataset:
+          anyOf:
+          - $ref: '#/components/schemas/RuleLogActionResponse'
+          - type: 'null'
+        evaluators:
+          anyOf:
+          - $ref: '#/components/schemas/RuleLogActionResponse'
+          - type: 'null'
+        alerts:
+          anyOf:
+          - $ref: '#/components/schemas/RuleLogActionResponse'
+          - type: 'null'
+        webhooks:
+          anyOf:
+          - $ref: '#/components/schemas/RuleLogActionResponse'
+          - type: 'null'
+        thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thread Id
+      type: object
+      required:
+      - rule_id
+      - run_id
+      - start_time
+      - end_time
+      title: RuleLogSchema
+      description: Run rules log schema.
     RunGroupStats:
       properties:
         run_count:
@@ -2944,93 +2974,254 @@ components:
       required:
       - group_count
       title: RunGroupStats
-    RunGroupRequest:
+    RunsQueryValidationError:
+      properties:
+        field:
+          type: string
+          title: Field
+        message:
+          type: string
+          title: Message
+      type: object
+      required:
+      - field
+      - message
+      title: RunsQueryValidationError
+      description: A single validation error for the runs query validate endpoint.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    EvaluatorTopLevel:
+      properties:
+        structured:
+          $ref: '#/components/schemas/EvaluatorStructuredOutput'
+      type: object
+      required:
+      - structured
+      title: EvaluatorTopLevel
+    CodeEvaluatorTopLevel:
+      properties:
+        code:
+          type: string
+          title: Code
+        language:
+          anyOf:
+          - $ref: '#/components/schemas/CodeEvaluatorLanguage'
+          - type: 'null'
+          default: python
+      type: object
+      required:
+      - code
+      title: CodeEvaluatorTopLevel
+    Body_delete_runs_api_v1_runs_delete_post:
       properties:
         session_id:
           type: string
           format: uuid
           title: Session Id
-        group_by:
-          $ref: '#/components/schemas/RunGroupBy'
-        filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filter
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          default: 10
+        trace_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Trace Ids
       type: object
       required:
       - session_id
-      - group_by
-      title: RunGroupRequest
-    RunDateOrder:
+      - trace_ids
+      title: Body_delete_runs_api_v1_runs_delete_post
+    RunRulesPagerdutyAlertSchema:
+      properties:
+        type:
+          anyOf:
+          - $ref: '#/components/schemas/RunRulesAlertType'
+          - type: 'null'
+          default: pagerduty
+        routing_key:
+          type: string
+          title: Routing Key
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        severity:
+          anyOf:
+          - $ref: '#/components/schemas/PagerdutySeverity'
+          - type: 'null'
+          default: warning
+      type: object
+      required:
+      - routing_key
+      title: RunRulesPagerdutyAlertSchema
+    RunsFilterDataSourceTypeEnum:
       type: string
       enum:
-      - asc
-      - desc
-      title: RunDateOrder
-      description: Enum for run start date order.
-    RunRulesSchema:
+      - current
+      - historical
+      - lite
+      - root_lite
+      - runs_feedbacks_rmt_wide
+      title: RunsFilterDataSourceTypeEnum
+      description: Enum for run data source types.
+    RunStatsGroupBy:
       properties:
-        id:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBy
+      description: Group by param for run stats.
+    RunStatsSelect:
+      type: string
+      enum:
+      - run_count
+      - latency_p50
+      - latency_p99
+      - latency_avg
+      - first_token_p50
+      - first_token_p99
+      - total_tokens
+      - prompt_tokens
+      - completion_tokens
+      - median_tokens
+      - completion_tokens_p50
+      - prompt_tokens_p50
+      - tokens_p99
+      - completion_tokens_p99
+      - prompt_tokens_p99
+      - last_run_start_time
+      - feedback_stats
+      - thread_feedback_stats
+      - run_facets
+      - error_rate
+      - streaming_rate
+      - total_cost
+      - prompt_cost
+      - completion_cost
+      - cost_p50
+      - cost_p99
+      - session_feedback_stats
+      - all_run_stats
+      - all_token_stats
+      - prompt_token_details
+      - completion_token_details
+      - prompt_cost_details
+      - completion_cost_details
+      title: RunStatsSelect
+      description: Metrics you can select from run stats endpoint.
+    RunShareSchema:
+      properties:
+        run_id:
           type: string
           format: uuid
-          title: Id
-        tenant_id:
+          title: Run Id
+        share_token:
           type: string
           format: uuid
-          title: Tenant Id
-        is_enabled:
-          type: boolean
-          title: Is Enabled
-          default: true
+          title: Share Token
+      type: object
+      required:
+      - run_id
+      - share_token
+      title: RunShareSchema
+    ListRunsResponse:
+      properties:
+        runs:
+          items:
+            $ref: '#/components/schemas/RunSchema'
+          type: array
+          title: Runs
+        cursors:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: 'null'
+          type: object
+          title: Cursors
+        search_cursors:
+          anyOf:
+          - additionalProperties:
+              anyOf:
+              - {}
+              - type: 'null'
+            type: object
+          - type: 'null'
+          title: Search Cursors
+        parsed_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parsed Query
+      type: object
+      required:
+      - runs
+      - cursors
+      title: ListRunsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    RunRulesUpdateSchema:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
         session_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Session Id
-        session_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Session Name
+        is_enabled:
+          type: boolean
+          title: Is Enabled
+          default: true
         dataset_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Dataset Id
-        dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Name
-        display_name:
-          type: string
-          title: Display Name
         sampling_rate:
           type: number
           title: Sampling Rate
@@ -3049,38 +3240,12 @@ components:
           - type: string
           - type: 'null'
           title: Tree Filter
-        add_to_annotation_queue_id:
+        backfill_from:
           anyOf:
           - type: string
-            format: uuid
+            format: date-time
           - type: 'null'
-          title: Add To Annotation Queue Id
-        add_to_annotation_queue_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Add To Annotation Queue Name
-        add_to_dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Add To Dataset Id
-        add_to_dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Add To Dataset Name
-        add_to_dataset_prefer_correction:
-          type: boolean
-          title: Add To Dataset Prefer Correction
-          default: false
-        corrections_dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Corrections Dataset Id
+          title: Backfill From
         use_corrections_dataset:
           type: boolean
           title: Use Corrections Dataset
@@ -3090,6 +3255,30 @@ components:
           - type: integer
           - type: 'null'
           title: Num Few Shot Examples
+        extend_only:
+          type: boolean
+          title: Extend Only
+          default: false
+        transient:
+          type: boolean
+          title: Transient
+          default: false
+        add_to_annotation_queue_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Add To Annotation Queue Id
+        add_to_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Add To Dataset Id
+        add_to_dataset_prefer_correction:
+          type: boolean
+          title: Add To Dataset Prefer Correction
+          default: false
         evaluators:
           anyOf:
           - items:
@@ -3104,6 +3293,12 @@ components:
             type: array
           - type: 'null'
           title: Code Evaluators
+        evaluator_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Evaluator Id
         alerts:
           anyOf:
           - items:
@@ -3118,240 +3313,42 @@ components:
             type: array
           - type: 'null'
           title: Webhooks
-        extend_only:
+        evaluator_version:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Evaluator Version
+        create_alignment_queue:
           type: boolean
-          title: Extend Only
+          title: Create Alignment Queue
           default: false
         include_extended_stats:
           type: boolean
           title: Include Extended Stats
           default: false
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        backfill_from:
+        spend_limit:
           anyOf:
-          - type: string
-            format: date-time
+          - $ref: '#/components/schemas/RunRuleSpendLimitSchema'
           - type: 'null'
-          title: Backfill From
-        backfill_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Backfill Id
-        backfill_status:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Backfill Status
-        backfill_progress:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Backfill Progress
-        backfill_error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Backfill Error
-        backfill_completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Backfill Completed At
-        transient:
-          type: boolean
-          title: Transient
-          default: false
-        evaluator_version:
-          type: integer
-          title: Evaluator Version
-        evaluator_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Evaluator Id
-        alignment_annotation_queue_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Alignment Annotation Queue Id
-        group_by:
-          anyOf:
-          - type: string
-            const: thread_id
-          - type: 'null'
-          title: Group By
       type: object
       required:
-      - id
-      - tenant_id
       - display_name
       - sampling_rate
-      - webhooks
-      - created_at
-      - updated_at
-      - evaluator_version
-      title: RunRulesSchema
-      description: Run rules schema.
-    ThreadPreviewResponse:
-      properties:
-        thread_id:
-          type: string
-          title: Thread Id
-        previews:
-          additionalProperties:
-            type: string
-          propertyNames:
-            $ref: '#/components/schemas/ThreadMessagesFormatType'
-          type: object
-          title: Previews
-      type: object
-      required:
-      - thread_id
-      - previews
-      title: ThreadPreviewResponse
-      description: Response to preview a thread.
-    Body_delete_runs_abac_api_v1_runs_delete_traces_post:
-      properties:
-        session_id:
-          type: string
-          format: uuid
-          title: Session Id
-        trace_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Trace Ids
-      type: object
-      required:
-      - session_id
-      - trace_ids
-      title: Body_delete_runs_abac_api_v1_runs_delete_traces_post
-    CodeEvaluatorTopLevel:
-      properties:
-        code:
-          type: string
-          title: Code
-        language:
-          anyOf:
-          - $ref: '#/components/schemas/CodeEvaluatorLanguage'
-          - type: 'null'
-          default: python
-      type: object
-      required:
-      - code
-      title: CodeEvaluatorTopLevel
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
-    CodeEvaluatorLanguage:
-      type: string
-      enum:
-      - python
-      - javascript
-      title: CodeEvaluatorLanguage
-    RuleLogSchema:
-      properties:
-        rule_id:
-          type: string
-          format: uuid
-          title: Rule Id
-        run_id:
-          type: string
-          format: uuid
-          title: Run Id
-        run_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Name
-        run_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Type
-        run_session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Session Id
-        start_time:
-          type: string
-          format: date-time
-          title: Start Time
-        end_time:
-          type: string
-          format: date-time
-          title: End Time
-        application_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Application Time
-        add_to_annotation_queue:
-          anyOf:
-          - $ref: '#/components/schemas/RuleLogActionResponse'
-          - type: 'null'
-        add_to_dataset:
-          anyOf:
-          - $ref: '#/components/schemas/RuleLogActionResponse'
-          - type: 'null'
-        evaluators:
-          anyOf:
-          - $ref: '#/components/schemas/RuleLogActionResponse'
-          - type: 'null'
-        alerts:
-          anyOf:
-          - $ref: '#/components/schemas/RuleLogActionResponse'
-          - type: 'null'
-        webhooks:
-          anyOf:
-          - $ref: '#/components/schemas/RuleLogActionResponse'
-          - type: 'null'
-        thread_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Thread Id
-      type: object
-      required:
-      - rule_id
-      - run_id
-      - start_time
-      - end_time
-      title: RuleLogSchema
-      description: Run rules log schema.
+      title: RunRulesUpdateSchema
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

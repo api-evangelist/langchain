@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies datasets API
+  title: LangSmith Datasets API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: datasets
+- name: Datasets
 paths:
   /api/v1/datasets:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Read Datasets
       description: Get all datasets by query params and owner.
       operationId: read_datasets_api_v1_datasets_get
@@ -157,7 +154,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Create Dataset
       description: Create a new dataset.
       operationId: create_dataset_api_v1_datasets_post
@@ -186,7 +183,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - datasets
+      - Datasets
       summary: Delete Datasets
       description: Delete multiple datasets.
       operationId: delete_datasets_api_v1_datasets_delete
@@ -220,7 +217,7 @@ paths:
   /api/v1/datasets/stream:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Read Datasets Stream
       description: Stream all datasets by query params and owner as JSON patches.
       operationId: read_datasets_stream_api_v1_datasets_stream_get
@@ -338,7 +335,7 @@ paths:
   /api/v1/datasets/{dataset_id}:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Read Dataset
       description: Get a specific dataset.
       operationId: read_dataset_api_v1_datasets__dataset_id__get
@@ -369,7 +366,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - datasets
+      - Datasets
       summary: Delete Dataset
       description: Delete a specific dataset.
       operationId: delete_dataset_api_v1_datasets__dataset_id__delete
@@ -399,7 +396,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     patch:
       tags:
-      - datasets
+      - Datasets
       summary: Update Dataset
       description: Update a specific dataset.
       operationId: update_dataset_api_v1_datasets__dataset_id__patch
@@ -442,7 +439,7 @@ paths:
   /api/v1/datasets/upload:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Upload Csv Dataset
       description: Create a new dataset from a CSV or JSONL file.
       operationId: upload_csv_dataset_api_v1_datasets_upload_post
@@ -472,7 +469,7 @@ paths:
   /api/v1/datasets/upload-experiment:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Upload Experiment
       description: Upload an experiment that has already been run.
       operationId: upload_experiment_api_v1_datasets_upload_experiment_post
@@ -502,7 +499,7 @@ paths:
   /api/v1/datasets/{dataset_id}/versions:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Get Dataset Versions
       description: Get dataset versions.
       operationId: get_dataset_versions_api_v1_datasets__dataset_id__versions_get
@@ -571,7 +568,7 @@ paths:
   /api/v1/datasets/{dataset_id}/versions/diff:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Diff Dataset Versions
       description: Get diff between two dataset versions.
       operationId: diff_dataset_versions_api_v1_datasets__dataset_id__versions_diff_get
@@ -621,7 +618,7 @@ paths:
   /api/v1/datasets/{dataset_id}/version:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Get Dataset Version
       description: Get dataset version by as_of or exact tag.
       operationId: get_dataset_version_api_v1_datasets__dataset_id__version_get
@@ -670,7 +667,7 @@ paths:
   /api/v1/datasets/{dataset_id}/tags:
     put:
       tags:
-      - datasets
+      - Datasets
       summary: Update Dataset Version
       description: Set a tag on a dataset version.
       operationId: update_dataset_version_api_v1_datasets__dataset_id__tags_put
@@ -708,7 +705,7 @@ paths:
   /api/v1/datasets/{dataset_id}/openai:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Download Dataset Openai
       description: Download a dataset as OpenAI Evals Jsonl format.
       operationId: download_dataset_openai_api_v1_datasets__dataset_id__openai_get
@@ -750,7 +747,7 @@ paths:
   /api/v1/datasets/{dataset_id}/openai_ft:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Download Dataset Openai Ft
       description: Download a dataset as OpenAI Jsonl format.
       operationId: download_dataset_openai_ft_api_v1_datasets__dataset_id__openai_ft_get
@@ -792,7 +789,7 @@ paths:
   /api/v1/datasets/{dataset_id}/csv:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Download Dataset Csv
       description: Download a dataset as CSV format.
       operationId: download_dataset_csv_api_v1_datasets__dataset_id__csv_get
@@ -834,7 +831,7 @@ paths:
   /api/v1/datasets/{dataset_id}/jsonl:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Download Dataset Jsonl
       description: Download a dataset as CSV format.
       operationId: download_dataset_jsonl_api_v1_datasets__dataset_id__jsonl_get
@@ -876,7 +873,7 @@ paths:
   /api/v1/datasets/{dataset_id}/runs:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Read Examples With Runs
       description: Fetch examples for a dataset, and fetch the runs for each example if they are associated with the given session_ids.
       operationId: read_examples_with_runs_api_v1_datasets__dataset_id__runs_post
@@ -931,7 +928,7 @@ paths:
   /api/v1/datasets/{dataset_id}/group/runs:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Read Examples With Runs Grouped
       description: Fetch examples for a dataset, and fetch the runs for each example if they are associated with the given session_ids.
       operationId: read_examples_with_runs_grouped_api_v1_datasets__dataset_id__group_runs_post
@@ -969,7 +966,7 @@ paths:
   /api/v1/datasets/{dataset_id}/runs/delta:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Read Delta
       description: Fetch the number of regressions/improvements for each example in a dataset, between sessions[0] and sessions[1].
       operationId: read_delta_api_v1_datasets__dataset_id__runs_delta_post
@@ -1007,9 +1004,31 @@ paths:
   /api/v1/datasets/{dataset_id}/runs/delta/stream:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Read Delta Stream
-      description: "Stream feedback deltas for multiple feedback keys.\n\nReturns results in chunks as they become available. Each chunk contains\nresults for one or more feedback keys. Errors for individual chunks are\nincluded in the response rather than failing the entire operation.\n\nResponse format (SSE):\n    event: data\n    data: {\"feedback_deltas\": {\"key1\": {session_id: {...}}, ...}, \"errors\": null}\n\n    event: data\n    data: {\"feedback_deltas\": {\"key2\": {...}}, \"errors\": null}\n\n    event: end"
+      description: 'Stream feedback deltas for multiple feedback keys.
+
+
+        Returns results in chunks as they become available. Each chunk contains
+
+        results for one or more feedback keys. Errors for individual chunks are
+
+        included in the response rather than failing the entire operation.
+
+
+        Response format (SSE):
+
+        event: data
+
+        data: {"feedback_deltas": {"key1": {session_id: {...}}, ...}, "errors": null}
+
+
+        event: data
+
+        data: {"feedback_deltas": {"key2": {...}}, "errors": null}
+
+
+        event: end'
       operationId: read_delta_stream_api_v1_datasets__dataset_id__runs_delta_stream_post
       security:
       - API Key: []
@@ -1044,7 +1063,7 @@ paths:
   /api/v1/datasets/{dataset_id}/experiments/grouped:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Read Grouped Experiments
       description: Stream grouped and aggregated experiments.
       operationId: read_grouped_experiments_api_v1_datasets__dataset_id__experiments_grouped_post
@@ -1081,7 +1100,7 @@ paths:
   /api/v1/datasets/{dataset_id}/share:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Read Dataset Share State
       description: Get the state of sharing a dataset
       operationId: read_dataset_share_state_api_v1_datasets__dataset_id__share_get
@@ -1115,7 +1134,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     put:
       tags:
-      - datasets
+      - Datasets
       summary: Share Dataset
       description: Share a dataset.
       operationId: share_dataset_api_v1_datasets__dataset_id__share_put
@@ -1153,7 +1172,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - datasets
+      - Datasets
       summary: Unshare Dataset
       description: Unshare a dataset.
       operationId: unshare_dataset_api_v1_datasets__dataset_id__share_delete
@@ -1184,7 +1203,7 @@ paths:
   /api/v1/datasets/{dataset_id}/comparative:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Read Comparative Experiments
       description: Get all comparative experiments for a given dataset.
       operationId: read_comparative_experiments_api_v1_datasets__dataset_id__comparative_get
@@ -1276,7 +1295,7 @@ paths:
   /api/v1/datasets/comparative:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Create Comparative Experiment
       description: Create a comparative experiment.
       operationId: create_comparative_experiment_api_v1_datasets_comparative_post
@@ -1306,7 +1325,7 @@ paths:
   /api/v1/datasets/comparative/{comparative_experiment_id}:
     delete:
       tags:
-      - datasets
+      - Datasets
       summary: Delete Comparative Experiment
       description: Delete a specific comparative experiment.
       operationId: delete_comparative_experiment_api_v1_datasets_comparative__comparative_experiment_id__delete
@@ -1337,7 +1356,7 @@ paths:
   /api/v1/datasets/clone:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Clone Dataset
       description: Clone a dataset.
       operationId: clone_dataset_api_v1_datasets_clone_post
@@ -1371,7 +1390,7 @@ paths:
   /api/v1/datasets/{dataset_id}/splits:
     get:
       tags:
-      - datasets
+      - Datasets
       summary: Get Dataset Splits
       operationId: get_dataset_splits_api_v1_datasets__dataset_id__splits_get
       security:
@@ -1416,7 +1435,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     put:
       tags:
-      - datasets
+      - Datasets
       summary: Update Dataset Splits
       operationId: update_dataset_splits_api_v1_datasets__dataset_id__splits_put
       security:
@@ -1457,7 +1476,7 @@ paths:
   /api/v1/datasets/{dataset_id}/generate:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Generate
       description: Generate synthetic examples for a dataset.
       operationId: generate_api_v1_datasets__dataset_id__generate_post
@@ -1494,7 +1513,7 @@ paths:
   /api/v1/datasets/playground_experiment/batch:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Dataset Handler
       operationId: dataset_handler_api_v1_datasets_playground_experiment_batch_post
       requestBody:
@@ -1523,7 +1542,7 @@ paths:
   /api/v1/datasets/playground_experiment/stream:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Stream Dataset Handler
       operationId: stream_dataset_handler_api_v1_datasets_playground_experiment_stream_post
       requestBody:
@@ -1551,7 +1570,7 @@ paths:
   /api/v1/datasets/studio_experiment:
     post:
       tags:
-      - datasets
+      - Datasets
       summary: Studio Experiment
       operationId: studio_experiment_api_v1_datasets_studio_experiment_post
       requestBody:
@@ -1579,21 +1598,420 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
-    SimpleExperimentInfo:
+    GroupExampleRunsByField:
+      type: string
+      enum:
+      - run_metadata
+      - example_metadata
+      title: GroupExampleRunsByField
+    QueryExampleSchemaWithRunsRequest:
+      properties:
+        session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          minItems: 1
+          title: Session Ids
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Limit
+        preview:
+          type: boolean
+          title: Preview
+          default: false
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+        sort_params:
+          anyOf:
+          - $ref: '#/components/schemas/SortParamsForRunsComparisonView'
+          - type: 'null'
+        filters:
+          anyOf:
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            propertyNames:
+              format: uuid
+            type: object
+          - type: 'null'
+          title: Filters
+        example_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+            maxItems: 1000
+          - type: 'null'
+          title: Example Ids
+        include_annotator_detail:
+          type: boolean
+          title: Include Annotator Detail
+          default: false
+      type: object
+      required:
+      - session_ids
+      title: QueryExampleSchemaWithRunsRequest
+      description: 'Request DTO for querying examples with runs - used for API input.
+
+
+        This is separate from the internal schema to cleanly handle optional limit values.
+
+        When limit is None, the internal schema will apply appropriate defaults based on
+
+        format.'
+    SortParamsForRunsComparisonView:
+      properties:
+        sort_by:
+          type: string
+          title: Sort By
+        sort_order:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          title: Sort Order
+          default: DESC
+      type: object
+      required:
+      - sort_by
+      title: SortParamsForRunsComparisonView
+    AttachmentsOperations:
+      properties:
+        rename:
+          additionalProperties:
+            type: string
+          type: object
+          title: Rename
+          description: Mapping of old attachment names to new names
+        retain:
+          items:
+            type: string
+          type: array
+          title: Retain
+          description: List of attachment names to keep
+      type: object
+      title: AttachmentsOperations
+    StudioRunOverDatasetRequestSchema:
+      properties:
+        project_name:
+          type: string
+          title: Project Name
+        dataset_id:
+          type: string
+          format: uuid
+          title: Dataset Id
+        evaluator_rules:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Evaluator Rules
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      required:
+      - project_name
+      - dataset_id
+      title: StudioRunOverDatasetRequestSchema
+    DatasetCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        inputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Inputs Schema Definition
+        outputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs Schema Definition
+        externally_managed:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Externally Managed
+          default: false
+        transformations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/DatasetTransformation'
+            type: array
+          - type: 'null'
+          title: Transformations
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        data_type:
+          $ref: '#/components/schemas/DataType'
+          default: kv
+      type: object
+      required:
+      - name
+      title: DatasetCreate
+      description: Create class for Dataset.
+    GroupedExperimentsRequest:
+      properties:
+        stats_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Stats Start Time
+        name_contains:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name Contains
+        tag_value_id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Tag Value Id
+        dataset_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Version
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        use_approx_stats:
+          type: boolean
+          title: Use Approx Stats
+          default: false
+        metadata_keys:
+          items:
+            type: string
+          type: array
+          maxItems: 4
+          minItems: 1
+          title: Metadata Keys
+        experiment_limit:
+          type: integer
+          maximum: 1000.0
+          minimum: 1.0
+          title: Experiment Limit
+          default: 1000
+      type: object
+      required:
+      - metadata_keys
+      title: GroupedExperimentsRequest
+      description: Schema for grouped experiment (tracer session) query.
+    PutDatasetVersionsSchema:
+      properties:
+        as_of:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: string
+          title: As Of
+          description: Only modifications made on or before this time are included. If None, the latest version of the dataset is used.
+        tag:
+          type: string
+          title: Tag
+      type: object
+      required:
+      - as_of
+      - tag
+      title: PutDatasetVersionsSchema
+    ComparativeExperimentBase:
       properties:
         id:
           type: string
           format: uuid
           title: Id
         name:
-          type: string
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        reference_dataset_id:
+          type: string
+          format: uuid
+          title: Reference Dataset Id
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
       type: object
       required:
       - id
-      - name
-      title: SimpleExperimentInfo
-      description: Simple experiment info schema for use with comparative experiments
+      - tenant_id
+      - created_at
+      - modified_at
+      - reference_dataset_id
+      title: ComparativeExperimentBase
+      description: ComparativeExperiment schema.
+    FeedbackDelta:
+      properties:
+        improved_examples:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Improved Examples
+        regressed_examples:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Regressed Examples
+      type: object
+      required:
+      - improved_examples
+      - regressed_examples
+      title: FeedbackDelta
+      description: Feedback key with number of improvements and regressions.
+    AppFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: app
+          title: Type
+          default: app
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: AppFeedbackSource
+      description: Feedback from the LangChainPlus App.
+    RunnerContextEnum:
+      type: string
+      enum:
+      - langsmith_ui
+      - langsmith_align_evals
+      title: RunnerContextEnum
+    ExperimentResultsUpload:
+      properties:
+        experiment_name:
+          type: string
+          title: Experiment Name
+        experiment_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Experiment Description
+        dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+        dataset_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Description
+        summary_experiment_scores:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FeedbackCreateCoreSchema'
+            type: array
+          - type: 'null'
+          title: Summary Experiment Scores
+        results:
+          items:
+            $ref: '#/components/schemas/ExperimentResultRow'
+          type: array
+          title: Results
+        experiment_start_time:
+          type: string
+          format: date-time
+          title: Experiment Start Time
+        experiment_end_time:
+          type: string
+          format: date-time
+          title: Experiment End Time
+        experiment_metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Experiment Metadata
+      type: object
+      required:
+      - experiment_name
+      - results
+      - experiment_start_time
+      - experiment_end_time
+      title: ExperimentResultsUpload
+      description: Class for uploading the results of an already-run experiment.
     Dataset:
       properties:
         name:
@@ -1685,58 +2103,177 @@ components:
       - modified_at
       title: Dataset
       description: Dataset schema.
-    SessionFeedbackDelta:
+    ExampleUpdate:
       properties:
-        feedback_deltas:
-          additionalProperties:
-            $ref: '#/components/schemas/FeedbackDelta'
-          propertyNames:
+        dataset_id:
+          anyOf:
+          - type: string
             format: uuid
-          type: object
-          title: Feedback Deltas
-      type: object
-      required:
-      - feedback_deltas
-      title: SessionFeedbackDelta
-      description: List of feedback keys with number of improvements and regressions for each.
-    AutoEvalFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: auto_eval
-          title: Type
-          default: auto_eval
+          - type: 'null'
+          title: Dataset Id
+        inputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Inputs
+        outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs
+        attachments_operations:
+          anyOf:
+          - $ref: '#/components/schemas/AttachmentsOperations'
+          - type: 'null'
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
           title: Metadata
+        split:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: string
+          - type: 'null'
+          title: Split
+        overwrite:
+          type: boolean
+          title: Overwrite
+          default: false
       type: object
-      title: AutoEvalFeedbackSource
-      description: Auto eval feedback source.
-    ValidationError:
+      title: ExampleUpdate
+      description: Update class for Example.
+    Body_clone_dataset_api_v1_datasets_clone_post:
       properties:
-        loc:
-          items:
-            anyOf:
+        target_dataset_id:
+          type: string
+          format: uuid
+          title: Target Dataset Id
+        source_dataset_id:
+          type: string
+          format: uuid
+          title: Source Dataset Id
+        as_of:
+          anyOf:
+          - anyOf:
             - type: string
-            - type: integer
+              format: date-time
+            - type: string
+            description: Only modifications made on or before this time are included. If None, the latest version of the dataset is used.
+          - type: 'null'
+          title: As Of
+        examples:
+          items:
+            type: string
+            format: uuid
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Examples
+          default: []
+        split:
+          anyOf:
+          - type: string
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Split
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    TracerSession:
+      - target_dataset_id
+      - source_dataset_id
+      title: Body_clone_dataset_api_v1_datasets_clone_post
+    QueryFeedbackDeltaBatch:
+      properties:
+        baseline_session_id:
+          type: string
+          format: uuid
+          title: Baseline Session Id
+        comparison_session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Comparison Session Ids
+        feedback_keys:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Feedback Keys
+        filters:
+          anyOf:
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            propertyNames:
+              format: uuid
+            type: object
+          - type: 'null'
+          title: Filters
+      type: object
+      required:
+      - baseline_session_id
+      - comparison_session_ids
+      - feedback_keys
+      title: QueryFeedbackDeltaBatch
+      description: Request schema for batched feedback delta queries with multiple feedback keys.
+    ComparativeExperimentCreate:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        experiment_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Experiment Ids
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        reference_dataset_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Reference Dataset Id
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+      type: object
+      required:
+      - experiment_ids
+      title: ComparativeExperimentCreate
+      description: Create class for ComparativeExperiment.
+    GroupedRunsSessionStats:
       properties:
         start_time:
           type: string
@@ -1888,173 +2425,236 @@ components:
           - type: integer
           - type: 'null'
           title: Test Run Number
+        example_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Example Count
+        filter:
+          type: string
+          title: Filter
+        min_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Min Start Time
+        max_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max Start Time
       type: object
       required:
       - id
       - tenant_id
-      title: TracerSession
-      description: TracerSession schema.
-    FeedbackCreateCoreSchema:
+      - filter
+      title: GroupedRunsSessionStats
+      description: 'TracerSession stats filtered to runs matching a specific metadata value.
+
+
+        Extends TracerSession with:
+
+        - example_count: unique examples (vs run_count = total runs including duplicates)
+
+        - filter: ClickHouse filter for fetching runs in this session/group
+
+        - min/max_start_time: time range for runs in this session/group'
+    SortByDatasetColumn:
+      type: string
+      enum:
+      - name
+      - created_at
+      - last_session_start_time
+      - example_count
+      - session_count
+      - modified_at
+      title: SortByDatasetColumn
+      description: Enum for available dataset columns to sort by.
+    DatasetSchemaForUpdate:
       properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
         created_at:
           type: string
           format: date-time
           title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        key:
-          type: string
-          maxLength: 180
-          title: Key
-        score:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: 'null'
-          title: Score
-        value:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: string
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Value
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment
-        correction:
+        inputs_schema_definition:
           anyOf:
           - additionalProperties: true
             type: object
-          - type: string
           - type: 'null'
-          title: Correction
-        feedback_group_id:
+          title: Inputs Schema Definition
+        outputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs Schema Definition
+        externally_managed:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Externally Managed
+          default: false
+        transformations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/DatasetTransformation'
+            type: array
+          - type: 'null'
+          title: Transformations
+        data_type:
+          anyOf:
+          - $ref: '#/components/schemas/DataType'
+          - type: 'null'
+          default: kv
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+      type: object
+      required:
+      - name
+      - id
+      - tenant_id
+      title: DatasetSchemaForUpdate
+    DatasetUpdate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Name
+          default:
+            __missing__: __missing__
+        description:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Description
+          default:
+            __missing__: __missing__
+        inputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Inputs Schema Definition
+          default:
+            __missing__: __missing__
+        outputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Outputs Schema Definition
+          default:
+            __missing__: __missing__
+        patch_examples:
+          anyOf:
+          - additionalProperties:
+              $ref: '#/components/schemas/ExampleUpdate'
+            propertyNames:
+              format: uuid
+            type: object
+          - type: 'null'
+          title: Patch Examples
+        transformations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/DatasetTransformation'
+            type: array
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Transformations
+          default:
+            __missing__: __missing__
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Metadata
+          default:
+            __missing__: __missing__
+        baseline_experiment_id:
           anyOf:
           - type: string
             format: uuid
+          - $ref: '#/components/schemas/Missing'
           - type: 'null'
-          title: Feedback Group Id
+          title: Baseline Experiment Id
+          default:
+            __missing__: __missing__
+      type: object
+      title: DatasetUpdate
+      description: Update class for Dataset.
+    QueryFeedbackDelta:
+      properties:
+        baseline_session_id:
+          type: string
+          format: uuid
+          title: Baseline Session Id
+        comparison_session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Comparison Session Ids
+        feedback_key:
+          type: string
+          title: Feedback Key
+        filters:
+          anyOf:
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            propertyNames:
+              format: uuid
+            type: object
+          - type: 'null'
+          title: Filters
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 100
         comparative_experiment_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Comparative Experiment Id
-        id:
-          type: string
-          format: uuid
-          title: Id
-        feedback_source:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/AppFeedbackSource'
-            - $ref: '#/components/schemas/APIFeedbackSource'
-            - $ref: '#/components/schemas/ModelFeedbackSource'
-            - $ref: '#/components/schemas/AutoEvalFeedbackSource'
-            discriminator:
-              propertyName: type
-              mapping:
-                api: '#/components/schemas/APIFeedbackSource'
-                app: '#/components/schemas/AppFeedbackSource'
-                auto_eval: '#/components/schemas/AutoEvalFeedbackSource'
-                model: '#/components/schemas/ModelFeedbackSource'
-          - type: 'null'
-          title: Feedback Source
-        feedback_config:
-          anyOf:
-          - $ref: '#/components/schemas/FeedbackConfig'
-          - type: 'null'
-        extra:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Extra
       type: object
       required:
-      - key
-      title: FeedbackCreateCoreSchema
-      description: Schema used for creating feedback without run id or session id.
-    DataType:
-      type: string
-      enum:
-      - kv
-      - llm
-      - chat
-      title: DataType
-      description: Enum for dataset data types.
-    StudioRunOverDatasetRequestSchema:
-      properties:
-        project_name:
-          type: string
-          title: Project Name
-        dataset_id:
-          type: string
-          format: uuid
-          title: Dataset Id
-        evaluator_rules:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Evaluator Rules
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      required:
-      - project_name
-      - dataset_id
-      title: StudioRunOverDatasetRequestSchema
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
-    GroupedExamplesWithRunsResponse:
-      properties:
-        groups:
-          items:
-            $ref: '#/components/schemas/ExampleGroupWithSessions'
-          type: array
-          title: Groups
-      type: object
-      required:
-      - groups
-      title: GroupedExamplesWithRunsResponse
-      description: 'Response for grouped comparison view of dataset examples.
-
-
-        Returns dataset examples grouped by a run metadata value (e.g., model=''gpt-4'').
-
-        Optional filters are applied to all runs before grouping.
-
-
-        Shows:
-
-        - Which examples were executed with each metadata value
-
-        - Per-session aggregate statistics for runs on those examples
-
-        - The actual example data with their associated runs
-
-
-        Used for comparing how different sessions performed on the same set of examples.'
+      - baseline_session_id
+      - comparison_session_ids
+      - feedback_key
+      title: QueryFeedbackDelta
     RunSchemaComparisonView:
       properties:
         name:
@@ -2263,188 +2863,7 @@ components:
       - status
       title: RunSchemaComparisonView
       description: Run schema for comparison view.
-    DatasetUpdate:
-      properties:
-        name:
-          anyOf:
-          - type: string
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Name
-          default:
-            __missing__: __missing__
-        description:
-          anyOf:
-          - type: string
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Description
-          default:
-            __missing__: __missing__
-        inputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Inputs Schema Definition
-          default:
-            __missing__: __missing__
-        outputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Outputs Schema Definition
-          default:
-            __missing__: __missing__
-        patch_examples:
-          anyOf:
-          - additionalProperties:
-              $ref: '#/components/schemas/ExampleUpdate'
-            propertyNames:
-              format: uuid
-            type: object
-          - type: 'null'
-          title: Patch Examples
-        transformations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/DatasetTransformation'
-            type: array
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Transformations
-          default:
-            __missing__: __missing__
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Metadata
-          default:
-            __missing__: __missing__
-        baseline_experiment_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - $ref: '#/components/schemas/Missing'
-          - type: 'null'
-          title: Baseline Experiment Id
-          default:
-            __missing__: __missing__
-      type: object
-      title: DatasetUpdate
-      description: Update class for Dataset.
-    DatasetTransformation:
-      properties:
-        path:
-          items:
-            type: string
-          type: array
-          title: Path
-        transformation_type:
-          $ref: '#/components/schemas/DatasetTransformationType'
-      type: object
-      required:
-      - path
-      - transformation_type
-      title: DatasetTransformation
-    FeedbackCategory:
-      properties:
-        value:
-          type: number
-          title: Value
-        label:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Label
-      type: object
-      required:
-      - value
-      title: FeedbackCategory
-      description: Specific value and label pair for feedback
-    SortParamsForRunsComparisonView:
-      properties:
-        sort_by:
-          type: string
-          title: Sort By
-        sort_order:
-          type: string
-          enum:
-          - ASC
-          - DESC
-          title: Sort Order
-          default: DESC
-      type: object
-      required:
-      - sort_by
-      title: SortParamsForRunsComparisonView
-    ComparativeExperiment:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        reference_dataset_id:
-          type: string
-          format: uuid
-          title: Reference Dataset Id
-        extra:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Extra
-        experiments_info:
-          items:
-            $ref: '#/components/schemas/SimpleExperimentInfo'
-          type: array
-          title: Experiments Info
-        feedback_stats:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Feedback Stats
-      type: object
-      required:
-      - id
-      - tenant_id
-      - created_at
-      - modified_at
-      - reference_dataset_id
-      - experiments_info
-      title: ComparativeExperiment
-      description: ComparativeExperiment schema.
-    FeedbackSchema:
+    FeedbackCreateCoreSchema:
       properties:
         created_at:
           type: string
@@ -2456,6 +2875,7 @@ components:
           title: Modified At
         key:
           type: string
+          maxLength: 180
           title: Key
         score:
           anyOf:
@@ -2498,41 +2918,29 @@ components:
             format: uuid
           - type: 'null'
           title: Comparative Experiment Id
-        run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Id
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
         id:
           type: string
           format: uuid
           title: Id
-        trace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace Id
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        is_root:
-          type: boolean
-          title: Is Root
-          default: false
         feedback_source:
           anyOf:
-          - $ref: '#/components/schemas/FeedbackSource'
+          - oneOf:
+            - $ref: '#/components/schemas/AppFeedbackSource'
+            - $ref: '#/components/schemas/APIFeedbackSource'
+            - $ref: '#/components/schemas/ModelFeedbackSource'
+            - $ref: '#/components/schemas/AutoEvalFeedbackSource'
+            discriminator:
+              propertyName: type
+              mapping:
+                api: '#/components/schemas/APIFeedbackSource'
+                app: '#/components/schemas/AppFeedbackSource'
+                auto_eval: '#/components/schemas/AutoEvalFeedbackSource'
+                model: '#/components/schemas/ModelFeedbackSource'
+          - type: 'null'
+          title: Feedback Source
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
           - type: 'null'
         extra:
           anyOf:
@@ -2540,133 +2948,253 @@ components:
             type: object
           - type: 'null'
           title: Extra
-        feedback_thread_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Feedback Thread Id
       type: object
       required:
       - key
-      - id
-      title: FeedbackSchema
-      description: Schema for getting feedback.
-    HTTPValidationError:
+      title: FeedbackCreateCoreSchema
+      description: Schema used for creating feedback without run id or session id.
+    FeedbackConfig:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    QueryExampleSchemaWithRunsRequest:
-      properties:
-        session_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          minItems: 1
-          title: Session Ids
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        min:
           anyOf:
-          - type: integer
-            minimum: 1.0
+          - type: number
           - type: 'null'
-          title: Limit
-        preview:
-          type: boolean
-          title: Preview
-          default: false
-        comparative_experiment_id:
+          title: Min
+        max:
           anyOf:
-          - type: string
-            format: uuid
+          - type: number
           - type: 'null'
-          title: Comparative Experiment Id
-        sort_params:
-          anyOf:
-          - $ref: '#/components/schemas/SortParamsForRunsComparisonView'
-          - type: 'null'
-        filters:
-          anyOf:
-          - additionalProperties:
-              items:
-                type: string
-              type: array
-            propertyNames:
-              format: uuid
-            type: object
-          - type: 'null'
-          title: Filters
-        example_ids:
+          title: Max
+        categories:
           anyOf:
           - items:
-              type: string
-              format: uuid
+              $ref: '#/components/schemas/FeedbackCategory'
             type: array
-            maxItems: 1000
           - type: 'null'
-          title: Example Ids
-        include_annotator_detail:
+          title: Categories
+      type: object
+      required:
+      - type
+      title: FeedbackConfig
+    DatasetTransformation:
+      properties:
+        path:
+          items:
+            type: string
+          type: array
+          title: Path
+        transformation_type:
+          $ref: '#/components/schemas/DatasetTransformationType'
+      type: object
+      required:
+      - path
+      - transformation_type
+      title: DatasetTransformation
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
+    Body_update_dataset_splits_api_v1_datasets__dataset_id__splits_put:
+      properties:
+        split_name:
+          type: string
+          title: Split Name
+        examples:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Examples
+        remove:
           type: boolean
-          title: Include Annotator Detail
+          title: Remove
           default: false
       type: object
       required:
-      - session_ids
-      title: QueryExampleSchemaWithRunsRequest
-      description: 'Request DTO for querying examples with runs - used for API input.
-
-
-        This is separate from the internal schema to cleanly handle optional limit values.
-
-        When limit is None, the internal schema will apply appropriate defaults based on
-
-        format.'
-    FeedbackDelta:
+      - split_name
+      - examples
+      title: Body_update_dataset_splits_api_v1_datasets__dataset_id__splits_put
+    AutoEvalFeedbackSource:
       properties:
-        improved_examples:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Improved Examples
-        regressed_examples:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Regressed Examples
+        type:
+          type: string
+          const: auto_eval
+          title: Type
+          default: auto_eval
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
       type: object
-      required:
-      - improved_examples
-      - regressed_examples
-      title: FeedbackDelta
-      description: Feedback key with number of improvements and regressions.
-    PutDatasetVersionsSchema:
+      title: AutoEvalFeedbackSource
+      description: Auto eval feedback source.
+    Body_upload_csv_dataset_api_v1_datasets_upload_post:
       properties:
-        as_of:
+        file:
+          type: string
+          format: binary
+          title: File
+        input_keys:
+          items:
+            type: string
+          type: array
+          title: Input Keys
+        name:
           anyOf:
           - type: string
-            format: date-time
+          - type: 'null'
+          title: Name
+        data_type:
+          $ref: '#/components/schemas/DataType'
+          default: kv
+        output_keys:
+          items:
+            type: string
+          type: array
+          title: Output Keys
+          default: []
+        metadata_keys:
+          items:
+            type: string
+          type: array
+          title: Metadata Keys
+          default: []
+        description:
+          anyOf:
           - type: string
-          title: As Of
-          description: Only modifications made on or before this time are included. If None, the latest version of the dataset is used.
-        tag:
-          type: string
-          title: Tag
+          - type: 'null'
+          title: Description
+        inputs_schema_definition:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Inputs Schema Definition
+        outputs_schema_definition:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Outputs Schema Definition
+        transformations:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Transformations
+        input_key_mappings:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Key Mappings
+        output_key_mappings:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Output Key Mappings
+        metadata_key_mappings:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Key Mappings
       type: object
       required:
-      - as_of
-      - tag
-      title: PutDatasetVersionsSchema
+      - file
+      - input_keys
+      title: Body_upload_csv_dataset_api_v1_datasets_upload_post
+    SessionFeedbackDelta:
+      properties:
+        feedback_deltas:
+          additionalProperties:
+            $ref: '#/components/schemas/FeedbackDelta'
+          propertyNames:
+            format: uuid
+          type: object
+          title: Feedback Deltas
+      type: object
+      required:
+      - feedback_deltas
+      title: SessionFeedbackDelta
+      description: List of feedback keys with number of improvements and regressions for each.
+    RunnableConfig:
+      properties:
+        tags:
+          items:
+            type: string
+          type: array
+          title: Tags
+        metadata:
+          additionalProperties: true
+          type: object
+          title: Metadata
+        callbacks:
+          anyOf:
+          - items: {}
+            type: array
+          - {}
+          - type: 'null'
+          title: Callbacks
+        run_name:
+          type: string
+          title: Run Name
+        max_concurrency:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Concurrency
+        recursion_limit:
+          type: integer
+          title: Recursion Limit
+        configurable:
+          additionalProperties: true
+          type: object
+          title: Configurable
+        run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Id
+      type: object
+      title: RunnableConfig
+      description: "Configuration for a `Runnable`.\n\n!!! note Custom values\n\n    The `TypedDict` has `total=False` set intentionally to:\n\n    - Allow partial configs to be created and merged together via `merge_configs`\n    - Support config propagation from parent to child runnables via\n        `var_child_runnable_config` (a `ContextVar` that automatically passes\n        config down the call stack without explicit parameter passing), where\n        configs are merged rather than replaced\n\n    !!! example\n\n        ```python\n        # Parent sets tags\n        chain.invoke(input, config={\"tags\": [\"parent\"]})\n        # Child automatically inherits and can add:\n        # ensure_config({\"tags\": [\"child\"]}) -> {\"tags\": [\"parent\", \"child\"]}\n        ```"
+    RunTypeEnum:
+      type: string
+      enum:
+      - tool
+      - chain
+      - llm
+      - retriever
+      - embedding
+      - prompt
+      - parser
+      title: RunTypeEnum
+      description: Enum for run types.
+    ExperimentResultsUploadResult:
+      properties:
+        dataset:
+          $ref: '#/components/schemas/Dataset'
+        experiment:
+          $ref: '#/components/schemas/TracerSession'
+      type: object
+      required:
+      - dataset
+      - experiment
+      title: ExperimentResultsUploadResult
+      description: Class for uploading the results of an already-run experiment.
     QueryGroupedExamplesWithRuns:
       properties:
         session_ids:
@@ -2718,128 +3246,99 @@ components:
       - group_by
       - metadata_key
       title: QueryGroupedExamplesWithRuns
-    ModelFeedbackSource:
+    DatasetDiffInfo:
+      properties:
+        examples_modified:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Examples Modified
+        examples_added:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Examples Added
+        examples_removed:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Examples Removed
+      type: object
+      required:
+      - examples_modified
+      - examples_added
+      - examples_removed
+      title: DatasetDiffInfo
+      description: Dataset diff schema.
+    FeedbackSource:
       properties:
         type:
-          type: string
-          const: model
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Type
-          default: model
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
           title: Metadata
-      type: object
-      title: ModelFeedbackSource
-      description: Model feedback source.
-    DatasetCreate:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        inputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Inputs Schema Definition
-        outputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs Schema Definition
-        externally_managed:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Externally Managed
-          default: false
-        transformations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/DatasetTransformation'
-            type: array
-          - type: 'null'
-          title: Transformations
-        id:
+        user_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Id
-        extra:
+          title: User Id
+        ls_user_id:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - type: string
+            format: uuid
           - type: 'null'
-          title: Extra
-        data_type:
-          $ref: '#/components/schemas/DataType'
-          default: kv
+          title: Ls User Id
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+      type: object
+      title: FeedbackSource
+      description: The feedback source loaded from the database.
+    SimpleExperimentInfo:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
       type: object
       required:
+      - id
       - name
-      title: DatasetCreate
-      description: Create class for Dataset.
-    DatasetVersion:
+      title: SimpleExperimentInfo
+      description: Simple experiment info schema for use with comparative experiments
+    GenerateSyntheticExamplesBody:
       properties:
-        tags:
+        example_ids:
           anyOf:
           - items:
               type: string
+              format: uuid
             type: array
           - type: 'null'
-          title: Tags
-        as_of:
-          type: string
-          format: date-time
-          title: As Of
+          title: Example Ids
+        num_examples:
+          type: integer
+          title: Num Examples
       type: object
       required:
-      - as_of
-      title: DatasetVersion
-      description: Dataset version schema.
-    DatasetTransformationType:
-      type: string
-      enum:
-      - convert_to_openai_message
-      - convert_to_openai_tool
-      - remove_system_messages
-      - remove_extra_fields
-      - extract_tools_from_run
-      title: DatasetTransformationType
-      description: 'Enum for dataset transformation types.
-
-        Ordering determines the order in which transformations are applied if there are multiple transformations on the same path.'
-    AppFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: app
-          title: Type
-          default: app
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: AppFeedbackSource
-      description: Feedback from the LangChainPlus App.
-    PlaygroundRunOverDatasetRequestSchema:
+      - num_examples
+      title: GenerateSyntheticExamplesBody
+    PlaygroundRunOverDatasetBatchRequestSchema:
       properties:
         manifest:
           title: Manifest
@@ -2939,6 +3438,13 @@ components:
             type: object
           - type: 'null'
           title: Metadata
+        batch_size:
+          anyOf:
+          - type: integer
+            maximum: 100.0
+            minimum: 1.0
+          - type: 'null'
+          title: Batch Size
       type: object
       required:
       - manifest
@@ -2946,40 +3452,15 @@ components:
       - options
       - project_name
       - dataset_id
-      title: PlaygroundRunOverDatasetRequestSchema
-    DatasetShareSchema:
-      properties:
-        dataset_id:
-          type: string
-          format: uuid
-          title: Dataset Id
-        share_token:
-          type: string
-          format: uuid
-          title: Share Token
-      type: object
-      required:
-      - dataset_id
-      - share_token
-      title: DatasetShareSchema
-    GenerateSyntheticExamplesBody:
-      properties:
-        example_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Example Ids
-        num_examples:
-          type: integer
-          title: Num Examples
-      type: object
-      required:
-      - num_examples
-      title: GenerateSyntheticExamplesBody
-    GroupedRunsSessionStats:
+      title: PlaygroundRunOverDatasetBatchRequestSchema
+    SortByComparativeExperimentColumn:
+      type: string
+      enum:
+      - name
+      - created_at
+      title: SortByComparativeExperimentColumn
+      description: Enum for available comparative experiment columns to sort by.
+    TracerSession:
       properties:
         start_time:
           type: string
@@ -3131,185 +3612,119 @@ components:
           - type: integer
           - type: 'null'
           title: Test Run Number
-        example_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Example Count
-        filter:
-          type: string
-          title: Filter
-        min_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Min Start Time
-        max_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Max Start Time
       type: object
       required:
       - id
       - tenant_id
-      - filter
-      title: GroupedRunsSessionStats
-      description: 'TracerSession stats filtered to runs matching a specific metadata value.
-
-
-        Extends TracerSession with:
-
-        - example_count: unique examples (vs run_count = total runs including duplicates)
-
-        - filter: ClickHouse filter for fetching runs in this session/group
-
-        - min/max_start_time: time range for runs in this session/group'
-    ExperimentResultsUploadResult:
+      title: TracerSession
+      description: TracerSession schema.
+    FeedbackSchema:
       properties:
-        dataset:
-          $ref: '#/components/schemas/Dataset'
-        experiment:
-          $ref: '#/components/schemas/TracerSession'
-      type: object
-      required:
-      - dataset
-      - experiment
-      title: ExperimentResultsUploadResult
-      description: Class for uploading the results of an already-run experiment.
-    ExperimentResultsUpload:
-      properties:
-        experiment_name:
+        created_at:
           type: string
-          title: Experiment Name
-        experiment_description:
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        key:
+          type: string
+          title: Key
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
           anyOf:
           - type: string
           - type: 'null'
-          title: Experiment Description
-        dataset_id:
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_group_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Dataset Id
-        dataset_name:
+          title: Feedback Group Id
+        comparative_experiment_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Dataset Name
-        dataset_description:
+          title: Comparative Experiment Id
+        run_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Dataset Description
-        summary_experiment_scores:
+          title: Run Id
+        session_id:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/FeedbackCreateCoreSchema'
-            type: array
+          - type: string
+            format: uuid
           - type: 'null'
-          title: Summary Experiment Scores
-        results:
-          items:
-            $ref: '#/components/schemas/ExperimentResultRow'
-          type: array
-          title: Results
-        experiment_start_time:
+          title: Session Id
+        id:
           type: string
-          format: date-time
-          title: Experiment Start Time
-        experiment_end_time:
-          type: string
-          format: date-time
-          title: Experiment End Time
-        experiment_metadata:
+          format: uuid
+          title: Id
+        trace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        is_root:
+          type: boolean
+          title: Is Root
+          default: false
+        feedback_source:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackSource'
+          - type: 'null'
+        extra:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
-          title: Experiment Metadata
+          title: Extra
+        feedback_thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Thread Id
       type: object
       required:
-      - experiment_name
-      - results
-      - experiment_start_time
-      - experiment_end_time
-      title: ExperimentResultsUpload
-      description: Class for uploading the results of an already-run experiment.
-    Body_upload_csv_dataset_api_v1_datasets_upload_post:
-      properties:
-        file:
-          type: string
-          format: binary
-          title: File
-        input_keys:
-          items:
-            type: string
-          type: array
-          title: Input Keys
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        data_type:
-          $ref: '#/components/schemas/DataType'
-          default: kv
-        output_keys:
-          items:
-            type: string
-          type: array
-          title: Output Keys
-          default: []
-        metadata_keys:
-          items:
-            type: string
-          type: array
-          title: Metadata Keys
-          default: []
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        inputs_schema_definition:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Inputs Schema Definition
-        outputs_schema_definition:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Outputs Schema Definition
-        transformations:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Transformations
-        input_key_mappings:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Input Key Mappings
-        output_key_mappings:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Output Key Mappings
-        metadata_key_mappings:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Metadata Key Mappings
-      type: object
-      required:
-      - file
-      - input_keys
-      title: Body_upload_csv_dataset_api_v1_datasets_upload_post
+      - key
+      - id
+      title: FeedbackSchema
+      description: Schema for getting feedback.
     ExperimentResultRow:
       properties:
         row_id:
@@ -3372,201 +3787,232 @@ components:
       - end_time
       title: ExperimentResultRow
       description: Class for a single row in the uploaded experiment results.
-    PlaygroundRunOverDatasetBatchRequestSchema:
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
+    APIFeedbackSource:
       properties:
-        manifest:
-          title: Manifest
-        secrets:
-          additionalProperties:
-            type: string
-          type: object
-          title: Secrets
-        run_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Run Id
-        repo_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Repo Id
-        tools:
-          anyOf:
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Tools
-        tool_choice:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tool Choice
-        parallel_tool_calls:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Parallel Tool Calls
-        options:
-          $ref: '#/components/schemas/RunnableConfig'
-        project_name:
+        type:
           type: string
-          title: Project Name
-        repo_handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Repo Handle
-        owner:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Owner
-        commit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Commit
-        evaluator_rules:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Evaluator Rules
-        requests_per_second:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Requests Per Second
-        use_or_fallback_to_workspace_secrets:
-          type: boolean
-          title: Use Or Fallback To Workspace Secrets
-          default: false
-        runner_context:
-          anyOf:
-          - $ref: '#/components/schemas/RunnerContextEnum'
-          - type: 'null'
-          default: langsmith_ui
-        dataset_id:
-          type: string
-          format: uuid
-          title: Dataset Id
-        dataset_splits:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Dataset Splits
-        repetitions:
-          type: integer
-          maximum: 30.0
-          minimum: 1.0
-          title: Repetitions
-          default: 1
+          const: api
+          title: Type
+          default: api
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
           title: Metadata
-        batch_size:
-          anyOf:
-          - type: integer
-            maximum: 100.0
-            minimum: 1.0
-          - type: 'null'
-          title: Batch Size
       type: object
-      required:
-      - manifest
-      - secrets
-      - options
-      - project_name
-      - dataset_id
-      title: PlaygroundRunOverDatasetBatchRequestSchema
-    Body_update_dataset_splits_api_v1_datasets__dataset_id__splits_put:
+      title: APIFeedbackSource
+      description: API feedback source.
+    ComparativeExperiment:
       properties:
-        split_name:
-          type: string
-          title: Split Name
-        examples:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Examples
-        remove:
-          type: boolean
-          title: Remove
-          default: false
-      type: object
-      required:
-      - split_name
-      - examples
-      title: Body_update_dataset_splits_api_v1_datasets__dataset_id__splits_put
-    QueryFeedbackDelta:
-      properties:
-        baseline_session_id:
+        id:
           type: string
           format: uuid
-          title: Baseline Session Id
-        comparison_session_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Comparison Session Ids
-        feedback_key:
-          type: string
-          title: Feedback Key
-        filters:
+          title: Id
+        name:
           anyOf:
-          - additionalProperties:
-              items:
-                type: string
-              type: array
-            propertyNames:
-              format: uuid
+          - type: string
+          - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        reference_dataset_id:
+          type: string
+          format: uuid
+          title: Reference Dataset Id
+        extra:
+          anyOf:
+          - additionalProperties: true
             type: object
           - type: 'null'
-          title: Filters
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          default: 100
-        comparative_experiment_id:
+          title: Extra
+        experiments_info:
+          items:
+            $ref: '#/components/schemas/SimpleExperimentInfo'
+          type: array
+          title: Experiments Info
+        feedback_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Feedback Stats
+      type: object
+      required:
+      - id
+      - tenant_id
+      - created_at
+      - modified_at
+      - reference_dataset_id
+      - experiments_info
+      title: ComparativeExperiment
+      description: ComparativeExperiment schema.
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    GetDatasetsSelect:
+      type: string
+      enum:
+      - example_count
+      title: GetDatasetsSelect
+    ExampleWithRunsCH:
+      properties:
+        outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs
+        dataset_id:
+          type: string
+          format: uuid
+          title: Dataset Id
+        source_run_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Comparative Experiment Id
+          title: Source Run Id
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        inputs:
+          additionalProperties: true
+          type: object
+          title: Inputs
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        attachment_urls:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Attachment Urls
+        runs:
+          items:
+            $ref: '#/components/schemas/RunSchemaComparisonView'
+          type: array
+          title: Runs
       type: object
       required:
-      - baseline_session_id
-      - comparison_session_ids
-      - feedback_key
-      title: QueryFeedbackDelta
-    SortByDatasetColumn:
-      type: string
-      enum:
+      - dataset_id
+      - inputs
+      - id
       - name
-      - created_at
-      - last_session_start_time
-      - example_count
-      - session_count
-      - modified_at
-      title: SortByDatasetColumn
-      description: Enum for available dataset columns to sort by.
+      - runs
+      title: ExampleWithRunsCH
+      description: 'Example schema with list of runs from ClickHouse.
+
+
+        For non-grouped endpoint (/datasets/{dataset_id}/runs): runs from single session.
+
+        For grouped endpoint (/datasets/{dataset_id}/group/runs): flat array of runs from
+
+        all sessions, where each run has a session_id field for frontend to determine column placement.'
+    Missing:
+      properties:
+        __missing__:
+          type: string
+          const: __missing__
+          title: Missing
+      type: object
+      required:
+      - __missing__
+      title: Missing
+    GroupedExamplesWithRunsResponse:
+      properties:
+        groups:
+          items:
+            $ref: '#/components/schemas/ExampleGroupWithSessions'
+          type: array
+          title: Groups
+      type: object
+      required:
+      - groups
+      title: GroupedExamplesWithRunsResponse
+      description: 'Response for grouped comparison view of dataset examples.
+
+
+        Returns dataset examples grouped by a run metadata value (e.g., model=''gpt-4'').
+
+        Optional filters are applied to all runs before grouping.
+
+
+        Shows:
+
+        - Which examples were executed with each metadata value
+
+        - Per-session aggregate statistics for runs on those examples
+
+        - The actual example data with their associated runs
+
+
+        Used for comparing how different sessions performed on the same set of examples.'
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     ExampleGroupWithSessions:
       properties:
         filter:
@@ -3668,633 +4114,206 @@ components:
       - example_count
       title: ExampleGroupWithSessions
       description: "Group of examples with a specific metadata value across multiple sessions.\n\nExtends RunGroupBase with:\n- group_key: metadata value that defines this group\n- sessions: per-session stats for runs matching this metadata value\n- examples: shared examples across all sessions (intersection logic)\n            with flat array of runs (each run has session_id field for frontend to determine column)\n- example_count: unique example count (pagination-aware, same across all sessions due to intersection)\n\nInherited from RunGroupBase:\n- filter: metadata filter for this group (e.g., \"and(eq(is_root, true), and(eq(metadata_key, 'model'), eq(metadata_value, 'gpt-4')))\")\n- count: total run count across all sessions (includes duplicate runs)\n- total_tokens, total_cost: aggregate across sessions\n- min_start_time, max_start_time: time range across sessions\n- latency_p50, latency_p99: aggregate latency stats across sessions\n- feedback_stats: weighted average feedback across sessions\n\nAdditional aggregate stats:\n- prompt_tokens, completion_tokens: separate token counts\n- prompt_cost, completion_cost: separate costs\n- error_rate: average error rate"
-    QueryFeedbackDeltaBatch:
+    ModelFeedbackSource:
       properties:
-        baseline_session_id:
+        type:
           type: string
-          format: uuid
-          title: Baseline Session Id
-        comparison_session_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          maxItems: 10
-          minItems: 1
-          title: Comparison Session Ids
-        feedback_keys:
-          items:
-            type: string
-          type: array
-          maxItems: 100
-          minItems: 1
-          title: Feedback Keys
-        filters:
-          anyOf:
-          - additionalProperties:
-              items:
-                type: string
-              type: array
-            propertyNames:
-              format: uuid
-            type: object
-          - type: 'null'
-          title: Filters
-      type: object
-      required:
-      - baseline_session_id
-      - comparison_session_ids
-      - feedback_keys
-      title: QueryFeedbackDeltaBatch
-      description: Request schema for batched feedback delta queries with multiple feedback keys.
-    GetDatasetsSelect:
-      type: string
-      enum:
-      - example_count
-      title: GetDatasetsSelect
-    RunTypeEnum:
-      type: string
-      enum:
-      - tool
-      - chain
-      - llm
-      - retriever
-      - embedding
-      - prompt
-      - parser
-      title: RunTypeEnum
-      description: Enum for run types.
-    ComparativeExperimentCreate:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        experiment_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Experiment Ids
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        reference_dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Reference Dataset Id
-        extra:
+          const: model
+          title: Type
+          default: model
+        metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
-          title: Extra
-      type: object
-      required:
-      - experiment_ids
-      title: ComparativeExperimentCreate
-      description: Create class for ComparativeExperiment.
-    RunnableConfig:
-      properties:
-        tags:
-          items:
-            type: string
-          type: array
-          title: Tags
-        metadata:
-          additionalProperties: true
-          type: object
           title: Metadata
-        callbacks:
-          anyOf:
-          - items: {}
-            type: array
-          - {}
-          - type: 'null'
-          title: Callbacks
-        run_name:
-          type: string
-          title: Run Name
-        max_concurrency:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Concurrency
-        recursion_limit:
-          type: integer
-          title: Recursion Limit
-        configurable:
-          additionalProperties: true
-          type: object
-          title: Configurable
-        run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Id
       type: object
-      title: RunnableConfig
-      description: "Configuration for a `Runnable`.\n\n!!! note Custom values\n\n    The `TypedDict` has `total=False` set intentionally to:\n\n    - Allow partial configs to be created and merged together via `merge_configs`\n    - Support config propagation from parent to child runnables via\n        `var_child_runnable_config` (a `ContextVar` that automatically passes\n        config down the call stack without explicit parameter passing), where\n        configs are merged rather than replaced\n\n    !!! example\n\n        ```python\n        # Parent sets tags\n        chain.invoke(input, config={\"tags\": [\"parent\"]})\n        # Child automatically inherits and can add:\n        # ensure_config({\"tags\": [\"child\"]}) -> {\"tags\": [\"parent\", \"child\"]}\n        ```"
-    AttachmentsOperations:
+      title: ModelFeedbackSource
+      description: Model feedback source.
+    PlaygroundRunOverDatasetRequestSchema:
       properties:
-        rename:
+        manifest:
+          title: Manifest
+        secrets:
           additionalProperties:
             type: string
           type: object
-          title: Rename
-          description: Mapping of old attachment names to new names
-        retain:
-          items:
-            type: string
-          type: array
-          title: Retain
-          description: List of attachment names to keep
-      type: object
-      title: AttachmentsOperations
-    ComparativeExperimentBase:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
+          title: Secrets
+        run_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Name
-        description:
+          title: Run Id
+        repo_id:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        reference_dataset_id:
-          type: string
-          format: uuid
-          title: Reference Dataset Id
-        extra:
+          title: Repo Id
+        tools:
           anyOf:
-          - additionalProperties: true
-            type: object
+          - items: {}
+            type: array
           - type: 'null'
-          title: Extra
-      type: object
-      required:
-      - id
-      - tenant_id
-      - created_at
-      - modified_at
-      - reference_dataset_id
-      title: ComparativeExperimentBase
-      description: ComparativeExperiment schema.
-    DatasetDiffInfo:
-      properties:
-        examples_modified:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Examples Modified
-        examples_added:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Examples Added
-        examples_removed:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Examples Removed
-      type: object
-      required:
-      - examples_modified
-      - examples_added
-      - examples_removed
-      title: DatasetDiffInfo
-      description: Dataset diff schema.
-    GroupExampleRunsByField:
-      type: string
-      enum:
-      - run_metadata
-      - example_metadata
-      title: GroupExampleRunsByField
-    DatasetSchemaForUpdate:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
+          title: Tools
+        tool_choice:
           anyOf:
           - type: string
           - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        inputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Inputs Schema Definition
-        outputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs Schema Definition
-        externally_managed:
+          title: Tool Choice
+        parallel_tool_calls:
           anyOf:
           - type: boolean
           - type: 'null'
-          title: Externally Managed
-          default: false
-        transformations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/DatasetTransformation'
-            type: array
-          - type: 'null'
-          title: Transformations
-        data_type:
-          anyOf:
-          - $ref: '#/components/schemas/DataType'
-          - type: 'null'
-          default: kv
-        id:
+          title: Parallel Tool Calls
+        options:
+          $ref: '#/components/schemas/RunnableConfig'
+        project_name:
           type: string
-          format: uuid
-          title: Id
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-      type: object
-      required:
-      - name
-      - id
-      - tenant_id
-      title: DatasetSchemaForUpdate
-    RunnerContextEnum:
-      type: string
-      enum:
-      - langsmith_ui
-      - langsmith_align_evals
-      title: RunnerContextEnum
-    FeedbackType:
-      type: string
-      enum:
-      - continuous
-      - categorical
-      - freeform
-      title: FeedbackType
-      description: Enum for feedback types.
-    APIFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: api
-          title: Type
-          default: api
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: APIFeedbackSource
-      description: API feedback source.
-    Body_clone_dataset_api_v1_datasets_clone_post:
-      properties:
-        target_dataset_id:
-          type: string
-          format: uuid
-          title: Target Dataset Id
-        source_dataset_id:
-          type: string
-          format: uuid
-          title: Source Dataset Id
-        as_of:
-          anyOf:
-          - anyOf:
-            - type: string
-              format: date-time
-            - type: string
-            description: Only modifications made on or before this time are included. If None, the latest version of the dataset is used.
-          - type: 'null'
-          title: As Of
-        examples:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Examples
-          default: []
-        split:
-          anyOf:
-          - type: string
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Split
-      type: object
-      required:
-      - target_dataset_id
-      - source_dataset_id
-      title: Body_clone_dataset_api_v1_datasets_clone_post
-    Missing:
-      properties:
-        __missing__:
-          type: string
-          const: __missing__
-          title: Missing
-      type: object
-      required:
-      - __missing__
-      title: Missing
-    FeedbackSource:
-      properties:
-        type:
+          title: Project Name
+        repo_handle:
           anyOf:
           - type: string
           - type: 'null'
-          title: Type
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        ls_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ls User Id
-        user_name:
+          title: Repo Handle
+        owner:
           anyOf:
           - type: string
           - type: 'null'
-          title: User Name
-      type: object
-      title: FeedbackSource
-      description: The feedback source loaded from the database.
-    SortByComparativeExperimentColumn:
-      type: string
-      enum:
-      - name
-      - created_at
-      title: SortByComparativeExperimentColumn
-      description: Enum for available comparative experiment columns to sort by.
-    ExampleUpdate:
-      properties:
-        dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Dataset Id
-        inputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Inputs
-        outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs
-        attachments_operations:
-          anyOf:
-          - $ref: '#/components/schemas/AttachmentsOperations'
-          - type: 'null'
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        split:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: string
-          - type: 'null'
-          title: Split
-        overwrite:
-          type: boolean
-          title: Overwrite
-          default: false
-      type: object
-      title: ExampleUpdate
-      description: Update class for Example.
-    GroupedExperimentsRequest:
-      properties:
-        stats_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Stats Start Time
-        name_contains:
+          title: Owner
+        commit:
           anyOf:
           - type: string
           - type: 'null'
-          title: Name Contains
-        tag_value_id:
+          title: Commit
+        evaluator_rules:
           anyOf:
           - items:
               type: string
               format: uuid
             type: array
           - type: 'null'
-          title: Tag Value Id
-        dataset_version:
+          title: Evaluator Rules
+        requests_per_second:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Dataset Version
-        filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filter
-        use_approx_stats:
+          title: Requests Per Second
+        use_or_fallback_to_workspace_secrets:
           type: boolean
-          title: Use Approx Stats
+          title: Use Or Fallback To Workspace Secrets
           default: false
-        metadata_keys:
-          items:
-            type: string
-          type: array
-          maxItems: 4
-          minItems: 1
-          title: Metadata Keys
-        experiment_limit:
-          type: integer
-          maximum: 1000.0
-          minimum: 1.0
-          title: Experiment Limit
-          default: 1000
-      type: object
-      required:
-      - metadata_keys
-      title: GroupedExperimentsRequest
-      description: Schema for grouped experiment (tracer session) query.
-    FeedbackConfig:
-      properties:
-        type:
-          $ref: '#/components/schemas/FeedbackType'
-        min:
+        runner_context:
           anyOf:
-          - type: number
+          - $ref: '#/components/schemas/RunnerContextEnum'
           - type: 'null'
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Max
-        categories:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/FeedbackCategory'
-            type: array
-          - type: 'null'
-          title: Categories
-      type: object
-      required:
-      - type
-      title: FeedbackConfig
-    ExampleWithRunsCH:
-      properties:
-        outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs
+          default: langsmith_ui
         dataset_id:
           type: string
           format: uuid
           title: Dataset Id
-        source_run_id:
+        dataset_splits:
           anyOf:
-          - type: string
-            format: uuid
+          - items:
+              type: string
+            type: array
           - type: 'null'
-          title: Source Run Id
+          title: Dataset Splits
+        repetitions:
+          type: integer
+          maximum: 30.0
+          minimum: 1.0
+          title: Repetitions
+          default: 1
         metadata:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
           title: Metadata
-        inputs:
-          additionalProperties: true
-          type: object
-          title: Inputs
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        id:
+      type: object
+      required:
+      - manifest
+      - secrets
+      - options
+      - project_name
+      - dataset_id
+      title: PlaygroundRunOverDatasetRequestSchema
+    DatasetShareSchema:
+      properties:
+        dataset_id:
           type: string
           format: uuid
-          title: Id
-        name:
+          title: Dataset Id
+        share_token:
           type: string
-          title: Name
-        modified_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Modified At
-        attachment_urls:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Attachment Urls
-        runs:
-          items:
-            $ref: '#/components/schemas/RunSchemaComparisonView'
-          type: array
-          title: Runs
+          format: uuid
+          title: Share Token
       type: object
       required:
       - dataset_id
-      - inputs
-      - id
-      - name
-      - runs
-      title: ExampleWithRunsCH
-      description: 'Example schema with list of runs from ClickHouse.
+      - share_token
+      title: DatasetShareSchema
+    DatasetTransformationType:
+      type: string
+      enum:
+      - convert_to_openai_message
+      - convert_to_openai_tool
+      - remove_system_messages
+      - remove_extra_fields
+      - extract_tools_from_run
+      title: DatasetTransformationType
+      description: 'Enum for dataset transformation types.
 
-
-        For non-grouped endpoint (/datasets/{dataset_id}/runs): runs from single session.
-
-        For grouped endpoint (/datasets/{dataset_id}/group/runs): flat array of runs from
-
-        all sessions, where each run has a session_id field for frontend to determine column placement.'
+        Ordering determines the order in which transformations are applied if there are multiple transformations on the same path.'
+    DatasetVersion:
+      properties:
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+        as_of:
+          type: string
+          format: date-time
+          title: As Of
+      type: object
+      required:
+      - as_of
+      title: DatasetVersion
+      description: Dataset version schema.
+    DataType:
+      type: string
+      enum:
+      - kv
+      - llm
+      - chat
+      title: DataType
+      description: Enum for dataset data types.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

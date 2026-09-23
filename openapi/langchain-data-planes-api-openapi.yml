@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies data_planes API
+  title: LangSmith Data Planes API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: data_planes
+- name: data planes
 paths:
   /v1/platform/orgs/current/data-planes:
     get:
@@ -31,7 +28,7 @@ paths:
       - Bearer Auth: []
       description: Returns up to 50 data planes owned by the caller's organization. Sorted status priority (active first), then newest first. Requires BYOC to be enabled for the org.
       tags:
-      - data_planes
+      - data planes
       summary: List data planes for the current organization
       responses:
         '200':
@@ -73,8 +70,25 @@ paths:
                 additionalProperties:
                   type: string
       parameters: []
+      operationId: getV1PlatformOrgsCurrentDataPlanes
+      x-operation-id-source: derived
 components:
   schemas:
+    data_planes.PublicDataPlane:
+      type: object
+      properties:
+        api_url:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        region:
+          type: string
+        status:
+          $ref: '#/components/schemas/data_planes.Status'
     data_planes.Status:
       type: string
       enum:
@@ -95,21 +109,6 @@ components:
       - DataPlaneStatusDeprovisioning
       - DataPlaneStatusDeleted
       - DataPlaneStatusRevoked
-    data_planes.PublicDataPlane:
-      type: object
-      properties:
-        api_url:
-          type: string
-        created_at:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        region:
-          type: string
-        status:
-          $ref: '#/components/schemas/data_planes.Status'
     data_planes.ListPublicDataPlanesResponse:
       type: object
       properties:
@@ -118,19 +117,19 @@ components:
           items:
             $ref: '#/components/schemas/data_planes.PublicDataPlane'
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

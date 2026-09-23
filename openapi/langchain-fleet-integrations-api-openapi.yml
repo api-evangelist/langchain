@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies fleet integrations API
+  title: LangSmith fleet integrations API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -77,6 +74,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/integrations.ErrorResponse'
+      operationId: getV1FleetIntegrations
+      x-operation-id-source: derived
     post:
       security:
       - API Key: []
@@ -118,6 +117,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/integrations.CreateRequest'
+      operationId: postV1FleetIntegrations
+      x-operation-id-source: derived
   /v1/fleet/integrations/{id}:
     get:
       security:
@@ -159,6 +160,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/integrations.ErrorResponse'
+      operationId: getV1FleetIntegrationsById
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -190,6 +193,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/integrations.ErrorResponse'
+      operationId: deleteV1FleetIntegrationsById
+      x-operation-id-source: derived
     patch:
       security:
       - API Key: []
@@ -243,6 +248,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/integrations.UpdateRequest'
+      operationId: patchV1FleetIntegrationsById
+      x-operation-id-source: derived
   /v1/fleet/integrations/{id}/auth-methods:
     put:
       security:
@@ -297,8 +304,21 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/integrations.ReplaceAuthMethodsRequest'
+      operationId: putV1FleetIntegrationsByIdAuthMethods
+      x-operation-id-source: derived
 components:
   schemas:
+    integrations.ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        type:
+          type: string
     integrations.AuthMethod:
       type: object
       properties:
@@ -306,54 +326,6 @@ components:
           $ref: '#/components/schemas/integrations.ProviderMatch'
         type:
           $ref: '#/components/schemas/integrations.AuthType'
-    integrations.ListResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.Integration'
-        next_cursor:
-          type: string
-    integrations.CreateRequest:
-      type: object
-      required:
-      - name
-      - url
-      properties:
-        category:
-          type: string
-        description:
-          type: string
-        icon_url:
-          type: string
-        name:
-          type: string
-        source:
-          type: string
-        url:
-          type: string
-    integrations.ProviderMatch:
-      type: object
-      properties:
-        by:
-          $ref: '#/components/schemas/integrations.MatchBy'
-        value:
-          type: string
-    integrations.MatchBy:
-      type: string
-      enum:
-      - kind
-      - id
-      x-enum-varnames:
-      - MatchByKind
-      - MatchByID
-    integrations.Transport:
-      type: string
-      enum:
-      - mcp_http
-      x-enum-varnames:
-      - TransportMCPHTTP
     integrations.UpdateRequest:
       type: object
       properties:
@@ -379,17 +351,6 @@ components:
       - AuthTypeHeaders
       - AuthTypeAPIKey
       - AuthTypeNone
-    integrations.ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        detail:
-          type: string
-        status:
-          type: integer
-        type:
-          type: string
     integrations.Integration:
       type: object
       properties:
@@ -419,6 +380,48 @@ components:
           type: string
         url:
           type: string
+    integrations.CreateRequest:
+      type: object
+      required:
+      - name
+      - url
+      properties:
+        category:
+          type: string
+        description:
+          type: string
+        icon_url:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        url:
+          type: string
+    integrations.MatchBy:
+      type: string
+      enum:
+      - kind
+      - id
+      x-enum-varnames:
+      - MatchByKind
+      - MatchByID
+    integrations.ListResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.Integration'
+        next_cursor:
+          type: string
+    integrations.ProviderMatch:
+      type: object
+      properties:
+        by:
+          $ref: '#/components/schemas/integrations.MatchBy'
+        value:
+          type: string
     integrations.ReplaceAuthMethodsRequest:
       type: object
       properties:
@@ -426,20 +429,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/integrations.AuthMethod'
+    integrations.Transport:
+      type: string
+      enum:
+      - mcp_http
+      x-enum-varnames:
+      - TransportMCPHTTP
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

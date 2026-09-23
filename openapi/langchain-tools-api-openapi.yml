@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies tools API
+  title: LangSmith Tools API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: tools
+- name: Tools
 paths:
   /v1/platform/tools:
     get:
@@ -31,7 +28,7 @@ paths:
       - Bearer Auth: []
       description: Returns a paginated list of tools in the workspace.
       tags:
-      - tools
+      - Tools
       summary: List tools
       parameters:
       - description: Maximum number of tools to return
@@ -83,6 +80,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tools.ErrorResponse'
+      operationId: getV1PlatformTools
+      x-operation-id-source: derived
     post:
       security:
       - API Key: []
@@ -90,7 +89,7 @@ paths:
       - Bearer Auth: []
       description: Creates a new tool in the workspace.
       tags:
-      - tools
+      - Tools
       summary: Create a tool
       parameters: []
       responses:
@@ -136,6 +135,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tools.CreateToolPayload'
+      operationId: postV1PlatformTools
+      x-operation-id-source: derived
   /v1/platform/tools/id/{id}:
     get:
       security:
@@ -144,7 +145,7 @@ paths:
       - Bearer Auth: []
       description: Returns a tool identified by its UUID.
       tags:
-      - tools
+      - Tools
       summary: Get a tool by ID
       parameters:
       - description: Tool UUID
@@ -190,6 +191,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tools.ErrorResponse'
+      operationId: getV1PlatformToolsIdById
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -197,7 +200,7 @@ paths:
       - Bearer Auth: []
       description: Deletes a tool identified by its UUID.
       tags:
-      - tools
+      - Tools
       summary: Delete a tool by ID
       parameters:
       - description: Tool UUID
@@ -239,6 +242,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tools.ErrorResponse'
+      operationId: deleteV1PlatformToolsIdById
+      x-operation-id-source: derived
     patch:
       security:
       - API Key: []
@@ -246,7 +251,7 @@ paths:
       - Bearer Auth: []
       description: Updates an existing tool identified by its UUID.
       tags:
-      - tools
+      - Tools
       summary: Update a tool by ID
       parameters:
       - description: Tool UUID
@@ -298,6 +303,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tools.UpdateToolPayload'
+      operationId: patchV1PlatformToolsIdById
+      x-operation-id-source: derived
   /v1/platform/tools/{handle}:
     get:
       security:
@@ -306,7 +313,7 @@ paths:
       - Bearer Auth: []
       description: Returns a tool identified by its handle.
       tags:
-      - tools
+      - Tools
       summary: Get a tool by handle
       parameters:
       - description: Tool handle
@@ -352,6 +359,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tools.ErrorResponse'
+      operationId: getV1PlatformToolsByHandle
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -359,7 +368,7 @@ paths:
       - Bearer Auth: []
       description: Deletes a tool identified by its handle.
       tags:
-      - tools
+      - Tools
       summary: Delete a tool by handle
       parameters:
       - description: Tool handle
@@ -401,6 +410,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/tools.ErrorResponse'
+      operationId: deleteV1PlatformToolsByHandle
+      x-operation-id-source: derived
     patch:
       security:
       - API Key: []
@@ -408,7 +419,7 @@ paths:
       - Bearer Auth: []
       description: Updates an existing tool identified by its handle.
       tags:
-      - tools
+      - Tools
       summary: Update a tool by handle
       parameters:
       - description: Tool handle
@@ -460,6 +471,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/tools.UpdateToolPayload'
+      operationId: patchV1PlatformToolsByHandle
+      x-operation-id-source: derived
 components:
   schemas:
     tools.ListToolsResponse:
@@ -473,6 +486,30 @@ components:
             $ref: '#/components/schemas/tools.Tool'
         total:
           type: integer
+    tools.ErrorResponse:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
+    tools.UpdateToolPayload:
+      type: object
+      properties:
+        description:
+          type: string
+        enabled:
+          type: boolean
+        metadata:
+          type: object
+          additionalProperties: true
+        name:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: true
+        returns:
+          type: object
+          additionalProperties: true
     tools.CreateToolPayload:
       type: object
       required:
@@ -487,24 +524,6 @@ components:
           type: boolean
         handle:
           type: string
-        metadata:
-          type: object
-          additionalProperties: true
-        name:
-          type: string
-        parameters:
-          type: object
-          additionalProperties: true
-        returns:
-          type: object
-          additionalProperties: true
-    tools.UpdateToolPayload:
-      type: object
-      properties:
-        description:
-          type: string
-        enabled:
-          type: boolean
         metadata:
           type: object
           additionalProperties: true
@@ -544,26 +563,20 @@ components:
           type: string
         updated_at:
           type: string
-    tools.ErrorResponse:
-      type: object
-      properties:
-        error:
-          description: Error message
-          type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

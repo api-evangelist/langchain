@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies commits API
+  title: LangSmith Commits API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,15 +13,12 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: commits
+- name: Commits
 paths:
   /commits/{owner}/{repo}:
     get:
@@ -37,7 +34,7 @@ paths:
 
         The include_stats parameter controls whether download and view statistics are computed (defaults to true).'
       tags:
-      - commits
+      - Commits
       summary: List commits
       parameters:
       - description: Repository owner (tenant handle) or '-' for private repos
@@ -107,6 +104,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/commits.ErrorResponse'
+      operationId: getCommitsByOwnerByRepo
+      x-operation-id-source: derived
     post:
       security:
       - API Key: []
@@ -116,7 +115,7 @@ paths:
 
         Requires authentication and write access to the repository.'
       tags:
-      - commits
+      - Commits
       summary: Create a commit
       parameters:
       - description: Repository owner (tenant handle) or '-' for private repos
@@ -168,6 +167,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/commits.CreateCommitReq'
+      operationId: postCommitsByOwnerByRepo
+      x-operation-id-source: derived
   /commits/{owner}/{repo}/{commit}:
     get:
       security:
@@ -188,7 +189,7 @@ paths:
 
         - 8 or more characters: Prioritize commit hash over tag, check both'
       tags:
-      - commits
+      - Commits
       summary: Get a commit
       parameters:
       - description: Repository owner (tenant handle) or '-' for private repos
@@ -259,45 +260,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/commits.ErrorResponse'
+      operationId: getCommitsByOwnerByRepoByCommit
+      x-operation-id-source: derived
 components:
   schemas:
-    commits.ListCommitsResponse:
-      type: object
-      properties:
-        commits:
-          description: List of commits with lookup information
-          type: array
-          items:
-            $ref: '#/components/schemas/commits.CommitWithLookups'
-        total:
-          description: Total number of commits
-          type: integer
-    commits.ExampleRun:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        inputs:
-          type: object
-        outputs:
-          type: object
-        session_id:
-          type: string
-          format: uuid
-        start_time:
-          type: string
-    commits.CreateCommitReq:
-      type: object
-      properties:
-        description:
-          type: string
-        manifest:
-          type: object
-        parent_commit:
-          type: string
-        skip_webhooks:
-          description: SkipWebhooks allows skipping webhook notifications. Can be true (boolean) to skip all, or an array of webhook UUIDs to skip specific ones.
     commits.CommitWithLookups:
       type: object
       properties:
@@ -353,12 +319,39 @@ components:
           description: When the commit was last updated
           type: string
           format: date-time
+    commits.ListCommitsResponse:
+      type: object
+      properties:
+        commits:
+          description: List of commits with lookup information
+          type: array
+          items:
+            $ref: '#/components/schemas/commits.CommitWithLookups'
+        total:
+          description: Total number of commits
+          type: integer
+    commits.CreateCommitReq:
+      type: object
+      properties:
+        description:
+          type: string
+        manifest:
+          type: object
+        parent_commit:
+          type: string
+        skip_webhooks:
+          description: SkipWebhooks allows skipping webhook notifications. Can be true (boolean) to skip all, or an array of webhook UUIDs to skip specific ones.
     commits.ErrorResponse:
       type: object
       properties:
         error:
           description: Error message
           type: string
+    commits.CreateCommitResponse:
+      type: object
+      properties:
+        commit:
+          $ref: '#/components/schemas/commits.CommitWithLookups'
     commits.CommitResponse:
       type: object
       properties:
@@ -378,25 +371,35 @@ components:
           type: object
         model_provider:
           type: string
-    commits.CreateCommitResponse:
+    commits.ExampleRun:
       type: object
       properties:
-        commit:
-          $ref: '#/components/schemas/commits.CommitWithLookups'
+        id:
+          type: string
+          format: uuid
+        inputs:
+          type: object
+        outputs:
+          type: object
+        session_id:
+          type: string
+          format: uuid
+        start_time:
+          type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies mcp_vendors API
+  title: LangSmith MCP Vendors API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,10 +13,7 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
@@ -53,6 +50,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
       parameters: []
+      operationId: getV1PlatformMcpVendors
+      x-operation-id-source: derived
   /v1/platform/mcp-vendors/{vendor_slug}:
     get:
       security:
@@ -95,6 +94,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      operationId: getV1PlatformMcpVendorsByVendorSlug
+      x-operation-id-source: derived
   /v1/platform/mcp-vendors/{vendor_slug}/account:
     get:
       security:
@@ -149,6 +150,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      operationId: getV1PlatformMcpVendorsByVendorSlugAccount
+      x-operation-id-source: derived
   /v1/platform/mcp-vendors/{vendor_slug}/mcp-servers:
     get:
       security:
@@ -215,6 +218,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      operationId: getV1PlatformMcpVendorsByVendorSlugMcpServers
+      x-operation-id-source: derived
   /v1/platform/mcp-vendors/{vendor_slug}/settings:
     get:
       security:
@@ -257,6 +262,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      operationId: getV1PlatformMcpVendorsByVendorSlugSettings
+      x-operation-id-source: derived
     put:
       security:
       - API Key: []
@@ -310,6 +317,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsRequest'
+      operationId: putV1PlatformMcpVendorsByVendorSlugSettings
+      x-operation-id-source: derived
     post:
       security:
       - API Key: []
@@ -369,6 +378,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/mcp_vendors.ArcadeSettingsRequest'
+      operationId: postV1PlatformMcpVendorsByVendorSlugSettings
+      x-operation-id-source: derived
     delete:
       security:
       - API Key: []
@@ -410,6 +421,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      operationId: deleteV1PlatformMcpVendorsByVendorSlugSettings
+      x-operation-id-source: derived
   /v1/platform/mcp-vendors/{vendor_slug}/tools:
     get:
       security:
@@ -464,6 +477,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/mcp_vendors.ErrorResponse'
+      operationId: getV1PlatformMcpVendorsByVendorSlugTools
+      x-operation-id-source: derived
 components:
   schemas:
     mcp_vendors.VendorTool:
@@ -482,64 +497,6 @@ components:
           type: string
         organization_id:
           type: string
-    mcp_vendors.ErrorResponse:
-      type: object
-      properties:
-        detail:
-          type: string
-        message:
-          type: string
-    mcp_vendors.ArcadeSettingsResponse:
-      type: object
-      properties:
-        is_configured:
-          type: boolean
-        organization_id:
-          type: string
-        project_id:
-          type: string
-    mcp_vendors.McpVendor:
-      type: object
-      properties:
-        description:
-          type: string
-        icon:
-          type: string
-        name:
-          type: string
-        status:
-          $ref: '#/components/schemas/mcp_vendors.McpVendorStatus'
-        vendor_id:
-          type: string
-    mcp_vendors.McpGatewayToolFilter:
-      type: object
-      properties:
-        allowed_tools:
-          type: array
-          items:
-            type: string
-    mcp_vendors.ListMcpGatewaysResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/mcp_vendors.McpGateway'
-        limit:
-          type: integer
-        offset:
-          type: integer
-        page_count:
-          type: integer
-        total_count:
-          type: integer
-    mcp_vendors.ArcadeSettingsRequest:
-      type: object
-      properties:
-        organization_id:
-          type: string
-        project_id:
-          type: string
     mcp_vendors.ArcadeAccountResponseList:
       type: object
       properties:
@@ -551,6 +508,53 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/mcp_vendors.ArcadeAccountProject'
+    mcp_vendors.McpVendorStatus:
+      type: string
+      enum:
+      - enabled
+      - disabled
+      x-enum-varnames:
+      - McpVendorStatusEnabled
+      - McpVendorStatusDisabled
+    mcp_vendors.ArcadeSettingsResponse:
+      type: object
+      properties:
+        is_configured:
+          type: boolean
+        organization_id:
+          type: string
+        project_id:
+          type: string
+    mcp_vendors.McpGatewayToolFilter:
+      type: object
+      properties:
+        allowed_tools:
+          type: array
+          items:
+            type: string
+    mcp_vendors.McpGatewayBinding:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+    mcp_vendors.GetMcpVendorResponse:
+      type: object
+      properties:
+        description:
+          type: string
+        icon:
+          type: string
+        name:
+          type: string
+        provider_id:
+          type: string
+        settings: {}
+        status:
+          $ref: '#/components/schemas/mcp_vendors.McpVendorStatus'
+        vendor_id:
+          type: string
     mcp_vendors.McpGateway:
       type: object
       properties:
@@ -576,6 +580,26 @@ components:
           $ref: '#/components/schemas/mcp_vendors.McpGatewayToolFilter'
         updated_at:
           type: string
+    mcp_vendors.ErrorResponse:
+      type: object
+      properties:
+        detail:
+          type: string
+        message:
+          type: string
+    mcp_vendors.McpVendor:
+      type: object
+      properties:
+        description:
+          type: string
+        icon:
+          type: string
+        name:
+          type: string
+        status:
+          $ref: '#/components/schemas/mcp_vendors.McpVendorStatus'
+        vendor_id:
+          type: string
     mcp_vendors.ArcadeAccountProject:
       type: object
       properties:
@@ -587,13 +611,28 @@ components:
           type: string
         project_id:
           type: string
-    mcp_vendors.McpGatewayBinding:
+    mcp_vendors.ListMcpGatewaysResponse:
       type: object
       properties:
-        id:
-          type: string
-        type:
-          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.McpGateway'
+        limit:
+          type: integer
+        offset:
+          type: integer
+        page_count:
+          type: integer
+        total_count:
+          type: integer
+    mcp_vendors.ListMcpVendorsResponse:
+      type: object
+      properties:
+        mcp_vendors:
+          type: array
+          items:
+            $ref: '#/components/schemas/mcp_vendors.McpVendor'
     mcp_vendors.ListVendorToolsResponse:
       type: object
       properties:
@@ -607,51 +646,27 @@ components:
             $ref: '#/components/schemas/mcp_vendors.VendorTool'
         total:
           type: integer
-    mcp_vendors.McpVendorStatus:
-      type: string
-      enum:
-      - enabled
-      - disabled
-      x-enum-varnames:
-      - McpVendorStatusEnabled
-      - McpVendorStatusDisabled
-    mcp_vendors.ListMcpVendorsResponse:
+    mcp_vendors.ArcadeSettingsRequest:
       type: object
       properties:
-        mcp_vendors:
-          type: array
-          items:
-            $ref: '#/components/schemas/mcp_vendors.McpVendor'
-    mcp_vendors.GetMcpVendorResponse:
-      type: object
-      properties:
-        description:
+        organization_id:
           type: string
-        icon:
-          type: string
-        name:
-          type: string
-        provider_id:
-          type: string
-        settings: {}
-        status:
-          $ref: '#/components/schemas/mcp_vendors.McpVendorStatus'
-        vendor_id:
+        project_id:
           type: string
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

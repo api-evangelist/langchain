@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies audit-logs API
+  title: LangSmith Audit Logs API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: audit-logs
+- name: Audit Logs
 paths:
   /api/v1/audit-logs:
     get:
       tags:
-      - audit-logs
+      - Audit Logs
       summary: Get Audit Logs
       description: 'Retrieve audit log records for the authenticated user''s organization in OCSF format.
 
@@ -124,24 +121,175 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    OCSFHttpResponse:
-      properties:
-        code:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Code
-      type: object
-      required:
-      - code
-      title: OCSFHttpResponse
-      description: OCSF HTTP response object.
-    OCSFCategoryUid:
+    OCSFActivityId:
       type: integer
       enum:
-      - 6
-      title: OCSFCategoryUid
-      description: OCSF category UIDs.
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 99
+      title: OCSFActivityId
+      description: Activity types for API Activity class.
+    AuditLogMessage:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        operation_name:
+          type: string
+          title: Operation Name
+        operation_succeeded:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Operation Succeeded
+        request_time:
+          type: string
+          format: date-time
+          title: Request Time
+        api_key_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Api Key Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ls User Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        enrichments:
+          anyOf:
+          - $ref: '#/components/schemas/AuditLogEnrichments'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - operation_name
+      - operation_succeeded
+      - request_time
+      - api_key_id
+      - user_id
+      - ls_user_id
+      - organization_id
+      - workspace_id
+      - enrichments
+      title: AuditLogMessage
+      description: 'Represents an audit log message.
+
+
+        Indexed columns are individual DB columns. All other fields
+
+        (request_method, request_path, client_host, etc.) live in the
+
+        enrichments JSONB column.'
+    OCSFApiActivity:
+      properties:
+        class_uid:
+          $ref: '#/components/schemas/OCSFClassUid'
+        class_name:
+          $ref: '#/components/schemas/OCSFClassName'
+        category_uid:
+          $ref: '#/components/schemas/OCSFCategoryUid'
+        category_name:
+          $ref: '#/components/schemas/OCSFCategoryName'
+        severity_id:
+          $ref: '#/components/schemas/OCSFSeverityId'
+        type_uid:
+          $ref: '#/components/schemas/OCSFTypeUid'
+        activity_id:
+          $ref: '#/components/schemas/OCSFActivityId'
+        activity_name:
+          type: string
+          title: Activity Name
+        status_id:
+          $ref: '#/components/schemas/OCSFStatusId'
+        status:
+          type: string
+          title: Status
+        time:
+          type: integer
+          title: Time
+        metadata:
+          $ref: '#/components/schemas/OCSFMetadata'
+        api:
+          $ref: '#/components/schemas/OCSFApi'
+        http_request:
+          $ref: '#/components/schemas/OCSFHttpRequest'
+        http_response:
+          $ref: '#/components/schemas/OCSFHttpResponse'
+        actor:
+          $ref: '#/components/schemas/OCSFActor'
+        src_endpoint:
+          $ref: '#/components/schemas/OCSFEndpoint'
+        resources:
+          items:
+            $ref: '#/components/schemas/OCSFResourceDetails'
+          type: array
+          title: Resources
+        unmapped:
+          $ref: '#/components/schemas/OCSFUnmapped'
+      type: object
+      required:
+      - class_uid
+      - class_name
+      - category_uid
+      - category_name
+      - severity_id
+      - type_uid
+      - activity_id
+      - activity_name
+      - status_id
+      - status
+      - time
+      - metadata
+      - api
+      - http_request
+      - http_response
+      - actor
+      - src_endpoint
+      - resources
+      - unmapped
+      title: OCSFApiActivity
+      description: 'OCSF API Activity event (Class UID: 6003).
+
+
+        This represents an API call event in the OCSF format.
+
+        Reference: https://schema.ocsf.io/1.7.0/classes/api_activity
+
+
+        Remember to try to validate the OCSF event against the official OCSF schema validator API: https://schema.ocsf.io/doc/index.html#/Tools/SchemaWeb.SchemaController.validate
+
+        Or with `test_ocsf_validates_against_schema()` in test_audit_logs_models.py.'
+    OCSFClassUid:
+      type: integer
+      enum:
+      - 6003
+      title: OCSFClassUid
+      description: OCSF class UIDs.
     OCSFActor:
       properties:
         user:
@@ -151,27 +299,18 @@ components:
       - user
       title: OCSFActor
       description: OCSF actor object.
-    ValidationError:
+    OCSFUnmapped:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+        original_audit_log:
+          $ref: '#/components/schemas/AuditLogMessage'
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - original_audit_log
+      title: OCSFUnmapped
+      description: 'OCSF unmapped attribute for source-specific data.
+
+
+        Reference: https://schema.ocsf.io/1.7.0/classes/base_event'
     AuditLogOperation:
       type: string
       enum:
@@ -513,265 +652,29 @@ components:
       - update_self_hosted_license
       title: AuditLogOperation
       description: Operations that are logged in audit_logs database table.
+    OCSFCategoryUid:
+      type: integer
+      enum:
+      - 6
+      title: OCSFCategoryUid
+      description: OCSF category UIDs.
+    OCSFResourceDetails:
+      properties:
+        uid:
+          type: string
+          format: uuid
+          title: Uid
+      type: object
+      required:
+      - uid
+      title: OCSFResourceDetails
+      description: OCSF resource details object.
     OCSFSeverityId:
       type: integer
       enum:
       - 99
       title: OCSFSeverityId
       description: Severity levels for OCSF events.
-    OCSFMetadata:
-      properties:
-        uid:
-          type: string
-          format: uuid
-          title: Uid
-        product:
-          $ref: '#/components/schemas/OCSFProduct'
-      type: object
-      required:
-      - uid
-      - product
-      title: OCSFMetadata
-      description: OCSF event metadata.
-    OCSFActivityId:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      - 3
-      - 4
-      - 99
-      title: OCSFActivityId
-      description: Activity types for API Activity class.
-    OCSFUser:
-      properties:
-        uid:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Uid
-        credential_uid:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Credential Uid
-      type: object
-      required:
-      - uid
-      - credential_uid
-      title: OCSFUser
-      description: OCSF user object within actor.
-    OCSFClassName:
-      type: string
-      enum:
-      - API Activity
-      title: OCSFClassName
-      description: OCSF class names.
-    OCSFProduct:
-      properties:
-        name:
-          type: string
-          title: Name
-        vendor_name:
-          type: string
-          title: Vendor Name
-      type: object
-      required:
-      - name
-      - vendor_name
-      title: OCSFProduct
-      description: OCSF product object.
-    OCSFApiActivity:
-      properties:
-        class_uid:
-          $ref: '#/components/schemas/OCSFClassUid'
-        class_name:
-          $ref: '#/components/schemas/OCSFClassName'
-        category_uid:
-          $ref: '#/components/schemas/OCSFCategoryUid'
-        category_name:
-          $ref: '#/components/schemas/OCSFCategoryName'
-        severity_id:
-          $ref: '#/components/schemas/OCSFSeverityId'
-        type_uid:
-          $ref: '#/components/schemas/OCSFTypeUid'
-        activity_id:
-          $ref: '#/components/schemas/OCSFActivityId'
-        activity_name:
-          type: string
-          title: Activity Name
-        status_id:
-          $ref: '#/components/schemas/OCSFStatusId'
-        status:
-          type: string
-          title: Status
-        time:
-          type: integer
-          title: Time
-        metadata:
-          $ref: '#/components/schemas/OCSFMetadata'
-        api:
-          $ref: '#/components/schemas/OCSFApi'
-        http_request:
-          $ref: '#/components/schemas/OCSFHttpRequest'
-        http_response:
-          $ref: '#/components/schemas/OCSFHttpResponse'
-        actor:
-          $ref: '#/components/schemas/OCSFActor'
-        src_endpoint:
-          $ref: '#/components/schemas/OCSFEndpoint'
-        resources:
-          items:
-            $ref: '#/components/schemas/OCSFResourceDetails'
-          type: array
-          title: Resources
-        unmapped:
-          $ref: '#/components/schemas/OCSFUnmapped'
-      type: object
-      required:
-      - class_uid
-      - class_name
-      - category_uid
-      - category_name
-      - severity_id
-      - type_uid
-      - activity_id
-      - activity_name
-      - status_id
-      - status
-      - time
-      - metadata
-      - api
-      - http_request
-      - http_response
-      - actor
-      - src_endpoint
-      - resources
-      - unmapped
-      title: OCSFApiActivity
-      description: 'OCSF API Activity event (Class UID: 6003).
-
-
-        This represents an API call event in the OCSF format.
-
-        Reference: https://schema.ocsf.io/1.7.0/classes/api_activity
-
-
-        Remember to try to validate the OCSF event against the official OCSF schema validator API: https://schema.ocsf.io/doc/index.html#/Tools/SchemaWeb.SchemaController.validate
-
-        Or with `test_ocsf_validates_against_schema()` in test_audit_logs_models.py.'
-    AuditLogMessage:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        operation_name:
-          type: string
-          title: Operation Name
-        operation_succeeded:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Operation Succeeded
-        request_time:
-          type: string
-          format: date-time
-          title: Request Time
-        api_key_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Api Key Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        ls_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ls User Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Id
-        enrichments:
-          anyOf:
-          - $ref: '#/components/schemas/AuditLogEnrichments'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - operation_name
-      - operation_succeeded
-      - request_time
-      - api_key_id
-      - user_id
-      - ls_user_id
-      - organization_id
-      - workspace_id
-      - enrichments
-      title: AuditLogMessage
-      description: 'Represents an audit log message.
-
-
-        Indexed columns are individual DB columns. All other fields
-
-        (request_method, request_path, client_host, etc.) live in the
-
-        enrichments JSONB column.'
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ListAuditLogsOCSFResponse:
-      properties:
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-        items:
-          items:
-            $ref: '#/components/schemas/OCSFApiActivity'
-          type: array
-          title: Items
-      type: object
-      required:
-      - cursor
-      - items
-      title: ListAuditLogsOCSFResponse
-      description: Response model for listing audit logs in OCSF format with pagination.
-    OCSFStatusId:
-      type: integer
-      enum:
-      - 0
-      - 1
-      - 2
-      - 99
-      title: OCSFStatusId
-      description: Status values for OCSF events.
     OCSFEndpoint:
       properties:
         ip:
@@ -798,6 +701,50 @@ components:
       - intermediate_ips
       title: OCSFEndpoint
       description: OCSF network endpoint object.
+    OCSFUrl:
+      properties:
+        path:
+          type: string
+          title: Path
+      type: object
+      required:
+      - path
+      title: OCSFUrl
+      description: OCSF URL object.
+    OCSFTypeUid:
+      type: integer
+      enum:
+      - 600300
+      - 600301
+      - 600302
+      - 600303
+      - 600304
+      - 600399
+      title: OCSFTypeUid
+      description: OCSF type UIDs for API Activity (class_uid * 100 + activity_id).
+    OCSFMetadata:
+      properties:
+        uid:
+          type: string
+          format: uuid
+          title: Uid
+        product:
+          $ref: '#/components/schemas/OCSFProduct'
+      type: object
+      required:
+      - uid
+      - product
+      title: OCSFMetadata
+      description: OCSF event metadata.
+    OCSFStatusId:
+      type: integer
+      enum:
+      - 0
+      - 1
+      - 2
+      - 99
+      title: OCSFStatusId
+      description: Status values for OCSF events.
     OCSFHttpRequest:
       properties:
         http_method:
@@ -811,6 +758,112 @@ components:
       - url
       title: OCSFHttpRequest
       description: OCSF HTTP request object.
+    OCSFCategoryName:
+      type: string
+      enum:
+      - Application Activity
+      title: OCSFCategoryName
+      description: OCSF category names.
+    ListAuditLogsOCSFResponse:
+      properties:
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+        items:
+          items:
+            $ref: '#/components/schemas/OCSFApiActivity'
+          type: array
+          title: Items
+      type: object
+      required:
+      - cursor
+      - items
+      title: ListAuditLogsOCSFResponse
+      description: Response model for listing audit logs in OCSF format with pagination.
+    OCSFApi:
+      properties:
+        operation:
+          $ref: '#/components/schemas/AuditLogOperation'
+      type: object
+      required:
+      - operation
+      title: OCSFApi
+      description: OCSF API details object.
+    OCSFClassName:
+      type: string
+      enum:
+      - API Activity
+      title: OCSFClassName
+      description: OCSF class names.
+    OCSFProduct:
+      properties:
+        name:
+          type: string
+          title: Name
+        vendor_name:
+          type: string
+          title: Vendor Name
+      type: object
+      required:
+      - name
+      - vendor_name
+      title: OCSFProduct
+      description: OCSF product object.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OCSFUser:
+      properties:
+        uid:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Uid
+        credential_uid:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Credential Uid
+      type: object
+      required:
+      - uid
+      - credential_uid
+      title: OCSFUser
+      description: OCSF user object within actor.
+    OCSFHttpResponse:
+      properties:
+        code:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Code
+      type: object
+      required:
+      - code
+      title: OCSFHttpResponse
+      description: OCSF HTTP response object.
     AuditLogEnrichments:
       properties:
         request_method:
@@ -849,85 +902,29 @@ components:
       type: object
       title: AuditLogEnrichments
       description: Non-indexed request metadata stored in the enrichments JSONB column.
-    OCSFCategoryName:
-      type: string
-      enum:
-      - Application Activity
-      title: OCSFCategoryName
-      description: OCSF category names.
-    OCSFUnmapped:
+    HTTPValidationError:
       properties:
-        original_audit_log:
-          $ref: '#/components/schemas/AuditLogMessage'
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - original_audit_log
-      title: OCSFUnmapped
-      description: 'OCSF unmapped attribute for source-specific data.
-
-
-        Reference: https://schema.ocsf.io/1.7.0/classes/base_event'
-    OCSFTypeUid:
-      type: integer
-      enum:
-      - 600300
-      - 600301
-      - 600302
-      - 600303
-      - 600304
-      - 600399
-      title: OCSFTypeUid
-      description: OCSF type UIDs for API Activity (class_uid * 100 + activity_id).
-    OCSFClassUid:
-      type: integer
-      enum:
-      - 6003
-      title: OCSFClassUid
-      description: OCSF class UIDs.
-    OCSFResourceDetails:
-      properties:
-        uid:
-          type: string
-          format: uuid
-          title: Uid
-      type: object
-      required:
-      - uid
-      title: OCSFResourceDetails
-      description: OCSF resource details object.
-    OCSFUrl:
-      properties:
-        path:
-          type: string
-          title: Path
-      type: object
-      required:
-      - path
-      title: OCSFUrl
-      description: OCSF URL object.
-    OCSFApi:
-      properties:
-        operation:
-          $ref: '#/components/schemas/AuditLogOperation'
-      type: object
-      required:
-      - operation
-      title: OCSFApi
-      description: OCSF API details object.
+      title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id

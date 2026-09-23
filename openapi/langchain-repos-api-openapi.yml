@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: LangSmith access_policies repos API
+  title: LangSmith Repos API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -13,20 +13,17 @@ info:
 
     To authenticate with the LangSmith API, set the `X-Api-Key` header
 
-    to a valid [LangSmith API key](https://docs.langchain.com/langsmith/create-account-api-key#create-an-api-key).
-
-
-    '
+    to a valid LangSmith API key.'
   version: 0.1.0
 servers:
 - url: /
 tags:
-- name: repos
+- name: Repos
 paths:
   /api/v1/repos:
     get:
       tags:
-      - repos
+      - Repos
       summary: List Repos
       description: Get all repos.
       operationId: list_repos_api_v1_repos_get
@@ -217,7 +214,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     post:
       tags:
-      - repos
+      - Repos
       summary: Create Repo
       description: Create a repo.
       operationId: create_repo_api_v1_repos_post
@@ -246,9 +243,16 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - repos
+      - Repos
       summary: Delete Repos
-      description: "Delete multiple repos with partial success support.\n\nReturns:\n    - 200: All repos deleted successfully\n    - 207: Some repos deleted successfully, some failed"
+      description: 'Delete multiple repos with partial success support.
+
+
+        Returns:
+
+        - 200: All repos deleted successfully
+
+        - 207: Some repos deleted successfully, some failed'
       operationId: delete_repos_api_v1_repos_delete
       security:
       - API Key: []
@@ -280,7 +284,7 @@ paths:
   /api/v1/repos/{owner}/{repo}:
     get:
       tags:
-      - repos
+      - Repos
       summary: Get Repo
       description: Get a repo.
       operationId: get_repo_api_v1_repos__owner___repo__get
@@ -316,7 +320,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     patch:
       tags:
-      - repos
+      - Repos
       summary: Update Repo
       description: Update a repo.
       operationId: update_repo_api_v1_repos__owner___repo__patch
@@ -358,7 +362,7 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
     delete:
       tags:
-      - repos
+      - Repos
       summary: Delete Repo
       description: Delete a repo.
       operationId: delete_repo_api_v1_repos__owner___repo__delete
@@ -394,7 +398,7 @@ paths:
   /api/v1/repos/{owner}/{repo}/fork:
     post:
       tags:
-      - repos
+      - Repos
       summary: Fork Repo
       description: Fork a repo.
       operationId: fork_repo_api_v1_repos__owner___repo__fork_post
@@ -437,7 +441,7 @@ paths:
   /api/v1/repos/tags:
     get:
       tags:
-      - repos
+      - Repos
       summary: List Repo Tags
       description: Get all repo tags.
       operationId: list_repo_tags_api_v1_repos_tags_get
@@ -597,7 +601,7 @@ paths:
   /api/v1/repos/optimize-job:
     post:
       tags:
-      - repos
+      - Repos
       summary: Optimize Prompt Job
       description: Optimize prompt
       operationId: optimize_prompt_job_api_v1_repos_optimize_job_post
@@ -626,38 +630,88 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
-    ValidationError:
+    UpdateRepoRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ListTagsResponse:
-      properties:
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        readme:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Readme
         tags:
-          items:
-            $ref: '#/components/schemas/TagCount'
-          type: array
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
           title: Tags
+        is_public:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Public
+        is_archived:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Archived
+        restricted_mode:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restricted Mode
+      type: object
+      title: UpdateRepoRequest
+      description: Fields to update a repo
+    CreateRepoRequest:
+      properties:
+        repo_handle:
+          type: string
+          title: Repo Handle
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        readme:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Readme
+        is_public:
+          type: boolean
+          title: Is Public
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Tags
+        repo_type:
+          type: string
+          enum:
+          - prompt
+          - file
+          - agent
+          - skill
+          title: Repo Type
+          default: prompt
+        restricted_mode:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restricted Mode
       type: object
       required:
-      - tags
-      title: ListTagsResponse
+      - repo_handle
+      - is_public
+      title: CreateRepoRequest
+      description: Fields to create a repo
     PromptimConfig:
       properties:
         message_index:
@@ -708,30 +762,84 @@ components:
       - num_epochs
       - auto_commit
       title: PromptimConfig
-    HTTPValidationError:
+    OptimizePromptResponse:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ListReposResponse:
-      properties:
-        repos:
-          items:
-            $ref: '#/components/schemas/RepoWithLookups'
-          type: array
-          title: Repos
-        total:
-          type: integer
-          title: Total
+        optimization_job_id:
+          type: string
+          format: uuid
+          title: Optimization Job Id
       type: object
       required:
-      - repos
-      - total
-      title: ListReposResponse
+      - optimization_job_id
+      title: OptimizePromptResponse
+      description: Response from optimizing a prompt.
+    TagCount:
+      properties:
+        tag:
+          type: string
+          title: Tag
+        count:
+          type: integer
+          title: Count
+      type: object
+      required:
+      - tag
+      - count
+      title: TagCount
+    OptimizePromptJobRequest:
+      properties:
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+        prompt_name:
+          type: string
+          title: Prompt Name
+      type: object
+      required:
+      - algorithm
+      - config
+      - prompt_name
+      title: OptimizePromptJobRequest
+      description: Request to optimize a prompt.
+    DemoConfig:
+      properties:
+        message_index:
+          type: integer
+          title: Message Index
+        metaprompt:
+          additionalProperties: true
+          type: object
+          title: Metaprompt
+        examples:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Examples
+        overall_feedback:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Overall Feedback
+      type: object
+      required:
+      - message_index
+      - metaprompt
+      - examples
+      - overall_feedback
+      title: DemoConfig
+    CreateRepoResponse:
+      properties:
+        repo:
+          $ref: '#/components/schemas/RepoWithLookups'
+      type: object
+      required:
+      - repo
+      title: CreateRepoResponse
     CommitManifestResponse:
       properties:
         commit_hash:
@@ -754,102 +862,12 @@ components:
       - manifest
       title: CommitManifestResponse
       description: Response model for get_commit_manifest.
-    TrueFalseLiteral:
+    EPromptOptimizationAlgorithm:
       type: string
       enum:
-      - 'true'
-      - 'false'
-      title: TrueFalseLiteral
-    CreateRepoRequest:
-      properties:
-        repo_handle:
-          type: string
-          title: Repo Handle
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        readme:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Readme
-        is_public:
-          type: boolean
-          title: Is Public
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-        repo_type:
-          type: string
-          enum:
-          - prompt
-          - file
-          - agent
-          - skill
-          title: Repo Type
-          default: prompt
-        restricted_mode:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Restricted Mode
-      type: object
-      required:
-      - repo_handle
-      - is_public
-      title: CreateRepoRequest
-      description: Fields to create a repo
-    CreateRepoResponse:
-      properties:
-        repo:
-          $ref: '#/components/schemas/RepoWithLookups'
-      type: object
-      required:
-      - repo
-      title: CreateRepoResponse
-    UpdateRepoRequest:
-      properties:
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        readme:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Readme
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Tags
-        is_public:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Public
-        is_archived:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Archived
-        restricted_mode:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Restricted Mode
-      type: object
-      title: UpdateRepoRequest
-      description: Fields to update a repo
+      - promptim
+      - demo
+      title: EPromptOptimizationAlgorithm
     ForkRepoRequest:
       properties:
         repo_handle:
@@ -882,53 +900,21 @@ components:
       - repo_handle
       title: ForkRepoRequest
       description: Fields to fork a repo
-    TagCount:
+    ListReposResponse:
       properties:
-        tag:
-          type: string
-          title: Tag
-        count:
+        repos:
+          items:
+            $ref: '#/components/schemas/RepoWithLookups'
+          type: array
+          title: Repos
+        total:
           type: integer
-          title: Count
+          title: Total
       type: object
       required:
-      - tag
-      - count
-      title: TagCount
-    RepoExampleResponse:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        inputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Inputs
-        outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs
-        session_id:
-          type: string
-          format: uuid
-          title: Session Id
-      type: object
-      required:
-      - id
-      - session_id
-      title: RepoExampleResponse
-      description: Response model for example runs
+      - repos
+      - total
+      title: ListReposResponse
     GetRepoResponse:
       properties:
         repo:
@@ -937,69 +923,27 @@ components:
       required:
       - repo
       title: GetRepoResponse
-    DemoConfig:
+    ValidationError:
       properties:
-        message_index:
-          type: integer
-          title: Message Index
-        metaprompt:
-          additionalProperties: true
-          type: object
-          title: Metaprompt
-        examples:
+        loc:
           items:
-            additionalProperties: true
-            type: object
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Examples
-        overall_feedback:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Overall Feedback
-      type: object
-      required:
-      - message_index
-      - metaprompt
-      - examples
-      - overall_feedback
-      title: DemoConfig
-    OptimizePromptResponse:
-      properties:
-        optimization_job_id:
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Optimization Job Id
-      type: object
-      required:
-      - optimization_job_id
-      title: OptimizePromptResponse
-      description: Response from optimizing a prompt.
-    OptimizePromptJobRequest:
-      properties:
-        algorithm:
-          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
-        config:
-          anyOf:
-          - $ref: '#/components/schemas/PromptimConfig'
-          - $ref: '#/components/schemas/DemoConfig'
-          title: Config
-        prompt_name:
+          title: Message
+        type:
           type: string
-          title: Prompt Name
+          title: Error Type
       type: object
       required:
-      - algorithm
-      - config
-      - prompt_name
-      title: OptimizePromptJobRequest
-      description: Request to optimize a prompt.
-    EPromptOptimizationAlgorithm:
-      type: string
-      enum:
-      - promptim
-      - demo
-      title: EPromptOptimizationAlgorithm
+      - loc
+      - msg
+      - type
+      title: ValidationError
     RepoWithLookups:
       properties:
         repo_handle:
@@ -1140,20 +1084,80 @@ components:
       - num_commits
       title: RepoWithLookups
       description: All database fields for repos, plus helpful computed fields.
+    ListTagsResponse:
+      properties:
+        tags:
+          items:
+            $ref: '#/components/schemas/TagCount'
+          type: array
+          title: Tags
+      type: object
+      required:
+      - tags
+      title: ListTagsResponse
+    RepoExampleResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        inputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Inputs
+        outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs
+        session_id:
+          type: string
+          format: uuid
+          title: Session Id
+      type: object
+      required:
+      - id
+      - session_id
+      title: RepoExampleResponse
+      description: Response model for example runs
+    TrueFalseLiteral:
+      type: string
+      enum:
+      - 'true'
+      - 'false'
+      title: TrueFalseLiteral
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
-    API Key:
+    API_Key:
       type: apiKey
       in: header
       name: X-API-Key
-    Tenant ID:
+    Tenant_ID:
       type: apiKey
       in: header
       name: X-Tenant-Id
-    Bearer Auth:
+    Bearer_Auth:
       type: http
       description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
       scheme: bearer
-    Organization ID:
+    Organization_ID:
       type: apiKey
       in: header
       name: X-Organization-Id
