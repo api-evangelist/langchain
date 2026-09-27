@@ -54,33 +54,6 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_execute_api_v1_ace_execute_post:
-      properties:
-        args:
-          items: {}
-          type: array
-          title: Args
-        code:
-          type: string
-          title: Code
-        language:
-          type: string
-          title: Language
-      type: object
-      required:
-      - args
-      - code
-      - language
-      title: Body_execute_api_v1_ace_execute_post
     ValidationError:
       properties:
         loc:
@@ -102,6 +75,33 @@ components:
       - msg
       - type
       title: ValidationError
+    Body_execute_api_v1_ace_execute_post:
+      properties:
+        args:
+          items: {}
+          type: array
+          title: Args
+        code:
+          type: string
+          title: Code
+        language:
+          type: string
+          title: Language
+      type: object
+      required:
+      - args
+      - code
+      - language
+      title: Body_execute_api_v1_ace_execute_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     API_Key:
       type: apiKey

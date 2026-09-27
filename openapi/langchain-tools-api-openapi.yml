@@ -475,23 +475,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    tools.ListToolsResponse:
-      type: object
-      properties:
-        next_offset:
-          type: integer
-        tools:
-          type: array
-          items:
-            $ref: '#/components/schemas/tools.Tool'
-        total:
-          type: integer
-    tools.ErrorResponse:
-      type: object
-      properties:
-        error:
-          description: Error message
-          type: string
     tools.UpdateToolPayload:
       type: object
       properties:
@@ -499,31 +482,6 @@ components:
           type: string
         enabled:
           type: boolean
-        metadata:
-          type: object
-          additionalProperties: true
-        name:
-          type: string
-        parameters:
-          type: object
-          additionalProperties: true
-        returns:
-          type: object
-          additionalProperties: true
-    tools.CreateToolPayload:
-      type: object
-      required:
-      - description
-      - handle
-      - name
-      - parameters
-      properties:
-        description:
-          type: string
-        enabled:
-          type: boolean
-        handle:
-          type: string
         metadata:
           type: object
           additionalProperties: true
@@ -562,6 +520,48 @@ components:
         tenant_id:
           type: string
         updated_at:
+          type: string
+    tools.CreateToolPayload:
+      type: object
+      required:
+      - description
+      - handle
+      - name
+      - parameters
+      properties:
+        description:
+          type: string
+        enabled:
+          type: boolean
+        handle:
+          type: string
+        metadata:
+          type: object
+          additionalProperties: true
+        name:
+          type: string
+        parameters:
+          type: object
+          additionalProperties: true
+        returns:
+          type: object
+          additionalProperties: true
+    tools.ListToolsResponse:
+      type: object
+      properties:
+        next_offset:
+          type: integer
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/tools.Tool'
+        total:
+          type: integer
+    tools.ErrorResponse:
+      type: object
+      properties:
+        error:
+          description: Error message
           type: string
   securitySchemes:
     API_Key:

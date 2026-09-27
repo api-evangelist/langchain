@@ -308,24 +308,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    integrations.ErrorResponse:
+    integrations.ListResponse:
       type: object
       properties:
-        code:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.Integration'
+        next_cursor:
           type: string
-        detail:
-          type: string
-        status:
-          type: integer
-        type:
-          type: string
-    integrations.AuthMethod:
-      type: object
-      properties:
-        provider_match:
-          $ref: '#/components/schemas/integrations.ProviderMatch'
-        type:
-          $ref: '#/components/schemas/integrations.AuthType'
+    integrations.MatchBy:
+      type: string
+      enum:
+      - kind
+      - id
+      x-enum-varnames:
+      - MatchByKind
+      - MatchByID
     integrations.UpdateRequest:
       type: object
       properties:
@@ -339,6 +338,26 @@ components:
           type: string
         name:
           type: string
+    integrations.AuthMethod:
+      type: object
+      properties:
+        provider_match:
+          $ref: '#/components/schemas/integrations.ProviderMatch'
+        type:
+          $ref: '#/components/schemas/integrations.AuthType'
+    integrations.ReplaceAuthMethodsRequest:
+      type: object
+      properties:
+        auth_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.AuthMethod'
+    integrations.Transport:
+      type: string
+      enum:
+      - mcp_http
+      x-enum-varnames:
+      - TransportMCPHTTP
     integrations.AuthType:
       type: string
       enum:
@@ -380,6 +399,24 @@ components:
           type: string
         url:
           type: string
+    integrations.ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        type:
+          type: string
+    integrations.ProviderMatch:
+      type: object
+      properties:
+        by:
+          $ref: '#/components/schemas/integrations.MatchBy'
+        value:
+          type: string
     integrations.CreateRequest:
       type: object
       required:
@@ -398,43 +435,6 @@ components:
           type: string
         url:
           type: string
-    integrations.MatchBy:
-      type: string
-      enum:
-      - kind
-      - id
-      x-enum-varnames:
-      - MatchByKind
-      - MatchByID
-    integrations.ListResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.Integration'
-        next_cursor:
-          type: string
-    integrations.ProviderMatch:
-      type: object
-      properties:
-        by:
-          $ref: '#/components/schemas/integrations.MatchBy'
-        value:
-          type: string
-    integrations.ReplaceAuthMethodsRequest:
-      type: object
-      properties:
-        auth_methods:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.AuthMethod'
-    integrations.Transport:
-      type: string
-      enum:
-      - mcp_http
-      x-enum-varnames:
-      - TransportMCPHTTP
   securitySchemes:
     API_Key:
       type: apiKey

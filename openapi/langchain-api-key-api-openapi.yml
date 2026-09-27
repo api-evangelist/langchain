@@ -192,6 +192,110 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    APIKeyCreateRequest:
+      properties:
+        description:
+          type: string
+          title: Description
+          default: Default API key
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspaces:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspaces
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        default_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Workspace Id
+      type: object
+      title: APIKeyCreateRequest
+      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
+    APIKeyCreateResponse:
+      properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
+        description:
+          type: string
+          title: Description
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspace_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workspace Names
+        default_workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Workspace Name
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - short_key
+      - description
+      - key
+      title: APIKeyCreateResponse
+      description: API key POST schema.
     ValidationError:
       properties:
         loc:
@@ -267,110 +371,6 @@ components:
       - description
       title: APIKeyGetResponse
       description: API key GET schema.
-    APIKeyCreateResponse:
-      properties:
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        short_key:
-          type: string
-          title: Short Key
-        description:
-          type: string
-          title: Description
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        last_used_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Used At
-        expires_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expires At
-        workspace_names:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Workspace Names
-        default_workspace_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Default Workspace Name
-        key:
-          type: string
-          title: Key
-      type: object
-      required:
-      - id
-      - short_key
-      - description
-      - key
-      title: APIKeyCreateResponse
-      description: API key POST schema.
-    APIKeyCreateRequest:
-      properties:
-        description:
-          type: string
-          title: Description
-          default: Default API key
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        expires_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expires At
-        workspaces:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspaces
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        org_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Role Id
-        default_workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Workspace Id
-      type: object
-      title: APIKeyCreateRequest
-      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
     HTTPValidationError:
       properties:
         detail:

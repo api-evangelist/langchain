@@ -204,47 +204,6 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
-    EPromptWebhookTrigger:
-      type: string
-      enum:
-      - commit
-      - tag:create
-      - tag:update
-      title: EPromptWebhookTrigger
-      description: Valid trigger types for prompt webhooks.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PromptWebhookTest:
-      properties:
-        webhook:
-          $ref: '#/components/schemas/PromptWebhookBase'
-        payload:
-          $ref: '#/components/schemas/PromptWebhookPayload'
-      type: object
-      required:
-      - webhook
-      - payload
-      title: PromptWebhookTest
-      description: Schema for testing a prompt webhook.
     PromptWebhookCreate:
       properties:
         url:
@@ -290,65 +249,47 @@ components:
       - url
       title: PromptWebhookCreate
       description: Schema for creating a prompt webhook.
-    PromptWebhook:
+    EPromptWebhookTrigger:
+      type: string
+      enum:
+      - commit
+      - tag:create
+      - tag:update
+      title: EPromptWebhookTrigger
+      description: Valid trigger types for prompt webhooks.
+    ValidationError:
       properties:
-        url:
-          type: string
-          minLength: 1
-          format: uri
-          title: Url
-        headers:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Headers
-        include_prompts:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Include Prompts
-        exclude_prompts:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Exclude Prompts
-        triggers:
+        loc:
           items:
-            $ref: '#/components/schemas/EPromptWebhookTrigger'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Triggers
-        id:
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Id
-        tenant_id:
+          title: Message
+        type:
           type: string
-          format: uuid
-          title: Tenant Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
+          title: Error Type
       type: object
       required:
-      - url
-      - id
-      - tenant_id
-      - created_at
-      - updated_at
-      title: PromptWebhook
-      description: Schema for a prompt webhook.
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PromptWebhookTest:
+      properties:
+        webhook:
+          $ref: '#/components/schemas/PromptWebhookBase'
+        payload:
+          $ref: '#/components/schemas/PromptWebhookPayload'
+      type: object
+      required:
+      - webhook
+      - payload
+      title: PromptWebhookTest
+      description: Schema for testing a prompt webhook.
     PromptWebhookBase:
       properties:
         url:
@@ -476,6 +417,65 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    PromptWebhook:
+      properties:
+        url:
+          type: string
+          minLength: 1
+          format: uri
+          title: Url
+        headers:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Headers
+        include_prompts:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Include Prompts
+        exclude_prompts:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Exclude Prompts
+        triggers:
+          items:
+            $ref: '#/components/schemas/EPromptWebhookTrigger'
+          type: array
+          title: Triggers
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - url
+      - id
+      - tenant_id
+      - created_at
+      - updated_at
+      title: PromptWebhook
+      description: Schema for a prompt webhook.
   securitySchemes:
     API_Key:
       type: apiKey

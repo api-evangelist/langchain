@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: LangSmith OAUTH API
+  title: LangSmith OAuth API
   description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
 
 
@@ -379,6 +379,30 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    oauth.DeviceCodeResponse:
+      type: object
+      properties:
+        device_code:
+          type: string
+        expires_in:
+          type: integer
+        interval:
+          type: integer
+        user_code:
+          type: string
+        verification_uri:
+          type: string
+    oauth.TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        token_type:
+          type: string
     oauth.AuthorizationServerMetadata:
       type: object
       properties:
@@ -420,30 +444,6 @@ components:
         error:
           type: string
         error_description:
-          type: string
-    oauth.TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        expires_in:
-          type: integer
-        refresh_token:
-          type: string
-        token_type:
-          type: string
-    oauth.DeviceCodeResponse:
-      type: object
-      properties:
-        device_code:
-          type: string
-        expires_in:
-          type: integer
-        interval:
-          type: integer
-        user_code:
-          type: string
-        verification_uri:
           type: string
   securitySchemes:
     API_Key:

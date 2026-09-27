@@ -200,6 +200,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    hub_environments.CreateEnvironmentsRequest:
+      type: object
+      required:
+      - environments
+      properties:
+        environments:
+          type: array
+          maxItems: 4
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
+    hub_environments.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
     hub_environments.HubEnvironmentsModel:
       type: object
       properties:
@@ -208,11 +224,6 @@ components:
           items:
             $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
         id:
-          type: string
-    hub_environments.ErrorResponse:
-      type: object
-      properties:
-        error:
           type: string
     hub_environments.EnvironmentEntry:
       type: object
@@ -231,17 +242,6 @@ components:
         environments:
           type: array
           maxItems: 4
-          items:
-            $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
-    hub_environments.CreateEnvironmentsRequest:
-      type: object
-      required:
-      - environments
-      properties:
-        environments:
-          type: array
-          maxItems: 4
-          minItems: 1
           items:
             $ref: '#/components/schemas/hub_environments.EnvironmentEntry'
   securitySchemes:

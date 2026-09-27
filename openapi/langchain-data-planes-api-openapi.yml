@@ -74,21 +74,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    data_planes.PublicDataPlane:
-      type: object
-      properties:
-        api_url:
-          type: string
-        created_at:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        region:
-          type: string
-        status:
-          $ref: '#/components/schemas/data_planes.Status'
     data_planes.Status:
       type: string
       enum:
@@ -116,6 +101,21 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/data_planes.PublicDataPlane'
+    data_planes.PublicDataPlane:
+      type: object
+      properties:
+        api_url:
+          type: string
+        created_at:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        region:
+          type: string
+        status:
+          $ref: '#/components/schemas/data_planes.Status'
   securitySchemes:
     API_Key:
       type: apiKey

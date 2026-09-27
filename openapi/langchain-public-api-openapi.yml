@@ -1165,39 +1165,261 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    QueryExampleSchemaWithRuns:
+    SourceType:
+      type: string
+      enum:
+      - api
+      - model
+      - app
+      - auto_eval
+      title: SourceType
+      description: Enum for feedback source types.
+    FeedbackLevel:
+      type: string
+      enum:
+      - run
+      - session
+      title: FeedbackLevel
+      description: Enum for feedback levels.
+    SessionFeedbackDelta:
       properties:
-        session_ids:
+        feedback_deltas:
+          additionalProperties:
+            $ref: '#/components/schemas/FeedbackDelta'
+          propertyNames:
+            format: uuid
+          type: object
+          title: Feedback Deltas
+      type: object
+      required:
+      - feedback_deltas
+      title: SessionFeedbackDelta
+      description: List of feedback keys with number of improvements and regressions for each.
+    ListPublicDatasetRunsResponse:
+      properties:
+        runs:
+          items:
+            $ref: '#/components/schemas/RunPublicDatasetSchema'
+          type: array
+          title: Runs
+        cursors:
+          additionalProperties:
+            anyOf:
+            - type: string
+            - type: 'null'
+          type: object
+          title: Cursors
+        parsed_query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parsed Query
+      type: object
+      required:
+      - runs
+      - cursors
+      title: ListPublicDatasetRunsResponse
+    FeedbackDelta:
+      properties:
+        improved_examples:
           items:
             type: string
             format: uuid
           type: array
-          minItems: 1
-          title: Session Ids
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          minimum: 1.0
-          title: Limit
-          default: 10
-        preview:
-          type: boolean
-          title: Preview
-          default: false
-        comparative_experiment_id:
+          title: Improved Examples
+        regressed_examples:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Regressed Examples
+      type: object
+      required:
+      - improved_examples
+      - regressed_examples
+      title: FeedbackDelta
+      description: Feedback key with number of improvements and regressions.
+    FeedbackSource:
+      properties:
+        type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Type
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        user_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Comparative Experiment Id
-        sort_params:
+          title: User Id
+        ls_user_id:
           anyOf:
-          - $ref: '#/components/schemas/SortParamsForRunsComparisonView'
+          - type: string
+            format: uuid
           - type: 'null'
+          title: Ls User Id
+        user_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: User Name
+      type: object
+      title: FeedbackSource
+      description: The feedback source loaded from the database.
+    DatasetTransformationType:
+      type: string
+      enum:
+      - convert_to_openai_message
+      - convert_to_openai_tool
+      - remove_system_messages
+      - remove_extra_fields
+      - extract_tools_from_run
+      title: DatasetTransformationType
+      description: 'Enum for dataset transformation types.
+
+        Ordering determines the order in which transformations are applied if there are multiple transformations on the same path.'
+    DatasetPublicSchema:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        inputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Inputs Schema Definition
+        outputs_schema_definition:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs Schema Definition
+        externally_managed:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Externally Managed
+          default: false
+        transformations:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/DatasetTransformation'
+            type: array
+          - type: 'null'
+          title: Transformations
+        data_type:
+          anyOf:
+          - $ref: '#/components/schemas/DataType'
+          - type: 'null'
+          default: kv
+        id:
+          type: string
+          format: uuid
+          title: Id
+        example_count:
+          type: integer
+          title: Example Count
+      type: object
+      required:
+      - name
+      - id
+      - example_count
+      title: DatasetPublicSchema
+      description: 'Public schema for datasets.
+
+
+        Doesn''t currently include session counts/stats
+
+        since public test project sharing is not yet shipped'
+    ExampleSelect:
+      type: string
+      enum:
+      - id
+      - created_at
+      - modified_at
+      - name
+      - dataset_id
+      - source_run_id
+      - metadata
+      - inputs
+      - outputs
+      - attachment_urls
+      title: ExampleSelect
+    RunTypeEnum:
+      type: string
+      enum:
+      - tool
+      - chain
+      - llm
+      - retriever
+      - embedding
+      - prompt
+      - parser
+      title: RunTypeEnum
+      description: Enum for run types.
+    SessionSortableColumns:
+      type: string
+      enum:
+      - name
+      - start_time
+      - last_run_start_time
+      - latency_p50
+      - latency_p99
+      - error_rate
+      - feedback
+      - runs_count
+      title: SessionSortableColumns
+    DatasetTransformation:
+      properties:
+        path:
+          items:
+            type: string
+          type: array
+          title: Path
+        transformation_type:
+          $ref: '#/components/schemas/DatasetTransformationType'
+      type: object
+      required:
+      - path
+      - transformation_type
+      title: DatasetTransformation
+    QueryFeedbackDeltaBatch:
+      properties:
+        baseline_session_id:
+          type: string
+          format: uuid
+          title: Baseline Session Id
+        comparison_session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Comparison Session Ids
+        feedback_keys:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          minItems: 1
+          title: Feedback Keys
         filters:
           anyOf:
           - additionalProperties:
@@ -1209,56 +1431,222 @@ components:
             type: object
           - type: 'null'
           title: Filters
-        example_ids:
+      type: object
+      required:
+      - baseline_session_id
+      - comparison_session_ids
+      - feedback_keys
+      title: QueryFeedbackDeltaBatch
+      description: Request schema for batched feedback delta queries with multiple feedback keys.
+    QueryFeedbackDelta:
+      properties:
+        baseline_session_id:
+          type: string
+          format: uuid
+          title: Baseline Session Id
+        comparison_session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Comparison Session Ids
+        feedback_key:
+          type: string
+          title: Feedback Key
+        filters:
+          anyOf:
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            propertyNames:
+              format: uuid
+            type: object
+          - type: 'null'
+          title: Filters
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 100
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+      type: object
+      required:
+      - baseline_session_id
+      - comparison_session_ids
+      - feedback_key
+      title: QueryFeedbackDelta
+    RunStatsQueryParams:
+      properties:
+        id:
           anyOf:
           - items:
               type: string
               format: uuid
             type: array
-            maxItems: 1000
           - type: 'null'
-          title: Example Ids
-        include_annotator_detail:
-          type: boolean
-          title: Include Annotator Detail
-          default: false
-      type: object
-      required:
-      - session_ids
-      title: QueryExampleSchemaWithRuns
-    ResponseBodyForRunsGenerateQuery:
-      properties:
+          title: Id
+        trace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace
+        parent_run:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Run
+        run_type:
+          anyOf:
+          - $ref: '#/components/schemas/RunTypeEnum'
+          - type: 'null'
+        session:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Session
+        reference_example:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Reference Example
+        execution_order:
+          anyOf:
+          - type: integer
+            maximum: 1.0
+            minimum: 1.0
+          - type: 'null'
+          title: Execution Order
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        error:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Error
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
         filter:
-          type: string
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Filter
-        feedback_urls:
-          additionalProperties:
-            type: string
-          propertyNames:
-            $ref: '#/components/schemas/RunsGenerateQueryFeedbackKeys'
-          type: object
-          title: Feedback Urls
+        trace_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter
+        tree_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter
+        is_root:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Root
+        data_source_type:
+          anyOf:
+          - $ref: '#/components/schemas/RunsFilterDataSourceTypeEnum'
+          - type: 'null'
+        skip_pagination:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Skip Pagination
+        search_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Filter
+        use_experimental_search:
+          type: boolean
+          title: Use Experimental Search
+          default: false
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
+        groups:
+          anyOf:
+          - items:
+              anyOf:
+              - type: string
+              - type: 'null'
+            type: array
+          - type: 'null'
+          title: Groups
+        select:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/RunStatsSelect'
+            type: array
+          - type: 'null'
+          title: Select
       type: object
-      required:
-      - filter
-      - feedback_urls
-      title: ResponseBodyForRunsGenerateQuery
-    SortParamsForRunsComparisonView:
+      title: RunStatsQueryParams
+      description: Query params for run stats.
+    SimpleExperimentInfo:
       properties:
-        sort_by:
+        id:
           type: string
-          title: Sort By
-        sort_order:
+          format: uuid
+          title: Id
+        name:
           type: string
-          enum:
-          - ASC
-          - DESC
-          title: Sort Order
-          default: DESC
+          title: Name
       type: object
       required:
-      - sort_by
-      title: SortParamsForRunsComparisonView
+      - id
+      - name
+      title: SimpleExperimentInfo
+      description: Simple experiment info schema for use with comparative experiments
+    QueryParamsForPublicRunSchema:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+      type: object
+      title: QueryParamsForPublicRunSchema
+      description: Query params for public run endpoints.
     Example:
       properties:
         outputs:
@@ -1318,71 +1706,230 @@ components:
       - name
       title: Example
       description: Example schema.
-    PublicExampleWithRuns:
+    ResponseBodyForRunsGenerateQuery:
       properties:
-        outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs
-        dataset_id:
+        filter:
           type: string
-          format: uuid
-          title: Dataset Id
-        source_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Source Run Id
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        inputs:
-          additionalProperties: true
+          title: Filter
+        feedback_urls:
+          additionalProperties:
+            type: string
+          propertyNames:
+            $ref: '#/components/schemas/RunsGenerateQueryFeedbackKeys'
           type: object
-          title: Inputs
+          title: Feedback Urls
+      type: object
+      required:
+      - filter
+      - feedback_urls
+      title: ResponseBodyForRunsGenerateQuery
+    SortByComparativeExperimentColumn:
+      type: string
+      enum:
+      - name
+      - created_at
+      title: SortByComparativeExperimentColumn
+      description: Enum for available comparative experiment columns to sort by.
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    RunStatsSelect:
+      type: string
+      enum:
+      - run_count
+      - latency_p50
+      - latency_p99
+      - latency_avg
+      - first_token_p50
+      - first_token_p99
+      - total_tokens
+      - prompt_tokens
+      - completion_tokens
+      - median_tokens
+      - completion_tokens_p50
+      - prompt_tokens_p50
+      - tokens_p99
+      - completion_tokens_p99
+      - prompt_tokens_p99
+      - last_run_start_time
+      - feedback_stats
+      - thread_feedback_stats
+      - run_facets
+      - error_rate
+      - streaming_rate
+      - total_cost
+      - prompt_cost
+      - completion_cost
+      - cost_p50
+      - cost_p99
+      - session_feedback_stats
+      - all_run_stats
+      - all_token_stats
+      - prompt_token_details
+      - completion_token_details
+      - prompt_cost_details
+      - completion_cost_details
+      title: RunStatsSelect
+      description: Metrics you can select from run stats endpoint.
+    FeedbackSchema:
+      properties:
         created_at:
           type: string
           format: date-time
           title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        key:
+          type: string
+          title: Key
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Feedback Group Id
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+        run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        id:
+          type: string
+          format: uuid
+          title: Id
+        trace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        is_root:
+          type: boolean
+          title: Is Root
+          default: false
+        feedback_source:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackSource'
+          - type: 'null'
+        extra:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Extra
+        feedback_thread_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Thread Id
+      type: object
+      required:
+      - key
+      - id
+      title: FeedbackSchema
+      description: Schema for getting feedback.
+    PublicComparativeExperiment:
+      properties:
         id:
           type: string
           format: uuid
           title: Id
         name:
-          type: string
-          title: Name
-        modified_at:
           anyOf:
           - type: string
-            format: date-time
           - type: 'null'
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
           title: Modified At
-        attachment_urls:
+        extra:
           anyOf:
           - additionalProperties: true
             type: object
           - type: 'null'
-          title: Attachment Urls
-        runs:
+          title: Extra
+        experiments_info:
           items:
-            $ref: '#/components/schemas/RunPublicDatasetSchema'
+            $ref: '#/components/schemas/SimpleExperimentInfo'
           type: array
-          title: Runs
+          title: Experiments Info
+        feedback_stats:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Feedback Stats
       type: object
       required:
-      - dataset_id
-      - inputs
       - id
-      - name
-      - runs
-      title: PublicExampleWithRuns
-      description: Schema for an example in a publicly-shared dataset with list of runs.
+      - created_at
+      - modified_at
+      - experiments_info
+      title: PublicComparativeExperiment
+      description: Publicly-shared ComparativeExperiment schema.
     RunStats:
       properties:
         run_count:
@@ -1536,213 +2083,38 @@ components:
           title: Completion Cost Details
       type: object
       title: RunStats
-    DatasetPublicSchema:
+    ValidationError:
       properties:
-        name:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
+          title: Message
+        type:
           type: string
-          format: date-time
-          title: Created At
-        inputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Inputs Schema Definition
-        outputs_schema_definition:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs Schema Definition
-        externally_managed:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Externally Managed
-          default: false
-        transformations:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/DatasetTransformation'
-            type: array
-          - type: 'null'
-          title: Transformations
-        data_type:
-          anyOf:
-          - $ref: '#/components/schemas/DataType'
-          - type: 'null'
-          default: kv
-        id:
-          type: string
-          format: uuid
-          title: Id
-        example_count:
-          type: integer
-          title: Example Count
+          title: Error Type
       type: object
       required:
-      - name
-      - id
-      - example_count
-      title: DatasetPublicSchema
-      description: 'Public schema for datasets.
-
-
-        Doesn''t currently include session counts/stats
-
-        since public test project sharing is not yet shipped'
-    RunStatsQueryParams:
-      properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-        trace:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace
-        parent_run:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Parent Run
-        run_type:
-          anyOf:
-          - $ref: '#/components/schemas/RunTypeEnum'
-          - type: 'null'
-        session:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Session
-        reference_example:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Reference Example
-        execution_order:
-          anyOf:
-          - type: integer
-            maximum: 1.0
-            minimum: 1.0
-          - type: 'null'
-          title: Execution Order
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        error:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Error
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-        filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filter
-        trace_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Filter
-        tree_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tree Filter
-        is_root:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Root
-        data_source_type:
-          anyOf:
-          - $ref: '#/components/schemas/RunsFilterDataSourceTypeEnum'
-          - type: 'null'
-        skip_pagination:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Skip Pagination
-        search_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search Filter
-        use_experimental_search:
-          type: boolean
-          title: Use Experimental Search
-          default: false
-        group_by:
-          anyOf:
-          - $ref: '#/components/schemas/RunStatsGroupBy'
-          - type: 'null'
-        groups:
-          anyOf:
-          - items:
-              anyOf:
-              - type: string
-              - type: 'null'
-            type: array
-          - type: 'null'
-          title: Groups
-        select:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/RunStatsSelect'
-            type: array
-          - type: 'null'
-          title: Select
-      type: object
-      title: RunStatsQueryParams
-      description: Query params for run stats.
-    SessionSortableColumns:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SortByDatasetColumn:
       type: string
       enum:
       - name
-      - start_time
-      - last_run_start_time
-      - latency_p50
-      - latency_p99
-      - error_rate
-      - feedback
-      - runs_count
-      title: SessionSortableColumns
+      - created_at
+      - last_session_start_time
+      - example_count
+      - session_count
+      - modified_at
+      title: SortByDatasetColumn
+      description: Enum for available dataset columns to sort by.
     RunSelect:
       type: string
       enum:
@@ -1808,149 +2180,16 @@ components:
       - inserted_at
       title: RunSelect
       description: Enum for available run columns.
-    ListPublicDatasetRunsResponse:
-      properties:
-        runs:
-          items:
-            $ref: '#/components/schemas/RunPublicDatasetSchema'
-          type: array
-          title: Runs
-        cursors:
-          additionalProperties:
-            anyOf:
-            - type: string
-            - type: 'null'
-          type: object
-          title: Cursors
-        parsed_query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Parsed Query
-      type: object
-      required:
-      - runs
-      - cursors
-      title: ListPublicDatasetRunsResponse
-    FeedbackDelta:
-      properties:
-        improved_examples:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Improved Examples
-        regressed_examples:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Regressed Examples
-      type: object
-      required:
-      - improved_examples
-      - regressed_examples
-      title: FeedbackDelta
-      description: Feedback key with number of improvements and regressions.
-    QueryFeedbackDeltaBatch:
-      properties:
-        baseline_session_id:
-          type: string
-          format: uuid
-          title: Baseline Session Id
-        comparison_session_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          maxItems: 10
-          minItems: 1
-          title: Comparison Session Ids
-        feedback_keys:
-          items:
-            type: string
-          type: array
-          maxItems: 100
-          minItems: 1
-          title: Feedback Keys
-        filters:
-          anyOf:
-          - additionalProperties:
-              items:
-                type: string
-              type: array
-            propertyNames:
-              format: uuid
-            type: object
-          - type: 'null'
-          title: Filters
-      type: object
-      required:
-      - baseline_session_id
-      - comparison_session_ids
-      - feedback_keys
-      title: QueryFeedbackDeltaBatch
-      description: Request schema for batched feedback delta queries with multiple feedback keys.
-    SortByDatasetColumn:
+    RunsFilterDataSourceTypeEnum:
       type: string
       enum:
-      - name
-      - created_at
-      - last_session_start_time
-      - example_count
-      - session_count
-      - modified_at
-      title: SortByDatasetColumn
-      description: Enum for available dataset columns to sort by.
-    QueryFeedbackDelta:
-      properties:
-        baseline_session_id:
-          type: string
-          format: uuid
-          title: Baseline Session Id
-        comparison_session_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Comparison Session Ids
-        feedback_key:
-          type: string
-          title: Feedback Key
-        filters:
-          anyOf:
-          - additionalProperties:
-              items:
-                type: string
-              type: array
-            propertyNames:
-              format: uuid
-            type: object
-          - type: 'null'
-          title: Filters
-        offset:
-          type: integer
-          minimum: 0.0
-          title: Offset
-          default: 0
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          default: 100
-        comparative_experiment_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Comparative Experiment Id
-      type: object
-      required:
-      - baseline_session_id
-      - comparison_session_ids
-      - feedback_key
-      title: QueryFeedbackDelta
+      - current
+      - historical
+      - lite
+      - root_lite
+      - runs_feedbacks_rmt_wide
+      title: RunsFilterDataSourceTypeEnum
+      description: Enum for run data source types.
     RunSchemaComparisonView:
       properties:
         name:
@@ -2159,229 +2398,120 @@ components:
       - status
       title: RunSchemaComparisonView
       description: Run schema for comparison view.
-    BodyParamsForRunSchema:
+    RunStatsGroupBy:
       properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-        trace:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace
-        parent_run:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Parent Run
-        run_type:
-          anyOf:
-          - $ref: '#/components/schemas/RunTypeEnum'
-          - type: 'null'
-        session:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Session
-        reference_example:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Reference Example
-        execution_order:
-          anyOf:
-          - type: integer
-            maximum: 1.0
-            minimum: 1.0
-          - type: 'null'
-          title: Execution Order
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        error:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Error
-        query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Query
-        filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filter
-        trace_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Trace Filter
-        tree_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tree Filter
-        is_root:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Root
-        data_source_type:
-          anyOf:
-          - $ref: '#/components/schemas/RunsFilterDataSourceTypeEnum'
-          - type: 'null'
-        skip_pagination:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Skip Pagination
-        search_filter:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Search Filter
-        use_experimental_search:
-          type: boolean
-          title: Use Experimental Search
-          default: false
-        cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cursor
-        limit:
-          type: integer
-          maximum: 100.0
-          minimum: 1.0
-          title: Limit
-          default: 100
-        select:
-          items:
-            $ref: '#/components/schemas/RunSelect'
-          type: array
-          title: Select
-          default:
-          - id
+        attribute:
+          type: string
+          enum:
           - name
           - run_type
-          - start_time
-          - end_time
-          - status
-          - error
-          - extra
-          - events
-          - inputs
-          - outputs
-          - parent_run_id
-          - manifest_id
-          - manifest_s3_id
-          - manifest
-          - session_id
-          - serialized
-          - reference_example_id
-          - reference_dataset_id
-          - total_tokens
-          - prompt_tokens
-          - prompt_token_details
-          - completion_tokens
-          - completion_token_details
-          - total_cost
-          - prompt_cost
-          - prompt_cost_details
-          - completion_cost
-          - completion_cost_details
-          - price_model_id
-          - first_token_time
-          - trace_id
-          - dotted_order
-          - last_queued_at
-          - feedback_stats
-          - parent_run_ids
-          - tags
-          - in_dataset
-          - app_path
-          - share_token
-          - trace_tier
-          - trace_first_received_at
-          - ttl_seconds
-          - trace_upgrade
-          - thread_id
-        order:
-          $ref: '#/components/schemas/RunDateOrder'
-          default: desc
-        skip_prev_cursor:
-          type: boolean
-          title: Skip Prev Cursor
-          default: false
-      type: object
-      title: BodyParamsForRunSchema
-      description: Query params for run endpoints.
-    ExampleSelect:
-      type: string
-      enum:
-      - id
-      - created_at
-      - modified_at
-      - name
-      - dataset_id
-      - source_run_id
-      - metadata
-      - inputs
-      - outputs
-      - attachment_urls
-      title: ExampleSelect
-    DatasetTransformation:
-      properties:
+          - tag
+          - metadata
+          title: Attribute
         path:
-          items:
-            type: string
-          type: array
+          anyOf:
+          - type: string
+          - type: 'null'
           title: Path
-        transformation_type:
-          $ref: '#/components/schemas/DatasetTransformationType'
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
       type: object
       required:
-      - path
-      - transformation_type
-      title: DatasetTransformation
-    SessionFeedbackDelta:
+      - attribute
+      title: RunStatsGroupBy
+      description: Group by param for run stats.
+    HTTPValidationError:
       properties:
-        feedback_deltas:
-          additionalProperties:
-            $ref: '#/components/schemas/FeedbackDelta'
-          propertyNames:
-            format: uuid
-          type: object
-          title: Feedback Deltas
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SortParamsForRunsComparisonView:
+      properties:
+        sort_by:
+          type: string
+          title: Sort By
+        sort_order:
+          type: string
+          enum:
+          - ASC
+          - DESC
+          title: Sort Order
+          default: DESC
       type: object
       required:
-      - feedback_deltas
-      title: SessionFeedbackDelta
-      description: List of feedback keys with number of improvements and regressions for each.
+      - sort_by
+      title: SortParamsForRunsComparisonView
+    PublicExampleWithRuns:
+      properties:
+        outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs
+        dataset_id:
+          type: string
+          format: uuid
+          title: Dataset Id
+        source_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Run Id
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        inputs:
+          additionalProperties: true
+          type: object
+          title: Inputs
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        attachment_urls:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Attachment Urls
+        runs:
+          items:
+            $ref: '#/components/schemas/RunPublicDatasetSchema'
+          type: array
+          title: Runs
+      type: object
+      required:
+      - dataset_id
+      - inputs
+      - id
+      - name
+      - runs
+      title: PublicExampleWithRuns
+      description: Schema for an example in a publicly-shared dataset with list of runs.
     RunPublicSchema:
       properties:
         name:
@@ -2642,49 +2772,6 @@ components:
       - id
       - status
       title: RunPublicSchema
-    ListPublicRunsResponse:
-      properties:
-        runs:
-          items:
-            $ref: '#/components/schemas/RunPublicSchema'
-          type: array
-          title: Runs
-        cursors:
-          additionalProperties:
-            anyOf:
-            - type: string
-            - type: 'null'
-          type: object
-          title: Cursors
-        parsed_query:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Parsed Query
-      type: object
-      required:
-      - runs
-      - cursors
-      title: ListPublicRunsResponse
-    RunTypeEnum:
-      type: string
-      enum:
-      - tool
-      - chain
-      - llm
-      - retriever
-      - embedding
-      - prompt
-      - parser
-      title: RunTypeEnum
-      description: Enum for run types.
-    RunDateOrder:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: RunDateOrder
-      description: Enum for run start date order.
     RunsGenerateQueryFeedbackKeys:
       type: string
       enum:
@@ -2696,54 +2783,13 @@ components:
       - results_size
       - valid_filter
       title: RunsGenerateQueryFeedbackKeys
-    FeedbackSource:
-      properties:
-        type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Type
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        ls_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ls User Id
-        user_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: User Name
-      type: object
-      title: FeedbackSource
-      description: The feedback source loaded from the database.
-    SimpleExperimentInfo:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-      type: object
-      required:
-      - id
-      - name
-      title: SimpleExperimentInfo
-      description: Simple experiment info schema for use with comparative experiments
+    RunDateOrder:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: RunDateOrder
+      description: Enum for run start date order.
     TracerSession:
       properties:
         start_time:
@@ -2902,13 +2948,342 @@ components:
       - tenant_id
       title: TracerSession
       description: TracerSession schema.
-    SortByComparativeExperimentColumn:
+    RequestBodyForRunsGenerateQuery:
+      properties:
+        query:
+          type: string
+          title: Query
+        feedback_keys:
+          items:
+            $ref: '#/components/schemas/RunsGenerateQueryFeedbackKeys'
+          type: array
+          title: Feedback Keys
+      type: object
+      required:
+      - query
+      title: RequestBodyForRunsGenerateQuery
+    ExampleWithRunsCH:
+      properties:
+        outputs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Outputs
+        dataset_id:
+          type: string
+          format: uuid
+          title: Dataset Id
+        source_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Run Id
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        inputs:
+          additionalProperties: true
+          type: object
+          title: Inputs
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+        attachment_urls:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Attachment Urls
+        runs:
+          items:
+            $ref: '#/components/schemas/RunSchemaComparisonView'
+          type: array
+          title: Runs
+      type: object
+      required:
+      - dataset_id
+      - inputs
+      - id
+      - name
+      - runs
+      title: ExampleWithRunsCH
+      description: 'Example schema with list of runs from ClickHouse.
+
+
+        For non-grouped endpoint (/datasets/{dataset_id}/runs): runs from single session.
+
+        For grouped endpoint (/datasets/{dataset_id}/group/runs): flat array of runs from
+
+        all sessions, where each run has a session_id field for frontend to determine column placement.'
+    DataType:
       type: string
       enum:
-      - name
-      - created_at
-      title: SortByComparativeExperimentColumn
-      description: Enum for available comparative experiment columns to sort by.
+      - kv
+      - llm
+      - chat
+      title: DataType
+      description: Enum for dataset data types.
+    BodyParamsForRunSchema:
+      properties:
+        id:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Id
+        trace:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace
+        parent_run:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Run
+        run_type:
+          anyOf:
+          - $ref: '#/components/schemas/RunTypeEnum'
+          - type: 'null'
+        session:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Session
+        reference_example:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Reference Example
+        execution_order:
+          anyOf:
+          - type: integer
+            maximum: 1.0
+            minimum: 1.0
+          - type: 'null'
+          title: Execution Order
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        error:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Error
+        query:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Query
+        filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filter
+        trace_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Trace Filter
+        tree_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tree Filter
+        is_root:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Root
+        data_source_type:
+          anyOf:
+          - $ref: '#/components/schemas/RunsFilterDataSourceTypeEnum'
+          - type: 'null'
+        skip_pagination:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Skip Pagination
+        search_filter:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Search Filter
+        use_experimental_search:
+          type: boolean
+          title: Use Experimental Search
+          default: false
+        cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+        limit:
+          type: integer
+          maximum: 100.0
+          minimum: 1.0
+          title: Limit
+          default: 100
+        select:
+          items:
+            $ref: '#/components/schemas/RunSelect'
+          type: array
+          title: Select
+          default:
+          - id
+          - name
+          - run_type
+          - start_time
+          - end_time
+          - status
+          - error
+          - extra
+          - events
+          - inputs
+          - outputs
+          - parent_run_id
+          - manifest_id
+          - manifest_s3_id
+          - manifest
+          - session_id
+          - serialized
+          - reference_example_id
+          - reference_dataset_id
+          - total_tokens
+          - prompt_tokens
+          - prompt_token_details
+          - completion_tokens
+          - completion_token_details
+          - total_cost
+          - prompt_cost
+          - prompt_cost_details
+          - completion_cost
+          - completion_cost_details
+          - price_model_id
+          - first_token_time
+          - trace_id
+          - dotted_order
+          - last_queued_at
+          - feedback_stats
+          - parent_run_ids
+          - tags
+          - in_dataset
+          - app_path
+          - share_token
+          - trace_tier
+          - trace_first_received_at
+          - ttl_seconds
+          - trace_upgrade
+          - thread_id
+        order:
+          $ref: '#/components/schemas/RunDateOrder'
+          default: desc
+        skip_prev_cursor:
+          type: boolean
+          title: Skip Prev Cursor
+          default: false
+      type: object
+      title: BodyParamsForRunSchema
+      description: Query params for run endpoints.
+    QueryExampleSchemaWithRuns:
+      properties:
+        session_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          minItems: 1
+          title: Session Ids
+        offset:
+          type: integer
+          minimum: 0.0
+          title: Offset
+          default: 0
+        limit:
+          type: integer
+          minimum: 1.0
+          title: Limit
+          default: 10
+        preview:
+          type: boolean
+          title: Preview
+          default: false
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+        sort_params:
+          anyOf:
+          - $ref: '#/components/schemas/SortParamsForRunsComparisonView'
+          - type: 'null'
+        filters:
+          anyOf:
+          - additionalProperties:
+              items:
+                type: string
+              type: array
+            propertyNames:
+              format: uuid
+            type: object
+          - type: 'null'
+          title: Filters
+        example_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+            maxItems: 1000
+          - type: 'null'
+          title: Example Ids
+        include_annotator_detail:
+          type: boolean
+          title: Include Annotator Detail
+          default: false
+      type: object
+      required:
+      - session_ids
+      title: QueryExampleSchemaWithRuns
     RunPublicDatasetSchema:
       properties:
         name:
@@ -3175,405 +3550,30 @@ components:
       - session_id
       title: RunPublicDatasetSchema
       description: Schema for a run in a publicly-shared dataset.
-    SourceType:
-      type: string
-      enum:
-      - api
-      - model
-      - app
-      - auto_eval
-      title: SourceType
-      description: Enum for feedback source types.
-    RequestBodyForRunsGenerateQuery:
+    ListPublicRunsResponse:
       properties:
-        query:
-          type: string
-          title: Query
-        feedback_keys:
-          items:
-            $ref: '#/components/schemas/RunsGenerateQueryFeedbackKeys'
-          type: array
-          title: Feedback Keys
-      type: object
-      required:
-      - query
-      title: RequestBodyForRunsGenerateQuery
-    FeedbackSchema:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        key:
-          type: string
-          title: Key
-        score:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: 'null'
-          title: Score
-        value:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: string
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Value
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment
-        correction:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: string
-          - type: 'null'
-          title: Correction
-        feedback_group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Feedback Group Id
-        comparative_experiment_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Comparative Experiment Id
-        run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Id
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-        id:
-          type: string
-          format: uuid
-          title: Id
-        trace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace Id
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        is_root:
-          type: boolean
-          title: Is Root
-          default: false
-        feedback_source:
-          anyOf:
-          - $ref: '#/components/schemas/FeedbackSource'
-          - type: 'null'
-        extra:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Extra
-        feedback_thread_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Feedback Thread Id
-      type: object
-      required:
-      - key
-      - id
-      title: FeedbackSchema
-      description: Schema for getting feedback.
-    PublicComparativeExperiment:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        extra:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Extra
-        experiments_info:
-          items:
-            $ref: '#/components/schemas/SimpleExperimentInfo'
-          type: array
-          title: Experiments Info
-        feedback_stats:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Feedback Stats
-      type: object
-      required:
-      - id
-      - created_at
-      - modified_at
-      - experiments_info
-      title: PublicComparativeExperiment
-      description: Publicly-shared ComparativeExperiment schema.
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
-    ExampleWithRunsCH:
-      properties:
-        outputs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Outputs
-        dataset_id:
-          type: string
-          format: uuid
-          title: Dataset Id
-        source_run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Source Run Id
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        inputs:
-          additionalProperties: true
-          type: object
-          title: Inputs
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-        modified_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Modified At
-        attachment_urls:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Attachment Urls
         runs:
           items:
-            $ref: '#/components/schemas/RunSchemaComparisonView'
+            $ref: '#/components/schemas/RunPublicSchema'
           type: array
           title: Runs
-      type: object
-      required:
-      - dataset_id
-      - inputs
-      - id
-      - name
-      - runs
-      title: ExampleWithRunsCH
-      description: 'Example schema with list of runs from ClickHouse.
-
-
-        For non-grouped endpoint (/datasets/{dataset_id}/runs): runs from single session.
-
-        For grouped endpoint (/datasets/{dataset_id}/group/runs): flat array of runs from
-
-        all sessions, where each run has a session_id field for frontend to determine column placement.'
-    DataType:
-      type: string
-      enum:
-      - kv
-      - llm
-      - chat
-      title: DataType
-      description: Enum for dataset data types.
-    ValidationError:
-      properties:
-        loc:
-          items:
+        cursors:
+          additionalProperties:
             anyOf:
             - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    FeedbackLevel:
-      type: string
-      enum:
-      - run
-      - session
-      title: FeedbackLevel
-      description: Enum for feedback levels.
-    RunsFilterDataSourceTypeEnum:
-      type: string
-      enum:
-      - current
-      - historical
-      - lite
-      - root_lite
-      - runs_feedbacks_rmt_wide
-      title: RunsFilterDataSourceTypeEnum
-      description: Enum for run data source types.
-    RunStatsSelect:
-      type: string
-      enum:
-      - run_count
-      - latency_p50
-      - latency_p99
-      - latency_avg
-      - first_token_p50
-      - first_token_p99
-      - total_tokens
-      - prompt_tokens
-      - completion_tokens
-      - median_tokens
-      - completion_tokens_p50
-      - prompt_tokens_p50
-      - tokens_p99
-      - completion_tokens_p99
-      - prompt_tokens_p99
-      - last_run_start_time
-      - feedback_stats
-      - thread_feedback_stats
-      - run_facets
-      - error_rate
-      - streaming_rate
-      - total_cost
-      - prompt_cost
-      - completion_cost
-      - cost_p50
-      - cost_p99
-      - session_feedback_stats
-      - all_run_stats
-      - all_token_stats
-      - prompt_token_details
-      - completion_token_details
-      - prompt_cost_details
-      - completion_cost_details
-      title: RunStatsSelect
-      description: Metrics you can select from run stats endpoint.
-    DatasetTransformationType:
-      type: string
-      enum:
-      - convert_to_openai_message
-      - convert_to_openai_tool
-      - remove_system_messages
-      - remove_extra_fields
-      - extract_tools_from_run
-      title: DatasetTransformationType
-      description: 'Enum for dataset transformation types.
-
-        Ordering determines the order in which transformations are applied if there are multiple transformations on the same path.'
-    RunStatsGroupBy:
-      properties:
-        attribute:
-          type: string
-          enum:
-          - name
-          - run_type
-          - tag
-          - metadata
-          title: Attribute
-        path:
+            - type: 'null'
+          type: object
+          title: Cursors
+        parsed_query:
           anyOf:
           - type: string
           - type: 'null'
-          title: Path
-        max_groups:
-          type: integer
-          title: Max Groups
-          default: 5
+          title: Parsed Query
       type: object
       required:
-      - attribute
-      title: RunStatsGroupBy
-      description: Group by param for run stats.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    QueryParamsForPublicRunSchema:
-      properties:
-        id:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Id
-      type: object
-      title: QueryParamsForPublicRunSchema
-      description: Query params for public run endpoints.
+      - runs
+      - cursors
+      title: ListPublicRunsResponse
   securitySchemes:
     API_Key:
       type: apiKey

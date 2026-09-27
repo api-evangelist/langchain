@@ -71,9 +71,7 @@
     "langchain-usage-limits-api-openapi.yml",
     "langchain-workspaces-api-openapi.yml"
   ],
-  "archived": [
-    "deleted 1 superseded output(s) from the previous generation"
-  ],
+  "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -148,8 +146,7 @@
     "langchain-openapi.json: declared missing tag: ttl-settings",
     "langchain-openapi.json: declared missing tag: usage-limits",
     "langchain-openapi.json: declared missing tag: workspaces",
-    "superseded outputs removed: langchain-o-auth-api-openapi.yml",
-    "apis.yml register: written (+1 apis, 66 total)"
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "langchain-access-policies-api-openapi.yml: previously refined output, superseded by openapi/_original/",
@@ -190,7 +187,7 @@
     "langchain-metrics-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "langchain-model-price-map-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "langchain-nps-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "langchain-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langchain-oauth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "langchain-ok-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "langchain-optimization-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "langchain-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",

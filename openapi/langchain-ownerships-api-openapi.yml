@@ -151,6 +151,18 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ListRepoOwnersResponse:
+      properties:
+        owners:
+          items:
+            $ref: '#/components/schemas/RepoOwner'
+          type: array
+          title: Owners
+      type: object
+      required:
+      - owners
+      title: ListRepoOwnersResponse
+      description: Response for listing repo owners.
     RemoveRepoOwnerRequest:
       properties:
         identity_id:
@@ -162,6 +174,16 @@ components:
       - identity_id
       title: RemoveRepoOwnerRequest
       description: Request to remove a repo owner.
+    AddRepoOwnerRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+      type: object
+      required:
+      - email
+      title: AddRepoOwnerRequest
+      description: Request to add a repo owner.
     ValidationError:
       properties:
         loc:
@@ -223,28 +245,6 @@ components:
         Note: identity_id and email may be None when returned to users
 
         outside the repo''s tenant (PII protection).'
-    AddRepoOwnerRequest:
-      properties:
-        email:
-          type: string
-          title: Email
-      type: object
-      required:
-      - email
-      title: AddRepoOwnerRequest
-      description: Request to add a repo owner.
-    ListRepoOwnersResponse:
-      properties:
-        owners:
-          items:
-            $ref: '#/components/schemas/RepoOwner'
-          type: array
-          title: Owners
-      type: object
-      required:
-      - owners
-      title: ListRepoOwnersResponse
-      description: Response for listing repo owners.
     HTTPValidationError:
       properties:
         detail:

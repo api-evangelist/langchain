@@ -198,24 +198,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    _SSOEmailLookupRequest:
+    SSOEmailVerificationStatusResponse:
       properties:
-        email:
-          type: string
-          title: Email
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
       type: object
-      required:
-      - email
-      title: _SSOEmailLookupRequest
-    SSOConfirmEmailRequest:
-      properties:
-        token:
-          type: string
-          title: Token
-      type: object
-      required:
-      - token
-      title: SSOConfirmEmailRequest
+      title: SSOEmailVerificationStatusResponse
     ValidationError:
       properties:
         loc:
@@ -237,15 +229,15 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    _SSOEmailLookupRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        email:
+          type: string
+          title: Email
       type: object
-      title: HTTPValidationError
+      required:
+      - email
+      title: _SSOEmailLookupRequest
     BasicAuthResponse:
       properties:
         access_token:
@@ -268,16 +260,6 @@ components:
           type: string
         user_id:
           type: string
-    SSOEmailVerificationStatusResponse:
-      properties:
-        email_confirmed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Email Confirmed At
-      type: object
-      title: SSOEmailVerificationStatusResponse
     SSOEmailVerificationStatusRequest:
       properties:
         email:
@@ -292,6 +274,38 @@ components:
       - email
       - saml_provider_id
       title: SSOEmailVerificationStatusRequest
+    SSOEmailVerificationSendRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        saml_provider_id:
+          type: string
+          format: uuid
+          title: Saml Provider Id
+      type: object
+      required:
+      - email
+      - saml_provider_id
+      title: SSOEmailVerificationSendRequest
+    SSOConfirmEmailRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+      type: object
+      required:
+      - token
+      title: SSOConfirmEmailRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SSOProviderSlim:
       properties:
         provider_id:
@@ -311,20 +325,6 @@ components:
       - organization_id
       - organization_display_name
       title: SSOProviderSlim
-    SSOEmailVerificationSendRequest:
-      properties:
-        email:
-          type: string
-          title: Email
-        saml_provider_id:
-          type: string
-          format: uuid
-          title: Saml Provider Id
-      type: object
-      required:
-      - email
-      - saml_provider_id
-      title: SSOEmailVerificationSendRequest
   securitySchemes:
     API_Key:
       type: apiKey

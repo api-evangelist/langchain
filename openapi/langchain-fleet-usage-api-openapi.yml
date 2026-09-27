@@ -290,13 +290,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    usage.AgentUsageResponse:
-      type: object
-      properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.AgentUsage'
     usage.UserUsageResponse:
       type: object
       properties:
@@ -306,6 +299,19 @@ components:
             $ref: '#/components/schemas/usage.UserUsage'
     errutil.InternalError:
       type: object
+    usage.ToolUsage:
+      type: object
+      properties:
+        agent_count:
+          type: integer
+        avg_latency_ms:
+          type: number
+        last_used:
+          type: string
+        run_count:
+          type: integer
+        tool_name:
+          type: string
     usage.ModelUsageResponse:
       type: object
       properties:
@@ -313,17 +319,20 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.ModelUsage'
-    usage.ModelUsage:
+    usage.ToolUsageResponse:
       type: object
       properties:
-        last_used:
-          type: string
-        model_name:
-          type: string
-        run_count:
-          type: integer
-        total_cost:
-          type: number
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.ToolUsage'
+    usage.AgentUsageResponse:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.AgentUsage'
     usage.AgentUsage:
       type: object
       properties:
@@ -343,28 +352,19 @@ components:
           type: integer
         total_cost:
           type: number
-    usage.ToolUsage:
+    errutil.UserError:
+      type: object
+    usage.ModelUsage:
       type: object
       properties:
-        agent_count:
-          type: integer
-        avg_latency_ms:
-          type: number
         last_used:
+          type: string
+        model_name:
           type: string
         run_count:
           type: integer
-        tool_name:
-          type: string
-    errutil.UserError:
-      type: object
-    usage.ToolUsageResponse:
-      type: object
-      properties:
-        tools:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.ToolUsage'
+        total_cost:
+          type: number
     usage.UserUsage:
       type: object
       properties:
