@@ -392,6 +392,13 @@ components:
           type: string
         verification_uri:
           type: string
+    oauth.TokenErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
+          type: string
     oauth.TokenResponse:
       type: object
       properties:
@@ -438,13 +445,6 @@ components:
           type: array
           items:
             type: string
-    oauth.TokenErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
   securitySchemes:
     API_Key:
       type: apiKey

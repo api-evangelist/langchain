@@ -312,15 +312,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CreateCommentRequest:
-      properties:
-        content:
-          type: string
-          title: Content
-      type: object
-      required:
-      - content
-      title: CreateCommentRequest
     ValidationError:
       properties:
         loc:
@@ -357,6 +348,15 @@ components:
       - comments
       - total
       title: ListCommentsResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Comment:
       properties:
         id:
@@ -416,15 +416,15 @@ components:
       - num_sub_comments
       - num_likes
       title: Comment
-    HTTPValidationError:
+    CreateCommentRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        content:
+          type: string
+          title: Content
       type: object
-      title: HTTPValidationError
+      required:
+      - content
+      title: CreateCommentRequest
   securitySchemes:
     API_Key:
       type: apiKey

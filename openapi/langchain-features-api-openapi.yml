@@ -257,17 +257,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    features.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
     features.DisableModelRequest:
-      type: object
-      properties:
-        model:
-          type: string
-    features.UpsertDefaultModelRequest:
       type: object
       properties:
         model:
@@ -282,6 +272,16 @@ components:
           items:
             type: string
         feature:
+          type: string
+    features.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+    features.UpsertDefaultModelRequest:
+      type: object
+      properties:
+        model:
           type: string
   securitySchemes:
     API_Key:

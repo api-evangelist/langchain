@@ -168,70 +168,45 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    PlaygroundSettingsUpdateRequest:
+    ValidationError:
       properties:
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        settings:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Settings
-        options:
-          anyOf:
-          - $ref: '#/components/schemas/PlaygroundSavedOptions'
-          - type: 'null'
-        available_in_playground:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Playground
-        available_in_evaluators:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Evaluators
-        available_in_agent_builder:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Agent Builder
-        available_in_polly:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Polly
-        available_in_insights_heavy:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Insights Heavy
-        available_in_insights_light:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Insights Light
-        available_in_issues_agent_heavy:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Issues Agent Heavy
-        available_in_issues_agent_light:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Available In Issues Agent Light
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
-      title: PlaygroundSettingsUpdateRequest
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    PlaygroundSavedOptions:
+      properties:
+        requests_per_second:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Requests Per Second
+      type: object
+      title: PlaygroundSavedOptions
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     PlaygroundSettingsResponse:
       properties:
         id:
@@ -353,45 +328,70 @@ components:
       required:
       - settings
       title: PlaygroundSettingsCreateRequest
-    ValidationError:
+    PlaygroundSettingsUpdateRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PlaygroundSavedOptions:
-      properties:
-        requests_per_second:
+        name:
           anyOf:
-          - type: integer
+          - type: string
           - type: 'null'
-          title: Requests Per Second
+          title: Name
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        settings:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Settings
+        options:
+          anyOf:
+          - $ref: '#/components/schemas/PlaygroundSavedOptions'
+          - type: 'null'
+        available_in_playground:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Playground
+        available_in_evaluators:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Evaluators
+        available_in_agent_builder:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Agent Builder
+        available_in_polly:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Polly
+        available_in_insights_heavy:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Insights Heavy
+        available_in_insights_light:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Insights Light
+        available_in_issues_agent_heavy:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Issues Agent Heavy
+        available_in_issues_agent_light:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Available In Issues Agent Light
       type: object
-      title: PlaygroundSavedOptions
+      title: PlaygroundSettingsUpdateRequest
   securitySchemes:
     API_Key:
       type: apiKey

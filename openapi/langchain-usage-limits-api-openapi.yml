@@ -124,6 +124,27 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     UsageLimit:
       properties:
         limit_type:
@@ -156,34 +177,6 @@ components:
       - updated_at
       title: UsageLimit
       description: Usage limit model.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UsageLimitType:
-      type: string
-      enum:
-      - monthly_traces
-      - monthly_longlived_traces
-      title: UsageLimitType
-      description: Type of usage limit.
     UpsertUsageLimit:
       properties:
         limit_type:
@@ -210,6 +203,13 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    UsageLimitType:
+      type: string
+      enum:
+      - monthly_traces
+      - monthly_longlived_traces
+      title: UsageLimitType
+      description: Type of usage limit.
   securitySchemes:
     API_Key:
       type: apiKey

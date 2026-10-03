@@ -66,73 +66,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    orgs.OrganizationInfo:
-      type: object
-      properties:
-        can_export_usage_backfill:
-          type: boolean
-        config:
-          $ref: '#/components/schemas/authn.OrganizationConfig'
-        default_sso_provision:
-          type: boolean
-        disabled:
-          type: boolean
-        display_name:
-          type: string
-        id:
-          type: string
-        invites_enabled:
-          type: boolean
-        ip_allowlist:
-          type: array
-          items:
-            type: string
-        ip_allowlist_enabled:
-          type: boolean
-        is_personal:
-          type: boolean
-        jit_provisioning_enabled:
-          type: boolean
-        llm_auth_proxy_allowed_urls:
-          type: array
-          items:
-            type: string
-        llm_auth_proxy_enabled:
-          type: boolean
-        llm_auth_proxy_jwt_audience:
-          type: string
-        marketplace_payouts_enabled:
-          type: boolean
-        max_api_key_expiry_days:
-          type: integer
-        max_pat_expiry_days:
-          type: integer
-        max_service_key_expiry_days:
-          type: integer
-        member_disabled:
-          type: boolean
-        pat_creation_disabled:
-          type: boolean
-        permissions:
-          type: array
-          items:
-            type: string
-        public_sharing_disabled:
-          type: boolean
-        reached_max_workspaces:
-          type: boolean
-        scim_group_name_separator:
-          type: string
-        security_contact:
-          type: string
-        sso_login_slug:
-          type: string
-        sso_only:
-          type: boolean
-        tier:
-          type: string
-        workspace_admin_can_invite_to_org:
-          type: boolean
     authn.OrganizationConfig:
       type: object
       properties:
@@ -339,6 +272,73 @@ components:
           type: boolean
         use_exact_search_for_prompts:
           description: UseExactSearchForPrompts indicates whether to use exact search for prompts.
+          type: boolean
+    orgs.OrganizationInfo:
+      type: object
+      properties:
+        can_export_usage_backfill:
+          type: boolean
+        config:
+          $ref: '#/components/schemas/authn.OrganizationConfig'
+        default_sso_provision:
+          type: boolean
+        disabled:
+          type: boolean
+        display_name:
+          type: string
+        id:
+          type: string
+        invites_enabled:
+          type: boolean
+        ip_allowlist:
+          type: array
+          items:
+            type: string
+        ip_allowlist_enabled:
+          type: boolean
+        is_personal:
+          type: boolean
+        jit_provisioning_enabled:
+          type: boolean
+        llm_auth_proxy_allowed_urls:
+          type: array
+          items:
+            type: string
+        llm_auth_proxy_enabled:
+          type: boolean
+        llm_auth_proxy_jwt_audience:
+          type: string
+        marketplace_payouts_enabled:
+          type: boolean
+        max_api_key_expiry_days:
+          type: integer
+        max_pat_expiry_days:
+          type: integer
+        max_service_key_expiry_days:
+          type: integer
+        member_disabled:
+          type: boolean
+        pat_creation_disabled:
+          type: boolean
+        permissions:
+          type: array
+          items:
+            type: string
+        public_sharing_disabled:
+          type: boolean
+        reached_max_workspaces:
+          type: boolean
+        scim_group_name_separator:
+          type: string
+        security_contact:
+          type: string
+        sso_login_slug:
+          type: string
+        sso_only:
+          type: boolean
+        tier:
+          type: string
+        workspace_admin_can_invite_to_org:
           type: boolean
   securitySchemes:
     API_Key:

@@ -94,13 +94,6 @@ components:
       - DataPlaneStatusDeprovisioning
       - DataPlaneStatusDeleted
       - DataPlaneStatusRevoked
-    data_planes.ListPublicDataPlanesResponse:
-      type: object
-      properties:
-        data_planes:
-          type: array
-          items:
-            $ref: '#/components/schemas/data_planes.PublicDataPlane'
     data_planes.PublicDataPlane:
       type: object
       properties:
@@ -116,6 +109,13 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/data_planes.Status'
+    data_planes.ListPublicDataPlanesResponse:
+      type: object
+      properties:
+        data_planes:
+          type: array
+          items:
+            $ref: '#/components/schemas/data_planes.PublicDataPlane'
   securitySchemes:
     API_Key:
       type: apiKey

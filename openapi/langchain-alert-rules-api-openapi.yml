@@ -351,6 +351,36 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    alerts.CreateAlertRuleRequest:
+      type: object
+      required:
+      - actions
+      - rule
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertActionBase'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRuleBase'
+    alerts.AlertActionBase:
+      type: object
+      required:
+      - config
+      - target
+      properties:
+        alert_rule_id:
+          type: string
+        config:
+          type: object
+        id:
+          type: string
+        target:
+          type: string
+          enum:
+          - pagerduty
+          - webhook
+          - dynatrace
     alerts.AlertRuleResponse:
       type: object
       properties:
@@ -360,6 +390,72 @@ components:
             $ref: '#/components/schemas/alerts.AlertAction'
         rule:
           $ref: '#/components/schemas/alerts.AlertRule'
+    alerts.AlertRuleBase:
+      type: object
+      required:
+      - aggregation
+      - attribute
+      - description
+      - name
+      - operator
+      - type
+      - window_minutes
+      properties:
+        aggregation:
+          type: string
+          enum:
+          - avg
+          - sum
+          - pct
+        attribute:
+          type: string
+          enum:
+          - latency
+          - error_count
+          - feedback_score
+          - run_latency
+          - run_count
+          - total_cost
+        denominator_filter:
+          type: string
+        description:
+          type: string
+        filter:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        operator:
+          type: string
+          enum:
+          - gte
+          - lte
+          - gt
+          - lt
+        threshold:
+          type: number
+        threshold_multiplier:
+          type: number
+        threshold_window_minutes:
+          type: integer
+          maximum: 60
+        type:
+          type: string
+          enum:
+          - threshold
+          - change
+        window_minutes:
+          description: 1-60 minutes for alert rule
+          type: integer
+          maximum: 60
+          minimum: 1
+    alerts.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Invalid request: missing required fields'
     alerts.AlertRule:
       type: object
       required:
@@ -440,12 +536,6 @@ components:
             $ref: '#/components/schemas/alerts.AlertActionBase'
         rule:
           $ref: '#/components/schemas/alerts.AlertRuleBase'
-    alerts.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: 'Invalid request: missing required fields'
     alerts.AlertAction:
       type: object
       required:
@@ -468,96 +558,6 @@ components:
           - dynatrace
         updated_at:
           type: string
-    alerts.CreateAlertRuleRequest:
-      type: object
-      required:
-      - actions
-      - rule
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/alerts.AlertActionBase'
-        rule:
-          $ref: '#/components/schemas/alerts.AlertRuleBase'
-    alerts.AlertActionBase:
-      type: object
-      required:
-      - config
-      - target
-      properties:
-        alert_rule_id:
-          type: string
-        config:
-          type: object
-        id:
-          type: string
-        target:
-          type: string
-          enum:
-          - pagerduty
-          - webhook
-          - dynatrace
-    alerts.AlertRuleBase:
-      type: object
-      required:
-      - aggregation
-      - attribute
-      - description
-      - name
-      - operator
-      - type
-      - window_minutes
-      properties:
-        aggregation:
-          type: string
-          enum:
-          - avg
-          - sum
-          - pct
-        attribute:
-          type: string
-          enum:
-          - latency
-          - error_count
-          - feedback_score
-          - run_latency
-          - run_count
-          - total_cost
-        denominator_filter:
-          type: string
-        description:
-          type: string
-        filter:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        operator:
-          type: string
-          enum:
-          - gte
-          - lte
-          - gt
-          - lt
-        threshold:
-          type: number
-        threshold_multiplier:
-          type: number
-        threshold_window_minutes:
-          type: integer
-          maximum: 60
-        type:
-          type: string
-          enum:
-          - threshold
-          - change
-        window_minutes:
-          description: 1-60 minutes for alert rule
-          type: integer
-          maximum: 60
-          minimum: 1
   securitySchemes:
     API_Key:
       type: apiKey

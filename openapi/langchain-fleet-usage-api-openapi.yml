@@ -297,8 +297,41 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.UserUsage'
+    usage.UserUsage:
+      type: object
+      properties:
+        agent_count:
+          type: integer
+        first_used:
+          type: string
+        last_used:
+          type: string
+        ls_user_id:
+          type: string
+        owner_email:
+          type: string
+        run_count:
+          type: integer
+        total_cost:
+          type: number
     errutil.InternalError:
       type: object
+    usage.AgentUsageResponse:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.AgentUsage'
+    errutil.UserError:
+      type: object
+    usage.ModelUsageResponse:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.ModelUsage'
     usage.ToolUsage:
       type: object
       properties:
@@ -312,13 +345,6 @@ components:
           type: integer
         tool_name:
           type: string
-    usage.ModelUsageResponse:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.ModelUsage'
     usage.ToolUsageResponse:
       type: object
       properties:
@@ -326,13 +352,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.ToolUsage'
-    usage.AgentUsageResponse:
+    usage.ModelUsage:
       type: object
       properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.AgentUsage'
+        last_used:
+          type: string
+        model_name:
+          type: string
+        run_count:
+          type: integer
+        total_cost:
+          type: number
     usage.AgentUsage:
       type: object
       properties:
@@ -345,36 +375,6 @@ components:
         last_used:
           type: string
         model_name:
-          type: string
-        owner_email:
-          type: string
-        run_count:
-          type: integer
-        total_cost:
-          type: number
-    errutil.UserError:
-      type: object
-    usage.ModelUsage:
-      type: object
-      properties:
-        last_used:
-          type: string
-        model_name:
-          type: string
-        run_count:
-          type: integer
-        total_cost:
-          type: number
-    usage.UserUsage:
-      type: object
-      properties:
-        agent_count:
-          type: integer
-        first_used:
-          type: string
-        last_used:
-          type: string
-        ls_user_id:
           type: string
         owner_email:
           type: string

@@ -68,71 +68,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    sandboxes.ProxyHeader:
-      type: object
-      required:
-      - name
-      - type
-      properties:
-        is_set:
-          type: boolean
-        name:
-          type: string
-        type:
-          enum:
-          - plaintext
-          - opaque
-          - workspace_secret
-          allOf:
-          - $ref: '#/components/schemas/sandboxes.HeaderType'
-        value:
-          type: string
-    sandboxes.AccessControl:
-      type: object
-      properties:
-        allow_list:
-          type: array
-          items:
-            type: string
-        deny_list:
-          type: array
-          items:
-            type: string
-    sandboxes.ClaimResponse:
-      type: object
-      properties:
-        created_at:
-          type: string
-        dataplane_url:
-          type: string
-        expires_at:
-          type: string
-        fs_capacity_bytes:
-          type: integer
-        id:
-          type: string
-        idle_ttl_seconds:
-          type: integer
-        mem_bytes:
-          type: integer
-        name:
-          type: string
-        proxy_config:
-          $ref: '#/components/schemas/sandboxes.ProxyConfig'
-        size_class:
-          type: string
-        snapshot_id:
-          type: string
-        status:
-          type: string
-        status_message:
-          type: string
-        ttl_seconds:
-          type: integer
-        updated_at:
-          type: string
-        vcpus:
-          type: integer
     sandboxes.HeaderType:
       type: string
       enum:
@@ -188,6 +123,60 @@ components:
           minimum: 60
         url:
           type: string
+    sandboxes.ClaimResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+        dataplane_url:
+          type: string
+        expires_at:
+          type: string
+        fs_capacity_bytes:
+          type: integer
+        id:
+          type: string
+        idle_ttl_seconds:
+          type: integer
+        mem_bytes:
+          type: integer
+        name:
+          type: string
+        proxy_config:
+          $ref: '#/components/schemas/sandboxes.ProxyConfig'
+        size_class:
+          type: string
+        snapshot_id:
+          type: string
+        status:
+          type: string
+        status_message:
+          type: string
+        ttl_seconds:
+          type: integer
+        updated_at:
+          type: string
+        vcpus:
+          type: integer
+    sandboxes.ProxyHeader:
+      type: object
+      required:
+      - name
+      - type
+      properties:
+        is_set:
+          type: boolean
+        name:
+          type: string
+        type:
+          enum:
+          - plaintext
+          - opaque
+          - workspace_secret
+          allOf:
+          - $ref: '#/components/schemas/sandboxes.HeaderType'
+        value:
+          type: string
     sandboxes.ErrorResponse:
       type: object
       properties:
@@ -215,6 +204,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/sandboxes.ProxyRule'
+    sandboxes.AccessControl:
+      type: object
+      properties:
+        allow_list:
+          type: array
+          items:
+            type: string
+        deny_list:
+          type: array
+          items:
+            type: string
   securitySchemes:
     API_Key:
       type: apiKey

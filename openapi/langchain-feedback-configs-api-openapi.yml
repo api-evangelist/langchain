@@ -187,14 +187,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    FeedbackType:
-      type: string
-      enum:
-      - continuous
-      - categorical
-      - freeform
-      title: FeedbackType
-      description: Enum for feedback types.
     ValidationError:
       properties:
         loc:
@@ -216,40 +208,32 @@ components:
       - msg
       - type
       title: ValidationError
-    FeedbackCategory:
-      properties:
-        value:
-          type: number
-          title: Value
-        label:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Label
-      type: object
-      required:
-      - value
-      title: FeedbackCategory
-      description: Specific value and label pair for feedback
-    CreateFeedbackConfigSchema:
+    UpdateFeedbackConfigSchema:
       properties:
         feedback_key:
           type: string
           title: Feedback Key
         feedback_config:
-          $ref: '#/components/schemas/FeedbackConfig'
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
         is_lower_score_better:
           anyOf:
           - type: boolean
           - type: 'null'
           title: Is Lower Score Better
-          default: false
       type: object
       required:
       - feedback_key
-      - feedback_config
-      title: CreateFeedbackConfigSchema
+      title: UpdateFeedbackConfigSchema
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
     FeedbackConfigSchema:
       properties:
         feedback_key:
@@ -277,24 +261,6 @@ components:
       - tenant_id
       - modified_at
       title: FeedbackConfigSchema
-    UpdateFeedbackConfigSchema:
-      properties:
-        feedback_key:
-          type: string
-          title: Feedback Key
-        feedback_config:
-          anyOf:
-          - $ref: '#/components/schemas/FeedbackConfig'
-          - type: 'null'
-        is_lower_score_better:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Lower Score Better
-      type: object
-      required:
-      - feedback_key
-      title: UpdateFeedbackConfigSchema
     FeedbackConfig:
       properties:
         type:
@@ -329,6 +295,40 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
+    CreateFeedbackConfigSchema:
+      properties:
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          $ref: '#/components/schemas/FeedbackConfig'
+        is_lower_score_better:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Lower Score Better
+          default: false
+      type: object
+      required:
+      - feedback_key
+      - feedback_config
+      title: CreateFeedbackConfigSchema
   securitySchemes:
     API_Key:
       type: apiKey

@@ -97,15 +97,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    tag_transitions.TagTransitionHistoryResponse:
-      type: object
-      properties:
-        total:
-          type: integer
-        transitions:
-          type: array
-          items:
-            $ref: '#/components/schemas/tag_transitions.TagTransition'
     tag_transitions.TagTransition:
       type: object
       properties:
@@ -129,6 +120,15 @@ components:
           type: string
         to_commit_id:
           type: string
+    tag_transitions.TagTransitionHistoryResponse:
+      type: object
+      properties:
+        total:
+          type: integer
+        transitions:
+          type: array
+          items:
+            $ref: '#/components/schemas/tag_transitions.TagTransition'
     tag_transitions.ErrorResponse:
       type: object
       properties:

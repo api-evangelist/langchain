@@ -469,66 +469,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    mcptools.ErrorResponse:
-      type: object
-      properties:
-        code:
-          type: string
-        detail:
-          type: string
-        status:
-          type: integer
-        type:
-          type: string
-    mcp_servers.McpServerAPIError:
-      type: object
-      properties:
-        detail:
-          type: string
-        error:
-          type: string
-    langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderPayload:
-      type: object
-      properties:
-        ls_user_id:
-          type: string
-    mcptools.Tool:
-      type: object
-      properties:
-        annotations:
-          type: object
-          additionalProperties: {}
-        description:
-          type: string
-        inputSchema:
-          type: object
-          additionalProperties: {}
-        name:
-          type: string
-    mcptools.ListToolsResponse:
-      type: object
-      properties:
-        cached:
-          type: boolean
-        fetched_at:
-          type: string
-        tools:
-          type: array
-          items:
-            $ref: '#/components/schemas/mcptools.Tool'
-    langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderResponse:
-      type: object
-      properties:
-        oauth_provider_id:
-          type: string
-    langchain_com_smith_fleet_mcp_servers.OAuthMode:
-      type: string
-      enum:
-      - legacy_shared_provider
-      - per_user_dynamic_client
-      x-enum-varnames:
-      - OAuthModeLegacySharedProvider
-      - OAuthModePerUserDynamicClient
     langchain_com_smith_fleet_mcp_servers.CreateMcpServerPayload:
       type: object
       required:
@@ -562,6 +502,62 @@ components:
       x-enum-varnames:
       - AuthTypeHeaders
       - AuthTypeOAuth
+    mcptools.ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        type:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.OAuthMode:
+      type: string
+      enum:
+      - legacy_shared_provider
+      - per_user_dynamic_client
+      x-enum-varnames:
+      - OAuthModeLegacySharedProvider
+      - OAuthModePerUserDynamicClient
+    langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderResponse:
+      type: object
+      properties:
+        oauth_provider_id:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.UpdateMcpServerPayload:
+      type: object
+      properties:
+        auth_type:
+          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.AuthType'
+        headers:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        oauth_provider_id:
+          type: string
+        url:
+          type: string
+    mcptools.Tool:
+      type: object
+      properties:
+        annotations:
+          type: object
+          additionalProperties: {}
+        description:
+          type: string
+        inputSchema:
+          type: object
+          additionalProperties: {}
+        name:
+          type: string
+    langchain_com_smith_fleet_mcp_servers.RegisterOAuthProviderPayload:
+      type: object
+      properties:
+        ls_user_id:
+          type: string
     langchain_com_smith_fleet_mcp_servers.McpServer:
       type: object
       properties:
@@ -596,19 +592,23 @@ components:
           type: string
         vendor_id:
           type: string
-    langchain_com_smith_fleet_mcp_servers.UpdateMcpServerPayload:
+    mcptools.ListToolsResponse:
       type: object
       properties:
-        auth_type:
-          $ref: '#/components/schemas/langchain_com_smith_fleet_mcp_servers.AuthType'
-        headers:
+        cached:
+          type: boolean
+        fetched_at:
+          type: string
+        tools:
           type: array
           items:
-            type: object
-            additionalProperties: true
-        oauth_provider_id:
+            $ref: '#/components/schemas/mcptools.Tool'
+    mcp_servers.McpServerAPIError:
+      type: object
+      properties:
+        detail:
           type: string
-        url:
+        error:
           type: string
   securitySchemes:
     API_Key:

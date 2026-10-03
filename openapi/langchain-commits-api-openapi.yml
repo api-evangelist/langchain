@@ -264,11 +264,28 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    commits.CreateCommitReq:
+      type: object
+      properties:
+        description:
+          type: string
+        manifest:
+          type: object
+        parent_commit:
+          type: string
+        skip_webhooks:
+          description: SkipWebhooks allows skipping webhook notifications. Can be true (boolean) to skip all, or an array of webhook UUIDs to skip specific ones.
     commits.CreateCommitResponse:
       type: object
       properties:
         commit:
           $ref: '#/components/schemas/commits.CommitWithLookups'
+    commits.ErrorResponse:
+      type: object
+      properties:
+        error:
+          description: Error message
+          type: string
     commits.CommitResponse:
       type: object
       properties:
@@ -288,38 +305,6 @@ components:
           type: object
         model_provider:
           type: string
-    commits.ExampleRun:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        inputs:
-          type: object
-        outputs:
-          type: object
-        session_id:
-          type: string
-          format: uuid
-        start_time:
-          type: string
-    commits.ErrorResponse:
-      type: object
-      properties:
-        error:
-          description: Error message
-          type: string
-    commits.CreateCommitReq:
-      type: object
-      properties:
-        description:
-          type: string
-        manifest:
-          type: object
-        parent_commit:
-          type: string
-        skip_webhooks:
-          description: SkipWebhooks allows skipping webhook notifications. Can be true (boolean) to skip all, or an array of webhook UUIDs to skip specific ones.
     commits.ListCommitsResponse:
       type: object
       properties:
@@ -386,6 +371,21 @@ components:
           description: When the commit was last updated
           type: string
           format: date-time
+    commits.ExampleRun:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        inputs:
+          type: object
+        outputs:
+          type: object
+        session_id:
+          type: string
+          format: uuid
+        start_time:
+          type: string
   securitySchemes:
     API_Key:
       type: apiKey

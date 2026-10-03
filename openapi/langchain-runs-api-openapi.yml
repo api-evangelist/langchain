@@ -652,26 +652,16 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    query.RunCompletionTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its completion-token count.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    runs.ErrorResponse:
-      type: object
-      properties:
-        details:
-          description: Optional error details as JSON string
-          type: string
-          example: '{"field":"dataset_id","reason":"required"}'
-        error:
-          description: Error message
-          type: string
-          example: 'Invalid request: missing required fields'
+    query.RunStatus:
+      type: string
+      enum:
+      - SUCCESS
+      - ERROR
+      - PENDING
+      x-enum-varnames:
+      - RunStatusSuccess
+      - RunStatusError
+      - RunStatusPending
     query.RunResponse:
       type: object
       properties:
@@ -867,6 +857,79 @@ components:
           type: string
           format: uuid
           example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+    runs.Run:
+      type: object
+      properties:
+        dotted_order:
+          type: string
+        end_time:
+          type: string
+        error:
+          type: string
+        events:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+        extra:
+          type: object
+          additionalProperties: true
+        id:
+          type: string
+        input_attachments:
+          type: object
+          additionalProperties: true
+        inputs:
+          type: object
+          additionalProperties: true
+        name:
+          type: string
+        output_attachments:
+          type: object
+          additionalProperties: true
+        outputs:
+          type: object
+          additionalProperties: true
+        parent_run_id:
+          type: string
+        reference_example_id:
+          type: string
+        run_type:
+          type: string
+          enum:
+          - tool
+          - chain
+          - llm
+          - retriever
+          - embedding
+          - prompt
+          - parser
+        serialized:
+          type: object
+          additionalProperties: true
+        session_id:
+          type: string
+        session_name:
+          type: string
+        start_time:
+          type: string
+        status:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        trace_id:
+          type: string
+    query.RunPromptTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its prompt-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     query.RunPromptCostDetails:
       type: object
       properties:
@@ -876,21 +939,54 @@ components:
           additionalProperties:
             type: number
             format: float64
-    query.RunEvent:
+    query.QueryRunsResponseBody:
       type: object
       properties:
-        kwargs:
-          description: '`kwargs` is the event payload — an opaque JSON object whose shape depends on `name` and on the emitting SDK. For example LangChain emits `{"token": {...}}` for `new_token` events, tool-call start/end details for tool events, and arbitrary user-defined payloads for custom events. Clients should treat `kwargs` as untyped JSON: do not assume specific keys exist for a given `name`, and tolerate additional unknown keys appearing over time.'
+        has_more:
+          description: '`has_more` is true when another page of runs exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of runs, sorted by `start_time` in the direction given by the request `sort_order`.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunResponse'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
+    query.RunAttachmentURLs:
+      type: object
+      additionalProperties:
+        type: string
+    query.RunCompletionTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its completion-token count.'
           type: object
-        name:
-          description: '`name` is the event kind. Common values emitted by the LangChain/LangSmith tracer SDKs include `"start"`, `"end"`, and `"new_token"`, but applications may emit arbitrary strings for their own instrumentation.'
+          additionalProperties:
+            type: integer
+            format: int64
+    query.QueryTraceResponseBody:
+      type: object
+      properties:
+        items:
+          description: '`items` lists runs in the trace for the requested time window, in `start_time` order.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunResponse'
+    runs.ErrorResponse:
+      type: object
+      properties:
+        details:
+          description: Optional error details as JSON string
           type: string
-          example: new_token
-        time:
-          description: '`time` is when the event occurred (RFC3339 date-time with millisecond precision).'
+          example: '{"field":"dataset_id","reason":"required"}'
+        error:
+          description: Error message
           type: string
-          format: date-time
-          example: '2024-01-15T10:30:00.312Z'
+          example: 'Invalid request: missing required fields'
     query.RunFeedbackStat:
       type: object
       properties:
@@ -937,29 +1033,6 @@ components:
           example: 0.05
         values:
           description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    query.RunStatus:
-      type: string
-      enum:
-      - SUCCESS
-      - ERROR
-      - PENDING
-      x-enum-varnames:
-      - RunStatusSuccess
-      - RunStatusError
-      - RunStatusPending
-    query.RunAttachmentURLs:
-      type: object
-      additionalProperties:
-        type: string
-    query.RunPromptTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its prompt-token count.'
           type: object
           additionalProperties:
             type: integer
@@ -1079,60 +1152,6 @@ components:
             See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
           type: string
           example: has(tags, "production")
-    query.SortOrder:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      x-enum-varnames:
-      - SortOrderAsc
-      - SortOrderDesc
-    query.RunType:
-      type: string
-      enum:
-      - TOOL
-      - CHAIN
-      - LLM
-      - RETRIEVER
-      - EMBEDDING
-      - PROMPT
-      - PARSER
-      x-enum-varnames:
-      - RunTypeTool
-      - RunTypeChain
-      - RunTypeLLM
-      - RunTypeRetriever
-      - RunTypeEmbedding
-      - RunTypePrompt
-      - RunTypeParser
-    query.QueryRunsResponseBody:
-      type: object
-      properties:
-        has_more:
-          description: '`has_more` is true when another page of runs exists after this one.'
-          type: boolean
-          example: true
-        items:
-          description: '`items` is the page of runs, sorted by `start_time` in the direction given by the request `sort_order`.'
-          type: array
-          items:
-            $ref: '#/components/schemas/query.RunResponse'
-        next_cursor:
-          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
-          type: string
-          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
-    query.QueryTraceResponseBody:
-      type: object
-      properties:
-        items:
-          description: '`items` lists runs in the trace for the requested time window, in `start_time` order.'
-          type: array
-          items:
-            $ref: '#/components/schemas/query.RunResponse'
-    query.RunFeedbackStats:
-      type: object
-      additionalProperties:
-        $ref: '#/components/schemas/query.RunFeedbackStat'
     query.RunSelectField:
       type: string
       enum:
@@ -1225,6 +1244,10 @@ components:
       - RunSelectIsInDataset
       - RunSelectShareURL
       - RunSelectFeedbackStats
+    query.RunFeedbackStats:
+      type: object
+      additionalProperties:
+        $ref: '#/components/schemas/query.RunFeedbackStat'
     query.RunCompletionCostDetails:
       type: object
       properties:
@@ -1234,70 +1257,47 @@ components:
           additionalProperties:
             type: number
             format: float64
-    runs.Run:
+    query.RunType:
+      type: string
+      enum:
+      - TOOL
+      - CHAIN
+      - LLM
+      - RETRIEVER
+      - EMBEDDING
+      - PROMPT
+      - PARSER
+      x-enum-varnames:
+      - RunTypeTool
+      - RunTypeChain
+      - RunTypeLLM
+      - RunTypeRetriever
+      - RunTypeEmbedding
+      - RunTypePrompt
+      - RunTypeParser
+    query.SortOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      x-enum-varnames:
+      - SortOrderAsc
+      - SortOrderDesc
+    query.RunEvent:
       type: object
       properties:
-        dotted_order:
-          type: string
-        end_time:
-          type: string
-        error:
-          type: string
-        events:
-          type: array
-          items:
-            type: object
-            additionalProperties: true
-        extra:
+        kwargs:
+          description: '`kwargs` is the event payload — an opaque JSON object whose shape depends on `name` and on the emitting SDK. For example LangChain emits `{"token": {...}}` for `new_token` events, tool-call start/end details for tool events, and arbitrary user-defined payloads for custom events. Clients should treat `kwargs` as untyped JSON: do not assume specific keys exist for a given `name`, and tolerate additional unknown keys appearing over time.'
           type: object
-          additionalProperties: true
-        id:
-          type: string
-        input_attachments:
-          type: object
-          additionalProperties: true
-        inputs:
-          type: object
-          additionalProperties: true
         name:
+          description: '`name` is the event kind. Common values emitted by the LangChain/LangSmith tracer SDKs include `"start"`, `"end"`, and `"new_token"`, but applications may emit arbitrary strings for their own instrumentation.'
           type: string
-        output_attachments:
-          type: object
-          additionalProperties: true
-        outputs:
-          type: object
-          additionalProperties: true
-        parent_run_id:
+          example: new_token
+        time:
+          description: '`time` is when the event occurred (RFC3339 date-time with millisecond precision).'
           type: string
-        reference_example_id:
-          type: string
-        run_type:
-          type: string
-          enum:
-          - tool
-          - chain
-          - llm
-          - retriever
-          - embedding
-          - prompt
-          - parser
-        serialized:
-          type: object
-          additionalProperties: true
-        session_id:
-          type: string
-        session_name:
-          type: string
-        start_time:
-          type: string
-        status:
-          type: string
-        tags:
-          type: array
-          items:
-            type: string
-        trace_id:
-          type: string
+          format: date-time
+          example: '2024-01-15T10:30:00.312Z'
   securitySchemes:
     API_Key:
       type: apiKey

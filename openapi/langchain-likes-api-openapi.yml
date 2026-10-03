@@ -65,15 +65,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    LikeRepoResponse:
-      properties:
-        likes:
-          type: integer
-          title: Likes
-      type: object
-      required:
-      - likes
-      title: LikeRepoResponse
     ValidationError:
       properties:
         loc:
@@ -95,15 +86,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     LikeRepoRequest:
       properties:
         like:
@@ -113,6 +95,24 @@ components:
       required:
       - like
       title: LikeRepoRequest
+    LikeRepoResponse:
+      properties:
+        likes:
+          type: integer
+          title: Likes
+      type: object
+      required:
+      - likes
+      title: LikeRepoResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     API_Key:
       type: apiKey

@@ -529,7 +529,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    experiment_view_overrides.ExperimentViewOverridePostRequest:
+    experiment_view_overrides.ExperimentViewOverridePatchRequest:
       type: object
       required:
       - column_overrides
@@ -540,22 +540,7 @@ components:
           minItems: 1
           items:
             $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
-    experiment_view_overrides.ExperimentViewOverride:
-      type: object
-      properties:
-        column_overrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
-        created_at:
-          type: string
-        dataset_id:
-          type: string
-        id:
-          type: string
-        modified_at:
-          type: string
-    experiment_view_overrides.ExperimentViewOverridePatchRequest:
+    experiment_view_overrides.ExperimentViewOverridePostRequest:
       type: object
       required:
       - column_overrides
@@ -591,6 +576,21 @@ components:
           type: integer
           maximum: 6
           minimum: 1
+    experiment_view_overrides.ExperimentViewOverride:
+      type: object
+      properties:
+        column_overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
+        created_at:
+          type: string
+        dataset_id:
+          type: string
+        id:
+          type: string
+        modified_at:
+          type: string
   securitySchemes:
     API_Key:
       type: apiKey

@@ -50,6 +50,45 @@ paths:
                 $ref: '#/components/schemas/HealthInfoGetResponse'
 components:
   schemas:
+    BatchIngestConfig:
+      properties:
+        use_multipart_endpoint:
+          type: boolean
+          title: Use Multipart Endpoint
+          default: true
+        scale_up_qsize_trigger:
+          type: integer
+          title: Scale Up Qsize Trigger
+          default: 1000
+        scale_up_nthreads_limit:
+          type: integer
+          title: Scale Up Nthreads Limit
+          default: 16
+        scale_down_nempty_trigger:
+          type: integer
+          title: Scale Down Nempty Trigger
+          default: 4
+        size_limit:
+          type: integer
+          title: Size Limit
+          default: 100
+        size_limit_bytes:
+          type: integer
+          title: Size Limit Bytes
+          default: 20971520
+      type: object
+      title: BatchIngestConfig
+      description: Batch ingest config.
+    HealthInfoGetResponse:
+      properties:
+        clickhouse_disk_free_pct:
+          type: number
+          title: Clickhouse Disk Free Pct
+      type: object
+      required:
+      - clickhouse_disk_free_pct
+      title: HealthInfoGetResponse
+      description: The LangSmith server info.
     InfoGetResponse:
       properties:
         version:
@@ -88,35 +127,6 @@ components:
       - version
       title: InfoGetResponse
       description: The LangSmith server info.
-    BatchIngestConfig:
-      properties:
-        use_multipart_endpoint:
-          type: boolean
-          title: Use Multipart Endpoint
-          default: true
-        scale_up_qsize_trigger:
-          type: integer
-          title: Scale Up Qsize Trigger
-          default: 1000
-        scale_up_nthreads_limit:
-          type: integer
-          title: Scale Up Nthreads Limit
-          default: 16
-        scale_down_nempty_trigger:
-          type: integer
-          title: Scale Down Nempty Trigger
-          default: 4
-        size_limit:
-          type: integer
-          title: Size Limit
-          default: 100
-        size_limit_bytes:
-          type: integer
-          title: Size Limit Bytes
-          default: 20971520
-      type: object
-      title: BatchIngestConfig
-      description: Batch ingest config.
     CustomerInfo:
       properties:
         customer_id:
@@ -131,16 +141,6 @@ components:
       - customer_name
       title: CustomerInfo
       description: Customer info.
-    HealthInfoGetResponse:
-      properties:
-        clickhouse_disk_free_pct:
-          type: number
-          title: Clickhouse Disk Free Pct
-      type: object
-      required:
-      - clickhouse_disk_free_pct
-      title: HealthInfoGetResponse
-      description: The LangSmith server info.
   securitySchemes:
     API_Key:
       type: apiKey

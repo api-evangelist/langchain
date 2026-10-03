@@ -91,15 +91,6 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     SetTenantHandleRequest:
       properties:
         tenant_handle:
@@ -109,6 +100,15 @@ components:
       required:
       - tenant_handle
       title: SetTenantHandleRequest
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     app__hub__crud__tenants__Tenant:
       properties:
         id:

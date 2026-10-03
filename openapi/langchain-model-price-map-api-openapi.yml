@@ -217,15 +217,6 @@ components:
       - completion_cost
       title: ModelPriceMapCreateSchema
       description: Model price map create schema.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ModelPriceMapUpdateSchema:
       properties:
         name:
@@ -292,6 +283,15 @@ components:
       - completion_cost
       title: ModelPriceMapUpdateSchema
       description: Model price map update schema.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     API_Key:
       type: apiKey

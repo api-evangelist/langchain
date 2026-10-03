@@ -1717,1025 +1717,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    StripeCustomerAddress:
-      properties:
-        line1:
-          type: string
-          title: Line1
-        line2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line2
-        city:
-          type: string
-          title: City
-        state:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: State
-        postal_code:
-          type: string
-          title: Postal Code
-        country:
-          type: string
-          title: Country
-      type: object
-      required:
-      - line1
-      - city
-      - postal_code
-      - country
-      title: StripeCustomerAddress
-      description: Stripe customer address.
-    StripeCustomerBillingInfo:
-      properties:
-        name:
-          type: string
-          title: Name
-        address:
-          $ref: '#/components/schemas/StripeCustomerAddress'
-      type: object
-      required:
-      - name
-      - address
-      title: StripeCustomerBillingInfo
-      description: Stripe customer billing information.
-    APIKeyCreateResponse:
-      properties:
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        id:
-          type: string
-          format: uuid
-          title: Id
-        short_key:
-          type: string
-          title: Short Key
-        description:
-          type: string
-          title: Description
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        last_used_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Last Used At
-        expires_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expires At
-        workspace_names:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Workspace Names
-        default_workspace_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Default Workspace Name
-        key:
-          type: string
-          title: Key
-      type: object
-      required:
-      - id
-      - short_key
-      - description
-      - key
-      title: APIKeyCreateResponse
-      description: API key POST schema.
-    ChangePaymentPlanReq:
-      type: string
-      enum:
-      - disabled
-      - developer
-      - developer_01_2026
-      - plus
-      - plus_01_2026
-      - startup
-      - startup_v0
-      - partner
-      - premier
-      - free
-      title: ChangePaymentPlanReq
-      description: Enum for payment plans that the user can change to. Developer plans are permanent and enterprise plans will be changed manually.
-    ProviderUserSlim:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        provider:
-          anyOf:
-          - $ref: '#/components/schemas/AuthProvider'
-          - type: 'null'
-        ls_user_id:
-          type: string
-          format: uuid
-          title: Ls User Id
-        saml_provider_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Saml Provider Id
-        provider_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Provider User Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        username:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Username
-        is_disabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Disabled
-        provisioning_method:
-          anyOf:
-          - $ref: '#/components/schemas/ProvisioningMethod'
-          - type: 'null'
-        email_confirmed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Email Confirmed At
-      type: object
-      required:
-      - id
-      - ls_user_id
-      - created_at
-      - updated_at
-      title: ProviderUserSlim
-    orgs.WorkspaceMembership:
-      type: object
-      properties:
-        role_id:
-          type: string
-        role_name:
-          type: string
-        workspace_id:
-          type: string
-        workspace_name:
-          type: string
-    UpdateRoleRequest:
-      properties:
-        display_name:
-          type: string
-          title: Display Name
-        description:
-          type: string
-          title: Description
-        permissions:
-          items:
-            type: string
-          type: array
-          title: Permissions
-      type: object
-      required:
-      - display_name
-      - description
-      - permissions
-      title: UpdateRoleRequest
-    OrgIdentityPatch:
-      properties:
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-      type: object
-      title: OrgIdentityPatch
-    OrganizationDashboardType:
-      type: string
-      enum:
-      - invoices
-      - usage
-      - credits
-      title: OrganizationDashboardType
-      description: Enum for acceptable types of dashboards.
-    StripeAccountLinksCreate:
-      properties:
-        success_path:
-          type: string
-          title: Success Path
-      type: object
-      required:
-      - success_path
-      title: StripeAccountLinksCreate
-    Role:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          type: string
-          title: Name
-        display_name:
-          type: string
-          title: Display Name
-        description:
-          type: string
-          title: Description
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        permissions:
-          items:
-            type: string
-          type: array
-          title: Permissions
-        access_scope:
-          anyOf:
-          - $ref: '#/components/schemas/AccessScope'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - name
-      - display_name
-      - description
-      - permissions
-      title: Role
-    orgs.LinkedLoginMethod:
-      type: object
-      properties:
-        provider:
-          type: string
-        provisioning:
-          description: provisioning_method
-          type: string
-    OrganizationCreate:
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\-_ ]+$
-          title: Display Name
-        is_personal:
-          type: boolean
-          title: Is Personal
-        security_contact:
-          anyOf:
-          - type: string
-            format: email
-          - type: 'null'
-          title: Security Contact
-      type: object
-      required:
-      - display_name
-      - is_personal
-      title: OrganizationCreate
-      description: Create organization schema.
-    UpsertTTLSettingsRequest:
-      properties:
-        tenant_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Tenant Id
-        default_trace_tier:
-          $ref: '#/components/schemas/TraceTier'
-        apply_to_all_projects:
-          type: boolean
-          title: Apply To All Projects
-          default: false
-      type: object
-      required:
-      - default_trace_tier
-      title: UpsertTTLSettingsRequest
-      description: Base TTL settings model.
-    OrganizationMembers:
-      properties:
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        members:
-          items:
-            $ref: '#/components/schemas/OrgMemberIdentity'
-          type: array
-          title: Members
-        pending:
-          items:
-            $ref: '#/components/schemas/OrgPendingIdentity'
-          type: array
-          title: Pending
-      type: object
-      required:
-      - organization_id
-      - members
-      - pending
-      title: OrganizationMembers
-      description: Organization members schema.
-    PendingIdentity:
-      properties:
-        email:
-          type: string
-          title: Email
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        workspace_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace Ids
-        workspace_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Role Id
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        access_scope:
-          $ref: '#/components/schemas/AccessScope'
-          default: workspace
-        id:
-          type: string
-          format: uuid
-          title: Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        tenant_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Tenant Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        role_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role Name
-        org_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Role Id
-        org_role_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Role Name
-      type: object
-      required:
-      - email
-      - id
-      - created_at
-      title: PendingIdentity
-    PaymentPlanTier:
-      type: string
-      enum:
-      - no_plan
-      - developer
-      - developer_01_2026
-      - plus
-      - plus_01_2026
-      - enterprise
-      - developer_legacy
-      - plus_legacy
-      - free
-      - enterprise_legacy
-      - startup
-      - startup_v0
-      - partner
-      - premier
-      title: PaymentPlanTier
-    AuthProvider:
-      type: string
-      enum:
-      - email
-      - supabase:non-sso
-      - supabase:sso
-      - oidc
-      - custom-oidc
-      title: AuthProvider
-    StripeTaxId:
-      properties:
-        value:
-          type: string
-          title: Value
-        type:
-          type: string
-          title: Type
-      type: object
-      required:
-      - value
-      - type
-      title: StripeTaxId
-      description: Stripe tax ID.
-    GranularUsageResponse:
-      properties:
-        stride:
-          $ref: '#/components/schemas/GranularUsageStride'
-        usage:
-          items:
-            $ref: '#/components/schemas/GranularUsageRecord'
-          type: array
-          title: Usage
-      type: object
-      required:
-      - stride
-      - usage
-      title: GranularUsageResponse
-      description: Response for granular usage query.
-    OrgUsage:
-      properties:
-        customer_id:
-          type: string
-          title: Customer Id
-        billable_metric_id:
-          type: string
-          title: Billable Metric Id
-        billable_metric_name:
-          type: string
-          title: Billable Metric Name
-        start_timestamp:
-          type: string
-          title: Start Timestamp
-        end_timestamp:
-          type: string
-          title: End Timestamp
-        value:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Value
-        groups:
-          anyOf:
-          - additionalProperties:
-              type: number
-            type: object
-          - type: 'null'
-          title: Groups
-      type: object
-      required:
-      - customer_id
-      - billable_metric_id
-      - billable_metric_name
-      - start_timestamp
-      - end_timestamp
-      - value
-      - groups
-      title: OrgUsage
-    SSOSettingsCreate:
-      properties:
-        default_workspace_role_id:
-          type: string
-          format: uuid
-          title: Default Workspace Role Id
-        default_workspace_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Default Workspace Ids
-        metadata_xml:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Metadata Xml
-        metadata_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Metadata Url
-        attribute_mapping:
-          anyOf:
-          - $ref: '#/components/schemas/SupabaseAttributeMapping'
-          - type: 'null'
-        sso_groups_enabled:
-          type: boolean
-          title: Sso Groups Enabled
-          default: false
-        sso_groups_claim_field:
-          type: string
-          title: Sso Groups Claim Field
-          default: groups
-        sso_groups_required:
-          type: boolean
-          title: Sso Groups Required
-          default: false
-        sso_groups_role_sync_enabled:
-          type: boolean
-          title: Sso Groups Role Sync Enabled
-          default: true
-      type: object
-      required:
-      - default_workspace_role_id
-      - default_workspace_ids
-      title: SSOSettingsCreate
-    APIKeyCreateRequest:
-      properties:
-        description:
-          type: string
-          title: Description
-          default: Default API key
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        expires_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Expires At
-        workspaces:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspaces
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        org_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Role Id
-        default_workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Default Workspace Id
-      type: object
-      title: APIKeyCreateRequest
-      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
-    GranularUsageRecord:
-      properties:
-        time_bucket:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Time Bucket
-        dimensions:
-          $ref: '#/components/schemas/GranularUsageDimensions'
-        traces:
-          type: integer
-          title: Traces
-          default: 0
-      type: object
-      required:
-      - dimensions
-      title: GranularUsageRecord
-      description: A single granular usage data point.
-    orgs.SCIMGroup:
-      type: object
-      properties:
-        created_at:
-          type: string
-        name:
-          type: string
-    OrganizationBillingInfo:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        display_name:
-          type: string
-          title: Display Name
-        config:
-          $ref: '#/components/schemas/OrganizationConfig'
-        connected_to_stripe:
-          type: boolean
-          title: Connected To Stripe
-        connected_to_metronome:
-          type: boolean
-          title: Connected To Metronome
-        is_personal:
-          type: boolean
-          title: Is Personal
-        tier:
-          anyOf:
-          - $ref: '#/components/schemas/PaymentPlanTier'
-          - type: 'null'
-        payment_method:
-          anyOf:
-          - $ref: '#/components/schemas/StripePaymentMethodInfo'
-          - type: 'null'
-        end_of_billing_period:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Of Billing Period
-        current_plan:
-          anyOf:
-          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
-          - type: 'null'
-        upcoming_plan:
-          anyOf:
-          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
-          - type: 'null'
-        reached_max_workspaces:
-          type: boolean
-          title: Reached Max Workspaces
-          default: false
-        disabled:
-          type: boolean
-          title: Disabled
-          default: false
-        default_sso_provision:
-          type: boolean
-          title: Default Sso Provision
-          default: false
-        plus_plan_transition:
-          anyOf:
-          - $ref: '#/components/schemas/PlusPlanTransitionInfo'
-          - type: 'null'
-      type: object
-      required:
-      - display_name
-      - config
-      - connected_to_stripe
-      - connected_to_metronome
-      - is_personal
-      title: OrganizationBillingInfo
-      description: Information about an organization's billing configuration.
-    ProvisioningMethod:
-      type: string
-      enum:
-      - scim
-      - saml:jit
-      - bootstrap
-      title: ProvisioningMethod
-    orgs.OrgMemberEnriched:
-      type: object
-      properties:
-        avatar_url:
-          type: string
-        created_at:
-          type: string
-        display_name:
-          description: auth-resolved display name
-          type: string
-        email:
-          type: string
-        id:
-          description: identity_id or pending_identity_id
-          type: string
-        is_disabled:
-          description: user disabled
-          type: boolean
-        is_pending:
-          description: true for pending invitations
-          type: boolean
-        linked_login_methods:
-          type: array
-          items:
-            $ref: '#/components/schemas/orgs.LinkedLoginMethod'
-        ls_user_id:
-          description: nil for pending members
-          type: string
-        role_id:
-          description: org role
-          type: string
-        role_name:
-          description: org role name
-          type: string
-        scim_groups:
-          type: array
-          items:
-            $ref: '#/components/schemas/orgs.SCIMGroup'
-        workspace_memberships:
-          type: array
-          items:
-            $ref: '#/components/schemas/orgs.WorkspaceMembership'
-    StripeBusinessBillingInfo:
-      properties:
-        name:
-          type: string
-          title: Name
-        address:
-          anyOf:
-          - $ref: '#/components/schemas/StripeCustomerAddress'
-          - type: 'null'
-      type: object
-      required:
-      - name
-      title: StripeBusinessBillingInfo
-      description: Stripe customer billing information.
-    GranularUsageStride:
-      properties:
-        days:
-          type: integer
-          title: Days
-          default: 0
-        hours:
-          type: integer
-          title: Hours
-          default: 0
-      type: object
-      title: GranularUsageStride
-      description: Stride configuration for time bucketing - only ONE field should be non-zero.
-    BasicAuthUserPatch:
-      properties:
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-      type: object
-      title: BasicAuthUserPatch
-    StripeBusinessInfo-Output:
-      properties:
-        company_info:
-          anyOf:
-          - $ref: '#/components/schemas/StripeBusinessBillingInfo'
-          - type: 'null'
-        tax_id:
-          anyOf:
-          - $ref: '#/components/schemas/StripeTaxId'
-          - type: 'null'
-        invoice_email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Invoice Email
-        is_business:
-          type: boolean
-          title: Is Business
-          default: false
-      type: object
-      title: StripeBusinessInfo
-    PendingIdentityCreate:
-      properties:
-        email:
-          type: string
-          title: Email
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        workspace_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace Ids
-        workspace_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Role Id
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-      type: object
-      required:
-      - email
-      title: PendingIdentityCreate
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
-    StripeBusinessInfo-Input:
-      properties:
-        company_info:
-          anyOf:
-          - $ref: '#/components/schemas/StripeBusinessBillingInfo'
-          - type: 'null'
-        tax_id:
-          anyOf:
-          - $ref: '#/components/schemas/StripeTaxId'
-          - type: 'null'
-        invoice_email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Invoice Email
-        is_business:
-          type: boolean
-          title: Is Business
-          default: false
-      type: object
-      title: StripeBusinessInfo
-    SSOProvider:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        provider_id:
-          type: string
-          format: uuid
-          title: Provider Id
-        default_workspace_role_id:
-          type: string
-          format: uuid
-          title: Default Workspace Role Id
-        default_workspace_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Default Workspace Ids
-        metadata_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Metadata Url
-        metadata_xml:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Metadata Xml
-        sso_groups_enabled:
-          type: boolean
-          title: Sso Groups Enabled
-          default: false
-        sso_groups_claim_field:
-          type: string
-          title: Sso Groups Claim Field
-          default: groups
-        sso_groups_required:
-          type: boolean
-          title: Sso Groups Required
-          default: false
-        sso_groups_role_sync_enabled:
-          type: boolean
-          title: Sso Groups Role Sync Enabled
-          default: true
-        attribute_mapping:
-          anyOf:
-          - $ref: '#/components/schemas/SupabaseAttributeMapping'
-          - type: 'null'
-        attribute_mapping_load_error:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Attribute Mapping Load Error
-      type: object
-      required:
-      - id
-      - organization_id
-      - provider_id
-      - default_workspace_role_id
-      - default_workspace_ids
-      title: SSOProvider
-    CustomerVisiblePlanInfo:
-      properties:
-        tier:
-          $ref: '#/components/schemas/PaymentPlanTier'
-        started_on:
-          type: string
-          format: date-time
-          title: Started On
-        ends_on:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Ends On
-      type: object
-      required:
-      - tier
-      - started_on
-      title: CustomerVisiblePlanInfo
-      description: Customer visible plan information.
     SSOSettingsUpdate:
       properties:
         default_workspace_role_id:
@@ -2788,279 +1769,55 @@ components:
           - type: 'null'
       type: object
       title: SSOSettingsUpdate
-    Organization:
+    GranularUsageDimensions:
       properties:
-        id:
+        user_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Id
-        display_name:
+          title: User Id
+        user_email:
           anyOf:
           - type: string
           - type: 'null'
-          title: Display Name
-        config:
-          $ref: '#/components/schemas/OrganizationConfig'
-        connected_to_stripe:
-          type: boolean
-          title: Connected To Stripe
-        connected_to_metronome:
-          type: boolean
-          title: Connected To Metronome
-        is_personal:
-          type: boolean
-          title: Is Personal
-        tier:
-          anyOf:
-          - $ref: '#/components/schemas/PaymentPlanTier'
-          - type: 'null'
-        payment_method:
-          anyOf:
-          - $ref: '#/components/schemas/StripePaymentMethodInfo'
-          - type: 'null'
-        has_cancelled:
-          type: boolean
-          title: Has Cancelled
-        end_of_billing_period:
+          title: User Email
+        api_key_id:
           anyOf:
           - type: string
-            format: date-time
+            format: uuid
           - type: 'null'
-          title: End Of Billing Period
-        current_plan:
-          anyOf:
-          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
-          - type: 'null'
-        upcoming_plan:
-          anyOf:
-          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
-          - type: 'null'
-        reached_max_workspaces:
-          type: boolean
-          title: Reached Max Workspaces
-          default: false
-        permissions:
-          items:
-            type: string
-          type: array
-          title: Permissions
-          default: []
-        marketplace_payouts_enabled:
-          type: boolean
-          title: Marketplace Payouts Enabled
-          default: false
-        default_sso_provision:
-          type: boolean
-          title: Default Sso Provision
-          default: false
-        security_contact:
+          title: Api Key Id
+        api_key_short_key:
           anyOf:
           - type: string
           - type: 'null'
-          title: Security Contact
-        scim_group_name_separator:
-          type: string
-          title: Scim Group Name Separator
-          default: ':'
+          title: Api Key Short Key
+        project_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Project Id
+        project_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Project Name
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Workspace Name
       type: object
-      required:
-      - config
-      - connected_to_stripe
-      - connected_to_metronome
-      - is_personal
-      - has_cancelled
-      title: Organization
-      description: Information about an organization.
-    PlusPlanTransitionInfo:
-      properties:
-        transition_date:
-          type: string
-          format: date-time
-          title: Transition Date
-        plan_tier_before:
-          type: string
-          title: Plan Tier Before
-        transitioned:
-          type: boolean
-          title: Transitioned
-      type: object
-      required:
-      - transition_date
-      - plan_tier_before
-      - transitioned
-      title: PlusPlanTransitionInfo
-      description: Info about an org's automated startup-to-Plus plan transition.
-    OrganizationUpdate:
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\-_ ]+$
-          title: Display Name
-        public_sharing_disabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Public Sharing Disabled
-        pat_creation_disabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Pat Creation Disabled
-        unshare_all:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Unshare All
-        jit_provisioning_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Jit Provisioning Enabled
-        workspace_admin_can_invite_to_org:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Workspace Admin Can Invite To Org
-        invites_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Invites Enabled
-        max_api_key_expiry_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Api Key Expiry Days
-        security_contact:
-          anyOf:
-          - type: string
-            format: email
-          - type: 'null'
-          title: Security Contact
-        max_pat_expiry_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Pat Expiry Days
-        max_service_key_expiry_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Service Key Expiry Days
-        scim_group_name_separator:
-          type: string
-          maxLength: 1
-          minLength: 1
-          title: Scim Group Name Separator
-        llm_auth_proxy_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Llm Auth Proxy Enabled
-        llm_auth_proxy_jwt_audience:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Llm Auth Proxy Jwt Audience
-        ip_allowlist:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Ip Allowlist
-        restrict_browser_secrets:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Restrict Browser Secrets
-        llm_auth_proxy_allowed_urls:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Llm Auth Proxy Allowed Urls
-      type: object
-      title: OrganizationUpdate
-      description: Update organization schema.
-    UserWithPassword:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        ls_user_id:
-          type: string
-          format: uuid
-          title: Ls User Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        email:
-          type: string
-          title: Email
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        avatar_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Avatar Url
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-      type: object
-      required:
-      - id
-      - ls_user_id
-      - created_at
-      - updated_at
-      - email
-      title: UserWithPassword
-    GranularUsageGroupBy:
-      type: string
-      enum:
-      - user
-      - api_key
-      - project
-      - workspace
-      title: GranularUsageGroupBy
-      description: Dimensions for grouping granular usage data.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      title: GranularUsageDimensions
+      description: Dimension values for a granular usage record.
     OrganizationPGSchemaSlim:
       properties:
         id:
@@ -3198,267 +1955,79 @@ components:
       - disabled
       title: OrganizationPGSchemaSlim
       description: Schema for an organization in postgres for list views.
-    OrganizationInfo:
+    StripeAccountLinksCreate:
       properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        display_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Display Name
-        config:
-          $ref: '#/components/schemas/OrganizationConfig'
-        is_personal:
-          type: boolean
-          title: Is Personal
-        tier:
-          anyOf:
-          - $ref: '#/components/schemas/PaymentPlanTier'
-          - type: 'null'
-        reached_max_workspaces:
-          type: boolean
-          title: Reached Max Workspaces
-          default: false
-        permissions:
-          items:
-            type: string
-          type: array
-          title: Permissions
-          default: []
-        disabled:
-          type: boolean
-          title: Disabled
-          default: false
-        member_disabled:
-          type: boolean
-          title: Member Disabled
-          default: false
-        sso_only:
-          type: boolean
-          title: Sso Only
-          default: false
-        jit_provisioning_enabled:
-          type: boolean
-          title: Jit Provisioning Enabled
-          default: true
-        invites_enabled:
-          type: boolean
-          title: Invites Enabled
-          default: true
-        sso_login_slug:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sso Login Slug
-        public_sharing_disabled:
-          type: boolean
-          title: Public Sharing Disabled
-          default: false
-        pat_creation_disabled:
-          type: boolean
-          title: Pat Creation Disabled
-          default: false
-        workspace_admin_can_invite_to_org:
-          type: boolean
-          title: Workspace Admin Can Invite To Org
-          default: false
-        marketplace_payouts_enabled:
-          type: boolean
-          title: Marketplace Payouts Enabled
-          default: false
-        default_sso_provision:
-          type: boolean
-          title: Default Sso Provision
-          default: false
-        max_api_key_expiry_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Api Key Expiry Days
-        security_contact:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Security Contact
-        max_pat_expiry_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Pat Expiry Days
-        max_service_key_expiry_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Max Service Key Expiry Days
-        scim_group_name_separator:
+        success_path:
           type: string
-          title: Scim Group Name Separator
-          default: ':'
-        can_export_usage_backfill:
-          type: boolean
-          title: Can Export Usage Backfill
-          default: false
-        llm_auth_proxy_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Llm Auth Proxy Enabled
-        llm_auth_proxy_jwt_audience:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Llm Auth Proxy Jwt Audience
-        ip_allowlist:
-          items:
-            type: string
-          type: array
-          title: Ip Allowlist
-        ip_allowlist_enabled:
-          type: boolean
-          title: Ip Allowlist Enabled
-          default: false
-        restrict_browser_secrets:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Restrict Browser Secrets
-        llm_auth_proxy_allowed_urls:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Llm Auth Proxy Allowed Urls
+          title: Success Path
       type: object
       required:
-      - config
-      - is_personal
-      title: OrganizationInfo
-      description: 'Information about an organization.
-
-
-        IMPORTANT: Keep in sync with Go OrganizationInfo in smith-go/orgs/handler.go
-
-        while both implementations are in use (weighted routing rollout).'
-    BasicAuthMemberCreate:
-      properties:
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        ls_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ls User Id
-        email:
-          type: string
-          title: Email
-        read_only:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Read Only
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        workspace_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Role Id
-        workspace_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace Ids
-      type: object
-      required:
-      - email
-      title: BasicAuthMemberCreate
-    TTLSettings:
-      properties:
-        tenant_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Tenant Id
-        default_trace_tier:
-          $ref: '#/components/schemas/TraceTier'
-        apply_to_all_projects:
-          type: boolean
-          title: Apply To All Projects
-          default: false
-        id:
-          type: string
-          format: uuid
-          title: Id
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        configured_by:
-          $ref: '#/components/schemas/ConfiguredBy'
-        longlived_ttl_days:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Longlived Ttl Days
-      type: object
-      required:
-      - default_trace_tier
-      - id
-      - organization_id
-      - created_at
-      - updated_at
-      - configured_by
-      title: TTLSettings
-      description: TTL settings model.
-    MemberSortField:
+      - success_path
+      title: StripeAccountLinksCreate
+    AccessScope:
       type: string
       enum:
-      - name
-      - email
-      - role
-      - created_at
-      title: MemberSortField
-      description: Sort fields for members list endpoints.
-    APIKeyGetResponse:
+      - organization
+      - workspace
+      title: AccessScope
+    CustomerVisiblePlanInfo:
+      properties:
+        tier:
+          $ref: '#/components/schemas/PaymentPlanTier'
+        started_on:
+          type: string
+          format: date-time
+          title: Started On
+        ends_on:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Ends On
+      type: object
+      required:
+      - tier
+      - started_on
+      title: CustomerVisiblePlanInfo
+      description: Customer visible plan information.
+    GranularUsageRecord:
+      properties:
+        time_bucket:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Time Bucket
+        dimensions:
+          $ref: '#/components/schemas/GranularUsageDimensions'
+        traces:
+          type: integer
+          title: Traces
+          default: 0
+      type: object
+      required:
+      - dimensions
+      title: GranularUsageRecord
+      description: A single granular usage data point.
+    PaymentPlanTier:
+      type: string
+      enum:
+      - no_plan
+      - developer
+      - developer_01_2026
+      - plus
+      - plus_01_2026
+      - enterprise
+      - developer_legacy
+      - plus_legacy
+      - free
+      - enterprise_legacy
+      - startup
+      - startup_v0
+      - partner
+      - premier
+      title: PaymentPlanTier
+    APIKeyCreateResponse:
       properties:
         created_at:
           anyOf:
@@ -3505,19 +2074,36 @@ components:
           - type: string
           - type: 'null'
           title: Default Workspace Name
+        key:
+          type: string
+          title: Key
       type: object
       required:
       - id
       - short_key
       - description
-      title: APIKeyGetResponse
-      description: API key GET schema.
-    ConfiguredBy:
-      type: string
-      enum:
-      - system
-      - user
-      title: ConfiguredBy
+      - key
+      title: APIKeyCreateResponse
+      description: API key POST schema.
+    CreateRoleRequest:
+      properties:
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          type: string
+          title: Description
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+      type: object
+      required:
+      - display_name
+      - description
+      - permissions
+      title: CreateRoleRequest
     OrganizationConfig:
       properties:
         plan_tier:
@@ -3793,6 +2379,119 @@ components:
       type: object
       title: OrganizationConfig
       description: Organization level configuration. May include any field that exists in tenant config and additional fields.
+    OrgUsage:
+      properties:
+        customer_id:
+          type: string
+          title: Customer Id
+        billable_metric_id:
+          type: string
+          title: Billable Metric Id
+        billable_metric_name:
+          type: string
+          title: Billable Metric Name
+        start_timestamp:
+          type: string
+          title: Start Timestamp
+        end_timestamp:
+          type: string
+          title: End Timestamp
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+        groups:
+          anyOf:
+          - additionalProperties:
+              type: number
+            type: object
+          - type: 'null'
+          title: Groups
+      type: object
+      required:
+      - customer_id
+      - billable_metric_id
+      - billable_metric_name
+      - start_timestamp
+      - end_timestamp
+      - value
+      - groups
+      title: OrgUsage
+    SSOProvider:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        provider_id:
+          type: string
+          format: uuid
+          title: Provider Id
+        default_workspace_role_id:
+          type: string
+          format: uuid
+          title: Default Workspace Role Id
+        default_workspace_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Default Workspace Ids
+        metadata_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Url
+        metadata_xml:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Xml
+        sso_groups_enabled:
+          type: boolean
+          title: Sso Groups Enabled
+          default: false
+        sso_groups_claim_field:
+          type: string
+          title: Sso Groups Claim Field
+          default: groups
+        sso_groups_required:
+          type: boolean
+          title: Sso Groups Required
+          default: false
+        sso_groups_role_sync_enabled:
+          type: boolean
+          title: Sso Groups Role Sync Enabled
+          default: true
+        attribute_mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SupabaseAttributeMapping'
+          - type: 'null'
+        attribute_mapping_load_error:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Attribute Mapping Load Error
+      type: object
+      required:
+      - id
+      - organization_id
+      - provider_id
+      - default_workspace_role_id
+      - default_workspace_ids
+      title: SSOProvider
+    OrganizationDashboardColorScheme:
+      type: string
+      enum:
+      - light
+      - dark
+      title: OrganizationDashboardColorScheme
+      description: Enum for acceptable color schemes of dashboards.
     SupabaseAttributeMapping:
       properties:
         keys:
@@ -3807,50 +2506,7 @@ components:
         (clears the mapping). Map key is the claim key written into identity_data;
 
         value points at the SAML assertion attribute name.'
-    StripePaymentInformation:
-      properties:
-        billing_info:
-          $ref: '#/components/schemas/StripeCustomerBillingInfo'
-        setup_intent:
-          type: string
-          title: Setup Intent
-      type: object
-      required:
-      - billing_info
-      - setup_intent
-      title: StripePaymentInformation
-      description: Stripe payment information.
-    OrganizationDashboardColorScheme:
-      type: string
-      enum:
-      - light
-      - dark
-      title: OrganizationDashboardColorScheme
-      description: Enum for acceptable color schemes of dashboards.
-    SupabaseAttributeMappingKey:
-      properties:
-        name:
-          type: string
-          title: Name
-        array:
-          type: boolean
-          title: Array
-          default: false
-      type: object
-      required:
-      - name
-      title: SupabaseAttributeMappingKey
-      description: Single entry in a Supabase SAML attribute_mapping.keys map.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CreateRoleRequest:
+    UpdateRoleRequest:
       properties:
         display_name:
           type: string
@@ -3868,157 +2524,54 @@ components:
       - display_name
       - description
       - permissions
-      title: CreateRoleRequest
-    AccessScope:
-      type: string
-      enum:
-      - organization
-      - workspace
-      title: AccessScope
-    StripePaymentMethodInfo:
+      title: UpdateRoleRequest
+    TTLSettings:
       properties:
-        brand:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Brand
-        last4:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last4
-        exp_month:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Exp Month
-        exp_year:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Exp Year
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-      type: object
-      title: StripePaymentMethodInfo
-      description: Stripe customer billing info.
-    PermissionResponse:
-      properties:
-        name:
-          type: string
-          title: Name
-        description:
-          type: string
-          title: Description
-        access_scope:
-          $ref: '#/components/schemas/AccessScope'
-      type: object
-      required:
-      - name
-      - description
-      - access_scope
-      title: PermissionResponse
-    OrgPendingIdentity:
-      properties:
-        email:
-          type: string
-          title: Email
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        workspace_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace Ids
-        workspace_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Role Id
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        access_scope:
-          $ref: '#/components/schemas/AccessScope'
-          default: workspace
-        id:
-          type: string
-          format: uuid
-          title: Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
         tenant_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+        id:
+          type: string
+          format: uuid
+          title: Id
         organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
+          type: string
+          format: uuid
           title: Organization Id
         created_at:
           type: string
           format: date-time
           title: Created At
-        role_name:
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        configured_by:
+          $ref: '#/components/schemas/ConfiguredBy'
+        longlived_ttl_days:
           anyOf:
-          - type: string
+          - type: integer
           - type: 'null'
-          title: Role Name
-        org_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Role Id
-        org_role_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Role Name
-        tenant_ids:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Tenant Ids
-          default: []
+          title: Longlived Ttl Days
       type: object
       required:
-      - email
+      - default_trace_tier
       - id
+      - organization_id
       - created_at
-      title: OrgPendingIdentity
+      - updated_at
+      - configured_by
+      title: TTLSettings
+      description: TTL settings model.
     OrganizationDashboardSchema:
       properties:
         embeddable_url:
@@ -4029,65 +2582,169 @@ components:
       - embeddable_url
       title: OrganizationDashboardSchema
       description: Organization dashboard for usage or invoices.
-    GranularUsageDimensions:
+    Organization:
       properties:
-        user_id:
+        id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: User Id
-        user_email:
+          title: Id
+        display_name:
           anyOf:
           - type: string
           - type: 'null'
-          title: User Email
-        api_key_id:
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/OrganizationConfig'
+        connected_to_stripe:
+          type: boolean
+          title: Connected To Stripe
+        connected_to_metronome:
+          type: boolean
+          title: Connected To Metronome
+        is_personal:
+          type: boolean
+          title: Is Personal
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        payment_method:
+          anyOf:
+          - $ref: '#/components/schemas/StripePaymentMethodInfo'
+          - type: 'null'
+        has_cancelled:
+          type: boolean
+          title: Has Cancelled
+        end_of_billing_period:
           anyOf:
           - type: string
-            format: uuid
+            format: date-time
           - type: 'null'
-          title: Api Key Id
-        api_key_short_key:
+          title: End Of Billing Period
+        current_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        upcoming_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        reached_max_workspaces:
+          type: boolean
+          title: Reached Max Workspaces
+          default: false
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+          default: []
+        marketplace_payouts_enabled:
+          type: boolean
+          title: Marketplace Payouts Enabled
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        security_contact:
           anyOf:
           - type: string
           - type: 'null'
-          title: Api Key Short Key
-        project_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Project Id
-        project_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Project Name
-        workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Id
-        workspace_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Workspace Name
-      type: object
-      title: GranularUsageDimensions
-      description: Dimension values for a granular usage record.
-    StripeSetupIntentResponse:
-      properties:
-        client_secret:
+          title: Security Contact
+        scim_group_name_separator:
           type: string
-          title: Client Secret
+          title: Scim Group Name Separator
+          default: ':'
       type: object
       required:
-      - client_secret
-      title: StripeSetupIntentResponse
-      description: Stripe setup intent response.
+      - config
+      - connected_to_stripe
+      - connected_to_metronome
+      - is_personal
+      - has_cancelled
+      title: Organization
+      description: Information about an organization.
+    Role:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        display_name:
+          type: string
+          title: Display Name
+        description:
+          type: string
+          title: Description
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+        access_scope:
+          anyOf:
+          - $ref: '#/components/schemas/AccessScope'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - name
+      - display_name
+      - description
+      - permissions
+      title: Role
+    StripeBusinessBillingInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        address:
+          anyOf:
+          - $ref: '#/components/schemas/StripeCustomerAddress'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      title: StripeBusinessBillingInfo
+      description: Stripe customer billing information.
+    ChangePaymentPlanReq:
+      type: string
+      enum:
+      - disabled
+      - developer
+      - developer_01_2026
+      - plus
+      - plus_01_2026
+      - startup
+      - startup_v0
+      - partner
+      - premier
+      - free
+      title: ChangePaymentPlanReq
+      description: Enum for payment plans that the user can change to. Developer plans are permanent and enterprise plans will be changed manually.
+    orgs.WorkspaceMembership:
+      type: object
+      properties:
+        role_id:
+          type: string
+        role_name:
+          type: string
+        workspace_id:
+          type: string
+        workspace_name:
+          type: string
     AllowedLoginMethodsUpdate:
       properties:
         sso_only:
@@ -4097,6 +2754,169 @@ components:
           title: Sso Only
       type: object
       title: AllowedLoginMethodsUpdate
+    UpsertTTLSettingsRequest:
+      properties:
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+      type: object
+      required:
+      - default_trace_tier
+      title: UpsertTTLSettingsRequest
+      description: Base TTL settings model.
+    ProviderUserSlim:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        provider:
+          anyOf:
+          - $ref: '#/components/schemas/AuthProvider'
+          - type: 'null'
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        saml_provider_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Saml Provider Id
+        provider_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Provider User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+        is_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Disabled
+        provisioning_method:
+          anyOf:
+          - $ref: '#/components/schemas/ProvisioningMethod'
+          - type: 'null'
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      title: ProviderUserSlim
+    OrganizationDashboardType:
+      type: string
+      enum:
+      - invoices
+      - usage
+      - credits
+      title: OrganizationDashboardType
+      description: Enum for acceptable types of dashboards.
+    OrganizationMembers:
+      properties:
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        members:
+          items:
+            $ref: '#/components/schemas/OrgMemberIdentity'
+          type: array
+          title: Members
+        pending:
+          items:
+            $ref: '#/components/schemas/OrgPendingIdentity'
+          type: array
+          title: Pending
+      type: object
+      required:
+      - organization_id
+      - members
+      - pending
+      title: OrganizationMembers
+      description: Organization members schema.
+    StripeCustomerAddress:
+      properties:
+        line1:
+          type: string
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+        city:
+          type: string
+          title: City
+        state:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: State
+        postal_code:
+          type: string
+          title: Postal Code
+        country:
+          type: string
+          title: Country
+      type: object
+      required:
+      - line1
+      - city
+      - postal_code
+      - country
+      title: StripeCustomerAddress
+      description: Stripe customer address.
     Identity:
       properties:
         id:
@@ -4152,6 +2972,312 @@ components:
       - ls_user_id
       - read_only
       title: Identity
+    StripeTaxId:
+      properties:
+        value:
+          type: string
+          title: Value
+        type:
+          type: string
+          title: Type
+      type: object
+      required:
+      - value
+      - type
+      title: StripeTaxId
+      description: Stripe tax ID.
+    OrgIdentityPatch:
+      properties:
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+      type: object
+      title: OrgIdentityPatch
+    OrganizationInfo:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        display_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/OrganizationConfig'
+        is_personal:
+          type: boolean
+          title: Is Personal
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        reached_max_workspaces:
+          type: boolean
+          title: Reached Max Workspaces
+          default: false
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+          default: []
+        disabled:
+          type: boolean
+          title: Disabled
+          default: false
+        member_disabled:
+          type: boolean
+          title: Member Disabled
+          default: false
+        sso_only:
+          type: boolean
+          title: Sso Only
+          default: false
+        jit_provisioning_enabled:
+          type: boolean
+          title: Jit Provisioning Enabled
+          default: true
+        invites_enabled:
+          type: boolean
+          title: Invites Enabled
+          default: true
+        sso_login_slug:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sso Login Slug
+        public_sharing_disabled:
+          type: boolean
+          title: Public Sharing Disabled
+          default: false
+        pat_creation_disabled:
+          type: boolean
+          title: Pat Creation Disabled
+          default: false
+        workspace_admin_can_invite_to_org:
+          type: boolean
+          title: Workspace Admin Can Invite To Org
+          default: false
+        marketplace_payouts_enabled:
+          type: boolean
+          title: Marketplace Payouts Enabled
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        max_api_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Api Key Expiry Days
+        security_contact:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Security Contact
+        max_pat_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Pat Expiry Days
+        max_service_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Service Key Expiry Days
+        scim_group_name_separator:
+          type: string
+          title: Scim Group Name Separator
+          default: ':'
+        can_export_usage_backfill:
+          type: boolean
+          title: Can Export Usage Backfill
+          default: false
+        llm_auth_proxy_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Llm Auth Proxy Enabled
+        llm_auth_proxy_jwt_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Auth Proxy Jwt Audience
+        ip_allowlist:
+          items:
+            type: string
+          type: array
+          title: Ip Allowlist
+        ip_allowlist_enabled:
+          type: boolean
+          title: Ip Allowlist Enabled
+          default: false
+        restrict_browser_secrets:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restrict Browser Secrets
+        llm_auth_proxy_allowed_urls:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Llm Auth Proxy Allowed Urls
+      type: object
+      required:
+      - config
+      - is_personal
+      title: OrganizationInfo
+      description: 'Information about an organization.
+
+
+        IMPORTANT: Keep in sync with Go OrganizationInfo in smith-go/orgs/handler.go
+
+        while both implementations are in use (weighted routing rollout).'
+    APIKeyGetResponse:
+      properties:
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        id:
+          type: string
+          format: uuid
+          title: Id
+        short_key:
+          type: string
+          title: Short Key
+        description:
+          type: string
+          title: Description
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        last_used_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Used At
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspace_names:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Workspace Names
+        default_workspace_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Default Workspace Name
+      type: object
+      required:
+      - id
+      - short_key
+      - description
+      title: APIKeyGetResponse
+      description: API key GET schema.
+    PendingIdentityCreate:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - email
+      title: PendingIdentityCreate
+    StripePaymentInformation:
+      properties:
+        billing_info:
+          $ref: '#/components/schemas/StripeCustomerBillingInfo'
+        setup_intent:
+          type: string
+          title: Setup Intent
+      type: object
+      required:
+      - billing_info
+      - setup_intent
+      title: StripePaymentInformation
+      description: Stripe payment information.
+    BasicAuthUserPatch:
+      properties:
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      title: BasicAuthUserPatch
     OrgMemberIdentity:
       properties:
         id:
@@ -4255,15 +3381,152 @@ components:
       - ls_user_id
       - read_only
       title: OrgMemberIdentity
-    ChangePaymentPlanSchema:
+    ValidationError:
       properties:
-        tier:
-          $ref: '#/components/schemas/ChangePaymentPlanReq'
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - tier
-      title: ChangePaymentPlanSchema
-      description: Change payment plan schema.
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OrganizationUpdate:
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ ]+$
+          title: Display Name
+        public_sharing_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Public Sharing Disabled
+        pat_creation_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Pat Creation Disabled
+        unshare_all:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Unshare All
+        jit_provisioning_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Jit Provisioning Enabled
+        workspace_admin_can_invite_to_org:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Workspace Admin Can Invite To Org
+        invites_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Invites Enabled
+        max_api_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Api Key Expiry Days
+        security_contact:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Security Contact
+        max_pat_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Pat Expiry Days
+        max_service_key_expiry_days:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Max Service Key Expiry Days
+        scim_group_name_separator:
+          type: string
+          maxLength: 1
+          minLength: 1
+          title: Scim Group Name Separator
+        llm_auth_proxy_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Llm Auth Proxy Enabled
+        llm_auth_proxy_jwt_audience:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Llm Auth Proxy Jwt Audience
+        ip_allowlist:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Ip Allowlist
+        restrict_browser_secrets:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Restrict Browser Secrets
+        llm_auth_proxy_allowed_urls:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Llm Auth Proxy Allowed Urls
+      type: object
+      title: OrganizationUpdate
+      description: Update organization schema.
+    StripeBusinessInfo-Input:
+      properties:
+        company_info:
+          anyOf:
+          - $ref: '#/components/schemas/StripeBusinessBillingInfo'
+          - type: 'null'
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/StripeTaxId'
+          - type: 'null'
+        invoice_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invoice Email
+        is_business:
+          type: boolean
+          title: Is Business
+          default: false
+      type: object
+      title: StripeBusinessInfo
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     StripeCheckoutSessionsCreate:
       properties:
         amount_cents:
@@ -4277,6 +3540,743 @@ components:
       - amount_cents
       - success_path
       title: StripeCheckoutSessionsCreate
+    OrgPendingIdentity:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+        tenant_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Tenant Ids
+          default: []
+      type: object
+      required:
+      - email
+      - id
+      - created_at
+      title: OrgPendingIdentity
+    OrganizationBillingInfo:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        display_name:
+          type: string
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/OrganizationConfig'
+        connected_to_stripe:
+          type: boolean
+          title: Connected To Stripe
+        connected_to_metronome:
+          type: boolean
+          title: Connected To Metronome
+        is_personal:
+          type: boolean
+          title: Is Personal
+        tier:
+          anyOf:
+          - $ref: '#/components/schemas/PaymentPlanTier'
+          - type: 'null'
+        payment_method:
+          anyOf:
+          - $ref: '#/components/schemas/StripePaymentMethodInfo'
+          - type: 'null'
+        end_of_billing_period:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Of Billing Period
+        current_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        upcoming_plan:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerVisiblePlanInfo'
+          - type: 'null'
+        reached_max_workspaces:
+          type: boolean
+          title: Reached Max Workspaces
+          default: false
+        disabled:
+          type: boolean
+          title: Disabled
+          default: false
+        default_sso_provision:
+          type: boolean
+          title: Default Sso Provision
+          default: false
+        plus_plan_transition:
+          anyOf:
+          - $ref: '#/components/schemas/PlusPlanTransitionInfo'
+          - type: 'null'
+      type: object
+      required:
+      - display_name
+      - config
+      - connected_to_stripe
+      - connected_to_metronome
+      - is_personal
+      title: OrganizationBillingInfo
+      description: Information about an organization's billing configuration.
+    GranularUsageResponse:
+      properties:
+        stride:
+          $ref: '#/components/schemas/GranularUsageStride'
+        usage:
+          items:
+            $ref: '#/components/schemas/GranularUsageRecord'
+          type: array
+          title: Usage
+      type: object
+      required:
+      - stride
+      - usage
+      title: GranularUsageResponse
+      description: Response for granular usage query.
+    orgs.OrgMemberEnriched:
+      type: object
+      properties:
+        avatar_url:
+          type: string
+        created_at:
+          type: string
+        display_name:
+          description: auth-resolved display name
+          type: string
+        email:
+          type: string
+        id:
+          description: identity_id or pending_identity_id
+          type: string
+        is_disabled:
+          description: user disabled
+          type: boolean
+        is_pending:
+          description: true for pending invitations
+          type: boolean
+        linked_login_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/orgs.LinkedLoginMethod'
+        ls_user_id:
+          description: nil for pending members
+          type: string
+        role_id:
+          description: org role
+          type: string
+        role_name:
+          description: org role name
+          type: string
+        scim_groups:
+          type: array
+          items:
+            $ref: '#/components/schemas/orgs.SCIMGroup'
+        workspace_memberships:
+          type: array
+          items:
+            $ref: '#/components/schemas/orgs.WorkspaceMembership'
+    APIKeyCreateRequest:
+      properties:
+        description:
+          type: string
+          title: Description
+          default: Default API key
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        expires_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Expires At
+        workspaces:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspaces
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        default_workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Default Workspace Id
+      type: object
+      title: APIKeyCreateRequest
+      description: "API key POST schema.\n\nexpires_at: Optional datetime when the API key will expire.\nworkspaces: List of workspace UUIDs this key can access (feature-flagged).\nrole_id: Optional UUID of the role to assign to API key.\n    If not provided, uses default role based on read_only flag:\n    - WORKSPACE_ADMIN if read_only is False\n    - WORKSPACE_READER if read_only is True\norg_role_id: UUID of a org role for org-scoped keys\n    If not provided, defaults to ORG_USER\ndefault_workspace_id: UUID of the default workspace for PATs.\n    If not provided, uses the current logic (first available workspace)."
+    PendingIdentity:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+      type: object
+      required:
+      - email
+      - id
+      - created_at
+      title: PendingIdentity
+    StripeCustomerBillingInfo:
+      properties:
+        name:
+          type: string
+          title: Name
+        address:
+          $ref: '#/components/schemas/StripeCustomerAddress'
+      type: object
+      required:
+      - name
+      - address
+      title: StripeCustomerBillingInfo
+      description: Stripe customer billing information.
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
+    UserWithPassword:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        email:
+          type: string
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      - email
+      title: UserWithPassword
+    StripeSetupIntentResponse:
+      properties:
+        client_secret:
+          type: string
+          title: Client Secret
+      type: object
+      required:
+      - client_secret
+      title: StripeSetupIntentResponse
+      description: Stripe setup intent response.
+    OrganizationCreate:
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ ]+$
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        security_contact:
+          anyOf:
+          - type: string
+            format: email
+          - type: 'null'
+          title: Security Contact
+      type: object
+      required:
+      - display_name
+      - is_personal
+      title: OrganizationCreate
+      description: Create organization schema.
+    ConfiguredBy:
+      type: string
+      enum:
+      - system
+      - user
+      title: ConfiguredBy
+    MemberSortField:
+      type: string
+      enum:
+      - name
+      - email
+      - role
+      - created_at
+      title: MemberSortField
+      description: Sort fields for members list endpoints.
+    ChangePaymentPlanSchema:
+      properties:
+        tier:
+          $ref: '#/components/schemas/ChangePaymentPlanReq'
+      type: object
+      required:
+      - tier
+      title: ChangePaymentPlanSchema
+      description: Change payment plan schema.
+    SupabaseAttributeMappingKey:
+      properties:
+        name:
+          type: string
+          title: Name
+        array:
+          type: boolean
+          title: Array
+          default: false
+      type: object
+      required:
+      - name
+      title: SupabaseAttributeMappingKey
+      description: Single entry in a Supabase SAML attribute_mapping.keys map.
+    BasicAuthMemberCreate:
+      properties:
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ls User Id
+        email:
+          type: string
+          title: Email
+        read_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+      type: object
+      required:
+      - email
+      title: BasicAuthMemberCreate
+    orgs.SCIMGroup:
+      type: object
+      properties:
+        created_at:
+          type: string
+        name:
+          type: string
+    PlusPlanTransitionInfo:
+      properties:
+        transition_date:
+          type: string
+          format: date-time
+          title: Transition Date
+        plan_tier_before:
+          type: string
+          title: Plan Tier Before
+        transitioned:
+          type: boolean
+          title: Transitioned
+      type: object
+      required:
+      - transition_date
+      - plan_tier_before
+      - transitioned
+      title: PlusPlanTransitionInfo
+      description: Info about an org's automated startup-to-Plus plan transition.
+    ProvisioningMethod:
+      type: string
+      enum:
+      - scim
+      - saml:jit
+      - bootstrap
+      title: ProvisioningMethod
+    StripeBusinessInfo-Output:
+      properties:
+        company_info:
+          anyOf:
+          - $ref: '#/components/schemas/StripeBusinessBillingInfo'
+          - type: 'null'
+        tax_id:
+          anyOf:
+          - $ref: '#/components/schemas/StripeTaxId'
+          - type: 'null'
+        invoice_email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Invoice Email
+        is_business:
+          type: boolean
+          title: Is Business
+          default: false
+      type: object
+      title: StripeBusinessInfo
+    GranularUsageStride:
+      properties:
+        days:
+          type: integer
+          title: Days
+          default: 0
+        hours:
+          type: integer
+          title: Hours
+          default: 0
+      type: object
+      title: GranularUsageStride
+      description: Stride configuration for time bucketing - only ONE field should be non-zero.
+    PermissionResponse:
+      properties:
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+      type: object
+      required:
+      - name
+      - description
+      - access_scope
+      title: PermissionResponse
+    orgs.LinkedLoginMethod:
+      type: object
+      properties:
+        provider:
+          type: string
+        provisioning:
+          description: provisioning_method
+          type: string
+    AuthProvider:
+      type: string
+      enum:
+      - email
+      - supabase:non-sso
+      - supabase:sso
+      - oidc
+      - custom-oidc
+      title: AuthProvider
+    StripePaymentMethodInfo:
+      properties:
+        brand:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Brand
+        last4:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last4
+        exp_month:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Exp Month
+        exp_year:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Exp Year
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+      type: object
+      title: StripePaymentMethodInfo
+      description: Stripe customer billing info.
+    SSOSettingsCreate:
+      properties:
+        default_workspace_role_id:
+          type: string
+          format: uuid
+          title: Default Workspace Role Id
+        default_workspace_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Default Workspace Ids
+        metadata_xml:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Xml
+        metadata_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Metadata Url
+        attribute_mapping:
+          anyOf:
+          - $ref: '#/components/schemas/SupabaseAttributeMapping'
+          - type: 'null'
+        sso_groups_enabled:
+          type: boolean
+          title: Sso Groups Enabled
+          default: false
+        sso_groups_claim_field:
+          type: string
+          title: Sso Groups Claim Field
+          default: groups
+        sso_groups_required:
+          type: boolean
+          title: Sso Groups Required
+          default: false
+        sso_groups_role_sync_enabled:
+          type: boolean
+          title: Sso Groups Role Sync Enabled
+          default: true
+      type: object
+      required:
+      - default_workspace_role_id
+      - default_workspace_ids
+      title: SSOSettingsCreate
+    GranularUsageGroupBy:
+      type: string
+      enum:
+      - user
+      - api_key
+      - project
+      - workspace
+      title: GranularUsageGroupBy
+      description: Dimensions for grouping granular usage data.
   securitySchemes:
     API_Key:
       type: apiKey
