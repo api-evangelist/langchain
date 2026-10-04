@@ -351,45 +351,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    alerts.CreateAlertRuleRequest:
-      type: object
-      required:
-      - actions
-      - rule
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/alerts.AlertActionBase'
-        rule:
-          $ref: '#/components/schemas/alerts.AlertRuleBase'
-    alerts.AlertActionBase:
-      type: object
-      required:
-      - config
-      - target
-      properties:
-        alert_rule_id:
-          type: string
-        config:
-          type: object
-        id:
-          type: string
-        target:
-          type: string
-          enum:
-          - pagerduty
-          - webhook
-          - dynatrace
-    alerts.AlertRuleResponse:
-      type: object
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/alerts.AlertAction'
-        rule:
-          $ref: '#/components/schemas/alerts.AlertRule'
     alerts.AlertRuleBase:
       type: object
       required:
@@ -450,12 +411,85 @@ components:
           type: integer
           maximum: 60
           minimum: 1
+    alerts.CreateAlertRuleRequest:
+      type: object
+      required:
+      - actions
+      - rule
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertActionBase'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRuleBase'
+    alerts.AlertAction:
+      type: object
+      required:
+      - config
+      - target
+      properties:
+        alert_rule_id:
+          type: string
+        config:
+          type: object
+        created_at:
+          type: string
+        id:
+          type: string
+        target:
+          type: string
+          enum:
+          - pagerduty
+          - webhook
+          - dynatrace
+        updated_at:
+          type: string
     alerts.ErrorResponse:
       type: object
       properties:
         error:
           type: string
           example: 'Invalid request: missing required fields'
+    alerts.UpdateAlertRuleRequest:
+      type: object
+      required:
+      - actions
+      - rule
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertActionBase'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRuleBase'
+    alerts.AlertRuleResponse:
+      type: object
+      properties:
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/alerts.AlertAction'
+        rule:
+          $ref: '#/components/schemas/alerts.AlertRule'
+    alerts.AlertActionBase:
+      type: object
+      required:
+      - config
+      - target
+      properties:
+        alert_rule_id:
+          type: string
+        config:
+          type: object
+        id:
+          type: string
+        target:
+          type: string
+          enum:
+          - pagerduty
+          - webhook
+          - dynatrace
     alerts.AlertRule:
       type: object
       required:
@@ -524,40 +558,6 @@ components:
           type: integer
           maximum: 60
           minimum: 1
-    alerts.UpdateAlertRuleRequest:
-      type: object
-      required:
-      - actions
-      - rule
-      properties:
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/alerts.AlertActionBase'
-        rule:
-          $ref: '#/components/schemas/alerts.AlertRuleBase'
-    alerts.AlertAction:
-      type: object
-      required:
-      - config
-      - target
-      properties:
-        alert_rule_id:
-          type: string
-        config:
-          type: object
-        created_at:
-          type: string
-        id:
-          type: string
-        target:
-          type: string
-          enum:
-          - pagerduty
-          - webhook
-          - dynatrace
-        updated_at:
-          type: string
   securitySchemes:
     API_Key:
       type: apiKey

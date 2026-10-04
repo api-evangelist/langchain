@@ -70,6 +70,15 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
+    SetTenantHandleRequest:
+      properties:
+        tenant_handle:
+          type: string
+          title: Tenant Handle
+      type: object
+      required:
+      - tenant_handle
+      title: SetTenantHandleRequest
     ValidationError:
       properties:
         loc:
@@ -91,15 +100,6 @@ components:
       - msg
       - type
       title: ValidationError
-    SetTenantHandleRequest:
-      properties:
-        tenant_handle:
-          type: string
-          title: Tenant Handle
-      type: object
-      required:
-      - tenant_handle
-      title: SetTenantHandleRequest
     HTTPValidationError:
       properties:
         detail:

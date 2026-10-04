@@ -164,6 +164,11 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
+    ttl_settings.UpdateTTLSettingsRequest:
+      type: object
+      properties:
+        longlived_ttl_days:
+          type: integer
     ttl_settings.TTLSettingsResponse:
       type: object
       properties:
@@ -173,11 +178,21 @@ components:
           type: integer
         tenant_id:
           type: string
-    ttl_settings.UpdateTTLSettingsRequest:
-      type: object
+    HTTPValidationError:
       properties:
-        longlived_ttl_days:
-          type: integer
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
     ValidationError:
       properties:
         loc:
@@ -199,46 +214,12 @@ components:
       - msg
       - type
       title: ValidationError
-    UpsertTTLSettingsRequest:
-      properties:
-        tenant_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Tenant Id
-        default_trace_tier:
-          $ref: '#/components/schemas/TraceTier'
-        apply_to_all_projects:
-          type: boolean
-          title: Apply To All Projects
-          default: false
-      type: object
-      required:
-      - default_trace_tier
-      title: UpsertTTLSettingsRequest
-      description: Base TTL settings model.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ConfiguredBy:
       type: string
       enum:
       - system
       - user
       title: ConfiguredBy
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
     TTLSettings:
       properties:
         tenant_id:
@@ -286,6 +267,25 @@ components:
       - configured_by
       title: TTLSettings
       description: TTL settings model.
+    UpsertTTLSettingsRequest:
+      properties:
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        default_trace_tier:
+          $ref: '#/components/schemas/TraceTier'
+        apply_to_all_projects:
+          type: boolean
+          title: Apply To All Projects
+          default: false
+      type: object
+      required:
+      - default_trace_tier
+      title: UpsertTTLSettingsRequest
+      description: Base TTL settings model.
   securitySchemes:
     API_Key:
       type: apiKey

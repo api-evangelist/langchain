@@ -297,6 +297,45 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.UserUsage'
+    usage.AgentUsage:
+      type: object
+      properties:
+        agent_name:
+          type: string
+        assistant_id:
+          type: string
+        first_used:
+          type: string
+        last_used:
+          type: string
+        model_name:
+          type: string
+        owner_email:
+          type: string
+        run_count:
+          type: integer
+        total_cost:
+          type: number
+    usage.ModelUsage:
+      type: object
+      properties:
+        last_used:
+          type: string
+        model_name:
+          type: string
+        run_count:
+          type: integer
+        total_cost:
+          type: number
+    errutil.UserError:
+      type: object
+    usage.AgentUsageResponse:
+      type: object
+      properties:
+        agents:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.AgentUsage'
     usage.UserUsage:
       type: object
       properties:
@@ -314,24 +353,6 @@ components:
           type: integer
         total_cost:
           type: number
-    errutil.InternalError:
-      type: object
-    usage.AgentUsageResponse:
-      type: object
-      properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.AgentUsage'
-    errutil.UserError:
-      type: object
-    usage.ModelUsageResponse:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.ModelUsage'
     usage.ToolUsage:
       type: object
       properties:
@@ -352,36 +373,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.ToolUsage'
-    usage.ModelUsage:
+    errutil.InternalError:
+      type: object
+    usage.ModelUsageResponse:
       type: object
       properties:
-        last_used:
-          type: string
-        model_name:
-          type: string
-        run_count:
-          type: integer
-        total_cost:
-          type: number
-    usage.AgentUsage:
-      type: object
-      properties:
-        agent_name:
-          type: string
-        assistant_id:
-          type: string
-        first_used:
-          type: string
-        last_used:
-          type: string
-        model_name:
-          type: string
-        owner_email:
-          type: string
-        run_count:
-          type: integer
-        total_cost:
-          type: number
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.ModelUsage'
   securitySchemes:
     API_Key:
       type: apiKey

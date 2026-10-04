@@ -262,6 +262,16 @@ components:
       properties:
         model:
           type: string
+    features.UpsertDefaultModelRequest:
+      type: object
+      properties:
+        model:
+          type: string
+    features.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
     features.FeatureConfig:
       type: object
       properties:
@@ -272,16 +282,6 @@ components:
           items:
             type: string
         feature:
-          type: string
-    features.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-    features.UpsertDefaultModelRequest:
-      type: object
-      properties:
-        model:
           type: string
   securitySchemes:
     API_Key:

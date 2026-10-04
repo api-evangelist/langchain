@@ -896,32 +896,344 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CustomChartsSectionUpdate:
+    CustomChartCreate:
       properties:
         title:
-          anyOf:
-          - type: string
-          - $ref: '#/components/schemas/Missing'
+          type: string
           title: Title
-          default:
-            __missing__: __missing__
         description:
           anyOf:
           - type: string
-          - $ref: '#/components/schemas/Missing'
           - type: 'null'
           title: Description
-          default:
-            __missing__: __missing__
         index:
           anyOf:
           - type: integer
-          - $ref: '#/components/schemas/Missing'
+            maximum: 100.0
+            minimum: 0.0
+          - type: 'null'
           title: Index
-          default:
-            __missing__: __missing__
+        chart_type:
+          $ref: '#/components/schemas/CustomChartType'
+        series:
+          items:
+            $ref: '#/components/schemas/CustomChartSeriesCreate'
+          type: array
+          title: Series
+        section_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Section Id
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+        common_filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
       type: object
-      title: CustomChartsSectionUpdate
+      required:
+      - title
+      - chart_type
+      - series
+      title: CustomChartCreate
+    CustomChartsSection:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: string
+          title: Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        charts:
+          items:
+            $ref: '#/components/schemas/SingleCustomChartResponse'
+          type: array
+          title: Charts
+        sub_sections:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/SingleCustomChartSubSectionResponse'
+            type: array
+          - type: 'null'
+          title: Sub Sections
+      type: object
+      required:
+      - title
+      - id
+      - charts
+      title: CustomChartsSection
+    HostProjectChartMetric:
+      type: string
+      enum:
+      - memory_usage
+      - cpu_usage
+      - disk_usage
+      - restart_count
+      - replica_count
+      - worker_count
+      - lg_run_count
+      - responses_per_second
+      - error_responses_per_second
+      - p95_latency
+      title: HostProjectChartMetric
+      description: LGP Metrics you can chart.
+    CustomChartsRequestBase:
+      properties:
+        timezone:
+          type: string
+          title: Timezone
+          default: UTC
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        stride:
+          $ref: '#/components/schemas/TimedeltaInput'
+          default:
+            days: 0
+            hours: 0
+            minutes: 15
+        omit_data:
+          type: boolean
+          title: Omit Data
+          default: false
+      type: object
+      title: CustomChartsRequestBase
+    CustomChartsResponse:
+      properties:
+        sections:
+          items:
+            $ref: '#/components/schemas/CustomChartsSection'
+          type: array
+          title: Sections
+      type: object
+      required:
+      - sections
+      title: CustomChartsResponse
+    RunStatsGroupBy:
+      properties:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBy
+      description: Group by param for run stats.
+    CustomChartMetric:
+      type: string
+      enum:
+      - run_count
+      - latency_p50
+      - latency_p99
+      - latency_avg
+      - first_token_p50
+      - first_token_p99
+      - total_tokens
+      - prompt_tokens
+      - completion_tokens
+      - median_tokens
+      - completion_tokens_p50
+      - prompt_tokens_p50
+      - tokens_p99
+      - completion_tokens_p99
+      - prompt_tokens_p99
+      - feedback
+      - feedback_score_avg
+      - feedback_values
+      - total_cost
+      - prompt_cost
+      - completion_cost
+      - error_rate
+      - streaming_rate
+      - cost_p50
+      - cost_p99
+      title: CustomChartMetric
+      description: Metrics you can chart. Feedback metrics are not available for organization-scoped charts.
+    RunStatsGroupBySeriesResponse:
+      properties:
+        attribute:
+          type: string
+          enum:
+          - name
+          - run_type
+          - tag
+          - metadata
+          title: Attribute
+        path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Path
+        max_groups:
+          type: integer
+          title: Max Groups
+          default: 5
+        set_by:
+          anyOf:
+          - type: string
+            enum:
+            - section
+            - series
+          - type: 'null'
+          title: Set By
+      type: object
+      required:
+      - attribute
+      title: RunStatsGroupBySeriesResponse
+      description: Include additional information about where the group_by param was set.
+    TimedeltaInput:
+      properties:
+        days:
+          type: integer
+          title: Days
+          default: 0
+        hours:
+          type: integer
+          title: Hours
+          default: 0
+        minutes:
+          type: integer
+          title: Minutes
+          default: 0
+      type: object
+      title: TimedeltaInput
+      description: Timedelta input.
+    CustomChartsSectionResponse:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+        id:
+          type: string
+          format: uuid
+          title: Id
+        chart_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Chart Count
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        modified_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Modified At
+      type: object
+      required:
+      - title
+      - id
+      title: CustomChartsSectionResponse
+    CustomChartsDataPoint:
+      properties:
+        series_id:
+          type: string
+          title: Series Id
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        value:
+          anyOf:
+          - type: integer
+          - type: number
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        group:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group
+      type: object
+      required:
+      - series_id
+      - timestamp
+      - value
+      title: CustomChartsDataPoint
+    CustomChartsSectionCreate:
+      properties:
+        title:
+          type: string
+          title: Title
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        index:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Index
+      type: object
+      required:
+      - title
+      title: CustomChartsSectionCreate
     CustomChartUpdate:
       properties:
         title:
@@ -991,38 +1303,113 @@ components:
             __missing__: __missing__
       type: object
       title: CustomChartUpdate
-    RunStatsGroupBySeriesResponse:
+    CustomChartCreatePreview:
       properties:
-        attribute:
-          type: string
-          enum:
-          - name
-          - run_type
-          - tag
-          - metadata
-          title: Attribute
-        path:
+        series:
+          items:
+            $ref: '#/components/schemas/CustomChartSeries'
+          type: array
+          title: Series
+        common_filters:
           anyOf:
-          - type: string
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
           - type: 'null'
-          title: Path
-        max_groups:
-          type: integer
-          title: Max Groups
-          default: 5
-        set_by:
-          anyOf:
-          - type: string
-            enum:
-            - section
-            - series
-          - type: 'null'
-          title: Set By
       type: object
       required:
-      - attribute
-      title: RunStatsGroupBySeriesResponse
-      description: Include additional information about where the group_by param was set.
+      - series
+      title: CustomChartCreatePreview
+    CustomChartSeriesCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+        filters:
+          anyOf:
+          - $ref: '#/components/schemas/CustomChartSeriesFilters'
+          - type: 'null'
+        metric:
+          $ref: '#/components/schemas/CustomChartMetric'
+        feedback_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feedback Key
+        workspace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Id
+        project_metric:
+          anyOf:
+          - $ref: '#/components/schemas/HostProjectChartMetric'
+          - type: 'null'
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
+      type: object
+      required:
+      - name
+      - metric
+      title: CustomChartSeriesCreate
+    Missing:
+      properties:
+        __missing__:
+          type: string
+          const: __missing__
+          title: Missing
+      type: object
+      required:
+      - __missing__
+      title: Missing
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    CustomChartsSectionUpdate:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          title: Title
+          default:
+            __missing__: __missing__
+        description:
+          anyOf:
+          - type: string
+          - $ref: '#/components/schemas/Missing'
+          - type: 'null'
+          title: Description
+          default:
+            __missing__: __missing__
+        index:
+          anyOf:
+          - type: integer
+          - $ref: '#/components/schemas/Missing'
+          title: Index
+          default:
+            __missing__: __missing__
+      type: object
+      title: CustomChartsSectionUpdate
     SingleCustomChartResponse:
       properties:
         data:
@@ -1073,76 +1460,17 @@ components:
       - chart_type
       - series
       title: SingleCustomChartResponse
-    Missing:
+    CustomChartPreviewRequest:
       properties:
-        __missing__:
-          type: string
-          const: __missing__
-          title: Missing
+        bucket_info:
+          $ref: '#/components/schemas/CustomChartsRequestBase'
+        chart:
+          $ref: '#/components/schemas/CustomChartCreatePreview'
       type: object
       required:
-      - __missing__
-      title: Missing
-    CustomChartsSectionCreate:
-      properties:
-        title:
-          type: string
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        index:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Index
-      type: object
-      required:
-      - title
-      title: CustomChartsSectionCreate
-    CustomChartsSectionResponse:
-      properties:
-        title:
-          type: string
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        index:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Index
-        id:
-          type: string
-          format: uuid
-          title: Id
-        chart_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Chart Count
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        modified_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Modified At
-      type: object
-      required:
-      - title
-      - id
-      title: CustomChartsSectionResponse
+      - bucket_info
+      - chart
+      title: CustomChartPreviewRequest
     CustomChartResponse:
       properties:
         id:
@@ -1188,28 +1516,7 @@ components:
       - section_id
       - series
       title: CustomChartResponse
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CustomChartsRequestBase:
+    CustomChartsSectionRequest:
       properties:
         timezone:
           type: string
@@ -1237,9 +1544,13 @@ components:
           type: boolean
           title: Omit Data
           default: false
+        group_by:
+          anyOf:
+          - $ref: '#/components/schemas/RunStatsGroupBy'
+          - type: 'null'
       type: object
-      title: CustomChartsRequestBase
-    CustomChartSeriesCreate:
+      title: CustomChartsSectionRequest
+    CustomChartSeriesUpdate:
       properties:
         name:
           type: string
@@ -1269,11 +1580,33 @@ components:
           anyOf:
           - $ref: '#/components/schemas/RunStatsGroupBy'
           - type: 'null'
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
       type: object
       required:
       - name
       - metric
-      title: CustomChartSeriesCreate
+      title: CustomChartSeriesUpdate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CustomChartType:
+      type: string
+      enum:
+      - line
+      - bar
+      title: CustomChartType
+      description: Enum for custom chart types.
     CustomChartSeries:
       properties:
         name:
@@ -1316,97 +1649,6 @@ components:
       - metric
       - id
       title: CustomChartSeries
-    RunStatsGroupBy:
-      properties:
-        attribute:
-          type: string
-          enum:
-          - name
-          - run_type
-          - tag
-          - metadata
-          title: Attribute
-        path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Path
-        max_groups:
-          type: integer
-          title: Max Groups
-          default: 5
-      type: object
-      required:
-      - attribute
-      title: RunStatsGroupBy
-      description: Group by param for run stats.
-    CustomChartPreviewRequest:
-      properties:
-        bucket_info:
-          $ref: '#/components/schemas/CustomChartsRequestBase'
-        chart:
-          $ref: '#/components/schemas/CustomChartCreatePreview'
-      type: object
-      required:
-      - bucket_info
-      - chart
-      title: CustomChartPreviewRequest
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CustomChartMetric:
-      type: string
-      enum:
-      - run_count
-      - latency_p50
-      - latency_p99
-      - latency_avg
-      - first_token_p50
-      - first_token_p99
-      - total_tokens
-      - prompt_tokens
-      - completion_tokens
-      - median_tokens
-      - completion_tokens_p50
-      - prompt_tokens_p50
-      - tokens_p99
-      - completion_tokens_p99
-      - prompt_tokens_p99
-      - feedback
-      - feedback_score_avg
-      - feedback_values
-      - total_cost
-      - prompt_cost
-      - completion_cost
-      - error_rate
-      - streaming_rate
-      - cost_p50
-      - cost_p99
-      title: CustomChartMetric
-      description: Metrics you can chart. Feedback metrics are not available for organization-scoped charts.
-    TimedeltaInput:
-      properties:
-        days:
-          type: integer
-          title: Days
-          default: 0
-        hours:
-          type: integer
-          title: Hours
-          default: 0
-        minutes:
-          type: integer
-          title: Minutes
-          default: 0
-      type: object
-      title: TimedeltaInput
-      description: Timedelta input.
     SingleCustomChartSubSectionResponse:
       properties:
         title:
@@ -1438,157 +1680,17 @@ components:
       - id
       - charts
       title: SingleCustomChartSubSectionResponse
-    CustomChartsSection:
+    SingleCustomChartResponseBase:
       properties:
-        title:
-          type: string
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        index:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Index
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: string
-          title: Id
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-        charts:
+        data:
           items:
-            $ref: '#/components/schemas/SingleCustomChartResponse'
+            $ref: '#/components/schemas/CustomChartsDataPoint'
           type: array
-          title: Charts
-        sub_sections:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/SingleCustomChartSubSectionResponse'
-            type: array
-          - type: 'null'
-          title: Sub Sections
+          title: Data
       type: object
       required:
-      - title
-      - id
-      - charts
-      title: CustomChartsSection
-    CustomChartSeriesUpdate:
-      properties:
-        name:
-          type: string
-          title: Name
-        filters:
-          anyOf:
-          - $ref: '#/components/schemas/CustomChartSeriesFilters'
-          - type: 'null'
-        metric:
-          $ref: '#/components/schemas/CustomChartMetric'
-        feedback_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Feedback Key
-        workspace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Id
-        project_metric:
-          anyOf:
-          - $ref: '#/components/schemas/HostProjectChartMetric'
-          - type: 'null'
-        group_by:
-          anyOf:
-          - $ref: '#/components/schemas/RunStatsGroupBy'
-          - type: 'null'
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-      type: object
-      required:
-      - name
-      - metric
-      title: CustomChartSeriesUpdate
-    HostProjectChartMetric:
-      type: string
-      enum:
-      - memory_usage
-      - cpu_usage
-      - disk_usage
-      - restart_count
-      - replica_count
-      - worker_count
-      - lg_run_count
-      - responses_per_second
-      - error_responses_per_second
-      - p95_latency
-      title: HostProjectChartMetric
-      description: LGP Metrics you can chart.
-    CustomChartsSectionRequest:
-      properties:
-        timezone:
-          type: string
-          title: Timezone
-          default: UTC
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        stride:
-          $ref: '#/components/schemas/TimedeltaInput'
-          default:
-            days: 0
-            hours: 0
-            minutes: 15
-        omit_data:
-          type: boolean
-          title: Omit Data
-          default: false
-        group_by:
-          anyOf:
-          - $ref: '#/components/schemas/RunStatsGroupBy'
-          - type: 'null'
-      type: object
-      title: CustomChartsSectionRequest
-    CustomChartsSectionsCloneRequest:
-      properties:
-        section_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Section Id
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-      type: object
-      title: CustomChartsSectionsCloneRequest
+      - data
+      title: SingleCustomChartResponseBase
     CustomChartsRequest:
       properties:
         timezone:
@@ -1632,28 +1734,6 @@ components:
           title: Tag Value Id
       type: object
       title: CustomChartsRequest
-    SingleCustomChartResponseBase:
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/CustomChartsDataPoint'
-          type: array
-          title: Data
-      type: object
-      required:
-      - data
-      title: SingleCustomChartResponseBase
-    CustomChartsResponse:
-      properties:
-        sections:
-          items:
-            $ref: '#/components/schemas/CustomChartsSection'
-          type: array
-          title: Sections
-      type: object
-      required:
-      - sections
-      title: CustomChartsResponse
     CustomChartSeriesFilters:
       properties:
         filter:
@@ -1681,102 +1761,22 @@ components:
           title: Session
       type: object
       title: CustomChartSeriesFilters
-    CustomChartCreate:
+    CustomChartsSectionsCloneRequest:
       properties:
-        title:
-          type: string
-          title: Title
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        index:
-          anyOf:
-          - type: integer
-            maximum: 100.0
-            minimum: 0.0
-          - type: 'null'
-          title: Index
-        chart_type:
-          $ref: '#/components/schemas/CustomChartType'
-        series:
-          items:
-            $ref: '#/components/schemas/CustomChartSeriesCreate'
-          type: array
-          title: Series
         section_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Section Id
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-        common_filters:
-          anyOf:
-          - $ref: '#/components/schemas/CustomChartSeriesFilters'
-          - type: 'null'
-      type: object
-      required:
-      - title
-      - chart_type
-      - series
-      title: CustomChartCreate
-    CustomChartCreatePreview:
-      properties:
-        series:
-          items:
-            $ref: '#/components/schemas/CustomChartSeries'
-          type: array
-          title: Series
-        common_filters:
-          anyOf:
-          - $ref: '#/components/schemas/CustomChartSeriesFilters'
-          - type: 'null'
-      type: object
-      required:
-      - series
-      title: CustomChartCreatePreview
-    CustomChartType:
-      type: string
-      enum:
-      - line
-      - bar
-      title: CustomChartType
-      description: Enum for custom chart types.
-    CustomChartsDataPoint:
-      properties:
-        series_id:
-          type: string
-          title: Series Id
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        value:
-          anyOf:
-          - type: integer
-          - type: number
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Value
-        group:
+        session_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Group
+          title: Session Id
       type: object
-      required:
-      - series_id
-      - timestamp
-      - value
-      title: CustomChartsDataPoint
+      title: CustomChartsSectionsCloneRequest
   securitySchemes:
     API_Key:
       type: apiKey

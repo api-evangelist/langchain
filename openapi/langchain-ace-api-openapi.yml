@@ -75,6 +75,15 @@ components:
       - msg
       - type
       title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     Body_execute_api_v1_ace_execute_post:
       properties:
         args:
@@ -93,15 +102,6 @@ components:
       - code
       - language
       title: Body_execute_api_v1_ace_execute_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
   securitySchemes:
     API_Key:
       type: apiKey

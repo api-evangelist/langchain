@@ -49,6 +49,24 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    QueueInfoResponse:
+      properties:
+        queued:
+          type: integer
+          title: Queued
+        active:
+          type: integer
+          title: Active
+        scheduled:
+          type: integer
+          title: Scheduled
+      type: object
+      required:
+      - queued
+      - active
+      - scheduled
+      title: QueueInfoResponse
+      description: Short summary of queue counts.
     ValidationError:
       properties:
         loc:
@@ -70,24 +88,6 @@ components:
       - msg
       - type
       title: ValidationError
-    QueueInfoResponse:
-      properties:
-        queued:
-          type: integer
-          title: Queued
-        active:
-          type: integer
-          title: Active
-        scheduled:
-          type: integer
-          title: Scheduled
-      type: object
-      required:
-      - queued
-      - active
-      - scheduled
-      title: QueueInfoResponse
-      description: Short summary of queue counts.
     HTTPValidationError:
       properties:
         detail:

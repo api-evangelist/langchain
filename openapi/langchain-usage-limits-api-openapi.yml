@@ -124,6 +124,39 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    UpsertUsageLimit:
+      properties:
+        limit_type:
+          $ref: '#/components/schemas/UsageLimitType'
+        limit_value:
+          type: integer
+          title: Limit Value
+        id:
+          type: string
+          format: uuid
+          title: Id
+      type: object
+      required:
+      - limit_type
+      - limit_value
+      title: UpsertUsageLimit
+      description: Request body for creating or updating a usage limit.
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UsageLimitType:
+      type: string
+      enum:
+      - monthly_traces
+      - monthly_longlived_traces
+      title: UsageLimitType
+      description: Type of usage limit.
     ValidationError:
       properties:
         loc:
@@ -177,39 +210,6 @@ components:
       - updated_at
       title: UsageLimit
       description: Usage limit model.
-    UpsertUsageLimit:
-      properties:
-        limit_type:
-          $ref: '#/components/schemas/UsageLimitType'
-        limit_value:
-          type: integer
-          title: Limit Value
-        id:
-          type: string
-          format: uuid
-          title: Id
-      type: object
-      required:
-      - limit_type
-      - limit_value
-      title: UpsertUsageLimit
-      description: Request body for creating or updating a usage limit.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UsageLimitType:
-      type: string
-      enum:
-      - monthly_traces
-      - monthly_longlived_traces
-      title: UsageLimitType
-      description: Type of usage limit.
   securitySchemes:
     API_Key:
       type: apiKey

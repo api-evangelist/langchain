@@ -369,58 +369,17 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    BulkExportCompression:
+    BulkExportStatus:
       type: string
       enum:
-      - none
-      - gzip
-      - snappy
-      - zstandard
-      title: BulkExportCompression
-    BulkExportFormat:
-      type: string
-      enum:
-      - Parquet
-      title: BulkExportFormat
-    BotocoreS3Config:
-      properties:
-        addressing_style:
-          anyOf:
-          - type: string
-            enum:
-            - auto
-            - virtual
-            - path
-          - type: 'null'
-          title: Addressing Style
-          description: S3 addressing style. Use "virtual" for services that require virtual-hosted style (e.g. Volcengine TOS), "path" for path-style, or "auto" (default) to let boto3 decide.
-        use_accelerate_endpoint:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Use Accelerate Endpoint
-          description: Whether to use the S3 Accelerate endpoint.
-        payload_signing_enabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Payload Signing Enabled
-          description: Whether to SHA256 sign SigV4 payloads.
-        us_east_1_regional_endpoint:
-          anyOf:
-          - type: string
-            enum:
-            - regional
-            - legacy
-          - type: 'null'
-          title: Us East 1 Regional Endpoint
-          description: Which S3 endpoint to use when region is us-east-1.
-      type: object
-      title: BotocoreS3Config
-      description: 'Typed subset of botocore Config s3 parameter.
-
-
-        See: https://botocore.amazonaws.com/v1/documentation/api/latest/reference/config.html'
+      - Cancelled
+      - Completed
+      - Created
+      - IntervalScheduled
+      - Failed
+      - TimedOut
+      - Running
+      title: BulkExportStatus
     BulkExportDestinationCreate:
       properties:
         destination_type:
@@ -442,134 +401,6 @@ components:
       - display_name
       - config
       title: BulkExportDestinationCreate
-    BulkExportUpdatableStatus:
-      type: string
-      enum:
-      - Cancelled
-      title: BulkExportUpdatableStatus
-    BulkExportRunProgress:
-      properties:
-        rows_written:
-          type: integer
-          title: Rows Written
-        exported_files:
-          items:
-            type: string
-          type: array
-          title: Exported Files
-        export_path:
-          type: string
-          title: Export Path
-        latest_cursor:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Latest Cursor
-        pending_upload:
-          anyOf:
-          - $ref: '#/components/schemas/PendingUpload'
-          - type: 'null'
-      type: object
-      required:
-      - rows_written
-      - exported_files
-      - export_path
-      - latest_cursor
-      title: BulkExportRunProgress
-    BulkExportFormatVersion:
-      type: string
-      enum:
-      - v1
-      - v2_beta
-      title: BulkExportFormatVersion
-      description: Enum for bulk export format versions.
-    BulkExportDestination:
-      properties:
-        destination_type:
-          $ref: '#/components/schemas/BulkExportDestinationType'
-          default: s3
-        display_name:
-          type: string
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\-_ ']+$
-          title: Display Name
-        config:
-          $ref: '#/components/schemas/BulkExportDestinationS3Config'
-        id:
-          type: string
-          format: uuid
-          title: Id
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        credentials_keys:
-          items:
-            type: string
-          type: array
-          title: Credentials Keys
-      type: object
-      required:
-      - display_name
-      - config
-      - id
-      - tenant_id
-      - created_at
-      - updated_at
-      - credentials_keys
-      title: BulkExportDestination
-    BulkExportDestinationS3Config:
-      properties:
-        endpoint_url:
-          anyOf:
-          - type: string
-            maxLength: 2048
-          - type: 'null'
-          title: Endpoint Url
-        prefix:
-          type: string
-          maxLength: 2048
-          title: Prefix
-          default: ''
-        bucket_name:
-          anyOf:
-          - type: string
-            maxLength: 63
-            minLength: 3
-          - type: 'null'
-          title: Bucket Name
-        region:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Region
-        s3_additional_kwargs:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: S3 Additional Kwargs
-        config_kwargs_s3:
-          anyOf:
-          - $ref: '#/components/schemas/BotocoreS3Config'
-          - type: 'null'
-          description: 'Passed to botocore Config s3 parameter. Use {"addressing_style": "virtual"} for S3-compatible services that require virtual-hosted style addressing (e.g. Volcengine TOS), or {"addressing_style": "path"} for path-style.'
-        include_bucket_in_prefix:
-          type: boolean
-          title: Include Bucket In Prefix
-          description: Whether to prepend the bucket name to the S3 file path. Defaults to True. Set to False to skip prepending the bucket name if bucket name is already in the endpoint URL.
-          default: true
-      type: object
-      title: BulkExportDestinationS3Config
     PendingUpload:
       properties:
         target_cursor:
@@ -599,6 +430,96 @@ components:
         2. Job crashes during upload
 
         3. Need to verify uploaded files before advancing cursor'
+    BulkExportDestinationS3Credentials:
+      properties:
+        access_key_id:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Access Key Id
+        secret_access_key:
+          type: string
+          maxLength: 2048
+          minLength: 1
+          title: Secret Access Key
+        session_token:
+          anyOf:
+          - type: string
+            maxLength: 2048
+          - type: 'null'
+          title: Session Token
+      type: object
+      required:
+      - access_key_id
+      - secret_access_key
+      title: BulkExportDestinationS3Credentials
+    BulkExportRun:
+      properties:
+        bulk_export_id:
+          type: string
+          format: uuid
+          title: Bulk Export Id
+        metadata:
+          $ref: '#/components/schemas/BulkExportRunMetadata'
+        id:
+          type: string
+          format: uuid
+          title: Id
+        status:
+          $ref: '#/components/schemas/BulkExportRunStatus'
+        retry_number:
+          type: integer
+          title: Retry Number
+          default: 0
+        errors:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Errors
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        finished_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Finished At
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+      type: object
+      required:
+      - bulk_export_id
+      - metadata
+      - id
+      - status
+      - created_at
+      - updated_at
+      - finished_at
+      title: BulkExportRun
+    BulkExportUpdate:
+      properties:
+        status:
+          $ref: '#/components/schemas/BulkExportUpdatableStatus'
+          default: Cancelled
+      type: object
+      title: BulkExportUpdate
     BulkExportCreate:
       properties:
         bulk_export_destination_id:
@@ -651,6 +572,100 @@ components:
       - session_id
       - start_time
       title: BulkExportCreate
+    BulkExportFormatVersion:
+      type: string
+      enum:
+      - v1
+      - v2_beta
+      title: BulkExportFormatVersion
+      description: Enum for bulk export format versions.
+    BulkExportDestinationType:
+      type: string
+      enum:
+      - s3
+      title: BulkExportDestinationType
+    BulkExportRunStatus:
+      type: string
+      enum:
+      - Cancelled
+      - Completed
+      - Created
+      - Failed
+      - TimedOut
+      - Running
+      title: BulkExportRunStatus
+    BulkExportRunMetadata:
+      properties:
+        prefix:
+          type: string
+          title: Prefix
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/BulkExportRunProgress'
+          - type: 'null'
+      type: object
+      required:
+      - prefix
+      - start_time
+      - end_time
+      title: BulkExportRunMetadata
+    BulkExportUpdatableStatus:
+      type: string
+      enum:
+      - Cancelled
+      title: BulkExportUpdatableStatus
+    BulkExportDestinationS3Config:
+      properties:
+        endpoint_url:
+          anyOf:
+          - type: string
+            maxLength: 2048
+          - type: 'null'
+          title: Endpoint Url
+        prefix:
+          type: string
+          maxLength: 2048
+          title: Prefix
+          default: ''
+        bucket_name:
+          anyOf:
+          - type: string
+            maxLength: 63
+            minLength: 3
+          - type: 'null'
+          title: Bucket Name
+        region:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Region
+        s3_additional_kwargs:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: S3 Additional Kwargs
+        config_kwargs_s3:
+          anyOf:
+          - $ref: '#/components/schemas/BotocoreS3Config'
+          - type: 'null'
+          description: 'Passed to botocore Config s3 parameter. Use {"addressing_style": "virtual"} for S3-compatible services that require virtual-hosted style addressing (e.g. Volcengine TOS), or {"addressing_style": "path"} for path-style.'
+        include_bucket_in_prefix:
+          type: boolean
+          title: Include Bucket In Prefix
+          description: Whether to prepend the bucket name to the S3 file path. Defaults to True. Set to False to skip prepending the bucket name if bucket name is already in the endpoint URL.
+          default: true
+      type: object
+      title: BulkExportDestinationS3Config
     ValidationError:
       properties:
         loc:
@@ -680,94 +695,49 @@ components:
       required:
       - credentials
       title: BulkExportDestinationUpdate
-    HTTPValidationError:
+    BulkExportDestination:
       properties:
-        detail:
+        destination_type:
+          $ref: '#/components/schemas/BulkExportDestinationType'
+          default: s3
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ ']+$
+          title: Display Name
+        config:
+          $ref: '#/components/schemas/BulkExportDestinationS3Config'
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        credentials_keys:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            type: string
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    BulkExportDestinationType:
-      type: string
-      enum:
-      - s3
-      title: BulkExportDestinationType
-    BulkExportDestinationS3Credentials:
-      properties:
-        access_key_id:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Access Key Id
-        secret_access_key:
-          type: string
-          maxLength: 2048
-          minLength: 1
-          title: Secret Access Key
-        session_token:
-          anyOf:
-          - type: string
-            maxLength: 2048
-          - type: 'null'
-          title: Session Token
+          title: Credentials Keys
       type: object
       required:
-      - access_key_id
-      - secret_access_key
-      title: BulkExportDestinationS3Credentials
-    BulkExportStatus:
-      type: string
-      enum:
-      - Cancelled
-      - Completed
-      - Created
-      - IntervalScheduled
-      - Failed
-      - TimedOut
-      - Running
-      title: BulkExportStatus
-    BulkExportRunMetadata:
-      properties:
-        prefix:
-          type: string
-          title: Prefix
-        start_time:
-          type: string
-          format: date-time
-          title: Start Time
-        end_time:
-          type: string
-          format: date-time
-          title: End Time
-        result:
-          anyOf:
-          - $ref: '#/components/schemas/BulkExportRunProgress'
-          - type: 'null'
-      type: object
-      required:
-      - prefix
-      - start_time
-      - end_time
-      title: BulkExportRunMetadata
-    BulkExportRunStatus:
-      type: string
-      enum:
-      - Cancelled
-      - Completed
-      - Created
-      - Failed
-      - TimedOut
-      - Running
-      title: BulkExportRunStatus
-    BulkExportUpdate:
-      properties:
-        status:
-          $ref: '#/components/schemas/BulkExportUpdatableStatus'
-          default: Cancelled
-      type: object
-      title: BulkExportUpdate
+      - display_name
+      - config
+      - id
+      - tenant_id
+      - created_at
+      - updated_at
+      - credentials_keys
+      title: BulkExportDestination
     BulkExport:
       properties:
         bulk_export_destination_id:
@@ -856,66 +826,96 @@ components:
       - updated_at
       - finished_at
       title: BulkExport
-    BulkExportRun:
+    HTTPValidationError:
       properties:
-        bulk_export_id:
-          type: string
-          format: uuid
-          title: Bulk Export Id
-        metadata:
-          $ref: '#/components/schemas/BulkExportRunMetadata'
-        id:
-          type: string
-          format: uuid
-          title: Id
-        status:
-          $ref: '#/components/schemas/BulkExportRunStatus'
-        retry_number:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    BulkExportRunProgress:
+      properties:
+        rows_written:
           type: integer
-          title: Retry Number
-          default: 0
-        errors:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Errors
-        created_at:
+          title: Rows Written
+        exported_files:
+          items:
+            type: string
+          type: array
+          title: Exported Files
+        export_path:
           type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        finished_at:
+          title: Export Path
+        latest_cursor:
           anyOf:
           - type: string
-            format: date-time
           - type: 'null'
-          title: Finished At
-        start_time:
+          title: Latest Cursor
+        pending_upload:
           anyOf:
-          - type: string
-            format: date-time
+          - $ref: '#/components/schemas/PendingUpload'
           - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
       type: object
       required:
-      - bulk_export_id
-      - metadata
-      - id
-      - status
-      - created_at
-      - updated_at
-      - finished_at
-      title: BulkExportRun
+      - rows_written
+      - exported_files
+      - export_path
+      - latest_cursor
+      title: BulkExportRunProgress
+    BulkExportFormat:
+      type: string
+      enum:
+      - Parquet
+      title: BulkExportFormat
+    BulkExportCompression:
+      type: string
+      enum:
+      - none
+      - gzip
+      - snappy
+      - zstandard
+      title: BulkExportCompression
+    BotocoreS3Config:
+      properties:
+        addressing_style:
+          anyOf:
+          - type: string
+            enum:
+            - auto
+            - virtual
+            - path
+          - type: 'null'
+          title: Addressing Style
+          description: S3 addressing style. Use "virtual" for services that require virtual-hosted style (e.g. Volcengine TOS), "path" for path-style, or "auto" (default) to let boto3 decide.
+        use_accelerate_endpoint:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Use Accelerate Endpoint
+          description: Whether to use the S3 Accelerate endpoint.
+        payload_signing_enabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Payload Signing Enabled
+          description: Whether to SHA256 sign SigV4 payloads.
+        us_east_1_regional_endpoint:
+          anyOf:
+          - type: string
+            enum:
+            - regional
+            - legacy
+          - type: 'null'
+          title: Us East 1 Regional Endpoint
+          description: Which S3 endpoint to use when region is us-east-1.
+      type: object
+      title: BotocoreS3Config
+      description: 'Typed subset of botocore Config s3 parameter.
+
+
+        See: https://botocore.amazonaws.com/v1/documentation/api/latest/reference/config.html'
   securitySchemes:
     API_Key:
       type: apiKey

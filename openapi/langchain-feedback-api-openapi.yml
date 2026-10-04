@@ -712,6 +712,13 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    FeedbackLevel:
+      type: string
+      enum:
+      - run
+      - session
+      title: FeedbackLevel
+      description: Enum for feedback levels.
     FeedbackIngestTokenCreateSchema:
       properties:
         expires_in:
@@ -741,134 +748,69 @@ components:
       - feedback_key
       title: FeedbackIngestTokenCreateSchema
       description: Feedback ingest token create schema.
-    FeedbackUpdateSchema:
+    FeedbackFormulaCreate:
       properties:
-        score:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: 'null'
-          title: Score
-        value:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: string
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Value
-        comment:
+        dataset_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Comment
-        correction:
+          title: Dataset Id
+        session_id:
           anyOf:
-          - additionalProperties: true
-            type: object
           - type: string
+            format: uuid
           - type: 'null'
-          title: Correction
-        feedback_config:
-          anyOf:
-          - $ref: '#/components/schemas/FeedbackConfig'
-          - type: 'null'
-      type: object
-      title: FeedbackUpdateSchema
-      description: Schema used for updating feedback
-    SourceType:
-      type: string
-      enum:
-      - api
-      - model
-      - app
-      - auto_eval
-      title: SourceType
-      description: Enum for feedback source types.
-    ModelFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: model
-          title: Type
-          default: model
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: ModelFeedbackSource
-      description: Model feedback source.
-    AutoEvalFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: auto_eval
-          title: Type
-          default: auto_eval
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: AutoEvalFeedbackSource
-      description: Auto eval feedback source.
-    FeedbackIngestTokenSchema:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        url:
-          type: string
-          title: Url
-        expires_at:
-          type: string
-          format: date-time
-          title: Expires At
+          title: Session Id
         feedback_key:
           type: string
           title: Feedback Key
+        aggregation_type:
+          type: string
+          enum:
+          - sum
+          - avg
+          title: Aggregation Type
+        formula_parts:
+          items:
+            $ref: '#/components/schemas/FeedbackFormulaWeightedVariable'
+          type: array
+          maxItems: 50
+          minItems: 1
+          title: Formula Parts
       type: object
       required:
-      - id
-      - url
-      - expires_at
       - feedback_key
-      title: FeedbackIngestTokenSchema
-      description: Feedback ingest token schema.
-    FeedbackConfig:
+      - aggregation_type
+      - formula_parts
+      title: FeedbackFormulaCreate
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
+    FeedbackFormulaWeightedVariable:
       properties:
-        type:
-          $ref: '#/components/schemas/FeedbackType'
-        min:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Max
-        categories:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/FeedbackCategory'
-            type: array
-          - type: 'null'
-          title: Categories
+        part_type:
+          type: string
+          const: weighted_key
+          title: Part Type
+        weight:
+          type: number
+          title: Weight
+        key:
+          type: string
+          minLength: 1
+          title: Key
       type: object
       required:
-      - type
-      title: FeedbackConfig
+      - part_type
+      - weight
+      - key
+      title: FeedbackFormulaWeightedVariable
     FeedbackCreateWithTokenExtendedSchema:
       properties:
         score:
@@ -907,13 +849,246 @@ components:
       type: object
       title: FeedbackCreateWithTokenExtendedSchema
       description: Feedback create schema with token.
-    FeedbackLevel:
-      type: string
-      enum:
-      - run
-      - session
-      title: FeedbackLevel
-      description: Enum for feedback levels.
+    APIFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: api
+          title: Type
+          default: api
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: APIFeedbackSource
+      description: API feedback source.
+    FeedbackUpdateSchema:
+      properties:
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+      type: object
+      title: FeedbackUpdateSchema
+      description: Schema used for updating feedback
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
+    FeedbackConfig:
+      properties:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min
+        max:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max
+        categories:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FeedbackCategory'
+            type: array
+          - type: 'null'
+          title: Categories
+      type: object
+      required:
+      - type
+      title: FeedbackConfig
+    AppFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: app
+          title: Type
+          default: app
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: AppFeedbackSource
+      description: Feedback from the LangChainPlus App.
+    FeedbackCreateSchema:
+      properties:
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        modified_at:
+          type: string
+          format: date-time
+          title: Modified At
+        key:
+          type: string
+          maxLength: 180
+          title: Key
+        score:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: 'null'
+          title: Score
+        value:
+          anyOf:
+          - type: number
+          - type: integer
+          - type: boolean
+          - type: string
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Value
+        comment:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment
+        correction:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: string
+          - type: 'null'
+          title: Correction
+        feedback_group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Feedback Group Id
+        comparative_experiment_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Comparative Experiment Id
+        run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Id
+        session_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Session Id
+        trace_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Trace Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        id:
+          type: string
+          format: uuid
+          title: Id
+        feedback_source:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/AppFeedbackSource'
+            - $ref: '#/components/schemas/APIFeedbackSource'
+            - $ref: '#/components/schemas/ModelFeedbackSource'
+            - $ref: '#/components/schemas/AutoEvalFeedbackSource'
+            discriminator:
+              propertyName: type
+              mapping:
+                api: '#/components/schemas/APIFeedbackSource'
+                app: '#/components/schemas/AppFeedbackSource'
+                auto_eval: '#/components/schemas/AutoEvalFeedbackSource'
+                model: '#/components/schemas/ModelFeedbackSource'
+          - type: 'null'
+          title: Feedback Source
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+        error:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Error
+      type: object
+      required:
+      - key
+      title: FeedbackCreateSchema
+      description: Schema used for creating feedback.
+    ModelFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: model
+          title: Type
+          default: model
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: ModelFeedbackSource
+      description: Model feedback source.
     FeedbackFormula:
       properties:
         dataset_id:
@@ -986,6 +1161,22 @@ components:
       - msg
       - type
       title: ValidationError
+    AutoEvalFeedbackSource:
+      properties:
+        type:
+          type: string
+          const: auto_eval
+          title: Type
+          default: auto_eval
+        metadata:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Metadata
+      type: object
+      title: AutoEvalFeedbackSource
+      description: Auto eval feedback source.
     FeedbackSchema:
       properties:
         created_at:
@@ -1126,25 +1317,30 @@ components:
       type: object
       title: FeedbackSource
       description: The feedback source loaded from the database.
-    FeedbackFormulaWeightedVariable:
+    FeedbackIngestTokenSchema:
       properties:
-        part_type:
+        id:
           type: string
-          const: weighted_key
-          title: Part Type
-        weight:
-          type: number
-          title: Weight
-        key:
+          format: uuid
+          title: Id
+        url:
           type: string
-          minLength: 1
-          title: Key
+          title: Url
+        expires_at:
+          type: string
+          format: date-time
+          title: Expires At
+        feedback_key:
+          type: string
+          title: Feedback Key
       type: object
       required:
-      - part_type
-      - weight
-      - key
-      title: FeedbackFormulaWeightedVariable
+      - id
+      - url
+      - expires_at
+      - feedback_key
+      title: FeedbackIngestTokenSchema
+      description: Feedback ingest token schema.
     HTTPValidationError:
       properties:
         detail:
@@ -1154,58 +1350,15 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    FeedbackFormulaCreate:
-      properties:
-        dataset_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Dataset Id
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-        feedback_key:
-          type: string
-          title: Feedback Key
-        aggregation_type:
-          type: string
-          enum:
-          - sum
-          - avg
-          title: Aggregation Type
-        formula_parts:
-          items:
-            $ref: '#/components/schemas/FeedbackFormulaWeightedVariable'
-          type: array
-          maxItems: 50
-          minItems: 1
-          title: Formula Parts
-      type: object
-      required:
-      - feedback_key
-      - aggregation_type
-      - formula_parts
-      title: FeedbackFormulaCreate
-    FeedbackCategory:
-      properties:
-        value:
-          type: number
-          title: Value
-        label:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Label
-      type: object
-      required:
-      - value
-      title: FeedbackCategory
-      description: Specific value and label pair for feedback
+    SourceType:
+      type: string
+      enum:
+      - api
+      - model
+      - app
+      - auto_eval
+      title: SourceType
+      description: Enum for feedback source types.
     TimedeltaInput:
       properties:
         days:
@@ -1223,46 +1376,6 @@ components:
       type: object
       title: TimedeltaInput
       description: Timedelta input.
-    AppFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: app
-          title: Type
-          default: app
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: AppFeedbackSource
-      description: Feedback from the LangChainPlus App.
-    APIFeedbackSource:
-      properties:
-        type:
-          type: string
-          const: api
-          title: Type
-          default: api
-        metadata:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Metadata
-      type: object
-      title: APIFeedbackSource
-      description: API feedback source.
-    FeedbackType:
-      type: string
-      enum:
-      - continuous
-      - categorical
-      - freeform
-      title: FeedbackType
-      description: Enum for feedback types.
     FeedbackFormulaUpdate:
       properties:
         feedback_key:
@@ -1287,119 +1400,6 @@ components:
       - aggregation_type
       - formula_parts
       title: FeedbackFormulaUpdate
-    FeedbackCreateSchema:
-      properties:
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        modified_at:
-          type: string
-          format: date-time
-          title: Modified At
-        key:
-          type: string
-          maxLength: 180
-          title: Key
-        score:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: 'null'
-          title: Score
-        value:
-          anyOf:
-          - type: number
-          - type: integer
-          - type: boolean
-          - type: string
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Value
-        comment:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment
-        correction:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: string
-          - type: 'null'
-          title: Correction
-        feedback_group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Feedback Group Id
-        comparative_experiment_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Comparative Experiment Id
-        run_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Run Id
-        session_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Session Id
-        trace_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Trace Id
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        id:
-          type: string
-          format: uuid
-          title: Id
-        feedback_source:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/AppFeedbackSource'
-            - $ref: '#/components/schemas/APIFeedbackSource'
-            - $ref: '#/components/schemas/ModelFeedbackSource'
-            - $ref: '#/components/schemas/AutoEvalFeedbackSource'
-            discriminator:
-              propertyName: type
-              mapping:
-                api: '#/components/schemas/APIFeedbackSource'
-                app: '#/components/schemas/AppFeedbackSource'
-                auto_eval: '#/components/schemas/AutoEvalFeedbackSource'
-                model: '#/components/schemas/ModelFeedbackSource'
-          - type: 'null'
-          title: Feedback Source
-        feedback_config:
-          anyOf:
-          - $ref: '#/components/schemas/FeedbackConfig'
-          - type: 'null'
-        error:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Error
-      type: object
-      required:
-      - key
-      title: FeedbackCreateSchema
-      description: Schema used for creating feedback.
   securitySchemes:
     API_Key:
       type: apiKey

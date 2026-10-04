@@ -50,6 +50,20 @@ paths:
                 $ref: '#/components/schemas/HealthInfoGetResponse'
 components:
   schemas:
+    CustomerInfo:
+      properties:
+        customer_id:
+          type: string
+          title: Customer Id
+        customer_name:
+          type: string
+          title: Customer Name
+      type: object
+      required:
+      - customer_id
+      - customer_name
+      title: CustomerInfo
+      description: Customer info.
     BatchIngestConfig:
       properties:
         use_multipart_endpoint:
@@ -127,20 +141,6 @@ components:
       - version
       title: InfoGetResponse
       description: The LangSmith server info.
-    CustomerInfo:
-      properties:
-        customer_id:
-          type: string
-          title: Customer Id
-        customer_name:
-          type: string
-          title: Customer Name
-      type: object
-      required:
-      - customer_id
-      - customer_name
-      title: CustomerInfo
-      description: Customer info.
   securitySchemes:
     API_Key:
       type: apiKey

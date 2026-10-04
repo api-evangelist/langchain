@@ -529,28 +529,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    experiment_view_overrides.ExperimentViewOverridePatchRequest:
-      type: object
-      required:
-      - column_overrides
-      properties:
-        column_overrides:
-          type: array
-          maxItems: 50
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
-    experiment_view_overrides.ExperimentViewOverridePostRequest:
-      type: object
-      required:
-      - column_overrides
-      properties:
-        column_overrides:
-          type: array
-          maxItems: 50
-          minItems: 1
-          items:
-            $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
     experiment_view_overrides.ColumnOverride:
       type: object
       required:
@@ -576,6 +554,28 @@ components:
           type: integer
           maximum: 6
           minimum: 1
+    experiment_view_overrides.ExperimentViewOverridePatchRequest:
+      type: object
+      required:
+      - column_overrides
+      properties:
+        column_overrides:
+          type: array
+          maxItems: 50
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
+    experiment_view_overrides.ExperimentViewOverridePostRequest:
+      type: object
+      required:
+      - column_overrides
+      properties:
+        column_overrides:
+          type: array
+          maxItems: 50
+          minItems: 1
+          items:
+            $ref: '#/components/schemas/experiment_view_overrides.ColumnOverride'
     experiment_view_overrides.ExperimentViewOverride:
       type: object
       properties:

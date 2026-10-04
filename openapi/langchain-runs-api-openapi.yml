@@ -652,6 +652,30 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    query.RunEvent:
+      type: object
+      properties:
+        kwargs:
+          description: '`kwargs` is the event payload — an opaque JSON object whose shape depends on `name` and on the emitting SDK. For example LangChain emits `{"token": {...}}` for `new_token` events, tool-call start/end details for tool events, and arbitrary user-defined payloads for custom events. Clients should treat `kwargs` as untyped JSON: do not assume specific keys exist for a given `name`, and tolerate additional unknown keys appearing over time.'
+          type: object
+        name:
+          description: '`name` is the event kind. Common values emitted by the LangChain/LangSmith tracer SDKs include `"start"`, `"end"`, and `"new_token"`, but applications may emit arbitrary strings for their own instrumentation.'
+          type: string
+          example: new_token
+        time:
+          description: '`time` is when the event occurred (RFC3339 date-time with millisecond precision).'
+          type: string
+          format: date-time
+          example: '2024-01-15T10:30:00.312Z'
+    query.RunPromptTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its prompt-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     query.RunStatus:
       type: string
       enum:
@@ -662,6 +686,171 @@ components:
       - RunStatusSuccess
       - RunStatusError
       - RunStatusPending
+    query.RunFeedbackStat:
+      type: object
+      properties:
+        avg:
+          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
+          type: number
+          example: 0.87
+        comments:
+          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
+          type: array
+          items:
+            type: string
+          example:
+          - good answer
+          - needs citation
+        contains_thread_feedback:
+          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
+          type: boolean
+          example: false
+        errors:
+          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
+          type: integer
+          default: 0
+          example: 0
+        max:
+          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.95
+        min:
+          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.8
+        n:
+          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
+          type: integer
+          example: 42
+        sources:
+          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
+          type: array
+          items: {}
+        stdev:
+          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
+          type: number
+          example: 0.05
+        values:
+          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    query.QueryRunsRequestBody:
+      type: object
+      properties:
+        ai_query:
+          description: '`ai_query` is a natural-language query to filter runs using AI.'
+          type: string
+          example: runs that used tool calls
+        cursor:
+          description: '`cursor` is the opaque string from a previous response''s `next_cursor`.'
+          type: string
+          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
+        filter:
+          description: '`filter` narrows results to runs matching this LangSmith filter expression, evaluated against each individual run.
+
+            For example: and(eq(run_type, "llm"), gt(latency, 5)) or eq(status, "error").
+
+            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
+          type: string
+          example: and(eq(run_type, "llm"), gt(latency, 5))
+        has_error:
+          description: '`has_error` filters to runs that errored (true) or completed without error (false).'
+          type: boolean
+          example: false
+        ids:
+          description: '`ids` optionally limits the request to these run UUIDs.'
+          type: array
+          items:
+            type: string
+            format: uuid
+          example:
+          - 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+          - f47ac10b-58cc-4372-a567-0e02b2c3d479
+        is_root:
+          description: '`is_root` returns only root runs (true) or only non-root runs (false).'
+          type: boolean
+          example: true
+        max_start_time:
+          description: '`max_start_time` is the upper bound for run `start_time` (RFC3339). Defaults to now.'
+          type: string
+          format: date-time
+          example: '2024-12-31T23:59:59Z'
+        min_start_time:
+          description: '`min_start_time` is the lower bound for run `start_time` (RFC3339). Defaults to 1 day ago.'
+          type: string
+          format: date-time
+          example: '2024-01-01T00:00:00Z'
+        page_size:
+          description: '`page_size` is the maximum number of runs to return in this response. Defaults to 100 when omitted; must be between 1 and 1000 inclusive when set.'
+          type: integer
+          default: 100
+          maximum: 1000
+          minimum: 1
+          example: 100
+        project_ids:
+          description: '`project_ids` lists tracing project UUIDs to query.'
+          type: array
+          items:
+            type: string
+            format: uuid
+          example:
+          - 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+          - 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
+        reference_examples:
+          description: '`reference_examples` optionally limits to runs linked to these dataset example UUIDs.'
+          type: array
+          items:
+            type: string
+            format: uuid
+          example:
+          - b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e
+          - c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f
+        run_type:
+          description: '`run_type`, when set, restricts results to runs whose `run_type` equals this value.'
+          allOf:
+          - $ref: '#/components/schemas/query.RunType'
+          example: LLM
+        selects:
+          description: '`selects` lists which properties to include on each returned run. If omitted, only `id` is returned. Properties not listed are omitted from each run object.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunSelectField'
+          example:
+          - ID
+          - NAME
+          - PROJECT_ID
+          - START_TIME
+          - RUN_TYPE
+          - STATUS
+        sort_order:
+          description: '`sort_order` is the sort direction for `start_time` (`ASC` or `DESC`). Defaults to `DESC` when omitted. Maps to the SmithDB proto `Order` field.'
+          default: DESC
+          allOf:
+          - $ref: '#/components/schemas/query.SortOrder'
+          example: DESC
+        trace_filter:
+          description: '`trace_filter` narrows results to runs whose root trace matches this LangSmith filter expression.
+
+            Use this to filter by properties of the trace''s root run — for example eq(status, "success") to include only traces that completed without error.
+
+            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
+          type: string
+          example: eq(status, "success")
+        trace_id:
+          description: '`trace_id` optionally limits results to runs belonging to this trace UUID.'
+          type: string
+          format: uuid
+          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
+        tree_filter:
+          description: '`tree_filter` narrows results to runs that belong to a trace containing at least one run matching this LangSmith filter expression anywhere in the run tree (not just the root).
+
+            Use this to find runs inside traces that involved a specific tool, tag, or model — for example has(tags, "production") or eq(name, "my_tool").
+
+            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
+          type: string
+          example: has(tags, "production")
     query.RunResponse:
       type: object
       properties:
@@ -857,6 +1046,72 @@ components:
           type: string
           format: uuid
           example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
+    query.RunCompletionTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its completion-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+    runs.ErrorResponse:
+      type: object
+      properties:
+        details:
+          description: Optional error details as JSON string
+          type: string
+          example: '{"field":"dataset_id","reason":"required"}'
+        error:
+          description: Error message
+          type: string
+          example: 'Invalid request: missing required fields'
+    query.RunType:
+      type: string
+      enum:
+      - TOOL
+      - CHAIN
+      - LLM
+      - RETRIEVER
+      - EMBEDDING
+      - PROMPT
+      - PARSER
+      x-enum-varnames:
+      - RunTypeTool
+      - RunTypeChain
+      - RunTypeLLM
+      - RunTypeRetriever
+      - RunTypeEmbedding
+      - RunTypePrompt
+      - RunTypeParser
+    query.RunAttachmentURLs:
+      type: object
+      additionalProperties:
+        type: string
+    query.QueryRunsResponseBody:
+      type: object
+      properties:
+        has_more:
+          description: '`has_more` is true when another page of runs exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of runs, sorted by `start_time` in the direction given by the request `sort_order`.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunResponse'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
+    query.QueryTraceResponseBody:
+      type: object
+      properties:
+        items:
+          description: '`items` lists runs in the trace for the requested time window, in `start_time` order.'
+          type: array
+          items:
+            $ref: '#/components/schemas/query.RunResponse'
     runs.Run:
       type: object
       properties:
@@ -921,237 +1176,6 @@ components:
             type: string
         trace_id:
           type: string
-    query.RunPromptTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its prompt-token count.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    query.RunPromptCostDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its estimated USD cost.'
-          type: object
-          additionalProperties:
-            type: number
-            format: float64
-    query.QueryRunsResponseBody:
-      type: object
-      properties:
-        has_more:
-          description: '`has_more` is true when another page of runs exists after this one.'
-          type: boolean
-          example: true
-        items:
-          description: '`items` is the page of runs, sorted by `start_time` in the direction given by the request `sort_order`.'
-          type: array
-          items:
-            $ref: '#/components/schemas/query.RunResponse'
-        next_cursor:
-          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
-          type: string
-          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
-    query.RunAttachmentURLs:
-      type: object
-      additionalProperties:
-        type: string
-    query.RunCompletionTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its completion-token count.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    query.QueryTraceResponseBody:
-      type: object
-      properties:
-        items:
-          description: '`items` lists runs in the trace for the requested time window, in `start_time` order.'
-          type: array
-          items:
-            $ref: '#/components/schemas/query.RunResponse'
-    runs.ErrorResponse:
-      type: object
-      properties:
-        details:
-          description: Optional error details as JSON string
-          type: string
-          example: '{"field":"dataset_id","reason":"required"}'
-        error:
-          description: Error message
-          type: string
-          example: 'Invalid request: missing required fields'
-    query.RunFeedbackStat:
-      type: object
-      properties:
-        avg:
-          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
-          type: number
-          example: 0.87
-        comments:
-          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
-          type: array
-          items:
-            type: string
-          example:
-          - good answer
-          - needs citation
-        contains_thread_feedback:
-          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
-          type: boolean
-          example: false
-        errors:
-          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
-          type: integer
-          default: 0
-          example: 0
-        max:
-          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
-          type: number
-          example: 0.95
-        min:
-          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
-          type: number
-          example: 0.8
-        n:
-          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
-          type: integer
-          example: 42
-        sources:
-          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
-          type: array
-          items: {}
-        stdev:
-          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
-          type: number
-          example: 0.05
-        values:
-          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    query.QueryRunsRequestBody:
-      type: object
-      properties:
-        ai_query:
-          description: '`ai_query` is a natural-language query to filter runs using AI.'
-          type: string
-          example: runs that used tool calls
-        cursor:
-          description: '`cursor` is the opaque string from a previous response''s `next_cursor`.'
-          type: string
-          example: eyJsYXN0X2lkIjoiMDE4ZTRjN2UtYTlmYi03ZWYwLWE1YjYtNmVhM2E4MmU5MzI3In0=
-        filter:
-          description: '`filter` narrows results to runs matching this LangSmith filter expression, evaluated against each individual run.
-
-            For example: and(eq(run_type, "llm"), gt(latency, 5)) or eq(status, "error").
-
-            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
-          type: string
-          example: and(eq(run_type, "llm"), gt(latency, 5))
-        has_error:
-          description: '`has_error` filters to runs that errored (true) or completed without error (false).'
-          type: boolean
-          example: false
-        ids:
-          description: '`ids` optionally limits the request to these run UUIDs.'
-          type: array
-          items:
-            type: string
-            format: uuid
-          example:
-          - 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
-          - f47ac10b-58cc-4372-a567-0e02b2c3d479
-        is_root:
-          description: '`is_root` returns only root runs (true) or only non-root runs (false).'
-          type: boolean
-          example: true
-        max_start_time:
-          description: '`max_start_time` is the upper bound for run `start_time` (RFC3339). Defaults to now.'
-          type: string
-          format: date-time
-          example: '2024-12-31T23:59:59Z'
-        min_start_time:
-          description: '`min_start_time` is the lower bound for run `start_time` (RFC3339). Defaults to 1 day ago.'
-          type: string
-          format: date-time
-          example: '2024-01-01T00:00:00Z'
-        page_size:
-          description: '`page_size` is the maximum number of runs to return in this response. Defaults to 100 when omitted; must be between 1 and 1000 inclusive when set.'
-          type: integer
-          default: 100
-          maximum: 1000
-          minimum: 1
-          example: 100
-        project_ids:
-          description: '`project_ids` lists tracing project UUIDs to query.'
-          type: array
-          items:
-            type: string
-            format: uuid
-          example:
-          - 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
-          - 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
-        reference_examples:
-          description: '`reference_examples` optionally limits to runs linked to these dataset example UUIDs.'
-          type: array
-          items:
-            type: string
-            format: uuid
-          example:
-          - b2c3d4e5-f6a7-4b5c-9d0e-1f2a3b4c5d6e
-          - c3d4e5f6-a7b8-4c5d-0e1f-2a3b4c5d6e7f
-        run_type:
-          description: '`run_type`, when set, restricts results to runs whose `run_type` equals this value.'
-          allOf:
-          - $ref: '#/components/schemas/query.RunType'
-          example: LLM
-        selects:
-          description: '`selects` lists which properties to include on each returned run. If omitted, only `id` is returned. Properties not listed are omitted from each run object.'
-          type: array
-          items:
-            $ref: '#/components/schemas/query.RunSelectField'
-          example:
-          - ID
-          - NAME
-          - PROJECT_ID
-          - START_TIME
-          - RUN_TYPE
-          - STATUS
-        sort_order:
-          description: '`sort_order` is the sort direction for `start_time` (`ASC` or `DESC`). Defaults to `DESC` when omitted. Maps to the SmithDB proto `Order` field.'
-          default: DESC
-          allOf:
-          - $ref: '#/components/schemas/query.SortOrder'
-          example: DESC
-        trace_filter:
-          description: '`trace_filter` narrows results to runs whose root trace matches this LangSmith filter expression.
-
-            Use this to filter by properties of the trace''s root run — for example eq(status, "success") to include only traces that completed without error.
-
-            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
-          type: string
-          example: eq(status, "success")
-        trace_id:
-          description: '`trace_id` optionally limits results to runs belonging to this trace UUID.'
-          type: string
-          format: uuid
-          example: f47ac10b-58cc-4372-a567-0e02b2c3d479
-        tree_filter:
-          description: '`tree_filter` narrows results to runs that belong to a trace containing at least one run matching this LangSmith filter expression anywhere in the run tree (not just the root).
-
-            Use this to find runs inside traces that involved a specific tool, tag, or model — for example has(tags, "production") or eq(name, "my_tool").
-
-            See https://docs.langchain.com/langsmith/trace-query-syntax#filter-query-language for syntax.'
-          type: string
-          example: has(tags, "production")
     query.RunSelectField:
       type: string
       enum:
@@ -1244,6 +1268,14 @@ components:
       - RunSelectIsInDataset
       - RunSelectShareURL
       - RunSelectFeedbackStats
+    query.SortOrder:
+      type: string
+      enum:
+      - ASC
+      - DESC
+      x-enum-varnames:
+      - SortOrderAsc
+      - SortOrderDesc
     query.RunFeedbackStats:
       type: object
       additionalProperties:
@@ -1257,47 +1289,15 @@ components:
           additionalProperties:
             type: number
             format: float64
-    query.RunType:
-      type: string
-      enum:
-      - TOOL
-      - CHAIN
-      - LLM
-      - RETRIEVER
-      - EMBEDDING
-      - PROMPT
-      - PARSER
-      x-enum-varnames:
-      - RunTypeTool
-      - RunTypeChain
-      - RunTypeLLM
-      - RunTypeRetriever
-      - RunTypeEmbedding
-      - RunTypePrompt
-      - RunTypeParser
-    query.SortOrder:
-      type: string
-      enum:
-      - ASC
-      - DESC
-      x-enum-varnames:
-      - SortOrderAsc
-      - SortOrderDesc
-    query.RunEvent:
+    query.RunPromptCostDetails:
       type: object
       properties:
-        kwargs:
-          description: '`kwargs` is the event payload — an opaque JSON object whose shape depends on `name` and on the emitting SDK. For example LangChain emits `{"token": {...}}` for `new_token` events, tool-call start/end details for tool events, and arbitrary user-defined payloads for custom events. Clients should treat `kwargs` as untyped JSON: do not assume specific keys exist for a given `name`, and tolerate additional unknown keys appearing over time.'
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
           type: object
-        name:
-          description: '`name` is the event kind. Common values emitted by the LangChain/LangSmith tracer SDKs include `"start"`, `"end"`, and `"new_token"`, but applications may emit arbitrary strings for their own instrumentation.'
-          type: string
-          example: new_token
-        time:
-          description: '`time` is when the event occurred (RFC3339 date-time with millisecond precision).'
-          type: string
-          format: date-time
-          example: '2024-01-15T10:30:00.312Z'
+          additionalProperties:
+            type: number
+            format: float64
   securitySchemes:
     API_Key:
       type: apiKey

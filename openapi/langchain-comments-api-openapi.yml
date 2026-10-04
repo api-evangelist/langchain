@@ -312,51 +312,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    CreateCommentRequest:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        content:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          title: Content
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ListCommentsResponse:
-      properties:
-        comments:
-          items:
-            $ref: '#/components/schemas/Comment'
-          type: array
-          title: Comments
-        total:
-          type: integer
-          title: Total
-      type: object
-      required:
-      - comments
-      - total
-      title: ListCommentsResponse
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      - content
+      title: CreateCommentRequest
     Comment:
       properties:
         id:
@@ -416,15 +380,51 @@ components:
       - num_sub_comments
       - num_likes
       title: Comment
-    CreateCommentRequest:
+    HTTPValidationError:
       properties:
-        content:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Content
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - content
-      title: CreateCommentRequest
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ListCommentsResponse:
+      properties:
+        comments:
+          items:
+            $ref: '#/components/schemas/Comment'
+          type: array
+          title: Comments
+        total:
+          type: integer
+          title: Total
+      type: object
+      required:
+      - comments
+      - total
+      title: ListCommentsResponse
   securitySchemes:
     API_Key:
       type: apiKey

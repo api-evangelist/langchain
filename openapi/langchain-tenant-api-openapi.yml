@@ -89,27 +89,50 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    app__schemas__Tenant:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        id:
           type: string
-          title: Message
-        type:
+          format: uuid
+          title: Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
           type: string
-          title: Error Type
+          format: date-time
+          title: Created At
+        display_name:
+          type: string
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+        data_plane_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Plane Url
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - id
+      - created_at
+      - display_name
+      - is_personal
+      - is_deleted
+      title: Tenant
+      description: Tenant schema.
     TenantForUser:
       properties:
         id:
@@ -216,50 +239,27 @@ components:
       - display_name
       title: TenantCreate
       description: Creation model for the tenant.
-    app__schemas__Tenant:
+    ValidationError:
       properties:
-        id:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        created_at:
+          title: Message
+        type:
           type: string
-          format: date-time
-          title: Created At
-        display_name:
-          type: string
-          title: Display Name
-        is_personal:
-          type: boolean
-          title: Is Personal
-        is_deleted:
-          type: boolean
-          title: Is Deleted
-        tenant_handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tenant Handle
-        data_plane_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Plane Url
+          title: Error Type
       type: object
       required:
-      - id
-      - created_at
-      - display_name
-      - is_personal
-      - is_deleted
-      title: Tenant
-      description: Tenant schema.
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     API_Key:
       type: apiKey
