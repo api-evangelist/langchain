@@ -1210,6 +1210,8 @@ apis:
   - type: Authentication
     url: https://docs.langchain.com/langsmith/create-account-api-key
 common:
+- type: FinOps
+  url: finops/langchain-finops.yml
 - type: RateLimits
   url: rate-limits/langchain-rate-limits.yml
 - type: Pricing
