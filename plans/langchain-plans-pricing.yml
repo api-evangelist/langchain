@@ -65,3 +65,52 @@ rate_limit_statements:
 - Limited to 10 Sandboxes.
 - 'Developer : 5 LCUs included per organization each month. After the allowance is used, Fleet pauses
   new runs until the allowance resets or the organization upgrades to Plus.'
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - metered
+  - seat
+  - subscription
+  units:
+  - seat
+  plans:
+  - name: Developer
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Plus
+    access: other
+    model: seat
+    model_how: derived
+    units:
+    - seat
+    periods:
+    - month
+  - name: Enterprise
+    access: other
+    model: metered
+    model_how: derived
+    units: []
+    periods:
+    - none
+  - name: LCU (LangChain Compute Unit)
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: LSU (LangChain Storage Unit)
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
