@@ -1,0 +1,499 @@
+edges:
+- partner_name: chroma
+  partner: chroma
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/chroma
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-chroma
+    roles:
+    - vector-store
+    vendor_domain: trychroma.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: exa-ai
+  partner: exa-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/exa
+  coverage_role:
+  - retriever
+  framework_signals:
+    packages:
+    - langchain-exa
+    roles:
+    - retriever
+    vendor_domain: exa.ai
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: fireworks-ai
+  partner: fireworks-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/fireworks
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-fireworks
+    roles:
+    - embeddings
+    vendor_domain: fireworks.ai
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: hugging-face
+  partner: hugging-face
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/huggingface
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-huggingface
+    roles:
+    - embeddings
+    vendor_domain: huggingface.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: mistral
+  partner: mistral
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/mistralai
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-mistralai
+    roles:
+    - embeddings
+    vendor_domain: mistral.ai
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: nomic-ai
+  partner: nomic-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/nomic
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-nomic
+    roles:
+    - embeddings
+    vendor_domain: nomic.ai
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: ollama
+  partner: ollama
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/ollama
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-ollama
+    roles:
+    - embeddings
+    vendor_domain: ollama.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: openai
+  partner: openai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/openai
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-openai
+    roles:
+    - embeddings
+    vendor_domain: openai.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: qdrant
+  partner: qdrant
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain/tree/master/libs/partners/qdrant
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-qdrant
+    roles:
+    - vector-store
+    vendor_domain: qdrant.tech
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: weaviate
+  partner: weaviate
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-weaviate
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-weaviate
+    roles:
+    - vector-store
+    vendor_domain: weaviate.io
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: google-vertex-ai
+  partner: google-vertex-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-google
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-google
+    roles:
+    - embeddings
+    vendor_domain: cloud.google.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: nvidia-nim
+  partner: nvidia-nim
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-nvidia
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-nvidia
+    roles:
+    - embeddings
+    vendor_domain: nvidia.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: datastax
+  partner: datastax
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-datastax
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-datastax
+    roles:
+    - vector-store
+    vendor_domain: datastax.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: amazon-bedrock
+  partner: amazon-bedrock
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-aws
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-aws
+    roles:
+    - embeddings
+    vendor_domain: aws.amazon.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: elasticsearch
+  partner: elasticsearch
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-elastic
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-elastic
+    roles:
+    - vector-store
+    vendor_domain: elastic.co
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: cohere
+  partner: cohere
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-cohere
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-cohere
+    roles:
+    - embeddings
+    vendor_domain: cohere.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: upstage-ai
+  partner: upstage-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-upstage
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-upstage
+    roles:
+    - embeddings
+    vendor_domain: upstage.ai
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: redis
+  partner: redis
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-redis
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-redis
+    roles:
+    - vector-store
+    vendor_domain: redis.io
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: together-ai
+  partner: together-ai
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-together
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-together
+    roles:
+    - embeddings
+    vendor_domain: together.ai
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: snowflake
+  partner: snowflake
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-snowflake
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-snowflake
+    roles:
+    - vector-store
+    vendor_domain: snowflake.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: milvus
+  partner: milvus
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-milvus
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-milvus
+    roles:
+    - vector-store
+    vendor_domain: milvus.io
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: unstructured
+  partner: unstructured
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-unstructured
+  coverage_role:
+  - document-parser
+  framework_signals:
+    packages:
+    - langchain-unstructured
+    roles:
+    - document-parser
+    vendor_domain: unstructured.io
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: azure-ai-foundry
+  partner: azure-ai-foundry
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-azure
+  coverage_role:
+  - embeddings
+  framework_signals:
+    packages:
+    - langchain-azure
+    roles:
+    - embeddings
+    vendor_domain: azure.microsoft.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: mongodb
+  partner: mongodb
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-mongodb
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-mongodb
+    roles:
+    - vector-store
+    vendor_domain: mongodb.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: neo4j
+  partner: neo4j
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-neo4j
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-neo4j
+    roles:
+    - vector-store
+    vendor_domain: neo4j.com
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+- partner_name: pinecone
+  partner: pinecone
+  partner_match: domain
+  channel: provider-built
+  direction: provider-built
+  type: coverage
+  relationship: system-coverage
+  evidence: https://github.com/langchain-ai/langchain-pinecone
+  coverage_role:
+  - vector-store
+  framework_signals:
+    packages:
+    - langchain-pinecone
+    roles:
+    - vector-store
+    vendor_domain: pinecone.io
+  matched_by: verified-domain-table
+  detected_by: sweep-rag-vector.py
+  first_seen: '2026-10-15'
+generated: '2026-10-15'
+method: searched
+checked:
+- https://github.com/langchain-ai/langchain/tree/master/libs/partners
