@@ -1348,7 +1348,583 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    TagValueWithTaggings:
+    PendingIdentity:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        access_scope:
+          $ref: '#/components/schemas/AccessScope'
+          default: workspace
+        id:
+          type: string
+          format: uuid
+          title: Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        org_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Role Id
+        org_role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Org Role Name
+      type: object
+      required:
+      - email
+      - id
+      - created_at
+      title: PendingIdentity
+    TagKeyWithValues:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        values:
+          items:
+            $ref: '#/components/schemas/TagValue'
+          type: array
+          title: Values
+      type: object
+      required:
+      - key
+      - id
+      - created_at
+      - updated_at
+      title: TagKeyWithValues
+    TenantShareTokensResponse:
+      properties:
+        entities:
+          items:
+            oneOf:
+            - $ref: '#/components/schemas/TenantShareRunToken'
+            - $ref: '#/components/schemas/TenantShareDatasetToken'
+            discriminator:
+              propertyName: type
+              mapping:
+                dataset: '#/components/schemas/TenantShareDatasetToken'
+                run: '#/components/schemas/TenantShareRunToken'
+          type: array
+          title: Entities
+      type: object
+      required:
+      - entities
+      title: TenantShareTokensResponse
+    TagKeyUpdate:
+      properties:
+        key:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: TagKeyUpdate
+    app__schemas__Tenant:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        display_name:
+          type: string
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+        data_plane_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Plane Url
+      type: object
+      required:
+      - id
+      - created_at
+      - display_name
+      - is_personal
+      - is_deleted
+      title: Tenant
+      description: Tenant schema.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TenantForUser:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        organization_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        display_name:
+          type: string
+          title: Display Name
+        is_personal:
+          type: boolean
+          title: Is Personal
+        is_deleted:
+          type: boolean
+          title: Is Deleted
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+        data_plane_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Plane Url
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        role_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Role Name
+        permissions:
+          anyOf:
+          - items:
+              type: string
+            type: array
+          - type: 'null'
+          title: Permissions
+      type: object
+      required:
+      - id
+      - created_at
+      - display_name
+      - is_personal
+      - is_deleted
+      title: TenantForUser
+    WorkspaceCreate:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ '@()]+$
+          title: Display Name
+        tenant_handle:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Tenant Handle
+      type: object
+      required:
+      - display_name
+      title: WorkspaceCreate
+      description: Creation model for the workspace.
+    TenantShareDatasetToken:
+      properties:
+        type:
+          type: string
+          const: dataset
+          title: Type
+        share_token:
+          type: string
+          title: Share Token
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        dataset_id:
+          type: string
+          format: uuid
+          title: Dataset Id
+        dataset_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Dataset Name
+      type: object
+      required:
+      - type
+      - share_token
+      - created_at
+      - dataset_id
+      title: TenantShareDatasetToken
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TagKey:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - key
+      - id
+      - created_at
+      - updated_at
+      title: TagKey
+    TenantUsageLimitType:
+      type: string
+      enum:
+      - payload_size
+      - events_ingested_per_hour
+      - total_unique_traces
+      - events_ingested_per_minute
+      - traces_deleted_per_hour
+      - user_defined_monthly_traces
+      - user_defined_monthly_longlived_traces
+      - user_defined_unknown
+      title: TenantUsageLimitType
+    ProviderUserSlim:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        provider:
+          anyOf:
+          - $ref: '#/components/schemas/AuthProvider'
+          - type: 'null'
+        ls_user_id:
+          type: string
+          format: uuid
+          title: Ls User Id
+        saml_provider_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Saml Provider Id
+        provider_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Provider User Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        first_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: First Name
+        last_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Last Name
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+        is_disabled:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Disabled
+        provisioning_method:
+          anyOf:
+          - $ref: '#/components/schemas/ProvisioningMethod'
+          - type: 'null'
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
+      type: object
+      required:
+      - id
+      - ls_user_id
+      - created_at
+      - updated_at
+      title: ProviderUserSlim
+    TenantBulkUnshareRequest:
+      properties:
+        share_tokens:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Share Tokens
+        unshare_all:
+          type: boolean
+          title: Unshare All
+          default: false
+      type: object
+      title: TenantBulkUnshareRequest
+    PendingIdentityCreate:
+      properties:
+        email:
+          type: string
+          title: Email
+        read_only:
+          type: boolean
+          title: Read Only
+          default: false
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
+        workspace_ids:
+          anyOf:
+          - items:
+              type: string
+              format: uuid
+            type: array
+          - type: 'null'
+          title: Workspace Ids
+        workspace_role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Workspace Role Id
+        password:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Password
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+      type: object
+      required:
+      - email
+      title: PendingIdentityCreate
+    MemberSortField:
+      type: string
+      enum:
+      - name
+      - email
+      - role
+      - created_at
+      title: MemberSortField
+      description: Sort fields for members list endpoints.
+    TenantUsageLimitInfo:
+      properties:
+        in_reject_set:
+          type: boolean
+          title: In Reject Set
+        usage_limit_type:
+          anyOf:
+          - $ref: '#/components/schemas/TenantUsageLimitType'
+          - type: 'null'
+        tenant_limit:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tenant Limit
+      type: object
+      required:
+      - in_reject_set
+      title: TenantUsageLimitInfo
+    TagValueUpdate:
+      properties:
+        value:
+          anyOf:
+          - type: string
+            maxLength: 255
+            minLength: 1
+          - type: 'null'
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      title: TagValueUpdate
+    TagValueCreate:
       properties:
         value:
           type: string
@@ -1360,35 +1936,64 @@ components:
           - type: string
           - type: 'null'
           title: Description
-        id:
+      type: object
+      required:
+      - value
+      title: TagValueCreate
+    TaggingsResponse:
+      properties:
+        tag_key:
           type: string
-          format: uuid
-          title: Id
+          title: Tag Key
         tag_key_id:
           type: string
           format: uuid
           title: Tag Key Id
-        created_at:
+        tag_value:
           type: string
-          format: date-time
-          title: Created At
-        updated_at:
+          title: Tag Value
+        tag_value_id:
           type: string
-          format: date-time
-          title: Updated At
-        taggings:
-          items:
-            $ref: '#/components/schemas/Tagging'
-          type: array
-          title: Taggings
+          format: uuid
+          title: Tag Value Id
+        resources:
+          $ref: '#/components/schemas/TaggingsByResourceType'
       type: object
       required:
-      - value
-      - id
+      - tag_key
       - tag_key_id
-      - created_at
-      - updated_at
-      title: TagValueWithTaggings
+      - tag_value
+      - tag_value_id
+      - resources
+      title: TaggingsResponse
+    SecretUpsert:
+      properties:
+        key:
+          type: string
+          title: Key
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+      type: object
+      required:
+      - key
+      - value
+      title: SecretUpsert
+    ProvisioningMethod:
+      type: string
+      enum:
+      - scim
+      - saml:jit
+      - bootstrap
+      title: ProvisioningMethod
+    AccessScope:
+      type: string
+      enum:
+      - organization
+      - workspace
+      title: AccessScope
     Tagging:
       properties:
         tag_value_id:
@@ -1417,100 +2022,20 @@ components:
       - id
       - created_at
       title: Tagging
-    TagKeyUpdate:
-      properties:
-        key:
-          anyOf:
-          - type: string
-            maxLength: 255
-            minLength: 1
-          - type: 'null'
-          title: Key
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      title: TagKeyUpdate
-    TagValueCreate:
-      properties:
-        value:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Value
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - value
-      title: TagValueCreate
-    SecretUpsert:
-      properties:
-        key:
-          type: string
-          title: Key
-        value:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Value
-      type: object
-      required:
-      - key
-      - value
-      title: SecretUpsert
-    TenantUsageLimitType:
+    ResourceType:
       type: string
       enum:
-      - payload_size
-      - events_ingested_per_hour
-      - total_unique_traces
-      - events_ingested_per_minute
-      - traces_deleted_per_hour
-      - user_defined_monthly_traces
-      - user_defined_monthly_longlived_traces
-      - user_defined_unknown
-      title: TenantUsageLimitType
-    IdentityCreate:
-      properties:
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-          deprecated: true
-        org_identity_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Identity Id
-        ls_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ls User Id
-        read_only:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Read Only
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-      type: object
-      title: IdentityCreate
+      - dashboard
+      - dataset
+      - deployment
+      - evaluator
+      - experiment
+      - fleet_integration
+      - mcp_server
+      - project
+      - prompt
+      - queue
+      title: ResourceType
     Identity:
       properties:
         id:
@@ -1566,6 +2091,320 @@ components:
       - ls_user_id
       - read_only
       title: Identity
+    TaggingsByResourceType:
+      properties:
+        alerts:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Alerts
+          default: []
+        dashboards:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Dashboards
+          default: []
+        datasets:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Datasets
+          default: []
+        deployments:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Deployments
+          default: []
+        experiments:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Experiments
+          default: []
+        fleet_integrations:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Fleet Integrations
+          default: []
+        mcp_servers:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Mcp Servers
+          default: []
+        projects:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Projects
+          default: []
+        prompts:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Prompts
+          default: []
+        queues:
+          items:
+            $ref: '#/components/schemas/Resource'
+          type: array
+          title: Queues
+          default: []
+      type: object
+      title: TaggingsByResourceType
+    TagValue:
+      properties:
+        value:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tag_key_id:
+          type: string
+          format: uuid
+          title: Tag Key Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - value
+      - id
+      - tag_key_id
+      - created_at
+      - updated_at
+      title: TagValue
+    AuthProvider:
+      type: string
+      enum:
+      - email
+      - supabase:non-sso
+      - supabase:sso
+      - oidc
+      - custom-oidc
+      title: AuthProvider
+    TaggingCreate:
+      properties:
+        tag_value_id:
+          type: string
+          format: uuid
+          title: Tag Value Id
+        resource_type:
+          $ref: '#/components/schemas/ResourceType'
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+      type: object
+      required:
+      - tag_value_id
+      - resource_type
+      - resource_id
+      title: TaggingCreate
+    WorkspacePatch:
+      properties:
+        display_name:
+          type: string
+          minLength: 1
+          pattern: ^[a-zA-Z0-9\-_ '@()]+$
+          title: Display Name
+      type: object
+      required:
+      - display_name
+      title: WorkspacePatch
+      description: Patch model for the workspace.
+    ListTagsForResourceRequest:
+      properties:
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+        resource_type:
+          $ref: '#/components/schemas/ResourceType'
+      type: object
+      required:
+      - resource_id
+      - resource_type
+      title: ListTagsForResourceRequest
+    InternalSecretsResponse:
+      properties:
+        encrypted_secrets:
+          type: string
+          title: Encrypted Secrets
+        tenant_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tenant Id
+      type: object
+      required:
+      - encrypted_secrets
+      title: InternalSecretsResponse
+    SecretKey:
+      properties:
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - key
+      title: SecretKey
+    TagValueWithTaggings:
+      properties:
+        value:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Value
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+        id:
+          type: string
+          format: uuid
+          title: Id
+        tag_key_id:
+          type: string
+          format: uuid
+          title: Tag Key Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        taggings:
+          items:
+            $ref: '#/components/schemas/Tagging'
+          type: array
+          title: Taggings
+      type: object
+      required:
+      - value
+      - id
+      - tag_key_id
+      - created_at
+      - updated_at
+      title: TagValueWithTaggings
+    TagKeyCreate:
+      properties:
+        key:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Key
+        description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Description
+      type: object
+      required:
+      - key
+      title: TagKeyCreate
+    TenantStats:
+      properties:
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        dataset_count:
+          type: integer
+          title: Dataset Count
+        tracer_session_count:
+          type: integer
+          title: Tracer Session Count
+        repo_count:
+          type: integer
+          title: Repo Count
+        annotation_queue_count:
+          type: integer
+          title: Annotation Queue Count
+        deployment_count:
+          type: integer
+          title: Deployment Count
+        dashboards_count:
+          type: integer
+          title: Dashboards Count
+        evaluator_count:
+          type: integer
+          title: Evaluator Count
+      type: object
+      required:
+      - tenant_id
+      - dataset_count
+      - tracer_session_count
+      - repo_count
+      - annotation_queue_count
+      - deployment_count
+      - dashboards_count
+      - evaluator_count
+      title: TenantStats
+      description: Stats for a tenant.
+    TenantMembers:
+      properties:
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        members:
+          items:
+            $ref: '#/components/schemas/MemberIdentity'
+          type: array
+          title: Members
+        pending:
+          items:
+            $ref: '#/components/schemas/PendingIdentity'
+          type: array
+          title: Pending
+      type: object
+      required:
+      - tenant_id
+      - members
+      - pending
+      title: TenantMembers
+      description: Tenant members schema.
+    Resource:
+      properties:
+        tagging_id:
+          type: string
+          format: uuid
+          title: Tagging Id
+        resource_name:
+          type: string
+          title: Resource Name
+        resource_id:
+          type: string
+          format: uuid
+          title: Resource Id
+      type: object
+      required:
+      - tagging_id
+      - resource_name
+      - resource_id
+      title: Resource
     TenantShareRunToken:
       properties:
         type:
@@ -1611,33 +2450,42 @@ components:
       - created_at
       - run_id
       title: TenantShareRunToken
-    TaggingsResponse:
+    IdentityCreate:
       properties:
-        tag_key:
-          type: string
-          title: Tag Key
-        tag_key_id:
-          type: string
-          format: uuid
-          title: Tag Key Id
-        tag_value:
-          type: string
-          title: Tag Value
-        tag_value_id:
-          type: string
-          format: uuid
-          title: Tag Value Id
-        resources:
-          $ref: '#/components/schemas/TaggingsByResourceType'
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+          deprecated: true
+        org_identity_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Org Identity Id
+        ls_user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ls User Id
+        read_only:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Read Only
+          deprecated: true
+        role_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Role Id
       type: object
-      required:
-      - tag_key
-      - tag_key_id
-      - tag_value
-      - tag_value_id
-      - resources
-      title: TaggingsResponse
-    TagKeyWithValues:
+      title: IdentityCreate
+    TagKeyWithValuesAndTaggings:
       properties:
         key:
           type: string
@@ -1663,7 +2511,7 @@ components:
           title: Updated At
         values:
           items:
-            $ref: '#/components/schemas/TagValue'
+            $ref: '#/components/schemas/TagValueWithTaggings'
           type: array
           title: Values
       type: object
@@ -1672,97 +2520,7 @@ components:
       - id
       - created_at
       - updated_at
-      title: TagKeyWithValues
-    PendingIdentityCreate:
-      properties:
-        email:
-          type: string
-          title: Email
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        workspace_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace Ids
-        workspace_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Role Id
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-      type: object
-      required:
-      - email
-      title: PendingIdentityCreate
-    ProvisioningMethod:
-      type: string
-      enum:
-      - scim
-      - saml:jit
-      - bootstrap
-      title: ProvisioningMethod
-    TenantStats:
-      properties:
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        dataset_count:
-          type: integer
-          title: Dataset Count
-        tracer_session_count:
-          type: integer
-          title: Tracer Session Count
-        repo_count:
-          type: integer
-          title: Repo Count
-        annotation_queue_count:
-          type: integer
-          title: Annotation Queue Count
-        deployment_count:
-          type: integer
-          title: Deployment Count
-        dashboards_count:
-          type: integer
-          title: Dashboards Count
-        evaluator_count:
-          type: integer
-          title: Evaluator Count
-      type: object
-      required:
-      - tenant_id
-      - dataset_count
-      - tracer_session_count
-      - repo_count
-      - annotation_queue_count
-      - deployment_count
-      - dashboards_count
-      - evaluator_count
-      title: TenantStats
-      description: Stats for a tenant.
+      title: TagKeyWithValuesAndTaggings
     IdentityPatch:
       properties:
         read_only:
@@ -1779,91 +2537,6 @@ components:
       required:
       - role_id
       title: IdentityPatch
-    Resource:
-      properties:
-        tagging_id:
-          type: string
-          format: uuid
-          title: Tagging Id
-        resource_name:
-          type: string
-          title: Resource Name
-        resource_id:
-          type: string
-          format: uuid
-          title: Resource Id
-      type: object
-      required:
-      - tagging_id
-      - resource_name
-      - resource_id
-      title: Resource
-    TagKeyCreate:
-      properties:
-        key:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Key
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      required:
-      - key
-      title: TagKeyCreate
-    TenantShareTokensResponse:
-      properties:
-        entities:
-          items:
-            oneOf:
-            - $ref: '#/components/schemas/TenantShareRunToken'
-            - $ref: '#/components/schemas/TenantShareDatasetToken'
-            discriminator:
-              propertyName: type
-              mapping:
-                dataset: '#/components/schemas/TenantShareDatasetToken'
-                run: '#/components/schemas/TenantShareRunToken'
-          type: array
-          title: Entities
-      type: object
-      required:
-      - entities
-      title: TenantShareTokensResponse
-    TenantUsageLimitInfo:
-      properties:
-        in_reject_set:
-          type: boolean
-          title: In Reject Set
-        usage_limit_type:
-          anyOf:
-          - $ref: '#/components/schemas/TenantUsageLimitType'
-          - type: 'null'
-        tenant_limit:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Tenant Limit
-      type: object
-      required:
-      - in_reject_set
-      title: TenantUsageLimitInfo
-    TenantBulkUnshareRequest:
-      properties:
-        share_tokens:
-          items:
-            type: string
-            format: uuid
-          type: array
-          title: Share Tokens
-        unshare_all:
-          type: boolean
-          title: Unshare All
-          default: false
-      type: object
-      title: TenantBulkUnshareRequest
     MemberIdentity:
       properties:
         id:
@@ -1960,679 +2633,6 @@ components:
       - ls_user_id
       - read_only
       title: MemberIdentity
-    WorkspaceCreate:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        display_name:
-          type: string
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\-_ '@()]+$
-          title: Display Name
-        tenant_handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tenant Handle
-      type: object
-      required:
-      - display_name
-      title: WorkspaceCreate
-      description: Creation model for the workspace.
-    InternalSecretsResponse:
-      properties:
-        encrypted_secrets:
-          type: string
-          title: Encrypted Secrets
-        tenant_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Tenant Id
-      type: object
-      required:
-      - encrypted_secrets
-      title: InternalSecretsResponse
-    TaggingCreate:
-      properties:
-        tag_value_id:
-          type: string
-          format: uuid
-          title: Tag Value Id
-        resource_type:
-          $ref: '#/components/schemas/ResourceType'
-        resource_id:
-          type: string
-          format: uuid
-          title: Resource Id
-      type: object
-      required:
-      - tag_value_id
-      - resource_type
-      - resource_id
-      title: TaggingCreate
-    WorkspacePatch:
-      properties:
-        display_name:
-          type: string
-          minLength: 1
-          pattern: ^[a-zA-Z0-9\-_ '@()]+$
-          title: Display Name
-      type: object
-      required:
-      - display_name
-      title: WorkspacePatch
-      description: Patch model for the workspace.
-    SecretKey:
-      properties:
-        key:
-          type: string
-          title: Key
-      type: object
-      required:
-      - key
-      title: SecretKey
-    TenantForUser:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        display_name:
-          type: string
-          title: Display Name
-        is_personal:
-          type: boolean
-          title: Is Personal
-        is_deleted:
-          type: boolean
-          title: Is Deleted
-        tenant_handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tenant Handle
-        data_plane_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Plane Url
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        role_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role Name
-        permissions:
-          anyOf:
-          - items:
-              type: string
-            type: array
-          - type: 'null'
-          title: Permissions
-      type: object
-      required:
-      - id
-      - created_at
-      - display_name
-      - is_personal
-      - is_deleted
-      title: TenantForUser
-    AccessScope:
-      type: string
-      enum:
-      - organization
-      - workspace
-      title: AccessScope
-    TenantShareDatasetToken:
-      properties:
-        type:
-          type: string
-          const: dataset
-          title: Type
-        share_token:
-          type: string
-          title: Share Token
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        dataset_id:
-          type: string
-          format: uuid
-          title: Dataset Id
-        dataset_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Dataset Name
-      type: object
-      required:
-      - type
-      - share_token
-      - created_at
-      - dataset_id
-      title: TenantShareDatasetToken
-    TaggingsByResourceType:
-      properties:
-        alerts:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Alerts
-          default: []
-        dashboards:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Dashboards
-          default: []
-        datasets:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Datasets
-          default: []
-        deployments:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Deployments
-          default: []
-        experiments:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Experiments
-          default: []
-        fleet_integrations:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Fleet Integrations
-          default: []
-        mcp_servers:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Mcp Servers
-          default: []
-        projects:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Projects
-          default: []
-        prompts:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Prompts
-          default: []
-        queues:
-          items:
-            $ref: '#/components/schemas/Resource'
-          type: array
-          title: Queues
-          default: []
-      type: object
-      title: TaggingsByResourceType
-    TagKeyWithValuesAndTaggings:
-      properties:
-        key:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Key
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        values:
-          items:
-            $ref: '#/components/schemas/TagValueWithTaggings'
-          type: array
-          title: Values
-      type: object
-      required:
-      - key
-      - id
-      - created_at
-      - updated_at
-      title: TagKeyWithValuesAndTaggings
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ProviderUserSlim:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        provider:
-          anyOf:
-          - $ref: '#/components/schemas/AuthProvider'
-          - type: 'null'
-        ls_user_id:
-          type: string
-          format: uuid
-          title: Ls User Id
-        saml_provider_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Saml Provider Id
-        provider_user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Provider User Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        first_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: First Name
-        last_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Last Name
-        username:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Username
-        is_disabled:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Disabled
-        provisioning_method:
-          anyOf:
-          - $ref: '#/components/schemas/ProvisioningMethod'
-          - type: 'null'
-        email_confirmed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Email Confirmed At
-      type: object
-      required:
-      - id
-      - ls_user_id
-      - created_at
-      - updated_at
-      title: ProviderUserSlim
-    PendingIdentity:
-      properties:
-        email:
-          type: string
-          title: Email
-        read_only:
-          type: boolean
-          title: Read Only
-          default: false
-          deprecated: true
-        role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Role Id
-        workspace_ids:
-          anyOf:
-          - items:
-              type: string
-              format: uuid
-            type: array
-          - type: 'null'
-          title: Workspace Ids
-        workspace_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Workspace Role Id
-        password:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Password
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        access_scope:
-          $ref: '#/components/schemas/AccessScope'
-          default: workspace
-        id:
-          type: string
-          format: uuid
-          title: Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        tenant_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Tenant Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        role_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Role Name
-        org_role_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Org Role Id
-        org_role_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Org Role Name
-      type: object
-      required:
-      - email
-      - id
-      - created_at
-      title: PendingIdentity
-    TagValue:
-      properties:
-        value:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Value
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        id:
-          type: string
-          format: uuid
-          title: Id
-        tag_key_id:
-          type: string
-          format: uuid
-          title: Tag Key Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      required:
-      - value
-      - id
-      - tag_key_id
-      - created_at
-      - updated_at
-      title: TagValue
-    MemberSortField:
-      type: string
-      enum:
-      - name
-      - email
-      - role
-      - created_at
-      title: MemberSortField
-      description: Sort fields for members list endpoints.
-    TenantMembers:
-      properties:
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        members:
-          items:
-            $ref: '#/components/schemas/MemberIdentity'
-          type: array
-          title: Members
-        pending:
-          items:
-            $ref: '#/components/schemas/PendingIdentity'
-          type: array
-          title: Pending
-      type: object
-      required:
-      - tenant_id
-      - members
-      - pending
-      title: TenantMembers
-      description: Tenant members schema.
-    AuthProvider:
-      type: string
-      enum:
-      - email
-      - supabase:non-sso
-      - supabase:sso
-      - oidc
-      - custom-oidc
-      title: AuthProvider
-    app__schemas__Tenant:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        organization_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Organization Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        display_name:
-          type: string
-          title: Display Name
-        is_personal:
-          type: boolean
-          title: Is Personal
-        is_deleted:
-          type: boolean
-          title: Is Deleted
-        tenant_handle:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Tenant Handle
-        data_plane_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Plane Url
-      type: object
-      required:
-      - id
-      - created_at
-      - display_name
-      - is_personal
-      - is_deleted
-      title: Tenant
-      description: Tenant schema.
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TagKey:
-      properties:
-        key:
-          type: string
-          maxLength: 255
-          minLength: 1
-          title: Key
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      required:
-      - key
-      - id
-      - created_at
-      - updated_at
-      title: TagKey
-    ResourceType:
-      type: string
-      enum:
-      - dashboard
-      - dataset
-      - deployment
-      - evaluator
-      - experiment
-      - fleet_integration
-      - mcp_server
-      - project
-      - prompt
-      - queue
-      title: ResourceType
-    TagValueUpdate:
-      properties:
-        value:
-          anyOf:
-          - type: string
-            maxLength: 255
-            minLength: 1
-          - type: 'null'
-          title: Value
-        description:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Description
-      type: object
-      title: TagValueUpdate
-    ListTagsForResourceRequest:
-      properties:
-        resource_id:
-          type: string
-          format: uuid
-          title: Resource Id
-        resource_type:
-          $ref: '#/components/schemas/ResourceType'
-      type: object
-      required:
-      - resource_id
-      - resource_type
-      title: ListTagsForResourceRequest
   securitySchemes:
     API_Key:
       type: apiKey

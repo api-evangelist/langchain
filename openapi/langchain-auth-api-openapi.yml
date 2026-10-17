@@ -198,6 +198,29 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SSOEmailVerificationStatusRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+        saml_provider_id:
+          type: string
+          format: uuid
+          title: Saml Provider Id
+      type: object
+      required:
+      - email
+      - saml_provider_id
+      title: SSOEmailVerificationStatusRequest
     authn.PublicAuthInfo:
       type: object
       properties:
@@ -220,15 +243,53 @@ components:
       required:
       - access_token
       title: BasicAuthResponse
-    HTTPValidationError:
+    _SSOEmailLookupRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        email:
+          type: string
+          title: Email
       type: object
-      title: HTTPValidationError
+      required:
+      - email
+      title: _SSOEmailLookupRequest
+    SSOEmailVerificationStatusResponse:
+      properties:
+        email_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Email Confirmed At
+      type: object
+      title: SSOEmailVerificationStatusResponse
+    SSOProviderSlim:
+      properties:
+        provider_id:
+          type: string
+          format: uuid
+          title: Provider Id
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        organization_display_name:
+          type: string
+          title: Organization Display Name
+      type: object
+      required:
+      - provider_id
+      - organization_id
+      - organization_display_name
+      title: SSOProviderSlim
+    SSOConfirmEmailRequest:
+      properties:
+        token:
+          type: string
+          title: Token
+      type: object
+      required:
+      - token
+      title: SSOConfirmEmailRequest
     ValidationError:
       properties:
         loc:
@@ -264,67 +325,6 @@ components:
       - email
       - saml_provider_id
       title: SSOEmailVerificationSendRequest
-    _SSOEmailLookupRequest:
-      properties:
-        email:
-          type: string
-          title: Email
-      type: object
-      required:
-      - email
-      title: _SSOEmailLookupRequest
-    SSOEmailVerificationStatusRequest:
-      properties:
-        email:
-          type: string
-          title: Email
-        saml_provider_id:
-          type: string
-          format: uuid
-          title: Saml Provider Id
-      type: object
-      required:
-      - email
-      - saml_provider_id
-      title: SSOEmailVerificationStatusRequest
-    SSOConfirmEmailRequest:
-      properties:
-        token:
-          type: string
-          title: Token
-      type: object
-      required:
-      - token
-      title: SSOConfirmEmailRequest
-    SSOProviderSlim:
-      properties:
-        provider_id:
-          type: string
-          format: uuid
-          title: Provider Id
-        organization_id:
-          type: string
-          format: uuid
-          title: Organization Id
-        organization_display_name:
-          type: string
-          title: Organization Display Name
-      type: object
-      required:
-      - provider_id
-      - organization_id
-      - organization_display_name
-      title: SSOProviderSlim
-    SSOEmailVerificationStatusResponse:
-      properties:
-        email_confirmed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Email Confirmed At
-      type: object
-      title: SSOEmailVerificationStatusResponse
   securitySchemes:
     API_Key:
       type: apiKey

@@ -297,6 +297,26 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/usage.UserUsage'
+    errutil.UserError:
+      type: object
+    usage.ModelUsage:
+      type: object
+      properties:
+        last_used:
+          type: string
+        model_name:
+          type: string
+        run_count:
+          type: integer
+        total_cost:
+          type: number
+    usage.ModelUsageResponse:
+      type: object
+      properties:
+        models:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.ModelUsage'
     usage.AgentUsage:
       type: object
       properties:
@@ -316,26 +336,28 @@ components:
           type: integer
         total_cost:
           type: number
-    usage.ModelUsage:
+    usage.ToolUsageResponse:
       type: object
       properties:
+        tools:
+          type: array
+          items:
+            $ref: '#/components/schemas/usage.ToolUsage'
+    errutil.InternalError:
+      type: object
+    usage.ToolUsage:
+      type: object
+      properties:
+        agent_count:
+          type: integer
+        avg_latency_ms:
+          type: number
         last_used:
-          type: string
-        model_name:
           type: string
         run_count:
           type: integer
-        total_cost:
-          type: number
-    errutil.UserError:
-      type: object
-    usage.AgentUsageResponse:
-      type: object
-      properties:
-        agents:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.AgentUsage'
+        tool_name:
+          type: string
     usage.UserUsage:
       type: object
       properties:
@@ -353,35 +375,13 @@ components:
           type: integer
         total_cost:
           type: number
-    usage.ToolUsage:
+    usage.AgentUsageResponse:
       type: object
       properties:
-        agent_count:
-          type: integer
-        avg_latency_ms:
-          type: number
-        last_used:
-          type: string
-        run_count:
-          type: integer
-        tool_name:
-          type: string
-    usage.ToolUsageResponse:
-      type: object
-      properties:
-        tools:
+        agents:
           type: array
           items:
-            $ref: '#/components/schemas/usage.ToolUsage'
-    errutil.InternalError:
-      type: object
-    usage.ModelUsageResponse:
-      type: object
-      properties:
-        models:
-          type: array
-          items:
-            $ref: '#/components/schemas/usage.ModelUsage'
+            $ref: '#/components/schemas/usage.AgentUsage'
   securitySchemes:
     API_Key:
       type: apiKey

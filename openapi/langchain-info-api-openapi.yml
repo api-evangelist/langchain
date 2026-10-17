@@ -50,20 +50,44 @@ paths:
                 $ref: '#/components/schemas/HealthInfoGetResponse'
 components:
   schemas:
-    CustomerInfo:
+    InfoGetResponse:
       properties:
-        customer_id:
+        version:
           type: string
-          title: Customer Id
-        customer_name:
-          type: string
-          title: Customer Name
+          title: Version
+        git_sha:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Git Sha
+        license_expiration_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: License Expiration Time
+        batch_ingest_config:
+          $ref: '#/components/schemas/BatchIngestConfig'
+          default:
+            use_multipart_endpoint: true
+            scale_up_qsize_trigger: 1000
+            scale_up_nthreads_limit: 16
+            scale_down_nempty_trigger: 4
+            size_limit: 100
+            size_limit_bytes: 20971520
+        instance_flags:
+          additionalProperties: true
+          type: object
+          title: Instance Flags
+        customer_info:
+          anyOf:
+          - $ref: '#/components/schemas/CustomerInfo'
+          - type: 'null'
       type: object
       required:
-      - customer_id
-      - customer_name
-      title: CustomerInfo
-      description: Customer info.
+      - version
+      title: InfoGetResponse
+      description: The LangSmith server info.
     BatchIngestConfig:
       properties:
         use_multipart_endpoint:
@@ -103,44 +127,20 @@ components:
       - clickhouse_disk_free_pct
       title: HealthInfoGetResponse
       description: The LangSmith server info.
-    InfoGetResponse:
+    CustomerInfo:
       properties:
-        version:
+        customer_id:
           type: string
-          title: Version
-        git_sha:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Git Sha
-        license_expiration_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: License Expiration Time
-        batch_ingest_config:
-          $ref: '#/components/schemas/BatchIngestConfig'
-          default:
-            use_multipart_endpoint: true
-            scale_up_qsize_trigger: 1000
-            scale_up_nthreads_limit: 16
-            scale_down_nempty_trigger: 4
-            size_limit: 100
-            size_limit_bytes: 20971520
-        instance_flags:
-          additionalProperties: true
-          type: object
-          title: Instance Flags
-        customer_info:
-          anyOf:
-          - $ref: '#/components/schemas/CustomerInfo'
-          - type: 'null'
+          title: Customer Id
+        customer_name:
+          type: string
+          title: Customer Name
       type: object
       required:
-      - version
-      title: InfoGetResponse
-      description: The LangSmith server info.
+      - customer_id
+      - customer_name
+      title: CustomerInfo
+      description: Customer info.
   securitySchemes:
     API_Key:
       type: apiKey

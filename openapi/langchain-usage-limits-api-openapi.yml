@@ -124,23 +124,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UpsertUsageLimit:
-      properties:
-        limit_type:
-          $ref: '#/components/schemas/UsageLimitType'
-        limit_value:
-          type: integer
-          title: Limit Value
-        id:
-          type: string
-          format: uuid
-          title: Id
-      type: object
-      required:
-      - limit_type
-      - limit_value
-      title: UpsertUsageLimit
-      description: Request body for creating or updating a usage limit.
     HTTPValidationError:
       properties:
         detail:
@@ -150,34 +133,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    UsageLimitType:
-      type: string
-      enum:
-      - monthly_traces
-      - monthly_longlived_traces
-      title: UsageLimitType
-      description: Type of usage limit.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     UsageLimit:
       properties:
         limit_type:
@@ -210,6 +165,51 @@ components:
       - updated_at
       title: UsageLimit
       description: Usage limit model.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UpsertUsageLimit:
+      properties:
+        limit_type:
+          $ref: '#/components/schemas/UsageLimitType'
+        limit_value:
+          type: integer
+          title: Limit Value
+        id:
+          type: string
+          format: uuid
+          title: Id
+      type: object
+      required:
+      - limit_type
+      - limit_value
+      title: UpsertUsageLimit
+      description: Request body for creating or updating a usage limit.
+    UsageLimitType:
+      type: string
+      enum:
+      - monthly_traces
+      - monthly_longlived_traces
+      title: UsageLimitType
+      description: Type of usage limit.
   securitySchemes:
     API_Key:
       type: apiKey

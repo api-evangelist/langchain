@@ -97,6 +97,11 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    tag_transitions.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
     tag_transitions.TagTransition:
       type: object
       properties:
@@ -129,11 +134,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/tag_transitions.TagTransition'
-    tag_transitions.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
   securitySchemes:
     API_Key:
       type: apiKey

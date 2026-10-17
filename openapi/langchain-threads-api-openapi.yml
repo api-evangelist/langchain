@@ -197,6 +197,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    query.RunCompletionTokenDetails:
+      type: object
+      properties:
+        raw:
+          description: '`raw` maps each category name to its completion-token count.'
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
     query.RunPromptTokenDetails:
       type: object
       properties:
@@ -206,72 +215,24 @@ components:
           additionalProperties:
             type: integer
             format: int64
-    query.RunFeedbackStat:
+    query.RunPromptCostDetails:
       type: object
       properties:
-        avg:
-          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
-          type: number
-          example: 0.87
-        comments:
-          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
-          type: array
-          items:
-            type: string
-          example:
-          - good answer
-          - needs citation
-        contains_thread_feedback:
-          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
-          type: boolean
-          example: false
-        errors:
-          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
-          type: integer
-          default: 0
-          example: 0
-        max:
-          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
-          type: number
-          example: 0.95
-        min:
-          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
-          type: number
-          example: 0.8
-        n:
-          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
-          type: integer
-          example: 42
-        sources:
-          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
-          type: array
-          items: {}
-        stdev:
-          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
-          type: number
-          example: 0.05
-        values:
-          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
           type: object
           additionalProperties:
-            type: integer
-            format: int64
-    threads.QueryThreadTracesResponseBody:
+            type: number
+            format: float64
+    query.RunCompletionCostDetails:
       type: object
       properties:
-        has_more:
-          description: '`has_more` is true when another page of traces exists after this one.'
-          type: boolean
-          example: true
-        items:
-          description: '`items` is the page of root traces in this thread. Which properties are populated on each trace depends on the `selects` query parameter.'
-          type: array
-          items:
-            $ref: '#/components/schemas/threads.ThreadTraceListItem'
-        next_cursor:
-          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
-          type: string
-          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
+        raw:
+          description: '`raw` maps each category name to its estimated USD cost.'
+          type: object
+          additionalProperties:
+            type: number
+            format: float64
     threads.QueryThreadsRequestBody:
       type: object
       properties:
@@ -305,15 +266,6 @@ components:
           type: string
           format: uuid
           example: 0190a1b2-c3d4-7ef0-a5b6-6ea3a82e9328
-    query.RunCompletionCostDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its estimated USD cost.'
-          type: object
-          additionalProperties:
-            type: number
-            format: float64
     threads.ThreadListItem:
       type: object
       properties:
@@ -403,19 +355,92 @@ components:
           type: string
           format: uuid
           example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9328
-    query.RunPromptCostDetails:
+    threads.QueryThreadTracesResponseBody:
       type: object
       properties:
-        raw:
-          description: '`raw` maps each category name to its estimated USD cost.'
+        has_more:
+          description: '`has_more` is true when another page of traces exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of root traces in this thread. Which properties are populated on each trace depends on the `selects` query parameter.'
+          type: array
+          items:
+            $ref: '#/components/schemas/threads.ThreadTraceListItem'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
+    query.RunFeedbackStat:
+      type: object
+      properties:
+        avg:
+          description: '`avg` is the arithmetic mean of numeric feedback scores for this key on the run, or `null` when no numeric score has been recorded (for example purely categorical feedback).'
+          type: number
+          example: 0.87
+        comments:
+          description: '`comments` is a sample of human-readable comments attached to feedback points for this key, in no particular order. May be empty; is not exhaustive when many comments exist.'
+          type: array
+          items:
+            type: string
+          example:
+          - good answer
+          - needs citation
+        contains_thread_feedback:
+          description: '`contains_thread_feedback` is true when at least one feedback point for this key was submitted at the thread level (rather than at an individual run). Always false on responses that already describe a single run in isolation.'
+          type: boolean
+          example: false
+        errors:
+          description: '`errors` is the number of feedback points recorded as errors rather than successful scores (for example an automated evaluator that raised an exception). Defaults to 0 when no errors occurred.'
+          type: integer
+          default: 0
+          example: 0
+        max:
+          description: '`max` is the largest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.95
+        min:
+          description: '`min` is the smallest numeric feedback score recorded for this key on the run, or `null` when no numeric score has been recorded.'
+          type: number
+          example: 0.8
+        n:
+          description: '`n` is the number of feedback points recorded for this key on the run. For numeric feedback this is the sample size behind `avg`, `min`, `max`, and `stdev`; for categorical feedback it is the sum of the `values` counts.'
+          type: integer
+          example: 42
+        sources:
+          description: '`sources` is a sample of feedback sources for this key. Each entry is either a plain string identifier (for example `"api"`, `"app"`, `"model"`) or a JSON object describing a synthetic source (for example `{"type": "__ls_composite_feedback"}` for a computed aggregate). Clients must tolerate both shapes.'
+          type: array
+          items: {}
+        stdev:
+          description: '`stdev` is the sample standard deviation of numeric feedback scores for this key on the run, or `null` when it cannot be computed (for example fewer than two numeric scores, or purely categorical feedback).'
+          type: number
+          example: 0.05
+        values:
+          description: '`values` is the distribution of categorical feedback labels for this key, mapping each label to its occurrence count. Empty (`{}`) for purely numeric feedback.'
           type: object
           additionalProperties:
-            type: number
-            format: float64
+            type: integer
+            format: int64
     query.RunFeedbackStats:
       type: object
       additionalProperties:
         $ref: '#/components/schemas/query.RunFeedbackStat'
+    threads.QueryThreadsResponseBody:
+      type: object
+      properties:
+        has_more:
+          description: '`has_more` is true when another page of threads exists after this one.'
+          type: boolean
+          example: true
+        items:
+          description: '`items` is the page of thread summaries, sorted by the thread''s most recent activity.'
+          type: array
+          items:
+            $ref: '#/components/schemas/threads.ThreadListItem'
+        next_cursor:
+          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
+          type: string
+          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
     threads.ThreadTraceListItem:
       type: object
       properties:
@@ -496,31 +521,6 @@ components:
           type: string
           format: uuid
           example: 018e4c7e-a9fb-7ef0-a5b6-6ea3a82e9327
-    query.RunCompletionTokenDetails:
-      type: object
-      properties:
-        raw:
-          description: '`raw` maps each category name to its completion-token count.'
-          type: object
-          additionalProperties:
-            type: integer
-            format: int64
-    threads.QueryThreadsResponseBody:
-      type: object
-      properties:
-        has_more:
-          description: '`has_more` is true when another page of threads exists after this one.'
-          type: boolean
-          example: true
-        items:
-          description: '`items` is the page of thread summaries, sorted by the thread''s most recent activity.'
-          type: array
-          items:
-            $ref: '#/components/schemas/threads.ThreadListItem'
-        next_cursor:
-          description: '`next_cursor` is the opaque cursor to pass as `cursor` on the next request when `has_more` is true. Omitted on the final page.'
-          type: string
-          example: eyJydW5zX2N1cnNvciI6Imx0KGN1cnNvciwiLi4uIikifQ==
   securitySchemes:
     API_Key:
       type: apiKey

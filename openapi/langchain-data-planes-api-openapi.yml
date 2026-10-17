@@ -74,26 +74,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    data_planes.Status:
-      type: string
-      enum:
-      - requested
-      - provisioning
-      - provisioning_failed
-      - active
-      - inactive
-      - deprovisioning
-      - deleted
-      - revoked
-      x-enum-varnames:
-      - DataPlaneStatusRequested
-      - DataPlaneStatusProvisioning
-      - DataPlaneStatusProvisioningFailed
-      - DataPlaneStatusActive
-      - DataPlaneStatusInactive
-      - DataPlaneStatusDeprovisioning
-      - DataPlaneStatusDeleted
-      - DataPlaneStatusRevoked
     data_planes.ListPublicDataPlanesResponse:
       type: object
       properties:
@@ -116,6 +96,26 @@ components:
           type: string
         status:
           $ref: '#/components/schemas/data_planes.Status'
+    data_planes.Status:
+      type: string
+      enum:
+      - requested
+      - provisioning
+      - provisioning_failed
+      - active
+      - inactive
+      - deprovisioning
+      - deleted
+      - revoked
+      x-enum-varnames:
+      - DataPlaneStatusRequested
+      - DataPlaneStatusProvisioning
+      - DataPlaneStatusProvisioningFailed
+      - DataPlaneStatusActive
+      - DataPlaneStatusInactive
+      - DataPlaneStatusDeprovisioning
+      - DataPlaneStatusDeleted
+      - DataPlaneStatusRevoked
   securitySchemes:
     API_Key:
       type: apiKey

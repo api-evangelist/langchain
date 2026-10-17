@@ -164,11 +164,6 @@ paths:
       - Bearer Auth: []
 components:
   schemas:
-    ttl_settings.UpdateTTLSettingsRequest:
-      type: object
-      properties:
-        longlived_ttl_days:
-          type: integer
     ttl_settings.TTLSettingsResponse:
       type: object
       properties:
@@ -178,6 +173,11 @@ components:
           type: integer
         tenant_id:
           type: string
+    ttl_settings.UpdateTTLSettingsRequest:
+      type: object
+      properties:
+        longlived_ttl_days:
+          type: integer
     HTTPValidationError:
       properties:
         detail:
@@ -187,39 +187,6 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
-    TraceTier:
-      type: string
-      enum:
-      - longlived
-      - shortlived
-      title: TraceTier
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ConfiguredBy:
-      type: string
-      enum:
-      - system
-      - user
-      title: ConfiguredBy
     TTLSettings:
       properties:
         tenant_id:
@@ -267,6 +234,12 @@ components:
       - configured_by
       title: TTLSettings
       description: TTL settings model.
+    ConfiguredBy:
+      type: string
+      enum:
+      - system
+      - user
+      title: ConfiguredBy
     UpsertTTLSettingsRequest:
       properties:
         tenant_id:
@@ -286,6 +259,33 @@ components:
       - default_trace_tier
       title: UpsertTTLSettingsRequest
       description: Base TTL settings model.
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    TraceTier:
+      type: string
+      enum:
+      - longlived
+      - shortlived
+      title: TraceTier
   securitySchemes:
     API_Key:
       type: apiKey

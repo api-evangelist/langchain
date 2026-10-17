@@ -67,17 +67,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    EvaluateExperimentRequest:
+    HTTPValidationError:
       properties:
-        rule_id:
-          type: string
-          format: uuid
-          title: Rule Id
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - rule_id
-      title: EvaluateExperimentRequest
-      description: Request body for evaluating an experiment.
+      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -99,15 +97,17 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    EvaluateExperimentRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        rule_id:
+          type: string
+          format: uuid
+          title: Rule Id
       type: object
-      title: HTTPValidationError
+      required:
+      - rule_id
+      title: EvaluateExperimentRequest
+      description: Request body for evaluating an experiment.
   securitySchemes:
     API_Key:
       type: apiKey

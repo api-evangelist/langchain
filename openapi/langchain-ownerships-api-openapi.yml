@@ -160,6 +160,16 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    AddRepoOwnerRequest:
+      properties:
+        email:
+          type: string
+          title: Email
+      type: object
+      required:
+      - email
+      title: AddRepoOwnerRequest
+      description: Request to add a repo owner.
     ListRepoOwnersResponse:
       properties:
         owners:
@@ -172,38 +182,6 @@ components:
       - owners
       title: ListRepoOwnersResponse
       description: Response for listing repo owners.
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    RemoveRepoOwnerRequest:
-      properties:
-        identity_id:
-          type: string
-          format: uuid
-          title: Identity Id
-      type: object
-      required:
-      - identity_id
-      title: RemoveRepoOwnerRequest
-      description: Request to remove a repo owner.
     RepoOwner:
       properties:
         identity_id:
@@ -244,16 +222,38 @@ components:
         Note: identity_id and email may be None when returned to users
 
         outside the repo''s tenant (PII protection).'
-    AddRepoOwnerRequest:
+    ValidationError:
       properties:
-        email:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
           type: string
-          title: Email
+          title: Message
+        type:
+          type: string
+          title: Error Type
       type: object
       required:
-      - email
-      title: AddRepoOwnerRequest
-      description: Request to add a repo owner.
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    RemoveRepoOwnerRequest:
+      properties:
+        identity_id:
+          type: string
+          format: uuid
+          title: Identity Id
+      type: object
+      required:
+      - identity_id
+      title: RemoveRepoOwnerRequest
+      description: Request to remove a repo owner.
   securitySchemes:
     API_Key:
       type: apiKey

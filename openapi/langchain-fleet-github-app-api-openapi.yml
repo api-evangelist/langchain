@@ -418,6 +418,27 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    github_app.UserConnectionMetadata:
+      type: object
+      properties:
+        github_username:
+          type: string
+    github_app.TokenRequest:
+      type: object
+      properties:
+        repository:
+          type: string
+        type:
+          type: string
+    github_app.UserTokenResponse:
+      type: object
+      properties:
+        expires_at:
+          type: string
+        token:
+          type: string
+        token_type:
+          type: string
     github_app.Installation:
       type: object
       properties:
@@ -439,6 +460,17 @@ components:
           type: string
         user_id:
           type: string
+    github_app.UserConnectionStatus:
+      type: object
+      properties:
+        actor_preference:
+          type: string
+        is_connected:
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/github_app.UserConnectionMetadata'
+        type:
+          type: string
     github_app.Repository:
       type: object
       properties:
@@ -454,57 +486,25 @@ components:
           type: string
         private:
           type: boolean
-    github_app.UserTokenResponse:
-      type: object
-      properties:
-        expires_at:
-          type: string
-        token:
-          type: string
-        token_type:
-          type: string
-    github_app.UserAuthLinkResponse:
-      type: object
-      properties:
-        auth_url:
-          type: string
-    github_app.InstallLinkResponse:
-      type: object
-      properties:
-        install_url:
-          type: string
-    github_app.TokenRequest:
-      type: object
-      properties:
-        repository:
-          type: string
-        type:
-          type: string
     github_app.UpdateUserConnectionRequest:
       type: object
       properties:
         actor_preference:
-          type: string
-    github_app.UserConnectionMetadata:
-      type: object
-      properties:
-        github_username:
           type: string
     github_app.ErrorResponse:
       type: object
       properties:
         error:
           type: string
-    github_app.UserConnectionStatus:
+    github_app.InstallLinkResponse:
       type: object
       properties:
-        actor_preference:
+        install_url:
           type: string
-        is_connected:
-          type: boolean
-        metadata:
-          $ref: '#/components/schemas/github_app.UserConnectionMetadata'
-        type:
+    github_app.UserAuthLinkResponse:
+      type: object
+      properties:
+        auth_url:
           type: string
   securitySchemes:
     API_Key:

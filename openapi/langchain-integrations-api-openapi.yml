@@ -123,15 +123,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    integrations.AgentBuilderIntegrationsUpdatePayload:
-      type: object
-      properties:
-        integration_overrides:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.IntegrationOverrideUpdate'
-        integrations_enabled_by_default:
-          type: boolean
     integrations.AgentBuilderIntegrationsPayload:
       type: object
       properties:
@@ -145,6 +136,13 @@ components:
             $ref: '#/components/schemas/integrations.IntegrationOverride'
         integrations_enabled_by_default:
           type: boolean
+    integrations.IntegrationOverride:
+      type: object
+      properties:
+        integration_key:
+          type: string
+        is_enabled:
+          type: boolean
     integrations.IntegrationCatalogEntry:
       type: object
       properties:
@@ -156,19 +154,21 @@ components:
           type: string
         key:
           type: string
-    integrations.IntegrationOverride:
-      type: object
-      properties:
-        integration_key:
-          type: string
-        is_enabled:
-          type: boolean
     integrations.IntegrationOverrideUpdate:
       type: object
       properties:
         integration_key:
           type: string
         is_enabled:
+          type: boolean
+    integrations.AgentBuilderIntegrationsUpdatePayload:
+      type: object
+      properties:
+        integration_overrides:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.IntegrationOverrideUpdate'
+        integrations_enabled_by_default:
           type: boolean
   securitySchemes:
     API_Key:

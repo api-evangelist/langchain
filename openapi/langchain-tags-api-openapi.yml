@@ -222,26 +222,15 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    RepoUpdateTagRequest:
+    HTTPValidationError:
       properties:
-        commit_id:
-          type: string
-          format: uuid
-          title: Commit Id
-        skip_webhooks:
-          anyOf:
-          - type: boolean
-          - items:
-              type: string
-              format: uuid
-            type: array
-          title: Skip Webhooks
-          default: false
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      required:
-      - commit_id
-      title: RepoUpdateTagRequest
-      description: Fields to update a prompt tag
+      title: HTTPValidationError
     RepoTagRequest:
       properties:
         tag_name:
@@ -266,36 +255,26 @@ components:
       - commit_id
       title: RepoTagRequest
       description: Fields to create a prompt tag
-    HTTPValidationError:
+    RepoUpdateTagRequest:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        commit_id:
           type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
+          format: uuid
+          title: Commit Id
+        skip_webhooks:
+          anyOf:
+          - type: boolean
+          - items:
+              type: string
+              format: uuid
+            type: array
+          title: Skip Webhooks
+          default: false
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
+      - commit_id
+      title: RepoUpdateTagRequest
+      description: Fields to update a prompt tag
     RepoTag:
       properties:
         id:
@@ -335,6 +314,27 @@ components:
       - updated_at
       title: RepoTag
       description: Fields for a prompt tag
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     API_Key:
       type: apiKey

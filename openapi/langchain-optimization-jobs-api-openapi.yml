@@ -325,6 +325,159 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    EPromptOptimizationJobLogType:
+      type: string
+      enum:
+      - info
+      - result
+      - error
+      - link
+      title: EPromptOptimizationJobLogType
+    PromptOptimizationResult:
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        x:
+          type: number
+          title: X
+        y:
+          type: number
+          title: Y
+      type: object
+      required:
+      - timestamp
+      - x
+      - y
+      title: PromptOptimizationResult
+    EPromptOptimizationJobStatus:
+      type: string
+      enum:
+      - created
+      - running
+      - successful
+      - failed
+      title: EPromptOptimizationJobStatus
+    PromptOptimizationJobUpdate:
+      properties:
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+          - type: 'null'
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/PromptOptimizationResult'
+          - type: 'null'
+      type: object
+      title: PromptOptimizationJobUpdate
+    PromptOptimizationJobLogCreate:
+      properties:
+        log_type:
+          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
+        message:
+          type: string
+          title: Message
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+      type: object
+      required:
+      - log_type
+      - message
+      title: PromptOptimizationJobLogCreate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    PromptOptimizationJobLog:
+      properties:
+        log_type:
+          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
+        message:
+          type: string
+          title: Message
+        data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Data
+        id:
+          type: string
+          format: uuid
+          title: Id
+        job_id:
+          type: string
+          format: uuid
+          title: Job Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - log_type
+      - message
+      - id
+      - job_id
+      - created_at
+      title: PromptOptimizationJobLog
+    PromptOptimizationJob:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        repo_id:
+          type: string
+          format: uuid
+          title: Repo Id
+        status:
+          $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+        tenant_id:
+          type: string
+          format: uuid
+          title: Tenant Id
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+        results:
+          items:
+            $ref: '#/components/schemas/PromptOptimizationResult'
+          type: array
+          title: Results
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - id
+      - repo_id
+      - status
+      - tenant_id
+      - algorithm
+      - config
+      - created_at
+      - updated_at
+      title: PromptOptimizationJob
     PromptimConfig:
       properties:
         message_index:
@@ -375,207 +528,12 @@ components:
       - num_epochs
       - auto_commit
       title: PromptimConfig
-    PromptOptimizationJob:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        repo_id:
-          type: string
-          format: uuid
-          title: Repo Id
-        status:
-          $ref: '#/components/schemas/EPromptOptimizationJobStatus'
-        tenant_id:
-          type: string
-          format: uuid
-          title: Tenant Id
-        algorithm:
-          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
-        config:
-          anyOf:
-          - $ref: '#/components/schemas/PromptimConfig'
-          - $ref: '#/components/schemas/DemoConfig'
-          title: Config
-        results:
-          items:
-            $ref: '#/components/schemas/PromptOptimizationResult'
-          type: array
-          title: Results
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-      type: object
-      required:
-      - id
-      - repo_id
-      - status
-      - tenant_id
-      - algorithm
-      - config
-      - created_at
-      - updated_at
-      title: PromptOptimizationJob
-    PromptOptimizationResult:
-      properties:
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        x:
-          type: number
-          title: X
-        y:
-          type: number
-          title: Y
-      type: object
-      required:
-      - timestamp
-      - x
-      - y
-      title: PromptOptimizationResult
-    DemoConfig:
-      properties:
-        message_index:
-          type: integer
-          title: Message Index
-        metaprompt:
-          additionalProperties: true
-          type: object
-          title: Metaprompt
-        examples:
-          items:
-            additionalProperties: true
-            type: object
-          type: array
-          title: Examples
-        overall_feedback:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Overall Feedback
-      type: object
-      required:
-      - message_index
-      - metaprompt
-      - examples
-      - overall_feedback
-      title: DemoConfig
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    PromptOptimizationJobCreate:
-      properties:
-        algorithm:
-          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
-        config:
-          anyOf:
-          - $ref: '#/components/schemas/PromptimConfig'
-          - $ref: '#/components/schemas/DemoConfig'
-          title: Config
-      type: object
-      required:
-      - algorithm
-      - config
-      title: PromptOptimizationJobCreate
-    EPromptOptimizationJobLogType:
-      type: string
-      enum:
-      - info
-      - result
-      - error
-      - link
-      title: EPromptOptimizationJobLogType
-    PromptOptimizationJobLogCreate:
-      properties:
-        log_type:
-          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
-        message:
-          type: string
-          title: Message
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-      type: object
-      required:
-      - log_type
-      - message
-      title: PromptOptimizationJobLogCreate
     EPromptOptimizationAlgorithm:
       type: string
       enum:
       - promptim
       - demo
       title: EPromptOptimizationAlgorithm
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    PromptOptimizationJobLog:
-      properties:
-        log_type:
-          $ref: '#/components/schemas/EPromptOptimizationJobLogType'
-        message:
-          type: string
-          title: Message
-        data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Data
-        id:
-          type: string
-          format: uuid
-          title: Id
-        job_id:
-          type: string
-          format: uuid
-          title: Job Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-      type: object
-      required:
-      - log_type
-      - message
-      - id
-      - job_id
-      - created_at
-      title: PromptOptimizationJobLog
     PromptOptimizationJobWithLogs:
       properties:
         id:
@@ -629,26 +587,68 @@ components:
       - updated_at
       - logs
       title: PromptOptimizationJobWithLogs
-    EPromptOptimizationJobStatus:
-      type: string
-      enum:
-      - created
-      - running
-      - successful
-      - failed
-      title: EPromptOptimizationJobStatus
-    PromptOptimizationJobUpdate:
+    DemoConfig:
       properties:
-        status:
+        message_index:
+          type: integer
+          title: Message Index
+        metaprompt:
+          additionalProperties: true
+          type: object
+          title: Metaprompt
+        examples:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Examples
+        overall_feedback:
           anyOf:
-          - $ref: '#/components/schemas/EPromptOptimizationJobStatus'
+          - type: string
           - type: 'null'
-        result:
-          anyOf:
-          - $ref: '#/components/schemas/PromptOptimizationResult'
-          - type: 'null'
+          title: Overall Feedback
       type: object
-      title: PromptOptimizationJobUpdate
+      required:
+      - message_index
+      - metaprompt
+      - examples
+      - overall_feedback
+      title: DemoConfig
+    PromptOptimizationJobCreate:
+      properties:
+        algorithm:
+          $ref: '#/components/schemas/EPromptOptimizationAlgorithm'
+        config:
+          anyOf:
+          - $ref: '#/components/schemas/PromptimConfig'
+          - $ref: '#/components/schemas/DemoConfig'
+          title: Config
+      type: object
+      required:
+      - algorithm
+      - config
+      title: PromptOptimizationJobCreate
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     API_Key:
       type: apiKey

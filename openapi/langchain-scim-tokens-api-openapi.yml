@@ -285,12 +285,11 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    scim.ErrorResponse:
+    scim.CreateScimTokenPayload:
       type: object
       properties:
-        error:
+        description:
           type: string
-          example: 'Internal server error: reference ID abc123'
     scim.ScimTokenResponse:
       type: object
       properties:
@@ -306,6 +305,17 @@ components:
         short_token:
           type: string
         updated_at:
+          type: string
+    scim.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Internal server error: reference ID abc123'
+    scim.UpdateScimTokenPayload:
+      type: object
+      properties:
+        description:
           type: string
     scim.ScimTokenSensitiveResponse:
       type: object
@@ -323,16 +333,6 @@ components:
         token:
           type: string
         updated_at:
-          type: string
-    scim.CreateScimTokenPayload:
-      type: object
-      properties:
-        description:
-          type: string
-    scim.UpdateScimTokenPayload:
-      type: object
-      properties:
-        description:
           type: string
   securitySchemes:
     API_Key:

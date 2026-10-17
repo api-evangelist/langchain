@@ -308,13 +308,35 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    integrations.AuthMethod:
+    integrations.Integration:
       type: object
       properties:
-        provider_match:
-          $ref: '#/components/schemas/integrations.ProviderMatch'
-        type:
-          $ref: '#/components/schemas/integrations.AuthType'
+        auth_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.AuthMethod'
+        category:
+          type: string
+        created_at:
+          type: string
+        description:
+          type: string
+        enabled:
+          type: boolean
+        icon_url:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        source:
+          type: string
+        transport:
+          $ref: '#/components/schemas/integrations.Transport'
+        updated_at:
+          type: string
+        url:
+          type: string
     integrations.MatchBy:
       type: string
       enum:
@@ -323,13 +345,24 @@ components:
       x-enum-varnames:
       - MatchByKind
       - MatchByID
-    integrations.ProviderMatch:
+    integrations.ErrorResponse:
       type: object
       properties:
-        by:
-          $ref: '#/components/schemas/integrations.MatchBy'
-        value:
+        code:
           type: string
+        detail:
+          type: string
+        status:
+          type: integer
+        type:
+          type: string
+    integrations.ReplaceAuthMethodsRequest:
+      type: object
+      properties:
+        auth_methods:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.AuthMethod'
     integrations.AuthType:
       type: string
       enum:
@@ -342,16 +375,21 @@ components:
       - AuthTypeHeaders
       - AuthTypeAPIKey
       - AuthTypeNone
-    integrations.ErrorResponse:
+    integrations.ListResponse:
       type: object
       properties:
-        code:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/integrations.Integration'
+        next_cursor:
           type: string
-        detail:
-          type: string
-        status:
-          type: integer
-        type:
+    integrations.ProviderMatch:
+      type: object
+      properties:
+        by:
+          $ref: '#/components/schemas/integrations.MatchBy'
+        value:
           type: string
     integrations.CreateRequest:
       type: object
@@ -384,57 +422,19 @@ components:
           type: string
         name:
           type: string
-    integrations.Integration:
+    integrations.AuthMethod:
       type: object
       properties:
-        auth_methods:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.AuthMethod'
-        category:
-          type: string
-        created_at:
-          type: string
-        description:
-          type: string
-        enabled:
-          type: boolean
-        icon_url:
-          type: string
-        id:
-          type: string
-        name:
-          type: string
-        source:
-          type: string
-        transport:
-          $ref: '#/components/schemas/integrations.Transport'
-        updated_at:
-          type: string
-        url:
-          type: string
-    integrations.ReplaceAuthMethodsRequest:
-      type: object
-      properties:
-        auth_methods:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.AuthMethod'
+        provider_match:
+          $ref: '#/components/schemas/integrations.ProviderMatch'
+        type:
+          $ref: '#/components/schemas/integrations.AuthType'
     integrations.Transport:
       type: string
       enum:
       - mcp_http
       x-enum-varnames:
       - TransportMCPHTTP
-    integrations.ListResponse:
-      type: object
-      properties:
-        items:
-          type: array
-          items:
-            $ref: '#/components/schemas/integrations.Integration'
-        next_cursor:
-          type: string
   securitySchemes:
     API_Key:
       type: apiKey

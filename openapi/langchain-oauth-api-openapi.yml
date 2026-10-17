@@ -379,13 +379,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    oauth.TokenErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-        error_description:
-          type: string
     oauth.DeviceCodeResponse:
       type: object
       properties:
@@ -398,6 +391,24 @@ components:
         user_code:
           type: string
         verification_uri:
+          type: string
+    oauth.TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        expires_in:
+          type: integer
+        refresh_token:
+          type: string
+        token_type:
+          type: string
+    oauth.TokenErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        error_description:
           type: string
     oauth.AuthorizationServerMetadata:
       type: object
@@ -434,17 +445,6 @@ components:
           type: array
           items:
             type: string
-    oauth.TokenResponse:
-      type: object
-      properties:
-        access_token:
-          type: string
-        expires_in:
-          type: integer
-        refresh_token:
-          type: string
-        token_type:
-          type: string
   securitySchemes:
     API_Key:
       type: apiKey

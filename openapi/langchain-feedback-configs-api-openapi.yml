@@ -187,24 +187,56 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    UpdateFeedbackConfigSchema:
+    HTTPValidationError:
       properties:
-        feedback_key:
-          type: string
-          title: Feedback Key
-        feedback_config:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FeedbackConfig:
+      properties:
+        type:
+          $ref: '#/components/schemas/FeedbackType'
+        min:
           anyOf:
-          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: number
           - type: 'null'
-        is_lower_score_better:
+          title: Min
+        max:
           anyOf:
-          - type: boolean
+          - type: number
           - type: 'null'
-          title: Is Lower Score Better
+          title: Max
+        categories:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/FeedbackCategory'
+            type: array
+          - type: 'null'
+          title: Categories
       type: object
       required:
-      - feedback_key
-      title: UpdateFeedbackConfigSchema
+      - type
+      title: FeedbackConfig
+    FeedbackCategory:
+      properties:
+        value:
+          type: number
+          title: Value
+        label:
+          anyOf:
+          - type: string
+            minLength: 1
+          - type: 'null'
+          title: Label
+      type: object
+      required:
+      - value
+      title: FeedbackCategory
+      description: Specific value and label pair for feedback
     FeedbackConfigSchema:
       properties:
         feedback_key:
@@ -232,15 +264,32 @@ components:
       - tenant_id
       - modified_at
       title: FeedbackConfigSchema
-    HTTPValidationError:
+    FeedbackType:
+      type: string
+      enum:
+      - continuous
+      - categorical
+      - freeform
+      title: FeedbackType
+      description: Enum for feedback types.
+    UpdateFeedbackConfigSchema:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        feedback_key:
+          type: string
+          title: Feedback Key
+        feedback_config:
+          anyOf:
+          - $ref: '#/components/schemas/FeedbackConfig'
+          - type: 'null'
+        is_lower_score_better:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Lower Score Better
       type: object
-      title: HTTPValidationError
+      required:
+      - feedback_key
+      title: UpdateFeedbackConfigSchema
     ValidationError:
       properties:
         loc:
@@ -280,55 +329,6 @@ components:
       - feedback_key
       - feedback_config
       title: CreateFeedbackConfigSchema
-    FeedbackCategory:
-      properties:
-        value:
-          type: number
-          title: Value
-        label:
-          anyOf:
-          - type: string
-            minLength: 1
-          - type: 'null'
-          title: Label
-      type: object
-      required:
-      - value
-      title: FeedbackCategory
-      description: Specific value and label pair for feedback
-    FeedbackConfig:
-      properties:
-        type:
-          $ref: '#/components/schemas/FeedbackType'
-        min:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Min
-        max:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Max
-        categories:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/FeedbackCategory'
-            type: array
-          - type: 'null'
-          title: Categories
-      type: object
-      required:
-      - type
-      title: FeedbackConfig
-    FeedbackType:
-      type: string
-      enum:
-      - continuous
-      - categorical
-      - freeform
-      title: FeedbackType
-      description: Enum for feedback types.
   securitySchemes:
     API_Key:
       type: apiKey
