@@ -1,0 +1,75 @@
+{
+  "endpoint": "https://reference.langchain.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2024-11-05",
+  "server_info": {
+    "name": "langchain-reference",
+    "version": "1.0.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "search_api",
+        "description": "Search the LangChain API reference documentation for classes, functions, and other symbols.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query (class name, function name, or keyword)"
+            },
+            "language": {
+              "type": "string",
+              "enum": [
+                "python",
+                "javascript",
+                "java",
+                "go"
+              ],
+              "description": "Programming language to search (defaults to all if not specified)"
+            },
+            "limit": {
+              "type": "number",
+              "description": "Maximum number of results to return (default: 10, max: 50)"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        }
+      },
+      {
+        "name": "get_symbol",
+        "description": "Get detailed documentation for a specific symbol including signature, parameters, and examples.",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "package": {
+              "type": "string",
+              "description": "Package name (e.g., langchain-core, @langchain/core)"
+            },
+            "symbol": {
+              "type": "string",
+              "description": "Symbol name or qualified path (e.g., ChatOpenAI, langchain_openai.ChatOpenAI)"
+            },
+            "language": {
+              "type": "string",
+              "enum": [
+                "python",
+                "javascript",
+                "java",
+                "go"
+              ],
+              "description": "Programming language to search within. Defaults to checking all languages when omitted."
+            }
+          },
+          "required": [
+            "package",
+            "symbol"
+          ]
+        }
+      }
+    ]
+  }
+}
