@@ -1,0 +1,353 @@
+openapi: 3.2.0
+info:
+  title: LangSmith SCIM Tokens API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid LangSmith API key.'
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: SCIM Tokens
+paths:
+  /v1/platform/orgs/current/scim/tokens:
+    get:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: List all SCIM bearer tokens for the current organization. The full token values are not returned.
+      tags:
+      - SCIM Tokens
+      summary: List SCIM tokens
+      responses:
+        '200':
+          description: List of SCIM tokens
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/scim.ScimTokenResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '403':
+          description: Forbidden - requires OrganizationRead permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+      parameters: []
+      operationId: getV1PlatformOrgsCurrentScimTokens
+      x-operation-id-source: derived
+    post:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Create a new SCIM bearer token for the current organization. The full token value is only returned once upon creation.
+      tags:
+      - SCIM Tokens
+      summary: Create a SCIM token
+      parameters: []
+      responses:
+        '201':
+          description: Created SCIM token with full token value
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ScimTokenSensitiveResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '403':
+          description: Forbidden - requires OrganizationManage permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scim.CreateScimTokenPayload'
+      operationId: postV1PlatformOrgsCurrentScimTokens
+      x-operation-id-source: derived
+  /v1/platform/orgs/current/scim/tokens/{scim_token_id}:
+    get:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Retrieve a specific SCIM token by ID for the current organization. The full token value is not returned.
+      tags:
+      - SCIM Tokens
+      summary: Get a SCIM token
+      parameters:
+      - description: SCIM Token ID
+        name: scim_token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: SCIM token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ScimTokenResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '403':
+          description: Forbidden - requires OrganizationRead permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '404':
+          description: Token not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+      operationId: getV1PlatformOrgsCurrentScimTokensByScimTokenId
+      x-operation-id-source: derived
+    delete:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Delete a SCIM bearer token from the current organization.
+      tags:
+      - SCIM Tokens
+      summary: Delete a SCIM token
+      parameters:
+      - description: SCIM Token ID
+        name: scim_token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No content - token deleted successfully
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '403':
+          description: Forbidden - requires OrganizationManage permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '404':
+          description: Token not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+      operationId: deleteV1PlatformOrgsCurrentScimTokensByScimTokenId
+      x-operation-id-source: derived
+    patch:
+      security:
+      - API Key: []
+      - Organization ID: []
+      - Bearer Auth: []
+      description: Update the description of an existing SCIM token for the current organization.
+      tags:
+      - SCIM Tokens
+      summary: Update a SCIM token
+      parameters:
+      - description: SCIM Token ID
+        name: scim_token_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updated SCIM token details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ScimTokenResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '403':
+          description: Forbidden - requires OrganizationManage permission
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '404':
+          description: Token not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/scim.ErrorResponse'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/scim.UpdateScimTokenPayload'
+      operationId: patchV1PlatformOrgsCurrentScimTokensByScimTokenId
+      x-operation-id-source: derived
+components:
+  schemas:
+    scim.CreateScimTokenPayload:
+      type: object
+      properties:
+        description:
+          type: string
+    scim.ScimTokenResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+        description:
+          type: string
+        id:
+          description: Does not include token
+          type: string
+        last_used_at:
+          type: string
+        short_token:
+          type: string
+        updated_at:
+          type: string
+    scim.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'Internal server error: reference ID abc123'
+    scim.UpdateScimTokenPayload:
+      type: object
+      properties:
+        description:
+          type: string
+    scim.ScimTokenSensitiveResponse:
+      type: object
+      properties:
+        created_at:
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        last_used_at:
+          type: string
+        short_token:
+          type: string
+        token:
+          type: string
+        updated_at:
+          type: string
+  securitySchemes:
+    API_Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant_ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer_Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization_ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id

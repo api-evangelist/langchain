@@ -1,0 +1,132 @@
+openapi: 3.2.0
+info:
+  title: LangSmith Likes API
+  description: 'The LangSmith API is used to programmatically create and manage LangSmith resources.
+
+
+    ## Host
+
+    https://api.smith.langchain.com
+
+
+    ## Authentication
+
+    To authenticate with the LangSmith API, set the `X-Api-Key` header
+
+    to a valid LangSmith API key.'
+  version: 0.1.0
+servers:
+- url: /
+tags:
+- name: Likes
+paths:
+  /api/v1/likes/{owner}/{repo}:
+    post:
+      tags:
+      - Likes
+      summary: Like Repo
+      description: Like a repo.
+      operationId: like_repo_api_v1_likes__owner___repo__post
+      security:
+      - API Key: []
+      - Tenant ID: []
+      - Bearer Auth: []
+      parameters:
+      - name: owner
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Owner
+      - name: repo
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Repo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LikeRepoRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LikeRepoResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    LikeRepoRequest:
+      properties:
+        like:
+          type: boolean
+          title: Like
+      type: object
+      required:
+      - like
+      title: LikeRepoRequest
+    LikeRepoResponse:
+      properties:
+        likes:
+          type: integer
+          title: Likes
+      type: object
+      required:
+      - likes
+      title: LikeRepoResponse
+  securitySchemes:
+    API_Key:
+      type: apiKey
+      in: header
+      name: X-API-Key
+    Tenant_ID:
+      type: apiKey
+      in: header
+      name: X-Tenant-Id
+    Bearer_Auth:
+      type: http
+      description: Bearer tokens are used to authenticate from the UI. Must also specify x-tenant-id or x-organization-id (for org scoped apis).
+      scheme: bearer
+    Organization_ID:
+      type: apiKey
+      in: header
+      name: X-Organization-Id
